@@ -1,0 +1,22 @@
+name: workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sendPostRequest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Send POST request
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+        run: |
+          curl -X POST $WEBHOOK_URL \
+          -H "Content-Type: application/json" \
+          -d '{"repoName": "${{ github.repository }}" }'
