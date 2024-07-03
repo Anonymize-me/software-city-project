@@ -6,6 +6,36 @@ on:
       - main
 
 jobs:
+  setupFolderStructure:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check and create folder structure
+        run: |
+          if [ ! -d "metrics" ]; then
+            echo "Creating metrics directory..."
+            mkdir metrics
+          else
+            echo "metrics directory already exists."
+          fi
+
+          if [ ! -d "metrics/static" ]; then
+            echo "Creating metrics/static directory..."
+            mkdir -p metrics/static
+          else
+            echo "metrics/static directory already exists."
+          fi
+
+          if [ ! -d "metrics/bio-metrics" ]; then
+            echo "Creating metrics/bio-metrics directory..."
+            mkdir -p metrics/bio-metrics
+          else
+            echo "metrics/bio-metrics directory already exists."
+          fi
+
   sendPostRequest:
     runs-on: ubuntu-latest
 
