@@ -71,6 +71,7 @@ select {
    margin: 10px 0;
 }
 
+#button-fetch,
 #button-upload-data,
 #button-start-visualize,
 #button-save-config {

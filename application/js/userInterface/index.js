@@ -6,6 +6,7 @@ import { buildTable } from "./table";
 import { prepareVisualizeFrame } from "./visualize";
 import { removeArrow } from "../visualization/arrow";
 
+const buttonGitHubRepo = document.getElementById("button-github-repo");
 const buttonUpload = document.getElementById("button-upload");
 const buttonConfig = document.getElementById("button-config");
 const buttonVisualize = document.getElementById("button-visualize");
@@ -15,6 +16,7 @@ const buttonModelTree = document.getElementById("button-model-tree");
 
 const viewData = document.getElementById("view-data");
 
+const frameGitHubRepo = document.getElementById("frame-github-repo");
 const frameUpload = document.getElementById("frame-upload");
 const frameConfig = document.getElementById("frame-config");
 const frameVisualize = document.getElementById("frame-visualize");
@@ -23,6 +25,7 @@ const frameInfo = document.getElementById("frame-info");
 
 const buttonsClose = document.getElementsByClassName("button-close");
 
+const buttonFetch = document.getElementById("button-fetch");
 const buttonUploadData = document.getElementById("button-upload-data");
 const buttonSaveConfig = document.getElementById("button-save-config");
 
@@ -35,7 +38,22 @@ const sliderContainer = document.getElementById("slider-container");
 
 const aggregateFunction = document.getElementById("aggregate-function");
 
+buttonGitHubRepo.addEventListener("click", () => {
+   frameUpload.style.display = "none";
+   frameConfig.style.display = "none";
+   frameVisualize.style.display = "none";
+   frameInfo.style.display = "none";
+   removeArrow();
+   frameModelTree.style.display = "none";
+   if (frameGitHubRepo.style.display === "none" || frameGitHubRepo.style.display === '') {
+      frameGitHubRepo.style.display = "block";
+   } else {
+      frameGitHubRepo.style.display = "none";
+   }
+});
+
 buttonUpload.addEventListener("click", () => {
+   frameGitHubRepo.style.display = "none";
    frameConfig.style.display = "none";
    frameVisualize.style.display = "none";
    frameInfo.style.display = "none";
@@ -49,6 +67,7 @@ buttonUpload.addEventListener("click", () => {
 });
 
 buttonConfig.addEventListener("click", () => {
+   frameGitHubRepo.style.display = "none";
    frameUpload.style.display = "none";
    frameVisualize.style.display = "none";
    frameInfo.style.display = "none";
@@ -62,6 +81,7 @@ buttonConfig.addEventListener("click", () => {
 });
 
 buttonVisualize.addEventListener("click", () => {
+   frameGitHubRepo.style.display = "none";
    frameUpload.style.display = "none";
    frameConfig.style.display = "none";
    frameInfo.style.display = "none";
@@ -75,6 +95,7 @@ buttonVisualize.addEventListener("click", () => {
 });
 
 buttonViewData.addEventListener("click", () => {
+   frameGitHubRepo.style.display = "none";
    frameUpload.style.display = "none";
    frameConfig.style.display = "none";
    frameVisualize.style.display = "none";
@@ -141,6 +162,9 @@ const toggleVisualizeAndModelTreeButton = boolChoice => {
 for (let i = 0; i < buttonsClose.length; i++) {
    buttonsClose[i].addEventListener("click", () => {
       switch (buttonsClose[i].parentElement.id) {
+         case "frame-github-repo":
+            frameGitHubRepo.style.display = "none";
+            break;
          case "frame-upload":
             frameUpload.style.display = "none";
             break;
@@ -163,6 +187,7 @@ for (let i = 0; i < buttonsClose.length; i++) {
 
 document.addEventListener("keydown", e => {
    if (e.key === "Escape") {
+      frameGitHubRepo.style.display = "none";
       frameUpload.style.display = "none";
       frameConfig.style.display = "none";
       frameVisualize.style.display = "none";
