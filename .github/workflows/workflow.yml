@@ -5,6 +5,22 @@ on:
     branches:
       - main
 
+# jobs:
+#   sendPostRequest:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v2
+
+#       - name: Send POST request
+#         env:
+#           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+#         run: |
+#           curl -X POST $WEBHOOK_URL \
+#           -H "Content-Type: application/json" \
+#           -d '{"repoName": "${{ github.repository }}" }'
+
 jobs:
   sendPostRequest:
     runs-on: ubuntu-latest
@@ -14,9 +30,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Send POST request
-        env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
-          curl -X POST $WEBHOOK_URL \
-          -H "Content-Type: application/json" \
-          -d '{"repoName": "${{ github.repository }}" }'
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{"name": "John Doe", "age": 30, "city": "New York"}' \
+          "http://echo.free.beeceptor.com/sample-request?author=beeceptor"
