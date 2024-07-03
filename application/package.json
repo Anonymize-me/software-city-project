@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve": "node server.js"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
@@ -15,6 +16,7 @@
   "dependencies": {
     "bin-pack": "^1.0.2",
     "dat.gui": "^0.7.9",
+    "express": "^4.19.2",
     "prettier": "^3.2.5",
     "three": "^0.161.0",
     "uuid": "^9.0.1"

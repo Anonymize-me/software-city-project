@@ -18,13 +18,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
   </script>
   <title>Software City</title>
-  <script type="module" crossorigin src="/software-city-project/assets/index-asdrcSr6.js"></script>
-  <link rel="stylesheet" crossorigin href="/software-city-project/assets/index-hKUUEGlY.css">
+  <link rel="icon" href="./assets/icon-InK75iEC.png" type="image/x-icon">
+  <script type="module" crossorigin src="./assets/index-e48u7E83.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-MDyti8_1.css">
 </head>
 
 <body>
 
   <div id="nav" class="container">
+    <button id="button-github-repo" class="btn btn-default">GitHub Repo</button>
     <button id="button-upload" class="btn btn-default">Upload</button>
     <button id="button-config" class="btn btn-default" disabled>Config</button>
     <button id="button-visualize" class="btn btn-default" disabled>Visualize</button>
@@ -52,6 +54,16 @@
     <button id="button-alert-close-clear-data" type="button" class="close"
       data-dismiss="alert">&times;</button>
     <strong>Success!</strong> Data cleared.
+  </div>
+
+  <div id="frame-github-repo" class="container frame">
+    <i class="fa fa-times fa-lg button-close"></i>
+    <form id="form-github-repo">
+      <label for="github-repo">GitHub Repository</label>
+      <select id="github-repo" required>
+      </select>
+      <button id="button-fetch" class="btn btn-default">Fetch</button>
+    </form>
   </div>
 
   <div id="frame-upload" class="container frame">

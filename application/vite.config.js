@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 
 export default defineConfig({
-   base: "/software-city-project/",
+   base: "./",
    plugins: [vue()],
    server: {
       https: {

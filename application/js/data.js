@@ -1,25 +1,5 @@
 import { timestampToDate } from "./utils";
 
-let githubRepositoryList = [];
-
-/**
- * Method to retrieve the list of GitHub repositories
- * 
- * @returns {Array} // the list of GitHub repositories
- */
-const getGitHubRepositoryList = () => {
-   return githubRepositoryList;
-}
-
-/**
- * Method to add a GitHub repository to the list of GitHub repositories
- * 
- * @param {String} repository // the GitHub repository
- */
-const addGitHubRepository = repository => {
-   githubRepositoryList.push(repository);
-}
-
 let dataStore = {
    originalData: [],
    attributeNames: [],
@@ -318,8 +298,6 @@ const setNormalizer = normalizer => {
 
 
 export {
-   getGitHubRepositoryList,
-   addGitHubRepository,
    processOriginalData,
    clearData,
    getEpoques,

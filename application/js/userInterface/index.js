@@ -5,6 +5,7 @@ import { uploadData } from "./upload";
 import { buildTable } from "./table";
 import { prepareVisualizeFrame } from "./visualize";
 import { removeArrow } from "../visualization/arrow";
+import { getBioMetricsFiles, getRepositoryData, getStaticMetricFiles, getFileContent } from "./githubAPI";
 
 const buttonGitHubRepo = document.getElementById("button-github-repo");
 const buttonUpload = document.getElementById("button-upload");
@@ -197,6 +198,24 @@ document.addEventListener("keydown", e => {
    }
 });
 
+buttonFetch.addEventListener("click", async e => {
+   e.preventDefault();
+   const repoName = document.getElementById("github-repo").value;
+   getRepositoryData(repoName);
+   let allMetricsFileNames = [];
+   allMetricsFileNames.push(await getStaticMetricFiles(repoName));
+   allMetricsFileNames.push(await getBioMetricsFiles(repoName));
+   console.log('All Metrics File Names:', allMetricsFileNames);
+   // get content of all files
+   allMetricsFileNames.forEach(async fileNames => {
+      fileNames.forEach(async fileName => {
+         await getFileContent(repoName, fileName);
+      });
+   });
+   frameGitHubRepo.style.display = "none";
+   toggleConfigAndViewDataButton(false);
+});
+
 buttonUploadData.addEventListener("click", e => {
    e.preventDefault();
    uploadData();
@@ -210,3 +229,27 @@ buttonAlertCloseUploadData.addEventListener("click", () => {
 buttonAlertCloseClearData.addEventListener("click", () => {
    alertSuccessClearData.style.display = "none";
 });
+
+// fetch registred repositories
+async function fetchRepositories() {
+   try {
+      const response = await fetch('/api/getRepositories');
+      if (!response.ok) {
+         throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+
+      const selectElement = document.getElementById('github-repo');
+      selectElement.innerHTML = '';
+      data.forEach(repo => {
+         const option = document.createElement('option');
+         option.value = repo;
+         option.text = repo;
+         selectElement.appendChild(option);
+      });
+   } catch (error) {
+      console.error('Error fetching repositories:', error);
+   }
+}
+
+fetchRepositories();
