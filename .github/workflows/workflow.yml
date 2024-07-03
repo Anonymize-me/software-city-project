@@ -32,5 +32,5 @@ jobs:
       - name: Send POST request
         run: |
           curl -X POST -H "Content-Type: application/json" \
-          -d '{"name": "John Doe", "age": 30, "city": "New York"}' \
-          "http://echo.free.beeceptor.com/sample-request?author=beeceptor"
+          -d '{"repoName": "${{ github.repository }}" }'
+          "https://software-city-project.free.beeceptor.com"
