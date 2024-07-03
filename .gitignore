@@ -7,3 +7,5 @@
 .idea
 
 notes/
+
+node_modules/
