@@ -40,7 +40,7 @@ in the software city by saying that the timeline only reveals all the buildings 
 discovered by the participant at that time.
 
 # Change-log Prototype
-![week-13-whole-prototype.png](video-demos%2Fweek-13-whole-prototype.png)
+![week-13-whole-prototype.png](..%2Fresources%2Fweek-13-whole-prototype.png)
 * finalized the menubar for dynamically select metrics for each metaphor
 * unified styling of all menu pop-ups
 * overworked the visual representation of the buildings and planes. Now every object has a black outline, which makes it 

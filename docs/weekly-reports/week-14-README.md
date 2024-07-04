@@ -43,4 +43,4 @@ all the elements that don't belong to this element get removed from the screen.
 * This is the reversed function of the drill-down.
 
 ### Demo Video
-![week-14-video-demo.gif](video-demos%2Fweek-14-video-demo.gif)
+![week-14-video-demo.gif](..%2Fresources%2Fweek-14-video-demo.gif)

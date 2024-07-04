@@ -24,7 +24,7 @@ between attributes -> software city visualization metaphors (e.g. height, color,
 Since that would involve quite some additions to the visualization service, 
 it will take some time until that is possible. I think this is an essential part of the service, 
 therefore, I think it makes sense to implement that already.
-![week-7-file-upload.png](video-demos%2Fweek-7-file-upload.png)
+![week-7-file-upload.png](..%2Fresources%2Fweek-7-file-upload.png)
 
 #### Grouping of Buildings
 I have worked on the grouping of buildings based on the uploaded data. For now, the membership of a building to a group is done randomly. 
@@ -37,12 +37,12 @@ get placed based on the overall structure of the data.
 In this screenshot you can have a look at how this might look for the TAPAS project.
 Here, I have randomly generated some groups and buildings get assigned to a group randomly.
 
-![week-7-grouping-of-buildings.png](video-demos%2Fweek-7-grouping-of-buildings.png)
+![week-7-grouping-of-buildings.png](..%2Fresources%2Fweek-7-grouping-of-buildings.png)
 
 Here, another screenshot displaying the grouping with 38 example groups and some more data.
 
 
-![week-7-grouping-of-buildings-2.png](video-demos%2Fweek-7-grouping-of-buildings-2.png)
+![week-7-grouping-of-buildings-2.png](..%2Fresources%2Fweek-7-grouping-of-buildings-2.png)
 
 ## Prototype
 I have uploaded the current version of the prototype here on Github. If you want to try the prototype, you just need to do the following:

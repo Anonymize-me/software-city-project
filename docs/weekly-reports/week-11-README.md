@@ -11,7 +11,7 @@ file.
 In the picture below is a visualization of a BPMN-model, parsed
 by the BPMNDataObjectjs.
 
-<img src="video-demos%2Fweek-11-first-visualized-bpmn.png" width="500">
+<img src="..%2Fresources%2Fweek-11-first-visualized-bpmn.png" width="500">
 
 * In order to visualize BPMN data (and possibly all sorts of data),
 I changed the way how data gets treated in the system.
@@ -33,7 +33,7 @@ I changed the way how data gets treated in the system.
 
 Here is the current progress of this GenericDataObject.js class.
 
-<img src="video-demos%2Fweek-11-generic-data-object.png" width="500">
+<img src="..%2Fresources%2Fweek-11-generic-data-object.png" width="500">
 
 ## Open Points
 * For now, I left the hard-coded logic for mapping the uploaded

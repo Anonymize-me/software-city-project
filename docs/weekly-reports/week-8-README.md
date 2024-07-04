@@ -26,21 +26,21 @@ into the targetGroup (for grouping).
 * the attributes in the sourceGroup are loaded dynamically, depending on the data that has been uploaded.
 * The grouping doesn't do anything at the moment, I just implemented the UI for that.
 
-![week-8-grouping-functionality.png](video-demos%2Fweek-8-grouping-functionality.png)
+![week-8-grouping-functionality.png](..%2Fresources%2Fweek-8-grouping-functionality.png)
 ## Concept
 Here some excerpts of the concept so far. See the full drawio notebook, [here](concept.drawio).
 
 
-![concept-drawio-screenshot-everything.png](video-demos%2Fconcept-drawio-screenshot-everything.png)
+![concept-drawio-screenshot-everything.png](..%2Fresources%2Fconcept-drawio-screenshot-everything.png)
 
 
-![concept-drawio-screenshot-1.png](video-demos%2Fconcept-drawio-screenshot-1.png)
+![concept-drawio-screenshot-1.png](..%2Fresources%2Fconcept-drawio-screenshot-1.png)
 
 
-![concept-drawio-screenshot-2.png](video-demos%2Fconcept-drawio-screenshot-2.png)
+![concept-drawio-screenshot-2.png](..%2Fresources%2Fconcept-drawio-screenshot-2.png)
 
 
-![concept-drawio-screenshot-3.png](video-demos%2Fconcept-drawio-screenshot-3.png)
+![concept-drawio-screenshot-3.png](..%2Fresources%2Fconcept-drawio-screenshot-3.png)
 
 
 ## Conclusion

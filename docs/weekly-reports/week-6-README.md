@@ -32,16 +32,16 @@ I am asking myself if the Data Analyzer service even makes sense. I think nobody
 
 To illustrate the new overlay, here some screenshots:
 
-![week-6-data-analyzer-overlay.png](video-demos%2Fweek-6-data-analyzer-overlay.png)
-![week-6-data-analyzer-overlay-datastore.png](video-demos%2Fweek-6-data-analyzer-overlay-datastore.png)
+![week-6-data-analyzer-overlay.png](..%2Fresources%2Fweek-6-data-analyzer-overlay.png)
+![week-6-data-analyzer-overlay-datastore.png](..%2Fresources%2Fweek-6-data-analyzer-overlay-datastore.png)
 
 ## Visualizer
 Last week there was no real overlay for the Visualizer service. Now, you can import projects (CSV-files) also via the Visualizer server, which makes the User Experience much better. There is a navigation bar at the top of the canvas where you can find:
 * Dimensions: here you input your desired dimensions of the resulting software city. After clicking ont he "Visualize"-button you can see the newly created software city without the need of refreshing the page.
 
 To illustrate the improved overlay, here some screenshots:
-![week-6-visualizer-overlay-dimensions.png](video-demos%2Fweek-6-visualizer-overlay-dimensions.png)
-![week-6-visualizer-overlay-dataupload.png](video-demos%2Fweek-6-visualizer-overlay-dataupload.png)
+![week-6-visualizer-overlay-dimensions.png](..%2Fresources%2Fweek-6-visualizer-overlay-dimensions.png)
+![week-6-visualizer-overlay-dataupload.png](..%2Fresources%2Fweek-6-visualizer-overlay-dataupload.png)
 
 For now, I have the problem with the CSS of the navigation bar, such that the cursor on the canvas of the visualization has the offset of the navigation bar. I think this will be easy to fix.
 

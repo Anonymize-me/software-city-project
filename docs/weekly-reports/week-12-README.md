@@ -12,12 +12,12 @@ a way to specify this in the data itself, or maybe dynamically with the UI.
   * Each time new data gets uploaded the lists get filled again with the new values.
   * Because of this new feature I decided to remove the "Dimensions" navigation bar element.
   This is due to the fact that I only want one way of starting the visualization.
-<img src="video-demos%2Fweek-12-new-UI-element.png" width="500">
+<img src="..%2Fresources%2Fweek-12-new-UI-element.png" width="500">
 * I also fixed the problem of "floating buildings". The problem was, as stated
 in the README file of week-9-10, that if a building has not the complete
 grouping structure to its specific layer, then the building and the corresponding grouping layers
 float in the air. This problem is now fixed, see screenshot down below:
-<img src="video-demos%2Fweek-12-gap-bug-fixed.png" width="500">
+<img src="..%2Fresources%2Fweek-12-gap-bug-fixed.png" width="500">
 
 ## Further Development
 * I have started to implement a more sophisticated way of adjusting the metaphors during runtime.

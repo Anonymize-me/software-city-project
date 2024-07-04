@@ -3,4 +3,4 @@
 ![Static Badge](https://img.shields.io/badge/Express-orange)
 ![Static Badge](https://img.shields.io/badge/bin_pack-red)
 
-<img src="video-demos%2Fbanner.png" width="1000">
+<img src="docs%2Fresources%2Fbanner.png" width="1000">

@@ -8,7 +8,7 @@ The following objectives have been achieved this week:
    * Potentially redo this without the treejs-library to fully customize the tree elements
 
 ## Current state screenshot
-<img src="video-demos%2Fweek-18-current-state.png" width="800">
+<img src="..%2Fresources%2Fweek-18-current-state.png" width="800">
 
 ## Todo's next week
 I think slowly the key features of the prototype are in place. There are still some bugs in a few features that I wish to fix; some of the are:
