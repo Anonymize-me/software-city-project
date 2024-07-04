@@ -30,6 +30,11 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
+app.delete('/api/clearRepositories', (req, res) => {
+    gitHubRepositoryList = [];
+    res.send('All repositories cleared successfully');
+});
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
