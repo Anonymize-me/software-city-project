@@ -50,7 +50,6 @@ jobs:
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
-          echo "Sending POST request to $WEBHOOK_URL"
-          curl -X POST $WEBHOOK_URL \
+          curl -X POST "http://software-city-project.onrender.com/api/registerRepository" \
             -H "Content-Type: application/json" \
-            -d "{\"repoName\": \"${{ github.repository }}\"}"
+            -d '{"repoName": "jonaslanzlinger/software-city-project"}'
