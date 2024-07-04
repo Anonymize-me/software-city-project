@@ -43,13 +43,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
   
-      - name: Display WEBHOOK_URL
-        run: echo ${{ secrets.WEBHOOK_URL }}
-  
       - name: Send POST request
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
-          curl -X POST "http://software-city-project.onrender.com/api/registerRepository" \
+          curl -X POST $WEBHOOK_URL \
             -H "Content-Type: application/json" \
             -d '{"repoName": "jonaslanzlinger/software-city-project"}'
