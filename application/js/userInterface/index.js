@@ -221,18 +221,23 @@ document.addEventListener("keydown", e => {
 
 buttonFetch.addEventListener("click", async e => {
    e.preventDefault();
-   const repoName = document.getElementById("github-repo").value;
-   getRepositoryData(repoName);
-   let allMetricsFileNames = [];
-   allMetricsFileNames.push(await getStaticMetricFiles(repoName));
-   allMetricsFileNames.push(await getBioMetricsFiles(repoName));
-   console.log('All Metrics File Names:', allMetricsFileNames);
-   // get content of all files
-   allMetricsFileNames.forEach(async fileNames => {
-      fileNames.forEach(async fileName => {
-         await getFileContent(repoName, fileName);
+   if (gitHubRepoUrl.value) {
+      const repoName = gitHubRepoUrl.value.split('/').slice(-2).join('/');
+
+   } else if (gitHubRepo.value) {
+      const repoName = gitHubRepo.value;
+      getRepositoryData(repoName);
+      let allMetricsFileNames = [];
+      allMetricsFileNames.push(await getStaticMetricFiles(repoName));
+      allMetricsFileNames.push(await getBioMetricsFiles(repoName));
+      console.log('All Metrics File Names:', allMetricsFileNames);
+      // get content of all files
+      allMetricsFileNames.forEach(async fileNames => {
+         fileNames.forEach(async fileName => {
+            await getFileContent(repoName, fileName);
+         });
       });
-   });
+   }
    frameGitHubRepo.style.display = "none";
    toggleConfigAndViewDataButton(false);
 });
