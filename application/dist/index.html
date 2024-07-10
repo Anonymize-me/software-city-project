@@ -19,8 +19,8 @@
   </script>
   <title>Software City</title>
   <link rel="icon" href="./assets/icon-icrvmIQJ.png" type="image/x-icon">
-  <script type="module" crossorigin src="./assets/index-RZFYvqM_.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-wPK2Lz_U.css">
+  <script type="module" crossorigin src="./assets/index-DEpFN2M7.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CUfNGkzk.css">
 </head>
 
 <body>
@@ -59,10 +59,17 @@
   <div id="frame-github-repo" class="container frame">
     <i class="fa fa-times fa-lg button-close"></i>
     <form id="form-github-repo">
-      <label for="github-repo">GitHub Repository</label>
-      <select id="github-repo" required>
+      <label for="github-repo-url">GitHub Repository URL</label>
+      <input type="url" id="github-repo-url" name="github-repo-url" placeholder="URL here...">
+
+      <div class="separator">
+        <span class="separator-text">or</span>
+      </div>
+
+      <label for="github-repo">Registered GitHub Repository</label>
+      <select id="github-repo">
       </select>
-      <button id="button-fetch" class="btn btn-default">Fetch</button>
+      <button id="button-fetch" class="btn btn-default" disabled>Fetch</button>
     </form>
   </div>
 

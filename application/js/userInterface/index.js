@@ -7,6 +7,9 @@ import { prepareVisualizeFrame } from "./visualize";
 import { removeArrow } from "../visualization/arrow";
 import { getBioMetricsFiles, getRepositoryData, getStaticMetricFiles, getFileContent } from "./githubAPI";
 
+const gitHubRepoUrl = document.getElementById("github-repo-url");
+const gitHubRepo = document.getElementById("github-repo");
+
 const buttonGitHubRepo = document.getElementById("button-github-repo");
 const buttonUpload = document.getElementById("button-upload");
 const buttonConfig = document.getElementById("button-config");
@@ -38,6 +41,24 @@ const buttonAlertCloseClearData = document.getElementById("button-alert-close-cl
 const sliderContainer = document.getElementById("slider-container");
 
 const aggregateFunction = document.getElementById("aggregate-function");
+
+function toggleFetchButton() {
+   buttonFetch.disabled = !(gitHubRepoUrl.value || gitHubRepo.value);
+}
+
+gitHubRepoUrl.addEventListener("input", () => {
+   if (gitHubRepoUrl.value) {
+      gitHubRepo.value = '';
+   }
+   toggleFetchButton();
+});
+
+gitHubRepo.addEventListener("change", () => {
+   if (gitHubRepo.value) {
+      gitHubRepoUrl.value = '';
+   }
+   toggleFetchButton();
+});
 
 buttonGitHubRepo.addEventListener("click", () => {
    frameUpload.style.display = "none";
@@ -241,6 +262,11 @@ async function fetchRepositories() {
 
       const selectElement = document.getElementById('github-repo');
       selectElement.innerHTML = '';
+      // add 1 empty default option
+      const defaultOption = document.createElement('option');
+      defaultOption.value = '';
+      defaultOption.text = '';
+      selectElement.appendChild(defaultOption);
       data.forEach(repo => {
          const option = document.createElement('option');
          option.value = repo;
