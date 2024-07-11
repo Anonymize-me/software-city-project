@@ -11,7 +11,9 @@ const frameUpload = document.getElementById("frame-upload");
 
 const groupingPathSelection = document.getElementById("groupingPath-selection");
 const timestampSelection = document.getElementById("timestamp-selection");
+const participantSelectionLabel = document.getElementById("participant-selection-label");
 const participantSelection = document.getElementById("participant-selection");
+const taskIdSelectionLabel = document.getElementById("taskId-selection-label");
 const taskIdSelection = document.getElementById("taskId-selection");
 
 const uploadData = () => {
@@ -25,11 +27,14 @@ const uploadData = () => {
    reader.onload = e => {
       setOriginalData(e.target.result, document.getElementById("file-format").value);
 
-      // populate the config dropdowns
+      // populate the config dropdowns with 1 empty option and the attribute names
       groupingPathSelection.replaceChildren();
       timestampSelection.replaceChildren();
+      timestampSelection.appendChild(document.createElement("option"));
       participantSelection.replaceChildren();
+      participantSelection.appendChild(document.createElement("option"));
       taskIdSelection.replaceChildren();
+      taskIdSelection.appendChild(document.createElement("option"));
 
       getAttributeNames().forEach(attributeName => {
          const newElement = document.createElement("option");
@@ -54,15 +59,15 @@ const uploadData = () => {
 
 
       if (getDataType() === "java-source-code") {
-         document.getElementById("participant-selection").style.display = "none";
-         document.getElementById("participant-selection-label").style.display = "none";
-         document.getElementById("taskId-selection").style.display = "none";
-         document.getElementById("taskId-selection-label").style.display = "none";
+         participantSelection.style.display = "none";
+         participantSelectionLabel.style.display = "none";
+         taskIdSelection.style.display = "none";
+         taskIdSelectionLabel.style.display = "none";
       } else {
-         document.getElementById("participant-selection").style.display = "block";
-         document.getElementById("participant-selection-label").style.display = "block";
-         document.getElementById("taskId-selection").style.display = "block";
-         document.getElementById("taskId-selection-label").style.display = "block";
+         participantSelection.style.display = "block";
+         participantSelectionLabel.style.display = "block";
+         taskIdSelection.style.display = "block";
+         taskIdSelectionLabel.style.display = "block";
       }
 
       // alert success and hide upload frame
