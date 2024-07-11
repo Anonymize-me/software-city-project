@@ -1,10 +1,6 @@
-import { getParticipants, getTasks, getAttributeNames, setOriginalData, getDataType, getOriginalData } from "../data.js";
+import { getAttributeNames, setOriginalData, getDataType } from "../data.js";
 import { buildTable } from "./table.js";
-import { getConfig, getMapping } from "./cookieManager.js";
-
-const dimensionAttributeSelection = document.getElementById("dimension-attribute-selection");
-const heightAttributeSelection = document.getElementById("height-attribute-selection");
-const colorAttributeSelection = document.getElementById("color-attribute-selection");
+import { getConfig } from "./cookieManager.js";
 
 const alertSuccessUploadData = document.getElementById("alert-success-upload-data");
 const frameUpload = document.getElementById("frame-upload");

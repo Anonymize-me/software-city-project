@@ -251,6 +251,9 @@ const setOriginalData = (data, dataType) => {
 
    // iterate over all lines and add them to the dataStore
    lines.forEach(line => {
+      if (line === "") {
+         return;
+      }
       // create a new object for each line
       let dataObject = {};
       let values = line.split(",");
