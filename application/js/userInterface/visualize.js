@@ -7,7 +7,8 @@ const buttonStartVisualize = document.getElementById("button-start-visualize");
 
 const dimensionAttributeSelection = document.getElementById("dimension-attribute-selection");
 const heightAttributeSelection = document.getElementById("height-attribute-selection");
-const colorAttributeSelection = document.getElementById("color-attribute-selection");
+const hueAttributeSelection = document.getElementById("hue-attribute-selection");
+const luminanceAttributeSelection = document.getElementById("luminance-attribute-selection");
 
 const frameModelTree = document.getElementById("frame-model-tree");
 const frameInfo = document.getElementById("frame-info");
@@ -16,7 +17,11 @@ const prepareVisualizeFrame = () => {
 
    dimensionAttributeSelection.replaceChildren();
    heightAttributeSelection.replaceChildren();
-   colorAttributeSelection.replaceChildren();
+   // append 1 empty option and the rest of the attributes
+   hueAttributeSelection.replaceChildren();
+   hueAttributeSelection.appendChild(document.createElement("option"));
+   luminanceAttributeSelection.replaceChildren();
+   luminanceAttributeSelection.appendChild(document.createElement("option"));
 
    getAttributeNames().forEach(attributeName => {
       const newElement = document.createElement("option");
@@ -24,7 +29,8 @@ const prepareVisualizeFrame = () => {
       newElement.innerText = attributeName;
       dimensionAttributeSelection.appendChild(newElement.cloneNode(true));
       heightAttributeSelection.appendChild(newElement.cloneNode(true));
-      colorAttributeSelection.appendChild(newElement.cloneNode(true));
+      hueAttributeSelection.appendChild(newElement.cloneNode(true));
+      luminanceAttributeSelection.appendChild(newElement.cloneNode(true));
    })
 
    if (getDataType() !== "java-source-code") {
@@ -71,7 +77,8 @@ const prepareVisualizeFrame = () => {
       mapping = JSON.parse(mapping[0].split('=')[1]).mapping;
       dimensionAttributeSelection.value = mapping.dimension;
       heightAttributeSelection.value = mapping.height;
-      colorAttributeSelection.value = mapping.color;
+      hueAttributeSelection.value = mapping.hue;
+      luminanceAttributeSelection.value = mapping.luminance;
       participant.value = mapping.participant;
       taskId.value = mapping.taskId;
    }
@@ -83,7 +90,8 @@ buttonStartVisualize.addEventListener("click", e => {
    let metaphorSelection = {
       dimension: dimensionAttributeSelection.value,
       height: heightAttributeSelection.value,
-      color: colorAttributeSelection.value
+      hue: hueAttributeSelection.value,
+      luminance: luminanceAttributeSelection.value
    }
 
    document.getElementById("frame-visualize").style.display = "none";
@@ -97,7 +105,8 @@ buttonStartVisualize.addEventListener("click", e => {
    const mapping = {
       dimension: metaphorSelection.dimension,
       height: metaphorSelection.height,
-      color: metaphorSelection.color,
+      hue: metaphorSelection.hue,
+      luminance: metaphorSelection.luminance,
       participant: participant,
       taskId: taskId
    }
