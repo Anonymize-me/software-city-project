@@ -85,10 +85,7 @@ buttonStartVisualize.addEventListener("click", e => {
       height: heightAttributeSelection.value,
       color: colorAttributeSelection.value
    }
-   let citySelection = {
-      dimension: document.getElementById("city-dimension").value,
-      spread: document.getElementById("city-spread").value
-   }
+
    document.getElementById("frame-visualize").style.display = "none";
    document.getElementById("view-data").style.display = "none";
 
