@@ -60,6 +60,20 @@ class Building extends THREE.Mesh {
          this.setColorPicker();
       }
 
+      this.colorHue = this.baseColor.getHue();
+      this.setColorHue = (hue, ratio) => {
+         this.colorHue = hue;
+         let color = this.baseColor.getHsl();
+         color.h = hue;
+         this.setFassadeColor(color);
+         let roofColor = this.baseColor.getHsl();
+         roofColor.h = hue;
+         this.setRoofColor(roofColor);
+
+         // set colorPicker in modelTree to new color
+         this.setColorPicker();
+      }
+
       this.colorLuminance = this.baseColor.getLuminance();
       this.setColorLuminance = (luminance, ratio) => {
          this.colorLuminance = luminance;

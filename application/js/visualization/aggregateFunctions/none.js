@@ -18,36 +18,45 @@ import { getNormalizer } from "../../data.js";
 const aggregateFunctionNone = (treeOfBuildings, lowerRangeBounds, upperRangeBounds) => {
 
    let heightMetaphor = treeOfBuildings.list[0].metaphorSelection.height;
-   let colorMetaphor = treeOfBuildings.list[0].metaphorSelection.color;
+   let hueMetaphor = treeOfBuildings.list[0].metaphorSelection.hue;
+   let luminanceMetaphor = treeOfBuildings.list[0].metaphorSelection.luminance;
    //
    let maxHeightValue = 0;
-   let maxColorValue = 0;
+   let maxHueValue = 0;
+   let maxLuminanceValue = 0;
    //
    for (let building of treeOfBuildings.list) {
       let heightValue = 0;
-      let colorValue = 0;
+      let hueValue = 0;
+      let luminanceValue = 0;
       for (let entry of building.buildingData) {
          if (parseInt(entry.timestamp) >= lowerRangeBounds && parseInt(entry.timestamp) <= upperRangeBounds) {
             heightValue = parseInt(entry[heightMetaphor]);
-            colorValue = parseInt(entry[colorMetaphor]);
+            hueValue = parseInt(entry[hueMetaphor]);
+            luminanceValue = parseInt(entry[luminanceMetaphor]);
          }
       }
       if (heightValue > maxHeightValue) {
          maxHeightValue = heightValue;
       }
-      if (colorValue > maxColorValue) {
-         maxColorValue = colorValue;
+      if (hueValue > maxHueValue) {
+         maxHueValue = hueValue;
+      }
+      if (luminanceValue > maxLuminanceValue) {
+         maxLuminanceValue = luminanceValue;
       }
    }
 
    for (let building of treeOfBuildings.list) {
       let lastHeightValue = 0;
-      let lastColorValue = 0;
+      let lastHueValue = 0;
+      let lastLuminanceValue = 0;
       for (let entry of building.buildingData) {
          // here we collect the data for all entries that are within the range
          if (parseInt(entry.timestamp) >= lowerRangeBounds && parseInt(entry.timestamp) <= upperRangeBounds) {
             lastHeightValue = parseInt(entry[heightMetaphor]);
-            lastColorValue = parseInt(entry[colorMetaphor]);
+            lastHueValue = parseInt(entry[hueMetaphor]);
+            lastLuminanceValue = parseInt(entry[luminanceMetaphor]);
          }
       }
 
@@ -60,8 +69,10 @@ const aggregateFunctionNone = (treeOfBuildings, lowerRangeBounds, upperRangeBoun
       building.currentHeightValue = lastHeightValue;
 
       // Color
-      let luminance = lastColorValue / maxColorValue;
+      let hue = lastHueValue / maxHueValue;
+      let luminance = lastLuminanceValue / maxLuminanceValue;
       let ratio = 1;
+      building.setColorHue(hue, ratio);
       building.setColorLuminance(luminance, ratio);
    }
 }

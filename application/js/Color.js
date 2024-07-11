@@ -21,6 +21,10 @@ class Color extends THREE.Color {
       return this.getRGB(rgb);
    }
 
+   getHue() {
+      return this.getHsl().h;
+   }
+
    getLuminance() {
       return this.getHsl().l;
    }
