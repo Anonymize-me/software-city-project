@@ -1,5 +1,3 @@
-import { getVisualizationData } from "./data";
-
 /**
  * Method to return a date in the format "YYYY-MM-DD, HH:MM:SS:SSS"
  * 

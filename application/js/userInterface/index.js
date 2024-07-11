@@ -3,7 +3,7 @@ import { removeRenderersAndGuis } from "../data";
 import { updateConfig } from "./cookieManager";
 import { uploadData } from "./upload";
 import { buildTable } from "./table";
-import { prepareVisualizeFrame } from "./visualize";
+import { prepareMetaphorsFrame } from "./visualize";
 import { removeArrow } from "../visualization/arrow";
 import { getBioMetricsFiles, getRepositoryData, getStaticMetricFiles, getFileContent } from "./githubAPI";
 
@@ -13,7 +13,7 @@ const gitHubRepo = document.getElementById("github-repo");
 const buttonGitHubRepo = document.getElementById("button-github-repo");
 const buttonUpload = document.getElementById("button-upload");
 const buttonConfig = document.getElementById("button-config");
-const buttonVisualize = document.getElementById("button-visualize");
+const buttonMetaphors = document.getElementById("button-metaphors");
 const buttonViewData = document.getElementById("button-view-data");
 const buttonClearData = document.getElementById("button-clear-data");
 const buttonModelTree = document.getElementById("button-model-tree");
@@ -23,7 +23,7 @@ const viewData = document.getElementById("view-data");
 const frameGitHubRepo = document.getElementById("frame-github-repo");
 const frameUpload = document.getElementById("frame-upload");
 const frameConfig = document.getElementById("frame-config");
-const frameVisualize = document.getElementById("frame-visualize");
+const frameMetaphors = document.getElementById("frame-metaphors");
 const frameModelTree = document.getElementById("frame-model-tree");
 const frameInfo = document.getElementById("frame-info");
 
@@ -63,7 +63,7 @@ gitHubRepo.addEventListener("change", () => {
 buttonGitHubRepo.addEventListener("click", () => {
    frameUpload.style.display = "none";
    frameConfig.style.display = "none";
-   frameVisualize.style.display = "none";
+   frameMetaphors.style.display = "none";
    frameInfo.style.display = "none";
    removeArrow();
    frameModelTree.style.display = "none";
@@ -77,7 +77,7 @@ buttonGitHubRepo.addEventListener("click", () => {
 buttonUpload.addEventListener("click", () => {
    frameGitHubRepo.style.display = "none";
    frameConfig.style.display = "none";
-   frameVisualize.style.display = "none";
+   frameMetaphors.style.display = "none";
    frameInfo.style.display = "none";
    removeArrow();
    frameModelTree.style.display = "none";
@@ -91,7 +91,7 @@ buttonUpload.addEventListener("click", () => {
 buttonConfig.addEventListener("click", () => {
    frameGitHubRepo.style.display = "none";
    frameUpload.style.display = "none";
-   frameVisualize.style.display = "none";
+   frameMetaphors.style.display = "none";
    frameInfo.style.display = "none";
    removeArrow();
    frameModelTree.style.display = "none";
@@ -102,17 +102,17 @@ buttonConfig.addEventListener("click", () => {
    }
 });
 
-buttonVisualize.addEventListener("click", () => {
+buttonMetaphors.addEventListener("click", () => {
    frameGitHubRepo.style.display = "none";
    frameUpload.style.display = "none";
    frameConfig.style.display = "none";
    frameInfo.style.display = "none";
    removeArrow();
    frameModelTree.style.display = "none";
-   if (frameVisualize.style.display === "none" || frameVisualize.style.display === '') {
-      frameVisualize.style.display = 'block';
+   if (frameMetaphors.style.display === "none" || frameMetaphors.style.display === '') {
+      frameMetaphors.style.display = 'block';
    } else {
-      frameVisualize.style.display = "none";
+      frameMetaphors.style.display = "none";
    }
 });
 
@@ -120,7 +120,7 @@ buttonViewData.addEventListener("click", () => {
    frameGitHubRepo.style.display = "none";
    frameUpload.style.display = "none";
    frameConfig.style.display = "none";
-   frameVisualize.style.display = "none";
+   frameMetaphors.style.display = "none";
    frameInfo.style.display = "none";
    removeArrow();
    frameModelTree.style.display = "none";
@@ -144,7 +144,7 @@ buttonClearData.addEventListener("click", () => {
    $("#alert-success-clear-data").delay(2000).fadeOut(800);
    buildTable();
    toggleConfigAndViewDataButton(true);
-   toggleVisualizeAndModelTreeButton(true);
+   toggleMetaphorsAndModelTreeButton(true);
    // hide table
    document.getElementById("view-data").style.display = "none";
 });
@@ -163,12 +163,12 @@ buttonSaveConfig.addEventListener("click", () => {
 
    processOriginalData(config);
 
-   prepareVisualizeFrame();
+   prepareMetaphorsFrame();
 
    alertSuccessUploadData.style.display = "block";
    $("#alert-success-upload-data").delay(2000).fadeOut(800);
    frameConfig.style.display = "none";
-   toggleVisualizeAndModelTreeButton(false);
+   toggleMetaphorsAndModelTreeButton(false);
 });
 
 const toggleConfigAndViewDataButton = boolChoice => {
@@ -176,8 +176,8 @@ const toggleConfigAndViewDataButton = boolChoice => {
    buttonViewData.disabled = boolChoice;
 }
 
-const toggleVisualizeAndModelTreeButton = boolChoice => {
-   buttonVisualize.disabled = boolChoice;
+const toggleMetaphorsAndModelTreeButton = boolChoice => {
+   buttonMetaphors.disabled = boolChoice;
    buttonModelTree.disabled = boolChoice;
 }
 
@@ -193,8 +193,8 @@ for (let i = 0; i < buttonsClose.length; i++) {
          case "frame-config":
             frameConfig.style.display = "none";
             break;
-         case "frame-visualize":
-            frameVisualize.style.display = "none";
+         case "frame-metaphors":
+            frameMetaphors.style.display = "none";
             break;
          case "frame-info":
             frameInfo.style.display = "none";
@@ -212,7 +212,7 @@ document.addEventListener("keydown", e => {
       frameGitHubRepo.style.display = "none";
       frameUpload.style.display = "none";
       frameConfig.style.display = "none";
-      frameVisualize.style.display = "none";
+      frameMetaphors.style.display = "none";
       frameInfo.style.display = "none";
       removeArrow();
       frameModelTree.style.display = "none";

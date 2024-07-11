@@ -13,7 +13,7 @@ const luminanceAttributeSelection = document.getElementById("luminance-attribute
 const frameModelTree = document.getElementById("frame-model-tree");
 const frameInfo = document.getElementById("frame-info");
 
-const prepareVisualizeFrame = () => {
+const prepareMetaphorsFrame = () => {
 
    dimensionAttributeSelection.replaceChildren();
    heightAttributeSelection.replaceChildren();
@@ -117,7 +117,7 @@ buttonStartVisualize.addEventListener("click", e => {
       luminance: luminanceAttributeSelection.value
    }
 
-   document.getElementById("frame-visualize").style.display = "none";
+   document.getElementById("frame-metaphors").style.display = "none";
    document.getElementById("view-data").style.display = "none";
 
    let data = getOriginalData();
@@ -157,4 +157,4 @@ buttonStartVisualize.addEventListener("click", e => {
 
 });
 
-export { prepareVisualizeFrame };
+export { prepareMetaphorsFrame as prepareMetaphorsFrame };
