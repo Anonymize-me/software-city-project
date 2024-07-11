@@ -1,7 +1,7 @@
 import { getAttributeNames, getDataType, getOriginalData, getParticipants, getTasks, setListTreeOfBuildings, setMetaphorSelection, setVisualizationData } from "../data";
 import { visualize } from "../visualization/visualize";
 import { buildTreesOfBuildings } from "../visualization/TreeOfBuildings";
-import { getMapping, updateMapping } from "./cookieManager";
+import { getConfig, getMapping, updateMapping } from "./cookieManager";
 
 const buttonStartVisualize = document.getElementById("button-start-visualize");
 
@@ -39,6 +39,7 @@ const prepareVisualizeFrame = () => {
       document.getElementById("participant-label").style.display = "block";
       document.getElementById("taskId-label").style.display = "block";
 
+      document.getElementById("participant").appendChild(document.createElement("option"));
       getParticipants().forEach(participant => {
          let newElement = document.createElement("option");
          newElement.value = participant;
@@ -46,6 +47,7 @@ const prepareVisualizeFrame = () => {
          document.getElementById("participant").appendChild(newElement);
       });
 
+      document.getElementById("taskId").appendChild(document.createElement("option"));
       getTasks().forEach(task => {
          let newElement = document.createElement("option");
          newElement.value = task;
@@ -81,6 +83,27 @@ const prepareVisualizeFrame = () => {
       luminanceAttributeSelection.value = mapping.luminance;
       participant.value = mapping.participant;
       taskId.value = mapping.taskId;
+   }
+
+   // if no participant and task mapping in the config is set,
+   // disable the participant and task selection fields, and set the empty option by default.
+   let config = getConfig();
+   if (config.length > 0) {
+      config = JSON.parse(getConfig()[0].split('=')[1]).config;
+      participant.value = "";
+      taskId.value = "";
+      if (config.participant === "") {
+         participant.disabled = true;
+      } else {
+         participant.disabled = false;
+         participant.value = config.participant;
+      }
+      if (config.taskId === "") {
+         taskId.disabled = true;
+      } else {
+         taskId.disabled = false;
+         taskId.value = config.taskId;
+      }
    }
 }
 
