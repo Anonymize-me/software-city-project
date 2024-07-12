@@ -11,13 +11,13 @@ class Building extends THREE.Mesh {
 
       const boxGeometry = new THREE.BoxGeometry();
       const boxMaterial = new THREE.MeshBasicMaterial({
-         color: new Color({ h: 0, s: 0, l: 0.5 }),
+         color: new Color({ h: 0, s: 0, l: 0 }),
          polygonOffset: true,
          polygonOffsetFactor: 0.1,
          polygonOffsetUnits: 0.1,
       });
       const rooftopMaterial = new THREE.MeshBasicMaterial({
-         color: new Color({ h: 0, s: 0, l: 0.5 }),
+         color: new Color({ h: 0, s: 0, l: 0 }),
       });
 
       // set different materials for the rooftop side
@@ -50,40 +50,35 @@ class Building extends THREE.Mesh {
       this.metaphorSelection = getMetaphorSelection();
 
       // COLOR
-      this.baseColor = new Color({ h: 0, s: 0, l: 0.5 });
+      this.baseColor = new Color({ h: 0, s: 1, l: 0.5 });
       this.setBaseColor = color => {
          this.baseColor.setColor(color);
          this.setFassadeColor(color);
          this.setRoofColor(color);
-
          // set colorPicker in modelTree to new color
          this.setColorPicker();
       }
 
-      this.colorHue = this.baseColor.getHue();
       this.setColorHue = (hue, ratio) => {
-         this.colorHue = hue;
          let color = this.baseColor.getHsl();
          color.h = hue;
-         this.setFassadeColor(color);
-         let roofColor = this.baseColor.getHsl();
-         roofColor.h = hue;
-         this.setRoofColor(roofColor);
-
+         this.setBaseColor(color);
          // set colorPicker in modelTree to new color
          this.setColorPicker();
       }
 
-      this.colorLuminance = this.baseColor.getLuminance();
+      this.setColorSaturation = (saturation, ratio) => {
+         let color = this.baseColor.getHsl();
+         color.s = saturation;
+         this.setBaseColor(color);
+         // set colorPicker in modelTree to new color
+         this.setColorPicker();
+      }
+
       this.setColorLuminance = (luminance, ratio) => {
-         this.colorLuminance = luminance;
          let color = this.baseColor.getHsl();
          color.l = luminance;
-         this.setFassadeColor(color);
-         let roofColor = this.baseColor.getHsl();
-         roofColor.l = luminance * ratio;
-         this.setRoofColor(roofColor);
-
+         this.setBaseColor(color);
          // set colorPicker in modelTree to new color
          this.setColorPicker();
       }
@@ -96,7 +91,7 @@ class Building extends THREE.Mesh {
          }
       }
 
-      this.fassadeColor = new Color({ h: 0, s: 0, l: 0.5 });
+      this.fassadeColor = new Color({ h: 0, s: 0, l: 0 });
       this.setFassadeColor = color => {
          this.fassadeColor.setColor(color);
          this.material[0].color.setHSL(color.h, color.s, color.l);
@@ -106,7 +101,7 @@ class Building extends THREE.Mesh {
          this.material[5].color.setHSL(color.h, color.s, color.l);
       }
 
-      this.roofColor = new Color({ h: 0, s: 0, l: 0.5 });
+      this.roofColor = new Color({ h: 0, s: 0, l: 0 });
       this.setRoofColor = color => {
          this.roofColor.setColor(color);
          this.material[2].color.setHSL(color.h, color.s, color.l);

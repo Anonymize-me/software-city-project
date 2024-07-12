@@ -9,6 +9,17 @@ const sliderThumbT0 = document.getElementById("slider-thumb-t0");
 const sliderThumbT1 = document.getElementById("slider-thumb-t1");
 const sliderWindowWidth = document.getElementById("slider-window-width");
 
+let lowerRangeBounds = 0;
+let upperRangeBounds = 0;
+
+const getLowerRangeBounds = () => {
+   return lowerRangeBounds;
+}
+
+const getUpperRangeBounds = () => {
+   return upperRangeBounds;
+}
+
 let aggregateFunction = document.getElementById("aggregate-function");
 
 
@@ -192,10 +203,10 @@ const addSlider = (treeOfBuildings, listOfModelTrees) => {
          // calculate the range (upperRangeBounds = t1)
          const t0ProgressInPixel = parseInt(sliderThumbT0.style.left);
          const t0ProgressPercentage = t0ProgressInPixel / (slider.clientWidth - sliderThumbT0.clientWidth);
-         const lowerRangeBounds = parseInt(lowestTimestamp) + parseInt(t0ProgressPercentage * deltaTimestamp);
+         lowerRangeBounds = parseInt(lowestTimestamp) + parseInt(t0ProgressPercentage * deltaTimestamp);
          const t1ProgressInPixel = parseInt(sliderThumbT1.style.left);
          const t1ProgressPercentage = t1ProgressInPixel / (slider.clientWidth - sliderThumbT1.clientWidth);
-         const upperRangeBounds = parseInt(lowestTimestamp) + parseInt(t1ProgressPercentage * deltaTimestamp);
+         upperRangeBounds = parseInt(lowestTimestamp) + parseInt(t1ProgressPercentage * deltaTimestamp);
 
          // here decide which aggregate function to use
          switch (aggregateFunction.value) {
@@ -216,4 +227,4 @@ const addSlider = (treeOfBuildings, listOfModelTrees) => {
    });
 }
 
-export { addSlider };
+export { getLowerRangeBounds, getUpperRangeBounds, addSlider, lowerRangeBounds, upperRangeBounds };

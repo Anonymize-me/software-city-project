@@ -93,7 +93,7 @@ const timestampToDate = timestamp => {
  * @param {Array} listOfBuildings // the list of buildings
  * @returns {Number} // the minimum value of the attribute
  */
-const getMinValueByAttribute = (attribute, listOfBuildings) => {
+const getMinValueByAttributeAggregatedByBuildingSum = (attribute, listOfBuildings) => {
    let min = Infinity;
    for (let building of listOfBuildings) {
       let sum = building.buildingData.reduce((acc, row) => {
@@ -114,7 +114,7 @@ const getMinValueByAttribute = (attribute, listOfBuildings) => {
  * @param {Array} listOfBuildings // the list of buildings
  * @returns {Number} // the maximum value of the attribute
  */
-const getMaxValueByAttribute = (attribute, listOfBuildings) => {
+const getMaxValueByAttributeAggregatedByBuildingSum = (attribute, listOfBuildings) => {
    let max = -Infinity;
    for (let building of listOfBuildings) {
       let sum = building.buildingData.reduce((acc, row) => {
@@ -122,6 +122,48 @@ const getMaxValueByAttribute = (attribute, listOfBuildings) => {
       }, 0);
       if (sum > max) {
          max = sum;
+      }
+   }
+   return max;
+}
+
+/**
+ * Method to get the minimum value of an attribute based on all datapoints
+ * of the buildings from a given listOfBuildings.
+ * 
+ * @param {String} attribute // the attribute name
+ * @param {Array} listOfBuildings // the list of buildings
+ * @returns {Number} // the minimum value of the attribute
+ */
+const getMinValueByAttribute = (attribute, listOfBuildings) => {
+   let min = Infinity;
+   for (let building of listOfBuildings) {
+      for (let row of building.buildingData) {
+         let value = parseFloat(row[attribute]);
+         if (value < min) {
+            min = value;
+         }
+      }
+   }
+   return min;
+}
+
+/**
+ * Method to get the maximum value of an attribute based on all datapoints
+ * of the buildings from a given listOfBuildings.
+ * 
+ * @param {String} attribute // the attribute name
+ * @param {Array} listOfBuildings // the list of buildings
+ * @returns {Number} // the maximum value of the attribute
+ */
+const getMaxValueByAttribute = (attribute, listOfBuildings) => {
+   let max = -Infinity;
+   for (let building of listOfBuildings) {
+      for (let row of building.buildingData) {
+         let value = parseFloat(row[attribute]);
+         if (value > max) {
+            max = value;
+         }
       }
    }
    return max;

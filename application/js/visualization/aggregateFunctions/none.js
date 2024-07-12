@@ -1,4 +1,4 @@
-import { getNormalizer } from "../../data.js";
+import { getListGuis, getNormalizer } from "../../data.js";
 
 /**
  * 
@@ -19,6 +19,9 @@ const aggregateFunctionNone = (treeOfBuildings, lowerRangeBounds, upperRangeBoun
 
    let heightMetaphor = treeOfBuildings.list[0].metaphorSelection.height;
    let hueMetaphor = treeOfBuildings.list[0].metaphorSelection.hue;
+   let saturationMetaphor = getListGuis()[0].thresholdParams.dropdown;
+   let saturationThreshold = getListGuis()[0].thresholdParams.threshold;
+   let saturationValueForBuildingsBelowThreshold = getListGuis()[0].thresholdParams.saturation;
    let luminanceMetaphor = treeOfBuildings.list[0].metaphorSelection.luminance;
    //
    let maxHeightValue = 0;
@@ -50,12 +53,14 @@ const aggregateFunctionNone = (treeOfBuildings, lowerRangeBounds, upperRangeBoun
    for (let building of treeOfBuildings.list) {
       let lastHeightValue = 0;
       let lastHueValue = 0;
+      let lastSaturationValue = 0;
       let lastLuminanceValue = 0;
       for (let entry of building.buildingData) {
          // here we collect the data for all entries that are within the range
          if (parseInt(entry.timestamp) >= lowerRangeBounds && parseInt(entry.timestamp) <= upperRangeBounds) {
             lastHeightValue = parseInt(entry[heightMetaphor]);
             lastHueValue = parseInt(entry[hueMetaphor]);
+            lastSaturationValue = parseInt(entry[saturationMetaphor]);
             lastLuminanceValue = parseInt(entry[luminanceMetaphor]);
          }
       }
@@ -70,9 +75,14 @@ const aggregateFunctionNone = (treeOfBuildings, lowerRangeBounds, upperRangeBoun
 
       // Color
       let hue = lastHueValue / maxHueValue;
+      let saturation = 1;
+      if (lastSaturationValue <= saturationThreshold) {
+         saturation = saturationValueForBuildingsBelowThreshold;
+      }
       let luminance = lastLuminanceValue / maxLuminanceValue;
       let ratio = 1;
       building.setColorHue(hue, ratio);
+      building.setColorSaturation(saturation, ratio);
       building.setColorLuminance(luminance, ratio);
    }
 }
