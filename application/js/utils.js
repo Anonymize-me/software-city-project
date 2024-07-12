@@ -85,4 +85,46 @@ const timestampToDate = timestamp => {
    return new Date(year, month, day, hour, minute, second, millisecond);
 }
 
-export { formatDate, rgbToHsl, hexToRgb, timestampToDate }
+/**
+ * Method to get the minimum summed up value of an attribute based on all datapoints
+ * of the buildings from a given listOfBuildings.
+ * 
+ * @param {String} attribute // the attribute name
+ * @param {Array} listOfBuildings // the list of buildings
+ * @returns {Number} // the minimum value of the attribute
+ */
+const getMinValueByAttribute = (attribute, listOfBuildings) => {
+   let min = Infinity;
+   for (let building of listOfBuildings) {
+      let sum = building.buildingData.reduce((acc, row) => {
+         return acc + parseFloat(row[attribute]);
+      }, 0);
+      if (sum < min) {
+         min = sum;
+      }
+   }
+   return min;
+}
+
+/**
+ * Method to get the maximum summed up value of an attribute based on all datapoints
+ * of the buildings from a given listOfBuildings.
+ * 
+ * @param {String} attribute // the attribute name
+ * @param {Array} listOfBuildings // the list of buildings
+ * @returns {Number} // the maximum value of the attribute
+ */
+const getMaxValueByAttribute = (attribute, listOfBuildings) => {
+   let max = -Infinity;
+   for (let building of listOfBuildings) {
+      let sum = building.buildingData.reduce((acc, row) => {
+         return acc + parseFloat(row[attribute]);
+      }, 0);
+      if (sum > max) {
+         max = sum;
+      }
+   }
+   return max;
+}
+
+export { formatDate, rgbToHsl, hexToRgb, timestampToDate, getMinValueByAttribute, getMaxValueByAttribute }

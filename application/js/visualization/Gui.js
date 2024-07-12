@@ -1,7 +1,7 @@
 import * as dat from "dat.gui";
 import * as THREE from "three";
 import { getAttributeNames, addGui, getNormalizer, getDataStore } from "../data";
-import { hexToRgb, rgbToHsl } from "../utils";
+import { hexToRgb, rgbToHsl, getMinValueByAttribute, getMaxValueByAttribute } from "../utils";
 import { Color } from "../Color";
 
 class Gui extends dat.GUI {
@@ -29,12 +29,10 @@ class Gui extends dat.GUI {
             this.thresholdParams.dropdown = value;
             dropdownController.updateDisplay();
 
-            console.log('dropdown: ', value);
-            console.log('threshold: ', this.thresholdParams.threshold);
-            console.log('saturation: ', this.thresholdParams.saturation);
-
-            let threshold = this.thresholdParams.threshold;
-            let saturation = this.thresholdParams.saturation;
+            // Compute new min an max values for the selected attribute
+            thresholdController.min(getMinValueByAttribute(value, listTreeOfBuildings[0].list));
+            thresholdController.max(getMaxValueByAttribute(value, listTreeOfBuildings[0].list));
+            thresholdController.updateDisplay();
 
             if (value === '') {
                disableController(thresholdController);
@@ -51,12 +49,12 @@ class Gui extends dat.GUI {
                // All buildings with a value of the selected attribute below the threshold will set the saturation
                // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
                listTreeOfBuildings[0].list.forEach(building => {
-                  console.log('building: ', building);
+                  // console.log('building: ', building);
                   let sum = building.buildingData.reduce((acc, row) => {
                      return acc + parseFloat(row[value]);
                   }, 0);
-                  if (sum <= threshold) {
-                     building.material.color = new THREE.Color(`hsl(${Color.HUE}, ${saturation}%, 50%)`);
+                  if (sum <= this.thresholdParams.threshold) {
+                     building.material.color = new THREE.Color(`hsl(${Color.HUE}, ${this.thresholdParams.saturation}%, 50%)`);
                   } else {
                      building.material.color = new THREE.Color(`hsl(${Color.HUE}, 100%, 50%)`);
                   }
