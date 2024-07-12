@@ -1,6 +1,6 @@
 import * as dat from "dat.gui";
 import * as THREE from "three";
-import { addGui, getNormalizer } from "../data";
+import { getAttributeNames, addGui, getNormalizer, getDataStore } from "../data";
 import { hexToRgb, rgbToHsl } from "../utils";
 import { Color } from "../Color";
 
@@ -9,27 +9,112 @@ class Gui extends dat.GUI {
    constructor(listTreeOfBuildings) {
       super();
 
-      this.optionsThresholds = {
-         height: 0,
-         color: "#00ff00",
-         apply: function () {
-            for (let treeOfBuildings of listTreeOfBuildings) {
-               treeOfBuildings.list.forEach(building => {
-                  if (building.scale.y >= this.height) {
-                     building.setBaseColor(rgbToHsl(hexToRgb(this.color)));
+      this.thresholdParams = {
+         dropdown: '',
+         threshold: 50,
+         saturation: 80
+      };
+
+      let onlyNumericalAttributeNames = [''];
+
+      onlyNumericalAttributeNames = onlyNumericalAttributeNames.concat(getAttributeNames().filter(attributeName => {
+         return getDataStore().originalData.some(row => {
+            return !isNaN(row[attributeName]);
+         });
+      }));
+
+      let thresholdFolder = this.addFolder("Threshold");
+      let dropdownController = thresholdFolder.add(this.thresholdParams, "dropdown", onlyNumericalAttributeNames).name("Attribute")
+         .onChange(value => {
+            this.thresholdParams.dropdown = value;
+            dropdownController.updateDisplay();
+
+            console.log('dropdown: ', value);
+            console.log('threshold: ', this.thresholdParams.threshold);
+            console.log('saturation: ', this.thresholdParams.saturation);
+
+            let threshold = this.thresholdParams.threshold;
+            let saturation = this.thresholdParams.saturation;
+
+            if (value === '') {
+               disableController(thresholdController);
+               disableController(saturationController);
+
+               // Reset all buildings to 100% saturation
+               listTreeOfBuildings[0].list.forEach(building => {
+                  building.material.color = new THREE.Color(`hsl(${Color.HUE}, 100%, 50%)`);
+               });
+            } else {
+               enableController(thresholdController);
+               enableController(saturationController);
+
+               // All buildings with a value of the selected attribute below the threshold will set the saturation
+               // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
+               listTreeOfBuildings[0].list.forEach(building => {
+                  console.log('building: ', building);
+                  let sum = building.buildingData.reduce((acc, row) => {
+                     return acc + parseFloat(row[value]);
+                  }, 0);
+                  if (sum <= threshold) {
+                     building.material.color = new THREE.Color(`hsl(${Color.HUE}, ${saturation}%, 50%)`);
+                  } else {
+                     building.material.color = new THREE.Color(`hsl(${Color.HUE}, 100%, 50%)`);
                   }
                });
             }
-         },
-      };
+         });
 
-      let thresholdsFolder = this.addFolder("Thresholds");
-      thresholdsFolder
-         .add(this.optionsThresholds, "height", 0, getNormalizer().heightRange.max)
-         .name("Height");
-      thresholdsFolder.addColor(this.optionsThresholds, "color").name("Color");
-      thresholdsFolder.add(this.optionsThresholds, "apply").name("Apply!");
-      thresholdsFolder.open();
+      // style the dropdown
+      dropdownController.domElement.querySelector('select').style.color = "#2FA1D6";
+      dropdownController.domElement.querySelector('select').style.backgroundColor = "#303030";
+      dropdownController.domElement.querySelector('select').style.width = "142px";
+      dropdownController.domElement.querySelector('select').style.border = "none";
+      dropdownController.domElement.querySelector('select').style.outline = "none";
+      dropdownController.domElement.querySelector('select').style.marginLeft = "-5px";
+
+      let thresholdController = thresholdFolder.add(this.thresholdParams, "threshold", 0, 50).name("Threshold")
+         .onChange(value => {
+            console.log('threshold: ', value);
+         });
+
+      let saturationController = thresholdFolder.add(this.thresholdParams, "saturation", 0, 100).name("Saturation")
+         .onChange(value => {
+            console.log('saturation: ', value);
+         });
+
+      thresholdFolder.open();
+
+      function disableController(controller) {
+         const input = controller.domElement.querySelector('input');
+         if (input) {
+            input.setAttribute('disabled', true);
+            input.classList.add('non-interactable');
+         }
+         const sliders = controller.domElement.querySelectorAll('.slider, .slider-fg');
+         sliders.forEach(slider => {
+            slider.style.pointerEvents = 'none';
+            slider.style.opacity = '0.5';
+         });
+      }
+
+      function enableController(controller) {
+         const input = controller.domElement.querySelector('input');
+         if (input) {
+            input.removeAttribute('disabled');
+            input.classList.remove('non-interactable');
+         }
+         const sliders = controller.domElement.querySelectorAll('.slider, .slider-fg');
+         sliders.forEach(slider => {
+            slider.style.pointerEvents = 'auto';
+            slider.style.opacity = '1';
+         });
+      }
+
+      // Initially disable the threshold and saturation controllers if the dropdown is empty
+      if (this.thresholdParams.dropdown === '') {
+         disableController(thresholdController);
+         disableController(saturationController);
+      }
 
       let metaphorsFolder = this.addFolder("Metaphors");
       metaphorsFolder.open();
