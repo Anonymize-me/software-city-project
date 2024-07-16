@@ -8,7 +8,7 @@ import { addSlider } from "./timeline";
 import { createModelTrees } from "./modelTree";
 // This is for VR Button
 import { VRButton } from "three/examples/jsm/webxr/VRButton";
-import { getDataType, removeRenderersAndGuis } from "../data";
+import { getDataStore, getDataType, removeRenderersAndGuis, setListModelTrees } from "../data";
 
 
 /**
@@ -21,6 +21,7 @@ const visualize = listTreeOfBuildings => {
    removeRenderersAndGuis();
 
    let listModelTrees = createModelTrees(listTreeOfBuildings);
+   setListModelTrees(listModelTrees);
 
    const renderer = new Renderer();
    document.body.appendChild(renderer.domElement);
@@ -56,7 +57,7 @@ const visualize = listTreeOfBuildings => {
    }
 
    // TODO Uncomment this for VR button!
-   document.body.appendChild(VRButton.createButton(renderer));
+   // document.body.appendChild(VRButton.createButton(renderer));
 
    function animate(time) {
       renderer.render(scene, visualControls.getCamera());

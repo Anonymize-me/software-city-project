@@ -176,6 +176,25 @@ const getMaxValueByAttribute = (attribute, listOfBuildings) => {
    return max;
 }
 
+const removeAllEventListeners = (element) => {
+   const clone = element.cloneNode(true);
+   element.parentNode.replaceChild(clone, element);
+   return clone;
+};
+
+const removeElementAndChildrenWithListeners = (element) => {
+   // Recursively remove all children
+   while (element.firstChild) {
+      removeElementAndChildrenWithListeners(element.firstChild);
+   }
+
+   // Remove the element itself
+   element = removeAllEventListeners(element);
+   if (element.parentNode) {
+      element.parentNode.removeChild(element);
+   }
+};
+
 /**
  * Method to destroy and remove the visualization, including the scene, camera, renderer and controls.
  * Also destroy and remove the dat.gui GUI.
@@ -184,6 +203,8 @@ const destroyAndRemoveVisualization = () => {
 
    // Remove model trees from UI and data store
    document.getElementById("frame-model-tree").style.display = "none";
+   let modelTreeContainer = document.getElementById("model-tree-container");
+   removeElementAndChildrenWithListeners(modelTreeContainer);
    setListModelTrees([]);
 
    // Remove dat.gui GUI from UI and data store
@@ -215,6 +236,21 @@ const destroyAndRemoveVisualization = () => {
    document.getElementById("aggregate-function").value = "none";
    document.getElementById("aggregate-function").style.display = "none";
 }
+
+/**
+ * Remove an element and all its event listeners.
+ * 
+ * @param {HTMLElement} element - The element to be removed.
+ */
+const removeElementWithListeners = (element) => {
+   const clone = element.cloneNode(false);
+
+   // Replace the original element with the clone, removing all event listeners
+   element.parentNode.replaceChild(clone, element);
+
+   // Remove the cloned element from the DOM
+   clone.remove();
+};
 
 export {
    formatDate, rgbToHsl, hexToRgb, timestampToDate,

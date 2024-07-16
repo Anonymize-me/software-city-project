@@ -10,6 +10,7 @@ const createModelTrees = listTreeOfBuildings => {
       let check = [treeOfBuildings.baseNode]
       let seen = []
       let container = document.createElement("div");
+      container.id = "model-tree-container";
       let allNewElements = []
 
       while (check.length > 0) {

@@ -5,6 +5,7 @@ import { buildTable } from "./table";
 import { prepareMetaphorsFrame } from "./visualize";
 import { getBioMetricsFiles, getRepositoryData, getStaticMetricFiles, getFileContent } from "./githubAPI";
 import { destroyAndRemoveVisualization } from "../utils";
+import { removeArrow } from "../visualization/arrow";
 
 const gitHubRepoUrl = document.getElementById("github-repo-url");
 const gitHubRepo = document.getElementById("github-repo");
@@ -135,6 +136,8 @@ buttonClearData.addEventListener("click", () => {
    toggleMetaphorsAndModelTreeButton(true);
    // hide table
    document.getElementById("view-data").style.display = "none";
+   // show instructions
+   document.getElementById("instructions").style.display = "block";
 });
 
 buttonSaveConfig.addEventListener("click", () => {

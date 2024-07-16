@@ -84,11 +84,13 @@ class Building extends THREE.Mesh {
       }
 
       this.setColorPicker = () => {
-         // here, set the color for the color picker in the model tree
-         let colorPicker = document.getElementById(this.uuid).children[0];
-         if (colorPicker !== null) {
-            colorPicker.value = "#" + this.fassadeColor.getHexString();
+         try {
+            let colorPicker = document.getElementById(this.uuid).children[0];
+            if (colorPicker !== null) {
+               colorPicker.value = "#" + this.fassadeColor.getHexString();
+            }
          }
+         catch (error) { }
       }
 
       this.fassadeColor = new Color({ h: 0, s: 0, l: 0 });
