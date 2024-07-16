@@ -1,3 +1,10 @@
+import {
+   removeAllGuis, setListModelTrees, setMetaphorSelection,
+   setVisualizationData, setListTreeOfBuildings, setNormalizer,
+   removeAllRenderers
+} from "./data";
+import { removeArrow } from "./visualization/arrow";
+
 /**
  * Method to return a date in the format "YYYY-MM-DD, HH:MM:SS:SSS"
  * 
@@ -169,4 +176,47 @@ const getMaxValueByAttribute = (attribute, listOfBuildings) => {
    return max;
 }
 
-export { formatDate, rgbToHsl, hexToRgb, timestampToDate, getMinValueByAttribute, getMaxValueByAttribute }
+/**
+ * Method to destroy and remove the visualization, including the scene, camera, renderer and controls.
+ * Also destroy and remove the dat.gui GUI.
+ */
+const destroyAndRemoveVisualization = () => {
+
+   // Remove model trees from UI and data store
+   document.getElementById("frame-model-tree").style.display = "none";
+   setListModelTrees([]);
+
+   // Remove dat.gui GUI from UI and data store
+   removeAllGuis();
+
+   // Reset metaphor selection in data store
+   setMetaphorSelection({});
+
+   // Reset visualization data in data store
+   setVisualizationData([]);
+
+   // Reset list of tree of buildings in data store
+   setListTreeOfBuildings([]);
+
+   // Reset normalizer in data store
+   setNormalizer(null);
+
+   // Remove arrow from scene
+   removeArrow();
+
+   // Remove all renderers
+   removeAllRenderers();
+
+   // Reset and hide slider
+   document.getElementById("slider-window-width").style.width = "0px";
+   document.getElementById("slider-container").style.display = "none";
+
+   // Reset and hide aggregate function element
+   document.getElementById("aggregate-function").value = "none";
+   document.getElementById("aggregate-function").style.display = "none";
+}
+
+export {
+   formatDate, rgbToHsl, hexToRgb, timestampToDate,
+   getMinValueByAttribute, getMaxValueByAttribute, destroyAndRemoveVisualization
+}

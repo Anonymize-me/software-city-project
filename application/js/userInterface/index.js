@@ -1,11 +1,10 @@
 import { clearData, processOriginalData } from "../data";
-import { removeRenderersAndGuis } from "../data";
 import { updateConfig } from "./cookieManager";
 import { uploadData } from "./upload";
 import { buildTable } from "./table";
 import { prepareMetaphorsFrame } from "./visualize";
-import { removeArrow } from "../visualization/arrow";
 import { getBioMetricsFiles, getRepositoryData, getStaticMetricFiles, getFileContent } from "./githubAPI";
+import { destroyAndRemoveVisualization } from "../utils";
 
 const gitHubRepoUrl = document.getElementById("github-repo-url");
 const gitHubRepo = document.getElementById("github-repo");
@@ -37,10 +36,6 @@ const alertSuccessUploadData = document.getElementById("alert-success-upload-dat
 const alertSuccessClearData = document.getElementById("alert-success-clear-data");
 const buttonAlertCloseUploadData = document.getElementById("button-alert-close-upload-data");
 const buttonAlertCloseClearData = document.getElementById("button-alert-close-clear-data");
-
-const sliderContainer = document.getElementById("slider-container");
-
-const aggregateFunction = document.getElementById("aggregate-function");
 
 function toggleFetchButton() {
    buttonFetch.disabled = !(gitHubRepoUrl.value || gitHubRepo.value);
@@ -79,7 +74,6 @@ buttonUpload.addEventListener("click", () => {
    frameConfig.style.display = "none";
    frameMetaphors.style.display = "none";
    frameInfo.style.display = "none";
-   removeArrow();
    frameModelTree.style.display = "none";
    if (frameUpload.style.display === "none" || frameUpload.style.display === '') {
       frameUpload.style.display = "block";
@@ -93,7 +87,6 @@ buttonConfig.addEventListener("click", () => {
    frameUpload.style.display = "none";
    frameMetaphors.style.display = "none";
    frameInfo.style.display = "none";
-   removeArrow();
    frameModelTree.style.display = "none";
    if (frameConfig.style.display === "none" || frameConfig.style.display === '') {
       frameConfig.style.display = 'block';
@@ -107,7 +100,6 @@ buttonMetaphors.addEventListener("click", () => {
    frameUpload.style.display = "none";
    frameConfig.style.display = "none";
    frameInfo.style.display = "none";
-   removeArrow();
    frameModelTree.style.display = "none";
    if (frameMetaphors.style.display === "none" || frameMetaphors.style.display === '') {
       frameMetaphors.style.display = 'block';
@@ -122,11 +114,7 @@ buttonViewData.addEventListener("click", () => {
    frameConfig.style.display = "none";
    frameMetaphors.style.display = "none";
    frameInfo.style.display = "none";
-   removeArrow();
-   frameModelTree.style.display = "none";
-   removeRenderersAndGuis();
-   sliderContainer.style.display = "none";
-   aggregateFunction.style.display = "none";
+   destroyAndRemoveVisualization();
    viewData.style.display = "block";
 });
 

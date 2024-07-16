@@ -151,8 +151,9 @@ const removeRenderersAndGuis = () => {
 }
 
 const removeAllRenderers = () => {
-   for (let renderer of dataStore.listRenderers) {
-      removeRenderer(renderer);
+   let canvasElements = document.getElementsByTagName("canvas");
+   for (let i = canvasElements.length - 1; i >= 0; i--) {
+      canvasElements[i].remove();
    }
    dataStore.listRenderers = [];
 }
@@ -287,6 +288,15 @@ const setListTreeOfBuildings = listTreeOfBuildings => {
 }
 
 /**
+ * Method to set the listModelTrees
+ * 
+ * @param {Array} listModelTrees // the list of model trees
+ */
+const setListModelTrees = listModelTrees => {
+   dataStore.listModelTrees = listModelTrees;
+}
+
+/**
  * Method to set the metaphor selection
  * 
  * @param {Object} metaphorSelection // mapping of metaphor selection
@@ -309,6 +319,8 @@ export {
    addRenderer,
    addGui,
    removeRenderersAndGuis,
+   removeAllRenderers,
+   removeAllGuis,
    getDataStore,
    getOriginalData,
    getAttributeNames,
@@ -323,6 +335,7 @@ export {
    setOriginalData,
    setVisualizationData,
    setListTreeOfBuildings,
+   setListModelTrees,
    setMetaphorSelection,
    setNormalizer
 }
