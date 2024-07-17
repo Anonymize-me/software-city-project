@@ -81,9 +81,11 @@ const aggregateFunctionNone = (treeOfBuildings, lowerRangeBounds, upperRangeBoun
       }
       let luminance = lastLuminanceValue / maxLuminanceValue;
       let ratio = 1;
-      building.setColorHue(hue, ratio);
-      building.setColorSaturation(saturation, ratio);
-      building.setColorLuminance(luminance, ratio);
+      if (building.visible) {
+         building.setColorHue(hue, ratio);
+         building.setColorSaturation(saturation, ratio);
+         building.setColorLuminance(luminance, ratio);
+      }
    }
 }
 

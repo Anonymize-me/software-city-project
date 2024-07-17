@@ -174,9 +174,9 @@ const addSlider = (treeOfBuildings, listOfModelTrees) => {
 
          // if the t0 slider is dragged further right than the t1 slider, we want to prevent that
          // if the t1 slider is dragged further left than the t0 slider, we want to prevent that
-         if (draggingSlider === sliderThumbT0 && newSliderProgressInPixel > parseInt(sliderThumbT1.style.left)) {
+         if (draggingSlider === sliderThumbT0 && newSliderProgressInPixel >= parseInt(sliderThumbT1.style.left)) {
             newSliderProgressInPixel = parseInt(sliderThumbT1.style.left);
-         } else if (draggingSlider === sliderThumbT1 && newSliderProgressInPixel < parseInt(sliderThumbT0.style.left)) {
+         } else if (draggingSlider === sliderThumbT1 && newSliderProgressInPixel <= parseInt(sliderThumbT0.style.left)) {
             newSliderProgressInPixel = parseInt(sliderThumbT0.style.left);
          } else {
             draggingSlider.style.left = newSliderProgressInPixel + "px";
