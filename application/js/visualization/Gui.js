@@ -59,12 +59,16 @@ class Gui extends dat.GUI {
 
       let thresholdController = thresholdFolder.add(this.thresholdParams, "threshold", 0, 0).name("Threshold")
          .onChange(value => {
-            // console.log('threshold: ', value);
+            // All buildings with a value of the selected attribute below the threshold will set the saturation
+            // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
+            aggregateFunctionNone(listTreeOfBuildings[0], getLowerRangeBounds(), getUpperRangeBounds());
          });
 
       let saturationController = thresholdFolder.add(this.thresholdParams, "saturation", 0, 1).name("Saturation")
          .onChange(value => {
-            // console.log('saturation: ', value);
+            // All buildings with a value of the selected attribute below the threshold will set the saturation
+            // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
+            aggregateFunctionNone(listTreeOfBuildings[0], getLowerRangeBounds(), getUpperRangeBounds());
          });
 
       thresholdFolder.open();
