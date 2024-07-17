@@ -29,7 +29,12 @@ class Normalizer {
 
    normalizeDimensions(treeOfBuildings) {
       treeOfBuildings.list.forEach(building => {
-         let percent = (building.getTotalDimensionValue() - this.minDimensionBuilding) / (this.maxDimensionBuilding - this.minDimensionBuilding);
+         let percent = 100;
+         if (this.maxDimensionBuilding === this.minDimensionBuilding) {
+            percent = 1;
+         } else {
+            percent = (building.getTotalDimensionValue() - this.minDimensionBuilding) / (this.maxDimensionBuilding - this.minDimensionBuilding);
+         }
          let normalizedValue = (this.dimensionRange.max - this.dimensionRange.min) * percent + this.dimensionRange.min;
          building.scale.x = normalizedValue;
          building.scale.z = normalizedValue;
@@ -37,7 +42,12 @@ class Normalizer {
    }
 
    normalizeHeight(height) {
-      let percent = (height - this.minHeightBuilding) / (this.maxHeightBuilding - this.minHeightBuilding);
+      let percent = 100;
+      if (this.maxHeightBuilding === this.minHeightBuilding) {
+         percent = 1;
+      } else {
+         percent = (height - this.minHeightBuilding) / (this.maxHeightBuilding - this.minHeightBuilding);
+      }
       let normalizedHeight = (this.heightRange.max - this.heightRange.min) * percent + this.heightRange.min;
       if (normalizedHeight > this.currentHeightValueMean) {
          return (this.currentHeightValueMean + Math.pow(normalizedHeight - this.currentHeightValueMean, this.guiNormalizeValue)) * this.guiScaleValue;

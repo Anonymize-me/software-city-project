@@ -139,11 +139,10 @@ buttonStartVisualize.addEventListener("click", e => {
    setMetaphorSelection(mapping);
 
    // filter data depending on participant and task selection
-   if (getDataType() !== "java-source-code") {
+   if (getDataType() === "eye-tracking-java-source-code") {
       data = data.filter(entry => {
          return entry.participant === participant.toString() && entry.taskId === taskId.toString();
       });
-
    }
 
    setVisualizationData(data);
@@ -156,7 +155,6 @@ buttonStartVisualize.addEventListener("click", e => {
 
    frameModelTree.style.display = "block";
    frameInfo.style.display = "block";
-
 });
 
 export { prepareMetaphorsFrame as prepareMetaphorsFrame };

@@ -13,6 +13,7 @@ const taskIdSelectionLabel = document.getElementById("taskId-selection-label");
 const taskIdSelection = document.getElementById("taskId-selection");
 
 const uploadData = () => {
+
    document.getElementById("instructions").style.display = "none";
 
    const file = document.getElementById("file").files[0];
@@ -72,6 +73,8 @@ const uploadData = () => {
 
       buildTable();
       document.getElementById("view-data").style.display = "block";
+
+      document.getElementById('button-view-data').click();
    }
 }
 
