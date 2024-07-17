@@ -21,6 +21,12 @@ class MouseControls {
 
    arrowObject = null;
 
+   calculateStepSize = chart => {
+      const chartHeight = chart.height;
+      const yStepSize = Math.max(1, Math.floor(chartHeight / 50));
+      return yStepSize;
+   }
+
    constructor(document, camera, scene, renderer) {
 
       renderer.domElement.addEventListener("mousedown", e => {
@@ -170,72 +176,6 @@ class MouseControls {
                         }
                      });
 
-                     this.chartHeight = new Chart(document.getElementById('chartHeight'), {
-                        type: 'line',
-                        data: {
-                           datasets: [{
-                              type: 'scatter',
-                              label: 'All Buildings',
-                              data: heightMetaphorDatasets,
-                              order: 2,
-                              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                           },
-                           {
-                              type: 'line',
-                              label: 'Current Building',
-                              data: dataHeightMetaphor,
-                              order: 1,
-                              backgroundColor: 'rgba(54, 162, 235, 1)',
-                           }],
-                           labels: allTimestamps
-                        },
-                        options: {}
-                     });
-
-                     this.chartHue = new Chart(document.getElementById('chartHue'), {
-                        type: 'line',
-                        data: {
-                           datasets: [{
-                              type: 'scatter',
-                              label: 'All Buildings',
-                              data: hueMetaphorDatasets,
-                              order: 2,
-                              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                           },
-                           {
-                              type: 'line',
-                              label: 'Current Building',
-                              data: dataHueMetaphor,
-                              order: 1,
-                              backgroundColor: 'rgba(54, 162, 235, 1)',
-                           }],
-                           labels: allTimestamps
-                        },
-                        options: {}
-                     });
-
-                     this.chartLuminance = new Chart(document.getElementById('chartLuminance'), {
-                        type: 'line',
-                        data: {
-                           datasets: [{
-                              type: 'scatter',
-                              label: 'All Buildings',
-                              data: luminanceMetaphorDatasets,
-                              order: 2,
-                              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                           },
-                           {
-                              type: 'line',
-                              label: 'Current Building',
-                              data: dataLuminanceMetaphor,
-                              order: 1,
-                              backgroundColor: 'rgba(54, 162, 235, 1)',
-                           }],
-                           labels: allTimestamps
-                        },
-                        options: {}
-                     });
-
                      this.chartBuilding = new Chart(document.getElementById('chartBuilding'), {
                         type: "line",
                         data: {
@@ -272,8 +212,255 @@ class MouseControls {
                               data: dataLuminanceMetaphor
                            }],
                         },
-                        options: {}
+                        options: {
+                           plugins: {
+                              title: {
+                                 display: true,
+                                 text: 'All Metaphors',
+                                 font: {
+                                    size: 18
+                                 },
+                                 padding: {
+                                    top: 30,
+                                    bottom: 15
+                                 }
+                              },
+                              beforeUpdate: chart => {
+                                 const yStepSize = calculateStepSize(chart);
+                                 chart.options.scales.y.ticks.stepSize = yStepSize;
+                              }
+                           },
+                           scales: {
+                              x: {
+                                 ticks: {
+                                    display: false
+                                 },
+                                 title: {
+                                    display: true,
+                                    text: 'timeline'
+                                 },
+                                 grid: {
+                                    display: false
+                                 }
+                              },
+                              y: {
+                                 ticks: {
+                                    display: true,
+                                    stepSize: 1
+                                 },
+                                 title: {
+                                    display: true,
+                                    text: 'values'
+                                 },
+                                 grid: {
+                                    display: true
+                                 }
+                              }
+                           }
+                        }
                      });
+
+                     this.chartHeight = new Chart(document.getElementById('chartHeight'), {
+                        type: 'line',
+                        data: {
+                           datasets: [{
+                              type: 'line',
+                              label: 'All Buildings',
+                              data: heightMetaphorDatasets,
+                              order: 2,
+                              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                           },
+                           {
+                              type: 'line',
+                              label: 'Current Building',
+                              data: dataHeightMetaphor,
+                              order: 1,
+                              backgroundColor: 'rgba(54, 162, 235, 1)',
+                           }],
+                           labels: allTimestamps
+                        },
+                        options: {
+                           plugins: {
+                              title: {
+                                 display: true,
+                                 text: 'Height Metaphor',
+                                 font: {
+                                    size: 18
+                                 },
+                                 padding: {
+                                    top: 30,
+                                    bottom: 15
+                                 }
+                              },
+                              beforeUpdate: chart => {
+                                 const yStepSize = calculateStepSize(chart);
+                                 chart.options.scales.y.ticks.stepSize = yStepSize;
+                              }
+                           },
+                           scales: {
+                              x: {
+                                 ticks: {
+                                    display: false
+                                 },
+                                 title: {
+                                    display: true,
+                                    text: 'timeline'
+                                 },
+                                 grid: {
+                                    display: false
+                                 }
+                              },
+                              y: {
+                                 ticks: {
+                                    display: true,
+                                    stepSize: 1
+                                 },
+                                 title: {
+                                    display: true,
+                                    text: getMetaphorSelection().height
+                                 },
+                                 grid: {
+                                    display: true
+                                 }
+                              }
+                           }
+                        }
+                     });
+
+                     this.chartHue = new Chart(document.getElementById('chartHue'), {
+                        type: 'line',
+                        data: {
+                           datasets: [{
+                              type: 'line',
+                              label: 'All Buildings',
+                              data: hueMetaphorDatasets,
+                              order: 2,
+                              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                           },
+                           {
+                              type: 'line',
+                              label: 'Current Building',
+                              data: dataHueMetaphor,
+                              order: 1,
+                              backgroundColor: 'rgba(54, 162, 235, 1)',
+                           }],
+                           labels: allTimestamps
+                        },
+                        options: {
+                           plugins: {
+                              title: {
+                                 display: true,
+                                 text: 'Hue Metaphor',
+                                 font: {
+                                    size: 18
+                                 },
+                                 padding: {
+                                    top: 30,
+                                    bottom: 15
+                                 }
+                              },
+                              beforeUpdate: chart => {
+                                 const yStepSize = calculateStepSize(chart);
+                                 chart.options.scales.y.ticks.stepSize = yStepSize;
+                              }
+                           },
+                           scales: {
+                              x: {
+                                 ticks: {
+                                    display: false
+                                 },
+                                 title: {
+                                    display: true,
+                                    text: 'timeline'
+                                 },
+                                 grid: {
+                                    display: false
+                                 }
+                              },
+                              y: {
+                                 ticks: {
+                                    display: true,
+                                    stepSize: 1
+                                 },
+                                 title: {
+                                    display: true,
+                                    text: getMetaphorSelection().hue
+                                 },
+                                 grid: {
+                                    display: true
+                                 }
+                              }
+                           }
+                        }
+                     });
+
+                     this.chartLuminance = new Chart(document.getElementById('chartLuminance'), {
+                        type: 'line',
+                        data: {
+                           datasets: [{
+                              type: 'line',
+                              label: 'All Buildings',
+                              data: luminanceMetaphorDatasets,
+                              order: 2,
+                              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                           },
+                           {
+                              type: 'line',
+                              label: 'Current Building',
+                              data: dataLuminanceMetaphor,
+                              order: 1,
+                              backgroundColor: 'rgba(54, 162, 235, 1)',
+                           }],
+                           labels: allTimestamps
+                        },
+                        options: {
+                           plugins: {
+                              title: {
+                                 display: true,
+                                 text: 'Luminance Metaphor',
+                                 font: {
+                                    size: 18
+                                 },
+                                 padding: {
+                                    top: 30,
+                                    bottom: 15
+                                 }
+                              },
+                              beforeUpdate: chart => {
+                                 const yStepSize = calculateStepSize(chart);
+                                 chart.options.scales.y.ticks.stepSize = yStepSize;
+                              }
+                           },
+                           scales: {
+                              x: {
+                                 ticks: {
+                                    display: false
+                                 },
+                                 title: {
+                                    display: true,
+                                    text: 'timeline'
+                                 },
+                                 grid: {
+                                    display: false
+                                 }
+                              },
+                              y: {
+                                 ticks: {
+                                    display: true,
+                                    stepSize: 1
+                                 },
+                                 title: {
+                                    display: true,
+                                    text: getMetaphorSelection().luminance
+                                 },
+                                 grid: {
+                                    display: true
+                                 }
+                              }
+                           }
+                        }
+                     });
+
                      // display arrow over the building
                      drawArrow(building)
                   } else {
