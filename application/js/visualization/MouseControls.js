@@ -236,7 +236,7 @@ class MouseControls {
                         options: {}
                      });
 
-                     this.chart = new Chart(document.getElementById('chartBuilding'), {
+                     this.chartBuilding = new Chart(document.getElementById('chartBuilding'), {
                         type: "line",
                         data: {
                            labels: dataHeightMetaphor.map(entry => entry.x),
@@ -244,8 +244,8 @@ class MouseControls {
                               label: `Height - ${getMetaphorSelection().height}`,
                               fill: false,
                               lineTension: 0,
-                              borderColor: "rgba(128, 128, 128, 1)",
-                              backgroundColor: "rgba(128, 128, 128, 0.8)",
+                              borderColor: "rgba(255, 99, 71, 1)",
+                              backgroundColor: "rgba(255, 99, 71, 0.75)",
                               pointStyle: 'circle',
                               pointRadius: 5,
                               pointHoverRadius: 7.5,
@@ -254,8 +254,8 @@ class MouseControls {
                               label: `Hue - ${getMetaphorSelection().hue}`,
                               fill: false,
                               lineTension: 0,
-                              borderColor: `rgba(${buildingBaseColor.r * 255}, ${buildingBaseColor.g * 255}, ${buildingBaseColor.b * 255}, 1)`,
-                              backgroundColor: `rgba(${buildingBaseColor.r * 255}, ${buildingBaseColor.g * 255}, ${buildingBaseColor.b * 255}, 0.8)`,
+                              borderColor: "rgba(131, 218, 71, 1)",
+                              backgroundColor: "rgba(131, 218, 71, 0.75)",
                               pointStyle: 'circle',
                               pointRadius: 5,
                               pointHoverRadius: 7.5,
@@ -264,8 +264,8 @@ class MouseControls {
                               label: `Luminance - ${getMetaphorSelection().luminance}`,
                               fill: false,
                               lineTension: 0,
-                              borderColor: `rgba(${buildingBaseColor.r * 255}, ${buildingBaseColor.g * 255}, ${buildingBaseColor.b * 255}, 1)`,
-                              backgroundColor: `rgba(${buildingBaseColor.r * 255}, ${buildingBaseColor.g * 255}, ${buildingBaseColor.b * 255}, 0.8)`,
+                              borderColor: "rgba(62, 117, 222, 1)",
+                              backgroundColor: "rgba(62, 117, 222, 0.75)",
                               pointStyle: 'circle',
                               pointRadius: 5,
                               pointHoverRadius: 7.5,
