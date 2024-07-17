@@ -241,6 +241,9 @@ const getListGuis = () => {
  */
 const setOriginalData = (data, dataType) => {
 
+   // clear the dataStore
+   clearData();
+
    let lines = data.split("\n");
 
    // get the attribute names (first line of the csv file, and remove it from "lines")

@@ -53,7 +53,6 @@ const uploadData = () => {
          taskIdSelection.value = config.taskId;
       }
 
-
       if (getDataType() === "java-source-code") {
          participantSelection.style.display = "none";
          participantSelectionLabel.style.display = "none";

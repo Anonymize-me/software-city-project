@@ -183,16 +183,18 @@ const removeAllEventListeners = (element) => {
 };
 
 const removeElementAndChildrenWithListeners = (element) => {
-   // Recursively remove all children
-   while (element.firstChild) {
-      removeElementAndChildrenWithListeners(element.firstChild);
-   }
+   try {
+      // Recursively remove all children
+      while (element.firstChild) {
+         removeElementAndChildrenWithListeners(element.firstChild);
+      }
 
-   // Remove the element itself
-   element = removeAllEventListeners(element);
-   if (element.parentNode) {
-      element.parentNode.removeChild(element);
-   }
+      // Remove the element itself
+      element = removeAllEventListeners(element);
+      if (element.parentNode) {
+         element.parentNode.removeChild(element);
+      }
+   } catch (error) { }
 };
 
 /**

@@ -1,45 +1,45 @@
 import { getOriginalData, getAttributeNames } from "../data.js";
 
-
 const buttonClearData = document.getElementById("button-clear-data");
 
+const clearTable = () => {
+   if ($.fn.DataTable.isDataTable('#table-data')) {
+      $('#table-data').DataTable().clear().destroy();
+   }
+   $('#table-data thead').empty();
+   $('#table-data tbody').empty();
+   buttonClearData.style.display = "none";
+}
+
 const buildTable = () => {
-   while (thead.firstChild) {
-      thead.removeChild(thead.firstChild);
-   }
-   while (tbody.firstChild) {
-      tbody.removeChild(tbody.firstChild);
-   }
 
-   let data = getOriginalData();
-   let tr = document.createElement("tr");
-   getAttributeNames().forEach(attribute => {
-      let th = document.createElement("th");
-      th.innerText = attribute;
-      tr.appendChild(th);
-   });
-   thead.appendChild(tr);
-   data.forEach(entry => {
-      tr = document.createElement("tr");
+   let dataSet = getOriginalData().map(entry => {
+      let values = [];
       for (let key in entry) {
-         let td = document.createElement("td");
-         if (key === "timestamp") {
-            td.innerText = entry[key];
-         } else {
-            td.innerText = entry[key];
-         }
-         tr.appendChild(td);
+         values.push(entry[key]);
       }
-      tbody.appendChild(tr);
+      return values;
    });
 
-   if (data.length > 0) {
+   let columns = getAttributeNames().map(attribute => {
+      return { title: attribute };
+   });
+
+   if (dataSet.length > 0 && columns.length > 0) {
+      $('#table-data').DataTable({
+         data: dataSet,
+         columns: columns,
+         destroy: true
+      });
+   } else {
+      clearTable();
+   }
+
+   if (dataSet.length > 0) {
       buttonClearData.style.display = "block";
    } else {
       buttonClearData.style.display = "none";
    }
-
-   $("#table-data").DataTable();
 }
 
 export { buildTable }
