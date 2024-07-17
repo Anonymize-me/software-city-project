@@ -22,6 +22,8 @@ const uploadData = () => {
    reader.readAsText(file);
 
    reader.onload = e => {
+
+      document.getElementById('button-view-data').click();
       setOriginalData(e.target.result, document.getElementById("file-format").value);
 
       // populate the config dropdowns with 1 empty option and the attribute names
@@ -73,8 +75,6 @@ const uploadData = () => {
 
       buildTable();
       document.getElementById("view-data").style.display = "block";
-
-      document.getElementById('button-view-data').click();
    }
 }
 

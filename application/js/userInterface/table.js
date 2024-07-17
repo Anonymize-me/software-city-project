@@ -26,6 +26,7 @@ const buildTable = () => {
    });
 
    if (dataSet.length > 0 && columns.length > 0) {
+      clearTable();
       $('#table-data').DataTable({
          data: dataSet,
          columns: columns,

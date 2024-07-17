@@ -1,4 +1,4 @@
-import { getAttributeNames, getDataType, getOriginalData, getParticipants, getTasks, setListTreeOfBuildings, setMetaphorSelection, setVisualizationData } from "../data";
+import { getAttributeNames, getDataType, getOriginalData, getParticipants, getTasks, getVisualizationData, setListTreeOfBuildings, setMetaphorSelection, setVisualizationData } from "../data";
 import { visualize } from "../visualization/visualize";
 import { buildTreesOfBuildings } from "../visualization/TreeOfBuildings";
 import { getConfig, getMapping, updateMapping } from "./cookieManager";
@@ -146,6 +146,11 @@ buttonStartVisualize.addEventListener("click", e => {
    }
 
    setVisualizationData(data);
+
+   if (getVisualizationData().length === 0) {
+      alert("No data available for the selected participant and task.");
+      return;
+   }
 
    let treeOfBuildingsList = buildTreesOfBuildings();
 
