@@ -151,32 +151,19 @@ const removeRenderersAndGuis = () => {
 }
 
 const removeAllRenderers = () => {
-   let canvasElements = document.getElementsByTagName("canvas");
-   for (let i = canvasElements.length - 1; i >= 0; i--) {
-      canvasElements[i].remove();
+   let canvasElement = document.getElementById("threejs-canvas");
+   if (canvasElement) {
+      canvasElement.remove();
    }
    dataStore.listRenderers = [];
 }
 
 const removeAllGuis = () => {
    for (let gui of dataStore.listGuis) {
-      removeGui(gui);
+      gui.destroy();
    }
    dataStore.listGuis = [];
 }
-
-const removeRenderer = renderer => {
-   renderer.dispose();
-   let canvasElement = document.getElementsByTagName("canvas");
-   if (canvasElement.length > 0) {
-      canvasElement[0].remove();
-   }
-}
-
-const removeGui = gui => {
-   gui.destroy();
-}
-
 
 // ///////////////////
 // GETTERS

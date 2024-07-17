@@ -6,6 +6,7 @@ class Renderer extends THREE.WebGLRenderer {
 
    constructor() {
       super({ antialias: true });
+      this.domElement.id = 'threejs-canvas';
       this.setSize(window.innerWidth, window.innerHeight);
       this.shadowMap.enabled = true;
       this.shadowMap.type = THREE.PCFSoftShadowMap;

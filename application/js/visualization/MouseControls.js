@@ -16,7 +16,8 @@ class MouseControls {
 
    chartBuilding = null;
    chartHeight = null;
-   chartColor = null;
+   chartHue = null;
+   chartLuminance = null;
 
    arrowObject = null;
 
@@ -87,29 +88,38 @@ class MouseControls {
                   if (this.chartHeight !== null) {
                      this.chartHeight.destroy();
                   }
-                  if (this.chartColor !== null) {
-                     this.chartColor.destroy();
+                  if (this.chartHue !== null) {
+                     this.chartHue.destroy();
+                  }
+                  if (this.chartLuminance !== null) {
+                     this.chartLuminance.destroy();
                   }
 
                   if (obj.object instanceof Building) {
 
                      let building = obj.object;
                      let dataHeightMetaphor = [];
-                     let dataColorMetaphor = [];
+                     let dataHueMetaphor = [];
+                     let dataLuminanceMetaphor = [];
 
                      building.buildingData.forEach(dataEntry => {
                         dataHeightMetaphor.push({
                            x: dataEntry.timestamp,
                            y: parseFloat(dataEntry[getMetaphorSelection().height])
                         });
-                        dataColorMetaphor.push({
+                        dataHueMetaphor.push({
                            x: dataEntry.timestamp,
-                           y: parseFloat(dataEntry[getMetaphorSelection().color])
+                           y: parseFloat(dataEntry[getMetaphorSelection().hue])
+                        });
+                        dataLuminanceMetaphor.push({
+                           x: dataEntry.timestamp,
+                           y: parseFloat(dataEntry[getMetaphorSelection().luminance])
                         });
                      });
 
                      dataHeightMetaphor.sort((a, b) => a.x - b.x);
-                     dataColorMetaphor.sort((a, b) => a.x - b.x);
+                     dataHueMetaphor.sort((a, b) => a.x - b.x);
+                     dataLuminanceMetaphor.sort((a, b) => a.x - b.x);
 
                      dataHeightMetaphor = dataHeightMetaphor.map(entry => {
                         return {
@@ -118,7 +128,14 @@ class MouseControls {
                            y: entry.y
                         }
                      });
-                     dataColorMetaphor = dataColorMetaphor.map(entry => {
+                     dataHueMetaphor = dataHueMetaphor.map(entry => {
+                        return {
+                           // x: formatDate(entry.x),
+                           x: entry.x,
+                           y: entry.y
+                        }
+                     });
+                     dataLuminanceMetaphor = dataLuminanceMetaphor.map(entry => {
                         return {
                            // x: formatDate(entry.x),
                            x: entry.x,
@@ -130,7 +147,8 @@ class MouseControls {
 
                      let allTimestamps = [];
                      let heightMetaphorDatasets = [];
-                     let colorMetaphorDatasets = [];
+                     let hueMetaphorDatasets = [];
+                     let luminanceMetaphorDatasets = [];
 
                      getListTreeOfBuildings()[0].list.forEach(building => {
                         for (let entry of building.buildingData) {
@@ -141,14 +159,18 @@ class MouseControls {
                               x: entry.timestamp,
                               y: parseFloat(entry[getMetaphorSelection().height])
                            });
-                           colorMetaphorDatasets.push({
+                           hueMetaphorDatasets.push({
                               x: entry.timestamp,
-                              y: parseFloat(entry[getMetaphorSelection().color])
+                              y: parseFloat(entry[getMetaphorSelection().hue])
+                           });
+                           luminanceMetaphorDatasets.push({
+                              x: entry.timestamp,
+                              y: parseFloat(entry[getMetaphorSelection().luminance])
                            });
                         }
                      });
 
-                     this.chartHeight = new Chart("chartHeight", {
+                     this.chartHeight = new Chart(document.getElementById('chartHeight'), {
                         type: 'line',
                         data: {
                            datasets: [{
@@ -170,20 +192,20 @@ class MouseControls {
                         options: {}
                      });
 
-                     this.chartColor = new Chart("chartColor", {
+                     this.chartHue = new Chart(document.getElementById('chartHue'), {
                         type: 'line',
                         data: {
                            datasets: [{
                               type: 'scatter',
                               label: 'All Buildings',
-                              data: colorMetaphorDatasets,
+                              data: hueMetaphorDatasets,
                               order: 2,
                               backgroundColor: 'rgba(255, 99, 132, 0.2)',
                            },
                            {
                               type: 'line',
                               label: 'Current Building',
-                              data: dataColorMetaphor,
+                              data: dataHueMetaphor,
                               order: 1,
                               backgroundColor: 'rgba(54, 162, 235, 1)',
                            }],
@@ -192,7 +214,29 @@ class MouseControls {
                         options: {}
                      });
 
-                     this.chart = new Chart("chartBuilding", {
+                     this.chartLuminance = new Chart(document.getElementById('chartLuminance'), {
+                        type: 'line',
+                        data: {
+                           datasets: [{
+                              type: 'scatter',
+                              label: 'All Buildings',
+                              data: luminanceMetaphorDatasets,
+                              order: 2,
+                              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                           },
+                           {
+                              type: 'line',
+                              label: 'Current Building',
+                              data: dataLuminanceMetaphor,
+                              order: 1,
+                              backgroundColor: 'rgba(54, 162, 235, 1)',
+                           }],
+                           labels: allTimestamps
+                        },
+                        options: {}
+                     });
+
+                     this.chart = new Chart(document.getElementById('chartBuilding'), {
                         type: "line",
                         data: {
                            labels: dataHeightMetaphor.map(entry => entry.x),
@@ -207,7 +251,7 @@ class MouseControls {
                               pointHoverRadius: 7.5,
                               data: dataHeightMetaphor
                            }, {
-                              label: `Color - ${getMetaphorSelection().color}`,
+                              label: `Hue - ${getMetaphorSelection().hue}`,
                               fill: false,
                               lineTension: 0,
                               borderColor: `rgba(${buildingBaseColor.r * 255}, ${buildingBaseColor.g * 255}, ${buildingBaseColor.b * 255}, 1)`,
@@ -215,7 +259,17 @@ class MouseControls {
                               pointStyle: 'circle',
                               pointRadius: 5,
                               pointHoverRadius: 7.5,
-                              data: dataColorMetaphor
+                              data: dataHueMetaphor
+                           }, {
+                              label: `Luminance - ${getMetaphorSelection().luminance}`,
+                              fill: false,
+                              lineTension: 0,
+                              borderColor: `rgba(${buildingBaseColor.r * 255}, ${buildingBaseColor.g * 255}, ${buildingBaseColor.b * 255}, 1)`,
+                              backgroundColor: `rgba(${buildingBaseColor.r * 255}, ${buildingBaseColor.g * 255}, ${buildingBaseColor.b * 255}, 0.8)`,
+                              pointStyle: 'circle',
+                              pointRadius: 5,
+                              pointHoverRadius: 7.5,
+                              data: dataLuminanceMetaphor
                            }],
                         },
                         options: {}

@@ -30,8 +30,7 @@ const getConfig = () => {
    // get now the config that has the same attribute names as the attribute names
    configs.forEach(entry => {
       const entryNamesSorted = JSON.parse(entry.split('=')[1]).attributeNames.sort().toString();
-      const attributeNamesSorted = getAttributeNames().sort().toString();
-
+      const attributeNamesSorted = [...getAttributeNames()].sort().toString();
       if (entryNamesSorted === attributeNamesSorted) {
          return entry;
       }
