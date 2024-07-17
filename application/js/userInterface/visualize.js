@@ -39,6 +39,7 @@ const prepareMetaphorsFrame = () => {
       document.getElementById("participant-label").style.display = "block";
       document.getElementById("taskId-label").style.display = "block";
 
+      document.getElementById("participant").replaceChildren();
       document.getElementById("participant").appendChild(document.createElement("option"));
       getParticipants().forEach(participant => {
          let newElement = document.createElement("option");
@@ -47,6 +48,7 @@ const prepareMetaphorsFrame = () => {
          document.getElementById("participant").appendChild(newElement);
       });
 
+      document.getElementById("taskId").replaceChildren();
       document.getElementById("taskId").appendChild(document.createElement("option"));
       getTasks().forEach(task => {
          let newElement = document.createElement("option");
