@@ -1,14 +1,12 @@
-import * as THREE from "three";
-import { Color } from "../Color";
-import { getMetaphorSelection } from "../data";
+import * as THREE from 'three';
+import { Color } from '../Color';
+import { getMetaphorSelection } from '../data';
 
 class Building extends THREE.Mesh {
-
    metaphorSelection = getMetaphorSelection();
    buildingData = [];
 
    constructor(buildingId, data) {
-
       const boxGeometry = new THREE.BoxGeometry();
       const boxMaterial = new THREE.MeshBasicMaterial({
          color: new Color({ h: 0, s: 0, l: 0 }),
@@ -42,7 +40,7 @@ class Building extends THREE.Mesh {
       this.add(wireframe);
 
       this.buildingId = buildingId;
-      this.buildingName = data.groupingPath.split(";").pop();
+      this.buildingName = data.groupingPath.split(';').pop();
       this.buildingGroupingPath = data.groupingPath;
 
       this.buildingData.push(data);
@@ -51,13 +49,13 @@ class Building extends THREE.Mesh {
 
       // COLOR
       this.baseColor = new Color({ h: 0, s: 1, l: 0.5 });
-      this.setBaseColor = color => {
+      this.setBaseColor = (color) => {
          this.baseColor.setColor(color);
          this.setFassadeColor(color);
          this.setRoofColor(color);
          // set colorPicker in modelTree to new color
          this.setColorPicker();
-      }
+      };
 
       this.setColorHue = (hue, ratio) => {
          let color = this.baseColor.getHsl();
@@ -65,7 +63,7 @@ class Building extends THREE.Mesh {
          this.setBaseColor(color);
          // set colorPicker in modelTree to new color
          this.setColorPicker();
-      }
+      };
 
       this.setColorSaturation = (saturation, ratio) => {
          let color = this.baseColor.getHsl();
@@ -73,7 +71,7 @@ class Building extends THREE.Mesh {
          this.setBaseColor(color);
          // set colorPicker in modelTree to new color
          this.setColorPicker();
-      }
+      };
 
       this.setColorLuminance = (luminance, ratio) => {
          let color = this.baseColor.getHsl();
@@ -81,48 +79,87 @@ class Building extends THREE.Mesh {
          this.setBaseColor(color);
          // set colorPicker in modelTree to new color
          this.setColorPicker();
-      }
+      };
 
       this.setColorPicker = () => {
          try {
             let colorPicker = document.getElementById(this.uuid).children[0];
             if (colorPicker !== null) {
-               colorPicker.value = "#" + this.fassadeColor.getHexString();
+               colorPicker.value = '#' + this.fassadeColor.getHexString();
             }
-         }
-         catch (error) { }
-      }
+         } catch (error) {}
+      };
 
       this.fassadeColor = new Color({ h: 0, s: 0, l: 0 });
-      this.setFassadeColor = color => {
+      this.setFassadeColor = (color) => {
          this.fassadeColor.setColor(color);
          this.material[0].color.setHSL(color.h, color.s, color.l);
          this.material[1].color.setHSL(color.h, color.s, color.l);
          this.material[3].color.setHSL(color.h, color.s, color.l);
          this.material[4].color.setHSL(color.h, color.s, color.l);
          this.material[5].color.setHSL(color.h, color.s, color.l);
-      }
+      };
 
       this.roofColor = new Color({ h: 0, s: 0, l: 0 });
-      this.setRoofColor = color => {
+      this.setRoofColor = (color) => {
          this.roofColor.setColor(color);
          this.material[2].color.setHSL(color.h, color.s, color.l);
-      }
+      };
 
       this.highlightBuilding = () => {
          let fassade = this.fassadeColor.getHsl();
          if (fassade.l >= 0.5) {
-            this.material[0].color.setHSL(fassade.h, fassade.s, fassade.l - 0.3);
-            this.material[1].color.setHSL(fassade.h, fassade.s, fassade.l - 0.3);
-            this.material[3].color.setHSL(fassade.h, fassade.s, fassade.l - 0.3);
-            this.material[4].color.setHSL(fassade.h, fassade.s, fassade.l - 0.3);
-            this.material[5].color.setHSL(fassade.h, fassade.s, fassade.l - 0.3);
+            this.material[0].color.setHSL(
+               fassade.h,
+               fassade.s,
+               fassade.l - 0.3,
+            );
+            this.material[1].color.setHSL(
+               fassade.h,
+               fassade.s,
+               fassade.l - 0.3,
+            );
+            this.material[3].color.setHSL(
+               fassade.h,
+               fassade.s,
+               fassade.l - 0.3,
+            );
+            this.material[4].color.setHSL(
+               fassade.h,
+               fassade.s,
+               fassade.l - 0.3,
+            );
+            this.material[5].color.setHSL(
+               fassade.h,
+               fassade.s,
+               fassade.l - 0.3,
+            );
          } else {
-            this.material[0].color.setHSL(fassade.h, fassade.s, fassade.l + 0.3);
-            this.material[1].color.setHSL(fassade.h, fassade.s, fassade.l + 0.3);
-            this.material[3].color.setHSL(fassade.h, fassade.s, fassade.l + 0.3);
-            this.material[4].color.setHSL(fassade.h, fassade.s, fassade.l + 0.3);
-            this.material[5].color.setHSL(fassade.h, fassade.s, fassade.l + 0.3);
+            this.material[0].color.setHSL(
+               fassade.h,
+               fassade.s,
+               fassade.l + 0.3,
+            );
+            this.material[1].color.setHSL(
+               fassade.h,
+               fassade.s,
+               fassade.l + 0.3,
+            );
+            this.material[3].color.setHSL(
+               fassade.h,
+               fassade.s,
+               fassade.l + 0.3,
+            );
+            this.material[4].color.setHSL(
+               fassade.h,
+               fassade.s,
+               fassade.l + 0.3,
+            );
+            this.material[5].color.setHSL(
+               fassade.h,
+               fassade.s,
+               fassade.l + 0.3,
+            );
          }
 
          let roof = this.roofColor.getHsl();
@@ -131,7 +168,7 @@ class Building extends THREE.Mesh {
          } else {
             this.material[2].color.setHSL(roof.h, roof.s, roof.l + 0.3);
          }
-      }
+      };
 
       this.notHighlightBuilding = () => {
          let fassade = this.fassadeColor.getHsl();
@@ -142,7 +179,7 @@ class Building extends THREE.Mesh {
          this.material[3].color.setHSL(fassade.h, fassade.s, fassade.l);
          this.material[4].color.setHSL(fassade.h, fassade.s, fassade.l);
          this.material[5].color.setHSL(fassade.h, fassade.s, fassade.l);
-      }
+      };
 
       // DIMENSION & HEIGHT
       this.currentHeightValue = 0;
@@ -204,4 +241,4 @@ class Building extends THREE.Mesh {
    }
 }
 
-export { Building }
+export { Building };

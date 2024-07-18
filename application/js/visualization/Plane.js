@@ -1,8 +1,7 @@
-import * as THREE from "three";
-import { Color } from "../Color";
+import * as THREE from 'three';
+import { Color } from '../Color';
 
 class Plane extends THREE.Group {
-
    constructor(nodeName) {
       super();
       const groupGeometry = new THREE.BoxGeometry();
@@ -29,11 +28,11 @@ class Plane extends THREE.Group {
 
       // Color
       this.baseColor = new Color({ h: 0, s: 0, l: 0.4 });
-      this.setBaseColor = color => {
+      this.setBaseColor = (color) => {
          this.baseColor.setColor(color);
 
          this.children[0].material.color.setHSL(color.h, color.s, color.l);
-      }
+      };
 
       this.highlightPlane = () => {
          let color = this.baseColor.getHsl();
@@ -43,12 +42,12 @@ class Plane extends THREE.Group {
             color.l += 0.3;
          }
          this.children[0].material.color.setHSL(color.h, color.s, color.l);
-      }
+      };
 
       this.notHighlightPlane = () => {
          let color = this.baseColor.getHsl();
          this.children[0].material.color.setHSL(color.h, color.s, color.l);
-      }
+      };
    }
 
    addChild(child) {
@@ -56,4 +55,4 @@ class Plane extends THREE.Group {
    }
 }
 
-export { Plane }
+export { Plane };

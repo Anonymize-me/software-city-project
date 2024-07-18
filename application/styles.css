@@ -15,7 +15,7 @@ body {
    position: fixed;
 }
 
-#nav>button {
+#nav > button {
    font-size: 1.3rem;
 }
 
@@ -221,7 +221,7 @@ i {
    white-space: nowrap;
 }
 
-input[type="color"] {
+input[type='color'] {
    position: relative;
    border: none;
    border-radius: 50%;
@@ -234,9 +234,9 @@ input[type="color"] {
    top: 4px;
 }
 
-input[type="color"]::-webkit-color-swatch-wrapper {
+input[type='color']::-webkit-color-swatch-wrapper {
    padding: 0px;
-   background-color: "0x777777";
+   background-color: '0x777777';
    border-radius: 50%;
    width: 12px;
    height: 12px;
@@ -244,11 +244,14 @@ input[type="color"]::-webkit-color-swatch-wrapper {
    cursor: pointer;
 }
 
-input[type="color"]::-webkit-color-swatch {
+input[type='color']::-webkit-color-swatch {
    border: none;
 }
 
-#participant-selection #task-selection #participant-selection-label #task-selection-label {
+#participant-selection
+   #task-selection
+   #participant-selection-label
+   #task-selection-label {
    display: none;
 }
 

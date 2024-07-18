@@ -1,21 +1,23 @@
-import * as THREE from "three";
-import { Renderer } from "./Renderer";
-import { VisualControls } from "./VisualControls";
-import { LightSettings } from "./LightSettings";
-import { Gui } from "./Gui";
-import { MouseControls } from "./MouseControls";
-import { addSlider } from "./timeline";
-import { createModelTrees } from "./modelTree";
-import { getDataType, removeRenderersAndGuis, setListModelTrees } from "../data";
-
+import * as THREE from 'three';
+import { Renderer } from './Renderer';
+import { VisualControls } from './VisualControls';
+import { LightSettings } from './LightSettings';
+import { Gui } from './Gui';
+import { MouseControls } from './MouseControls';
+import { addSlider } from './timeline';
+import { createModelTrees } from './modelTree';
+import {
+   getDataType,
+   removeRenderersAndGuis,
+   setListModelTrees,
+} from '../data';
 
 /**
  * Method to visualize the data in dataStore.visualizationData
- * 
+ *
  * @param {Object} listTreeOfBuildings A list with all TreeOfBuildings (1 except for java-source-code type)
  */
-const visualize = listTreeOfBuildings => {
-
+const visualize = (listTreeOfBuildings) => {
    removeRenderersAndGuis();
 
    let listModelTrees = createModelTrees(listTreeOfBuildings);
@@ -33,7 +35,8 @@ const visualize = listTreeOfBuildings => {
    window.onresize = () => {
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
-      visualControls.getCamera().aspect = window.innerWidth / window.innerHeight;
+      visualControls.getCamera().aspect =
+         window.innerWidth / window.innerHeight;
       visualControls.getCamera().updateProjectionMatrix();
    };
 
@@ -53,6 +56,6 @@ const visualize = listTreeOfBuildings => {
       renderer.render(scene, visualControls.getCamera());
    }
    renderer.setAnimationLoop(animate);
-}
+};
 
-export { visualize }
+export { visualize };

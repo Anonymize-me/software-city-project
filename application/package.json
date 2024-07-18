@@ -1,26 +1,27 @@
 {
-  "name": "software-city-project",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite --host",
-    "lint": "eslint --ext .js",
-    "format": "prettier --write ."
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^5.0.4",
-    "eslint": "^9.7.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "^3.3.3",
-    "vite": "^5.1.0"
-  },
-  "dependencies": {
-    "bin-pack": "^1.0.2",
-    "cors": "^2.8.5",
-    "dat.gui": "^0.7.9",
-    "three": "^0.161.0",
-    "uuid": "^9.0.1"
-  }
+   "name": "software-city-project",
+   "private": true,
+   "version": "0.0.0",
+   "type": "module",
+   "scripts": {
+      "dev": "vite --host",
+      "lint": "eslint --ext .js",
+      "format": "prettier --write .",
+      "build": "vite build"
+   },
+   "devDependencies": {
+      "@vitejs/plugin-vue": "^5.0.4",
+      "eslint": "^9.7.0",
+      "eslint-config-prettier": "^9.1.0",
+      "eslint-plugin-prettier": "^5.2.1",
+      "prettier": "^3.3.3",
+      "vite": "^5.3.4"
+   },
+   "dependencies": {
+      "bin-pack": "^1.0.2",
+      "cors": "^2.8.5",
+      "dat.gui": "^0.7.9",
+      "three": "^0.161.0",
+      "uuid": "^9.0.1"
+   }
 }

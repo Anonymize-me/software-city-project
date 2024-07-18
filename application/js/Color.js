@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 
 class Color extends THREE.Color {
-
    constructor(color) {
       super();
       this.setColor(color);
@@ -32,7 +31,6 @@ class Color extends THREE.Color {
    getLuminance() {
       return this.getHsl().l;
    }
-
 }
 
-export { Color }
+export { Color };

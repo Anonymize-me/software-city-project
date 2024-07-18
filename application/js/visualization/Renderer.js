@@ -1,9 +1,8 @@
-import * as THREE from "three";
-import { addRenderer } from "../data";
-import { Color } from "../Color";
+import * as THREE from 'three';
+import { addRenderer } from '../data';
+import { Color } from '../Color';
 
 class Renderer extends THREE.WebGLRenderer {
-
    constructor() {
       super({ antialias: true });
       this.domElement.id = 'threejs-canvas';
@@ -17,7 +16,6 @@ class Renderer extends THREE.WebGLRenderer {
       // append this renderer to the list of renderers in the dataStore
       addRenderer(this);
    }
-
 }
 
-export { Renderer }
+export { Renderer };

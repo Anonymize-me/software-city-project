@@ -1,42 +1,47 @@
-import { getAttributeNames, setOriginalData, getDataType } from "../data.js";
-import { buildTable } from "./table.js";
-import { getConfig } from "./cookieManager.js";
+import { getAttributeNames, setOriginalData, getDataType } from '../data.js';
+import { buildTable } from './table.js';
+import { getConfig } from './cookieManager.js';
 
-const alertSuccessUploadData = document.getElementById("alert-success-upload-data");
-const frameUpload = document.getElementById("frame-upload");
+const alertSuccessUploadData = document.getElementById(
+   'alert-success-upload-data',
+);
+const frameUpload = document.getElementById('frame-upload');
 
-const groupingPathSelection = document.getElementById("groupingPath-selection");
-const timestampSelection = document.getElementById("timestamp-selection");
-const participantSelectionLabel = document.getElementById("participant-selection-label");
-const participantSelection = document.getElementById("participant-selection");
-const taskIdSelectionLabel = document.getElementById("taskId-selection-label");
-const taskIdSelection = document.getElementById("taskId-selection");
+const groupingPathSelection = document.getElementById('groupingPath-selection');
+const timestampSelection = document.getElementById('timestamp-selection');
+const participantSelectionLabel = document.getElementById(
+   'participant-selection-label',
+);
+const participantSelection = document.getElementById('participant-selection');
+const taskIdSelectionLabel = document.getElementById('taskId-selection-label');
+const taskIdSelection = document.getElementById('taskId-selection');
 
 const uploadData = () => {
+   document.getElementById('instructions').style.display = 'none';
 
-   document.getElementById("instructions").style.display = "none";
-
-   const file = document.getElementById("file").files[0];
+   const file = document.getElementById('file').files[0];
 
    let reader = new FileReader();
    reader.readAsText(file);
 
-   reader.onload = e => {
-
+   reader.onload = (e) => {
       document.getElementById('button-view-data').click();
-      setOriginalData(e.target.result, document.getElementById("file-format").value);
+      setOriginalData(
+         e.target.result,
+         document.getElementById('file-format').value,
+      );
 
       // populate the config dropdowns with 1 empty option and the attribute names
       groupingPathSelection.replaceChildren();
       timestampSelection.replaceChildren();
-      timestampSelection.appendChild(document.createElement("option"));
+      timestampSelection.appendChild(document.createElement('option'));
       participantSelection.replaceChildren();
-      participantSelection.appendChild(document.createElement("option"));
+      participantSelection.appendChild(document.createElement('option'));
       taskIdSelection.replaceChildren();
-      taskIdSelection.appendChild(document.createElement("option"));
+      taskIdSelection.appendChild(document.createElement('option'));
 
-      getAttributeNames().forEach(attributeName => {
-         const newElement = document.createElement("option");
+      getAttributeNames().forEach((attributeName) => {
+         const newElement = document.createElement('option');
          newElement.value = attributeName;
          newElement.innerText = attributeName;
          groupingPathSelection.appendChild(newElement.cloneNode(true));
@@ -56,19 +61,19 @@ const uploadData = () => {
          taskIdSelection.value = config.taskId;
       }
 
-      participantSelection.style.display = "block";
-      participantSelectionLabel.style.display = "block";
-      taskIdSelection.style.display = "block";
-      taskIdSelectionLabel.style.display = "block";
+      participantSelection.style.display = 'block';
+      participantSelectionLabel.style.display = 'block';
+      taskIdSelection.style.display = 'block';
+      taskIdSelectionLabel.style.display = 'block';
 
       // alert success and hide upload frame
-      alertSuccessUploadData.style.display = "block";
-      $("#alert-success-upload-data").delay(2000).fadeOut(800);
-      frameUpload.style.display = "none";
+      alertSuccessUploadData.style.display = 'block';
+      $('#alert-success-upload-data').delay(2000).fadeOut(800);
+      frameUpload.style.display = 'none';
 
       buildTable();
-      document.getElementById("view-data").style.display = "block";
-   }
-}
+      document.getElementById('view-data').style.display = 'block';
+   };
+};
 
 export { uploadData };

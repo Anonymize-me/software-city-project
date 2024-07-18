@@ -1,27 +1,31 @@
-import { getListGuis, getNormalizer } from "../../data.js";
+import { getListGuis, getNormalizer } from '../../data.js';
 
 /**
- * 
+ *
  * This method is used for calculating the "none" aggregate function.
- * 
+ *
  * Here, I want to loop through all buildings and data points of that building
  * and calculate the maxMetaphorValue for all metaphor values that lie within the range of the slider.
- * 
+ *
  * By doing this I calculate the maxMetaphorValue per building
  * and the lastMetaphorValue per building.
- * 
+ *
  * Then I want to show the ratio between the maxMetaphorValue and the lastMetaphorValue
  * as the respective metaphor.
- * 
+ *
  */
 
-const aggregateFunctionNone = (treeOfBuildings, lowerRangeBounds, upperRangeBounds) => {
-
+const aggregateFunctionNone = (
+   treeOfBuildings,
+   lowerRangeBounds,
+   upperRangeBounds,
+) => {
    let heightMetaphor = treeOfBuildings.list[0].metaphorSelection.height;
    let hueMetaphor = treeOfBuildings.list[0].metaphorSelection.hue;
    let saturationMetaphor = getListGuis()[0].thresholdParams.dropdown;
    let saturationThreshold = getListGuis()[0].thresholdParams.threshold;
-   let saturationValueForBuildingsBelowThreshold = getListGuis()[0].thresholdParams.saturation;
+   let saturationValueForBuildingsBelowThreshold =
+      getListGuis()[0].thresholdParams.saturation;
    let luminanceMetaphor = treeOfBuildings.list[0].metaphorSelection.luminance;
    //
    let maxHeightValue = 0;
@@ -33,7 +37,10 @@ const aggregateFunctionNone = (treeOfBuildings, lowerRangeBounds, upperRangeBoun
       let hueValue = 0;
       let luminanceValue = 0;
       for (let entry of building.buildingData) {
-         if (parseInt(entry.timestamp) >= lowerRangeBounds && parseInt(entry.timestamp) <= upperRangeBounds) {
+         if (
+            parseInt(entry.timestamp) >= lowerRangeBounds &&
+            parseInt(entry.timestamp) <= upperRangeBounds
+         ) {
             heightValue = parseInt(entry[heightMetaphor]);
             hueValue = parseInt(entry[hueMetaphor]);
             luminanceValue = parseInt(entry[luminanceMetaphor]);
@@ -57,7 +64,10 @@ const aggregateFunctionNone = (treeOfBuildings, lowerRangeBounds, upperRangeBoun
       let lastLuminanceValue = 0;
       for (let entry of building.buildingData) {
          // here we collect the data for all entries that are within the range
-         if (parseInt(entry.timestamp) >= lowerRangeBounds && parseInt(entry.timestamp) <= upperRangeBounds) {
+         if (
+            parseInt(entry.timestamp) >= lowerRangeBounds &&
+            parseInt(entry.timestamp) <= upperRangeBounds
+         ) {
             lastHeightValue = parseInt(entry[heightMetaphor]);
             lastHueValue = parseInt(entry[hueMetaphor]);
             lastSaturationValue = parseInt(entry[saturationMetaphor]);
@@ -87,6 +97,6 @@ const aggregateFunctionNone = (treeOfBuildings, lowerRangeBounds, upperRangeBoun
          building.setColorLuminance(luminance, ratio);
       }
    }
-}
+};
 
 export { aggregateFunctionNone };

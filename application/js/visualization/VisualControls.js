@@ -1,5 +1,5 @@
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 class VisualControls {
    constructor(renderer) {
@@ -7,7 +7,8 @@ class VisualControls {
          75,
          window.innerWidth / window.innerHeight,
          0.8,
-         1000);
+         1000,
+      );
       this.orbit = new OrbitControls(this.camera, renderer.domElement);
       this.camera.position.set(20, 20, 20);
       this.orbit.update();
@@ -18,4 +19,4 @@ class VisualControls {
    }
 }
 
-export { VisualControls }
+export { VisualControls };

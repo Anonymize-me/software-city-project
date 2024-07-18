@@ -1,6 +1,6 @@
-import { getOriginalData, getAttributeNames } from "../data.js";
+import { getOriginalData, getAttributeNames } from '../data.js';
 
-const buttonClearData = document.getElementById("button-clear-data");
+const buttonClearData = document.getElementById('button-clear-data');
 
 const clearTable = () => {
    if ($.fn.DataTable.isDataTable('#table-data')) {
@@ -8,12 +8,11 @@ const clearTable = () => {
    }
    $('#table-data thead').empty();
    $('#table-data tbody').empty();
-   buttonClearData.style.display = "none";
-}
+   buttonClearData.style.display = 'none';
+};
 
 const buildTable = () => {
-
-   let dataSet = getOriginalData().map(entry => {
+   let dataSet = getOriginalData().map((entry) => {
       let values = [];
       for (let key in entry) {
          values.push(entry[key]);
@@ -21,7 +20,7 @@ const buildTable = () => {
       return values;
    });
 
-   let columns = getAttributeNames().map(attribute => {
+   let columns = getAttributeNames().map((attribute) => {
       return { title: attribute };
    });
 
@@ -30,17 +29,17 @@ const buildTable = () => {
       $('#table-data').DataTable({
          data: dataSet,
          columns: columns,
-         destroy: true
+         destroy: true,
       });
    } else {
       clearTable();
    }
 
    if (dataSet.length > 0) {
-      buttonClearData.style.display = "block";
+      buttonClearData.style.display = 'block';
    } else {
-      buttonClearData.style.display = "none";
+      buttonClearData.style.display = 'none';
    }
-}
+};
 
-export { buildTable }
+export { buildTable };

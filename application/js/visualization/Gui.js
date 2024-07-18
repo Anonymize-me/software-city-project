@@ -1,37 +1,49 @@
-import * as dat from "dat.gui";
-import { getAttributeNames, addGui, getNormalizer, getDataStore } from "../data";
-import { getMinValueByAttribute, getMaxValueByAttribute } from "../utils";
-import { getLowerRangeBounds, getUpperRangeBounds } from "./timeline";
-import { aggregateFunctionNone } from "./aggregateFunctions/none";
+import * as dat from 'dat.gui';
+import {
+   getAttributeNames,
+   addGui,
+   getNormalizer,
+   getDataStore,
+} from '../data';
+import { getMinValueByAttribute, getMaxValueByAttribute } from '../utils';
+import { getLowerRangeBounds, getUpperRangeBounds } from './timeline';
+import { aggregateFunctionNone } from './aggregateFunctions/none';
 
 class Gui extends dat.GUI {
-
    constructor(listTreeOfBuildings) {
       super();
 
       this.thresholdParams = {
          dropdown: '',
          threshold: 50,
-         saturation: 0.3
+         saturation: 0.3,
       };
 
       let onlyNumericalAttributeNames = [''];
 
-      onlyNumericalAttributeNames = onlyNumericalAttributeNames.concat(getAttributeNames().filter(attributeName => {
-         return getDataStore().originalData.some(row => {
-            return !isNaN(row[attributeName]);
-         });
-      }));
+      onlyNumericalAttributeNames = onlyNumericalAttributeNames.concat(
+         getAttributeNames().filter((attributeName) => {
+            return getDataStore().originalData.some((row) => {
+               return !isNaN(row[attributeName]);
+            });
+         }),
+      );
 
-      let thresholdFolder = this.addFolder("Threshold");
-      let dropdownController = thresholdFolder.add(this.thresholdParams, "dropdown", onlyNumericalAttributeNames).name("Attribute")
-         .onChange(value => {
+      let thresholdFolder = this.addFolder('Threshold');
+      let dropdownController = thresholdFolder
+         .add(this.thresholdParams, 'dropdown', onlyNumericalAttributeNames)
+         .name('Attribute')
+         .onChange((value) => {
             this.thresholdParams.dropdown = value;
             dropdownController.updateDisplay();
 
             // Compute new min an max values for the selected attribute
-            thresholdController.min(getMinValueByAttribute(value, listTreeOfBuildings[0].list));
-            thresholdController.max(getMaxValueByAttribute(value, listTreeOfBuildings[0].list));
+            thresholdController.min(
+               getMinValueByAttribute(value, listTreeOfBuildings[0].list),
+            );
+            thresholdController.max(
+               getMaxValueByAttribute(value, listTreeOfBuildings[0].list),
+            );
             thresholdController.updateDisplay();
 
             if (value === '') {
@@ -43,30 +55,53 @@ class Gui extends dat.GUI {
 
                // All buildings with a value of the selected attribute below the threshold will set the saturation
                // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
-               aggregateFunctionNone(listTreeOfBuildings[0], getLowerRangeBounds(), getUpperRangeBounds());
+               aggregateFunctionNone(
+                  listTreeOfBuildings[0],
+                  getLowerRangeBounds(),
+                  getUpperRangeBounds(),
+               );
             }
          });
 
       // style the dropdown
-      dropdownController.domElement.querySelector('select').style.color = "#2FA1D6";
-      dropdownController.domElement.querySelector('select').style.backgroundColor = "#303030";
-      dropdownController.domElement.querySelector('select').style.width = "142px";
-      dropdownController.domElement.querySelector('select').style.border = "none";
-      dropdownController.domElement.querySelector('select').style.outline = "none";
-      dropdownController.domElement.querySelector('select').style.marginLeft = "-5px";
+      dropdownController.domElement.querySelector('select').style.color =
+         '#2FA1D6';
+      dropdownController.domElement.querySelector(
+         'select',
+      ).style.backgroundColor = '#303030';
+      dropdownController.domElement.querySelector('select').style.width =
+         '142px';
+      dropdownController.domElement.querySelector('select').style.border =
+         'none';
+      dropdownController.domElement.querySelector('select').style.outline =
+         'none';
+      dropdownController.domElement.querySelector('select').style.marginLeft =
+         '-5px';
 
-      let thresholdController = thresholdFolder.add(this.thresholdParams, "threshold", 0, 0).name("Threshold")
-         .onChange(value => {
+      let thresholdController = thresholdFolder
+         .add(this.thresholdParams, 'threshold', 0, 0)
+         .name('Threshold')
+         .onChange((value) => {
             // All buildings with a value of the selected attribute below the threshold will set the saturation
             // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
-            aggregateFunctionNone(listTreeOfBuildings[0], getLowerRangeBounds(), getUpperRangeBounds());
+            aggregateFunctionNone(
+               listTreeOfBuildings[0],
+               getLowerRangeBounds(),
+               getUpperRangeBounds(),
+            );
          });
 
-      let saturationController = thresholdFolder.add(this.thresholdParams, "saturation", 0, 1).name("Saturation")
-         .onChange(value => {
+      let saturationController = thresholdFolder
+         .add(this.thresholdParams, 'saturation', 0, 1)
+         .name('Saturation')
+         .onChange((value) => {
             // All buildings with a value of the selected attribute below the threshold will set the saturation
             // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
-            aggregateFunctionNone(listTreeOfBuildings[0], getLowerRangeBounds(), getUpperRangeBounds());
+            aggregateFunctionNone(
+               listTreeOfBuildings[0],
+               getLowerRangeBounds(),
+               getUpperRangeBounds(),
+            );
          });
 
       thresholdFolder.open();
@@ -77,8 +112,10 @@ class Gui extends dat.GUI {
             input.setAttribute('disabled', true);
             input.classList.add('non-interactable');
          }
-         const sliders = controller.domElement.querySelectorAll('.slider, .slider-fg');
-         sliders.forEach(slider => {
+         const sliders = controller.domElement.querySelectorAll(
+            '.slider, .slider-fg',
+         );
+         sliders.forEach((slider) => {
             slider.style.pointerEvents = 'none';
             slider.style.opacity = '0.5';
          });
@@ -90,8 +127,10 @@ class Gui extends dat.GUI {
             input.removeAttribute('disabled');
             input.classList.remove('non-interactable');
          }
-         const sliders = controller.domElement.querySelectorAll('.slider, .slider-fg');
-         sliders.forEach(slider => {
+         const sliders = controller.domElement.querySelectorAll(
+            '.slider, .slider-fg',
+         );
+         sliders.forEach((slider) => {
             slider.style.pointerEvents = 'auto';
             slider.style.opacity = '1';
          });
@@ -103,7 +142,7 @@ class Gui extends dat.GUI {
          disableController(saturationController);
       }
 
-      let metaphorsFolder = this.addFolder("Metaphors");
+      let metaphorsFolder = this.addFolder('Metaphors');
       metaphorsFolder.open();
 
       // //////////////////////////
@@ -115,26 +154,32 @@ class Gui extends dat.GUI {
          normalize: 1.0,
       };
 
-      let heightMetaphorFolder = metaphorsFolder.addFolder("Height");
+      let heightMetaphorFolder = metaphorsFolder.addFolder('Height');
       heightMetaphorFolder
-         .add(this.optionsHeightMetaphor, "scale", 0.0, 2.0)
-         .name("Scale")
-         .onChange(value => {
+         .add(this.optionsHeightMetaphor, 'scale', 0.0, 2.0)
+         .name('Scale')
+         .onChange((value) => {
             getNormalizer().setGuiScaleValue(value);
-            listTreeOfBuildings[0].list.forEach(building => {
-               building.scale.y = getNormalizer().normalizeHeight(building.currentHeightValue);
+            listTreeOfBuildings[0].list.forEach((building) => {
+               building.scale.y = getNormalizer().normalizeHeight(
+                  building.currentHeightValue,
+               );
                building.position.y = building.scale.y / 2 + 0.1;
             });
          });
 
       heightMetaphorFolder
-         .add(this.optionsHeightMetaphor, "normalize", 0.0, 2.0)
-         .name("Normalize")
-         .onChange(value => {
+         .add(this.optionsHeightMetaphor, 'normalize', 0.0, 2.0)
+         .name('Normalize')
+         .onChange((value) => {
             getNormalizer().setGuiNormalizeValue(value);
-            getNormalizer().setCurrentHeightValueMean(listTreeOfBuildings[0].getCurrentHeightValueMean());
-            listTreeOfBuildings[0].list.forEach(building => {
-               building.scale.y = getNormalizer().normalizeHeight(building.currentHeightValue);
+            getNormalizer().setCurrentHeightValueMean(
+               listTreeOfBuildings[0].getCurrentHeightValueMean(),
+            );
+            listTreeOfBuildings[0].list.forEach((building) => {
+               building.scale.y = getNormalizer().normalizeHeight(
+                  building.currentHeightValue,
+               );
                building.position.y = building.scale.y / 2 + 0.1;
             });
          });
@@ -145,4 +190,4 @@ class Gui extends dat.GUI {
    }
 }
 
-export { Gui }
+export { Gui };

@@ -1,44 +1,51 @@
 import {
-   removeAllGuis, setListModelTrees, setMetaphorSelection,
-   setVisualizationData, setListTreeOfBuildings, setNormalizer,
-   removeAllRenderers
-} from "./data";
-import { removeArrow } from "./visualization/arrow";
+   removeAllGuis,
+   setListModelTrees,
+   setMetaphorSelection,
+   setVisualizationData,
+   setListTreeOfBuildings,
+   setNormalizer,
+   removeAllRenderers,
+} from './data';
+import { removeArrow } from './visualization/arrow';
 
 /**
  * Method to return a date in the format "YYYY-MM-DD, HH:MM:SS:SSS"
- * 
- * @param {Date} date 
+ *
+ * @param {Date} date
  * @returns {String} // Date in the format "YYYY-MM-DD, HH:MM:SS:SSS"
  */
-const formatDate = date => {
+const formatDate = (date) => {
    const year = date.getFullYear();
-   const month = String(date.getMonth() + 1).padStart(2, "0");
-   const day = String(date.getDate()).padStart(2, "0");
-   const hours = String(date.getHours()).padStart(2, "0");
-   const minutes = String(date.getMinutes()).padStart(2, "0");
-   const seconds = String(date.getSeconds()).padStart(2, "0");
-   const milliseconds = String(date.getMilliseconds()).padStart(3, "0");
+   const month = String(date.getMonth() + 1).padStart(2, '0');
+   const day = String(date.getDate()).padStart(2, '0');
+   const hours = String(date.getHours()).padStart(2, '0');
+   const minutes = String(date.getMinutes()).padStart(2, '0');
+   const seconds = String(date.getSeconds()).padStart(2, '0');
+   const milliseconds = String(date.getMilliseconds()).padStart(3, '0');
 
    return `${year}-${month}-${day}, ${hours}:${minutes}:${seconds}:${milliseconds}`;
-}
+};
 
 /**
  * Method to convert RGB to HSL
- * 
+ *
  * @param {number} r // between 0-255
- * @param {number} g // between 0-255 
- * @param {number} b // between 0-255 
+ * @param {number} g // between 0-255
+ * @param {number} b // between 0-255
  * @returns {array[float]} // array of floats [h, s, l] where h is between 0-360, s is between 0-100 and l is between 0-100
  */
-const rgbToHsl = color => {
+const rgbToHsl = (color) => {
    let r = color.r;
    let g = color.g;
    let b = color.b;
 
-   r /= 255, g /= 255, b /= 255;
-   var max = Math.max(r, g, b), min = Math.min(r, g, b);
-   var h, s, l = (max + min) / 2;
+   (r /= 255), (g /= 255), (b /= 255);
+   var max = Math.max(r, g, b),
+      min = Math.min(r, g, b);
+   var h,
+      s,
+      l = (max + min) / 2;
 
    if (max == min) {
       h = s = 0;
@@ -46,23 +53,29 @@ const rgbToHsl = color => {
       var d = max - min;
       s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
       switch (max) {
-         case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-         case g: h = (b - r) / d + 2; break;
-         case b: h = (r - g) / d + 4; break;
+         case r:
+            h = (g - b) / d + (g < b ? 6 : 0);
+            break;
+         case g:
+            h = (b - r) / d + 2;
+            break;
+         case b:
+            h = (r - g) / d + 4;
+            break;
       }
       h /= 6;
    }
 
    return { h, s, l };
-}
+};
 
 /**
  * Method to convert a hex color to an RGB object
- * 
- * @param {String} hex 
+ *
+ * @param {String} hex
  * @returns RGB object
  */
-const hexToRgb = hex => {
+const hexToRgb = (hex) => {
    // Remove the hash at the start if it's there
    hex = hex.replace(/^#/, '');
 
@@ -72,15 +85,15 @@ const hexToRgb = hex => {
    const b = parseInt(hex.substring(4, 6), 16);
 
    return { r, g, b };
-}
+};
 
 /**
  * Method to convert a timestamp to a date in the format "YYYY-MM-DD, HH:MM:SS:SSS"
- * 
+ *
  * @param {string} timestamp // timestamp in the format "YYYYMMDDHHmmssSSS"
  * @returns {Date} // Date in the format "YYYY-MM-DD, HH:MM:SS:SSS"
  */
-const timestampToDate = timestamp => {
+const timestampToDate = (timestamp) => {
    let year = parseInt(timestamp.substring(0, 4));
    // substraction of 1 because the month is zero-based
    let month = parseInt(timestamp.substring(4, 6)) - 1;
@@ -90,12 +103,12 @@ const timestampToDate = timestamp => {
    let second = parseInt(timestamp.substring(12, 14));
    let millisecond = parseInt(timestamp.substring(14));
    return new Date(year, month, day, hour, minute, second, millisecond);
-}
+};
 
 /**
  * Method to get the minimum value of an attribute based on all datapoints
  * of the buildings from a given listOfBuildings.
- * 
+ *
  * @param {String} attribute // the attribute name
  * @param {Array} listOfBuildings // the list of buildings
  * @returns {Number} // the minimum value of the attribute
@@ -111,12 +124,12 @@ const getMinValueByAttribute = (attribute, listOfBuildings) => {
       }
    }
    return min;
-}
+};
 
 /**
  * Method to get the maximum value of an attribute based on all datapoints
  * of the buildings from a given listOfBuildings.
- * 
+ *
  * @param {String} attribute // the attribute name
  * @param {Array} listOfBuildings // the list of buildings
  * @returns {Number} // the maximum value of the attribute
@@ -132,7 +145,7 @@ const getMaxValueByAttribute = (attribute, listOfBuildings) => {
       }
    }
    return max;
-}
+};
 
 const removeAllEventListeners = (element) => {
    const clone = element.cloneNode(true);
@@ -152,7 +165,7 @@ const removeElementAndChildrenWithListeners = (element) => {
       if (element.parentNode) {
          element.parentNode.removeChild(element);
       }
-   } catch (error) { }
+   } catch (error) {}
 };
 
 /**
@@ -160,10 +173,9 @@ const removeElementAndChildrenWithListeners = (element) => {
  * Also destroy and remove the dat.gui GUI.
  */
 const destroyAndRemoveVisualization = () => {
-
    // Remove model trees from UI and data store
-   document.getElementById("frame-model-tree").style.display = "none";
-   let modelTreeContainer = document.getElementById("model-tree-container");
+   document.getElementById('frame-model-tree').style.display = 'none';
+   let modelTreeContainer = document.getElementById('model-tree-container');
    removeElementAndChildrenWithListeners(modelTreeContainer);
    setListModelTrees([]);
 
@@ -189,11 +201,16 @@ const destroyAndRemoveVisualization = () => {
    removeAllRenderers();
 
    // Reset and hide slider
-   document.getElementById("slider-window-width").style.width = "0px";
-   document.getElementById("slider-container").style.display = "none";
-}
+   document.getElementById('slider-window-width').style.width = '0px';
+   document.getElementById('slider-container').style.display = 'none';
+};
 
 export {
-   formatDate, rgbToHsl, hexToRgb, timestampToDate,
-   getMinValueByAttribute, getMaxValueByAttribute, destroyAndRemoveVisualization
-}
+   formatDate,
+   rgbToHsl,
+   hexToRgb,
+   timestampToDate,
+   getMinValueByAttribute,
+   getMaxValueByAttribute,
+   destroyAndRemoveVisualization,
+};

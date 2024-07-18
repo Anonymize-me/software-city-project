@@ -15,18 +15,16 @@
   </script>
   <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js">
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <title>Software City</title>
   <link rel="icon" href="./assets/icon-icrvmIQJ.png" type="image/x-icon">
-  <script type="module" crossorigin src="./assets/index-Ctsq9YZJ.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-Dy1LQubJ.css">
+  <script type="module" crossorigin src="./assets/index-CvhP7iFh.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DBWpuuL5.css">
 </head>
 
 <body>
 
   <div id="nav" class="container">
-    <button id="button-github-repo" class="btn btn-default">GitHub Repo</button>
     <button id="button-upload" class="btn btn-default">Upload</button>
     <button id="button-config" class="btn btn-default" disabled>Config</button>
     <button id="button-metaphors" class="btn btn-default" disabled>Metaphors</button>
@@ -56,23 +54,6 @@
     <strong>Success!</strong> Data cleared.
   </div>
 
-  <div id="frame-github-repo" class="container frame">
-    <i class="fa fa-times fa-lg button-close"></i>
-    <form id="form-github-repo">
-      <label for="github-repo-url">GitHub Repository URL</label>
-      <input type="url" id="github-repo-url" name="github-repo-url" placeholder="URL here...">
-
-      <div class="separator">
-        <span class="separator-text">or</span>
-      </div>
-
-      <label for="github-repo">Registered GitHub Repository</label>
-      <select id="github-repo">
-      </select>
-      <button id="button-fetch" class="btn btn-default" disabled>Fetch</button>
-    </form>
-  </div>
-
   <div id="frame-upload" class="container frame">
     <i class="fa fa-times fa-lg button-close"></i>
     <form id="form-upload">
@@ -80,7 +61,6 @@
       <input type="file" id="file" name="file" accept=".csv" required>
       <label for="file-format">Select a type:</label>
       <select id="file-format" name="file-format">
-        <option value="java-source-code">Java Source Code</option>
         <option value="eye-tracking-java-source-code">Eye Tracking (Java Source Code)</option>
       </select>
 
@@ -130,19 +110,16 @@
       </select>
     </div>
 
-    <fieldset>
-      <legend>Color</legend>
-      <div>
-        <label for="hue-attribute-selection">Hue:</label>
-        <select id="hue-attribute-selection" name="hue-attribute-selection">
-        </select>
-      </div>
-      <div>
-        <label for="luminance-attribute-selection">Luminance:</label>
-        <select id="luminance-attribute-selection" name="luminance-attribute-selection">
-        </select>
-      </div>
-    </fieldset>
+    <div>
+      <label for="hue-attribute-selection">Color - Hue:</label>
+      <select id="hue-attribute-selection" name="hue-attribute-selection">
+      </select>
+    </div>
+    <div>
+      <label for="luminance-attribute-selection">Color - Luminance:</label>
+      <select id="luminance-attribute-selection" name="luminance-attribute-selection">
+      </select>
+    </div>
 
     <label id="participant-label" for="participant">Participant:</label>
     <select id="participant"></select>
@@ -163,7 +140,8 @@
     <div id="info-panel-div"></div>
     <canvas id="chartBuilding"></canvas>
     <canvas id="chartHeight"></canvas>
-    <canvas id="chartColor"></canvas>
+    <canvas id="chartHue"></canvas>
+    <canvas id="chartLuminance"></canvas>
   </div>
 
   <div id="slider-container">
