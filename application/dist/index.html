@@ -19,8 +19,8 @@
   </script>
   <title>Software City</title>
   <link rel="icon" href="./assets/icon-icrvmIQJ.png" type="image/x-icon">
-  <script type="module" crossorigin src="./assets/index-D1wncHUp.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-CUfNGkzk.css">
+  <script type="module" crossorigin src="./assets/index-Ctsq9YZJ.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-Dy1LQubJ.css">
 </head>
 
 <body>
@@ -29,7 +29,7 @@
     <button id="button-github-repo" class="btn btn-default">GitHub Repo</button>
     <button id="button-upload" class="btn btn-default">Upload</button>
     <button id="button-config" class="btn btn-default" disabled>Config</button>
-    <button id="button-visualize" class="btn btn-default" disabled>Visualize</button>
+    <button id="button-metaphors" class="btn btn-default" disabled>Metaphors</button>
     <button id="button-view-data" class="btn btn-default" disabled>View Data</button>
     <button id="button-model-tree" class="btn btn-default" disabled>Model Tree</button>
   </div>
@@ -82,7 +82,6 @@
       <select id="file-format" name="file-format">
         <option value="java-source-code">Java Source Code</option>
         <option value="eye-tracking-java-source-code">Eye Tracking (Java Source Code)</option>
-        <option value="eye-tracking-bpmn">Eye Tracking (BPMN)</option>
       </select>
 
       <button id="button-upload-data" class="btn btn-default">Upload Data</button>
@@ -118,7 +117,7 @@
     <button id="button-save-config" class="btn btn-default">Save</button>
   </div>
 
-  <div id="frame-visualize" class="container frame">
+  <div id="frame-metaphors" class="container frame">
     <i class="fa fa-times fa-lg button-close"></i>
     <div>
       <label for="dimension-attribute-selection">Dimension:</label>
@@ -130,24 +129,26 @@
       <select id="height-attribute-selection" name="height-attribute-selection">
       </select>
     </div>
-    <div>
-      <label for="color-attribute-selection">Color:</label>
-      <select id="color-attribute-selection" name="color-attribute-selection">
-      </select>
-    </div>
+
+    <fieldset>
+      <legend>Color</legend>
+      <div>
+        <label for="hue-attribute-selection">Hue:</label>
+        <select id="hue-attribute-selection" name="hue-attribute-selection">
+        </select>
+      </div>
+      <div>
+        <label for="luminance-attribute-selection">Luminance:</label>
+        <select id="luminance-attribute-selection" name="luminance-attribute-selection">
+        </select>
+      </div>
+    </fieldset>
 
     <label id="participant-label" for="participant">Participant:</label>
     <select id="participant"></select>
 
     <label id="taskId-label" for="taskId">Task:</label>
     <select id="taskId"></select>
-
-    <label for="city-dimension">City Dimension:</label>
-    <input type="number" id="city-dimension" name="city-dimension"
-      placeholder="Enter City Dimension">
-
-    <label for="city-spread">City Spread:</label>
-    <input type="number" id="city-spread" name="city-spread" placeholder="Enter City Spread">
 
     <button id="button-start-visualize" class="btn btn-default">Visualize</button>
   </div>
