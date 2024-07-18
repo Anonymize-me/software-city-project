@@ -1,5 +1,3 @@
-import { timestampToDate } from "./utils";
-
 let dataStore = {
    originalData: [],
    attributeNames: [],

@@ -1,6 +1,5 @@
 import { Plane } from "./Plane";
 import { Building } from "./Building";
-import * as THREE from "three";
 import { hexToRgb, rgbToHsl } from "../utils";
 
 const createModelTrees = listTreeOfBuildings => {

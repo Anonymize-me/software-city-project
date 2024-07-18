@@ -3,7 +3,6 @@ import { Building } from "./Building";
 import { Plane } from "./Plane";
 import { Mesh } from "three";
 import { getListTreeOfBuildings, getMetaphorSelection } from "../data";
-import { formatDate } from "../utils";
 import { drawArrow, removeArrow } from "./arrow";
 
 class MouseControls {
@@ -129,21 +128,18 @@ class MouseControls {
 
                      dataHeightMetaphor = dataHeightMetaphor.map(entry => {
                         return {
-                           // x: formatDate(entry.x),
                            x: entry.x,
                            y: entry.y
                         }
                      });
                      dataHueMetaphor = dataHueMetaphor.map(entry => {
                         return {
-                           // x: formatDate(entry.x),
                            x: entry.x,
                            y: entry.y
                         }
                      });
                      dataLuminanceMetaphor = dataLuminanceMetaphor.map(entry => {
                         return {
-                           // x: formatDate(entry.x),
                            x: entry.x,
                            y: entry.y
                         }

@@ -1,12 +1,2 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-
-.idea
-
-notes/
-
-node_modules/
-package-lock.json
+application/node_modules/
+application/package-lock.json

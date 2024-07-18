@@ -1,8 +1,6 @@
 import * as dat from "dat.gui";
-import * as THREE from "three";
 import { getAttributeNames, addGui, getNormalizer, getDataStore } from "../data";
-import { hexToRgb, rgbToHsl, getMinValueByAttribute, getMaxValueByAttribute } from "../utils";
-import { Color } from "../Color";
+import { getMinValueByAttribute, getMaxValueByAttribute } from "../utils";
 import { getLowerRangeBounds, getUpperRangeBounds } from "./timeline";
 import { aggregateFunctionNone } from "./aggregateFunctions/none";
 

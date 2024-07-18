@@ -6,9 +6,7 @@ import { Gui } from "./Gui";
 import { MouseControls } from "./MouseControls";
 import { addSlider } from "./timeline";
 import { createModelTrees } from "./modelTree";
-// This is for VR Button
-import { VRButton } from "three/examples/jsm/webxr/VRButton";
-import { getDataStore, getDataType, removeRenderersAndGuis, setListModelTrees } from "../data";
+import { getDataType, removeRenderersAndGuis, setListModelTrees } from "../data";
 
 
 /**
@@ -49,15 +47,7 @@ const visualize = listTreeOfBuildings => {
 
    new Gui(listTreeOfBuildings);
 
-   if (getDataType() === "java-source-code") {
-      // addSlider(listTreeOfBuildings, scene, listModelTrees);
-      addSlider(listTreeOfBuildings[0], listModelTrees);
-   } else {
-      addSlider(listTreeOfBuildings[0], listModelTrees);
-   }
-
-   // TODO Uncomment this for VR button!
-   // document.body.appendChild(VRButton.createButton(renderer));
+   addSlider(listTreeOfBuildings[0], listModelTrees);
 
    function animate(time) {
       renderer.render(scene, visualControls.getCamera());

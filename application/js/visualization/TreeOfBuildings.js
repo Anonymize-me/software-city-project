@@ -2,7 +2,6 @@ import { Building } from "./Building";
 import { Plane } from "./Plane";
 import { Mesh } from "three";
 import pack from "bin-pack";
-// import { calculateNormalizeFactors } from "../utils";
 import { getDataType, getEpoques, getNormalizer, getVisualizationData, setNormalizer } from "../data";
 import { Normalizer } from "./Normalizer";
 
@@ -343,58 +342,20 @@ const buildTreesOfBuildings = () => {
 
    let listTreeOfBuildings = [];
 
-   if (getDataType() === "java-source-code") {
-      let epoques = getEpoques();
+   const treeOfBuildings = new TreeOfBuildings();
+   getVisualizationData().forEach(entry => {
+      treeOfBuildings.addBuilding(entry, getDataType());
+   });
 
-      for (let epoque in epoques) {
-         const treeOfBuildings = new TreeOfBuildings(epoque);
-         epoques[epoque].forEach(entry => {
-            treeOfBuildings.addBuilding(entry, metaphorSelection);
-         });
+   // create a normalizer object for this tree of buildings
+   setNormalizer(new Normalizer(treeOfBuildings));
+   getNormalizer().normalizeDimensions(treeOfBuildings);
 
-         let listOfVisibleBuildings = [];
-         treeOfBuildings.list.forEach(building => {
-            building.visible = false;
-            building.buildingData.forEach(buildingData => {
-               if (buildingData.timestamp == treeOfBuildings.timestamp) {
-                  building.visible = true;
-                  listOfVisibleBuildings.push(building);
-                  if (metaphorSelection.dimension !== undefined) {
-                     building.scale.x = buildingData[metaphorSelection.dimension];
-                  } else {
-                     building.scale.x = 1;
-                  }
-                  building.scale.z = building.scale.x;
-                  if (metaphorSelection.height !== undefined) {
-                     building.scale.y = buildingData[metaphorSelection.height];
-                  } else {
-                     building.scale.y = 1;
-                  }
-                  building.position.y = building.scale.y / 2;
-               }
-            });
-         });
-
-         treeOfBuildings.buildTreeStructureWithList(listOfVisibleBuildings);
-         treeOfBuildings.putOnScreen(treeOfBuildings.baseNode);
-         treeOfBuildings.adjustChildrenLayerPositionY(treeOfBuildings.baseNode);
-         listTreeOfBuildings.push(treeOfBuildings);
-      }
-   } else {
-      const treeOfBuildings = new TreeOfBuildings();
-      getVisualizationData().forEach(entry => {
-         treeOfBuildings.addBuilding(entry, getDataType());
-      });
-
-      // create a normalizer object for this tree of buildings
-      setNormalizer(new Normalizer(treeOfBuildings));
-      getNormalizer().normalizeDimensions(treeOfBuildings);
-
-      treeOfBuildings.buildTreeStructure();
-      treeOfBuildings.putOnScreen(treeOfBuildings.baseNode);
-      treeOfBuildings.adjustChildrenLayerPositionY(treeOfBuildings.baseNode);
-      listTreeOfBuildings.push(treeOfBuildings);
-   }
+   treeOfBuildings.buildTreeStructure();
+   treeOfBuildings.putOnScreen(treeOfBuildings.baseNode);
+   treeOfBuildings.adjustChildrenLayerPositionY(treeOfBuildings.baseNode);
+   listTreeOfBuildings.push(treeOfBuildings);
+   
    return listTreeOfBuildings;
 }
 

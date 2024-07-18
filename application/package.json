@@ -5,23 +5,21 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build",
-    "preview": "vite preview",
-    "serve": "node server.js"
+    "lint": "eslint --ext .js",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
+    "eslint": "^9.7.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
     "vite": "^5.1.0"
   },
   "dependencies": {
-    "@octokit/rest": "^21.0.0",
     "bin-pack": "^1.0.2",
-    "cloc": "^2.0.0-cloc",
     "cors": "^2.8.5",
-    "csv-writer": "^1.6.0",
     "dat.gui": "^0.7.9",
-    "express": "^4.19.2",
-    "prettier": "^3.2.5",
     "three": "^0.161.0",
     "uuid": "^9.0.1"
   }

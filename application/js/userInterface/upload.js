@@ -56,17 +56,10 @@ const uploadData = () => {
          taskIdSelection.value = config.taskId;
       }
 
-      if (getDataType() === "java-source-code") {
-         participantSelection.style.display = "none";
-         participantSelectionLabel.style.display = "none";
-         taskIdSelection.style.display = "none";
-         taskIdSelectionLabel.style.display = "none";
-      } else {
-         participantSelection.style.display = "block";
-         participantSelectionLabel.style.display = "block";
-         taskIdSelection.style.display = "block";
-         taskIdSelectionLabel.style.display = "block";
-      }
+      participantSelection.style.display = "block";
+      participantSelectionLabel.style.display = "block";
+      taskIdSelection.style.display = "block";
+      taskIdSelectionLabel.style.display = "block";
 
       // alert success and hide upload frame
       alertSuccessUploadData.style.display = "block";

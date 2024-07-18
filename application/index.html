@@ -18,13 +18,12 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <title>Software City</title>
-  <link rel="icon" href="icon.png" type="image/x-icon">
+  <link rel="icon" href="assets/icon.png" type="image/x-icon">
 </head>
 
 <body>
 
   <div id="nav" class="container">
-    <button id="button-github-repo" class="btn btn-default">GitHub Repo</button>
     <button id="button-upload" class="btn btn-default">Upload</button>
     <button id="button-config" class="btn btn-default" disabled>Config</button>
     <button id="button-metaphors" class="btn btn-default" disabled>Metaphors</button>
@@ -54,23 +53,6 @@
     <strong>Success!</strong> Data cleared.
   </div>
 
-  <div id="frame-github-repo" class="container frame">
-    <i class="fa fa-times fa-lg button-close"></i>
-    <form id="form-github-repo">
-      <label for="github-repo-url">GitHub Repository URL</label>
-      <input type="url" id="github-repo-url" name="github-repo-url" placeholder="URL here...">
-
-      <div class="separator">
-        <span class="separator-text">or</span>
-      </div>
-
-      <label for="github-repo">Registered GitHub Repository</label>
-      <select id="github-repo">
-      </select>
-      <button id="button-fetch" class="btn btn-default" disabled>Fetch</button>
-    </form>
-  </div>
-
   <div id="frame-upload" class="container frame">
     <i class="fa fa-times fa-lg button-close"></i>
     <form id="form-upload">
@@ -78,7 +60,6 @@
       <input type="file" id="file" name="file" accept=".csv" required>
       <label for="file-format">Select a type:</label>
       <select id="file-format" name="file-format">
-        <option value="java-source-code">Java Source Code</option>
         <option value="eye-tracking-java-source-code">Eye Tracking (Java Source Code)</option>
       </select>
 

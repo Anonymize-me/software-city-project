@@ -3,6 +3,11 @@ import { visualize } from "../visualization/visualize";
 import { buildTreesOfBuildings } from "../visualization/TreeOfBuildings";
 import { getConfig, getMapping, updateMapping } from "./cookieManager";
 
+const participant = document.getElementById("participant");
+const participantLabel = document.getElementById("participant-label");
+const taskId = document.getElementById("taskId");
+const taskIdLabel = document.getElementById("taskId-label");
+
 const buttonStartVisualize = document.getElementById("button-start-visualize");
 
 const dimensionAttributeSelection = document.getElementById("dimension-attribute-selection");
@@ -31,49 +36,30 @@ const prepareMetaphorsFrame = () => {
       heightAttributeSelection.appendChild(newElement.cloneNode(true));
       hueAttributeSelection.appendChild(newElement.cloneNode(true));
       luminanceAttributeSelection.appendChild(newElement.cloneNode(true));
-   })
+   });
 
-   if (getDataType() !== "java-source-code") {
-      document.getElementById("participant").style.display = "block";
-      document.getElementById("taskId").style.display = "block";
-      document.getElementById("participant-label").style.display = "block";
-      document.getElementById("taskId-label").style.display = "block";
+   participant.style.display = "block";
+   participantLabel.style.display = "block";
+   taskId.style.display = "block";
+   taskIdLabel.style.display = "block";
 
-      document.getElementById("participant").replaceChildren();
-      document.getElementById("participant").appendChild(document.createElement("option"));
-      getParticipants().forEach(participant => {
-         let newElement = document.createElement("option");
-         newElement.value = participant;
-         newElement.innerText = `participant - ${participant}`;
-         document.getElementById("participant").appendChild(newElement);
-      });
+   participant.replaceChildren();
+   participant.appendChild(document.createElement("option"));
+   getParticipants().forEach(entry => {
+      let newElement = document.createElement("option");
+      newElement.value = entry;
+      newElement.innerText = `participant - ${entry}`;
+      participant.appendChild(newElement);
+   });
 
-      document.getElementById("taskId").replaceChildren();
-      document.getElementById("taskId").appendChild(document.createElement("option"));
-      getTasks().forEach(task => {
-         let newElement = document.createElement("option");
-         newElement.value = task;
-         newElement.innerText = `task - ${task}`;
-         document.getElementById("taskId").appendChild(newElement);
-      });
-
-   } else {
-      let participant = document.getElementById("participant");
-      let taskId = document.getElementById("taskId");
-
-      participant.style.display = "none";
-      taskId.style.display = "none";
-      document.getElementById("participant-label").style.display = "none";
-      document.getElementById("taskId-label").style.display = "none";
-
-      while (participant.firstChild) {
-         participant.removeChild(participant.firstChild);
-      }
-
-      while (taskId.firstChild) {
-         taskId.removeChild(taskId.firstChild);
-      }
-   }
+   taskId.replaceChildren();
+   taskId.appendChild(document.createElement("option"));
+   getTasks().forEach(entry => {
+      let newElement = document.createElement("option");
+      newElement.value = entry;
+      newElement.innerText = `task - ${entry}`;
+      taskId.appendChild(newElement);
+   });
 
    // get a mapping from the cookies_manager
    let mapping = getMapping();
@@ -138,12 +124,9 @@ buttonStartVisualize.addEventListener("click", e => {
    updateMapping(mapping);
    setMetaphorSelection(mapping);
 
-   // filter data depending on participant and task selection
-   if (getDataType() === "eye-tracking-java-source-code") {
-      data = data.filter(entry => {
-         return entry.participant === participant.toString() && entry.taskId === taskId.toString();
-      });
-   }
+   data = data.filter(entry => {
+      return entry.participant === participant.toString() && entry.taskId === taskId.toString();
+   });
 
    setVisualizationData(data);
 
