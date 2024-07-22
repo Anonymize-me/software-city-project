@@ -5,6 +5,10 @@ import cors from "cors";
 import fs from "fs";
 import { exec } from "child_process";
 import util from "util";
+import { Commit } from "./Commit.js";
+import { GenericMetricLine } from "./GenericMetricLine.js";
+import { formatDateToTimestamp } from "./js/utils.js";
+import { writeCommitMetricsToFile } from "./metricFileWriter.js";
 const execAsync = util.promisify(exec);
 
 const app = express();
@@ -21,95 +25,121 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "dist")));
 
 app.get("/api/getRepositories", (req, res) => {
-  res.send(gitHubRepositoryList);
+   res.send(gitHubRepositoryList);
 });
 
 app.post("/api/registerRepository", (req, res) => {
-  const data = req.body;
-  gitHubRepositoryList.push(data.repoName);
-  res.send("Repository registered successfully");
+   const data = req.body;
+   gitHubRepositoryList.push(data.repoName);
+   res.send("Repository registered successfully");
 });
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+   res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 app.delete("/api/clearRepositories", (req, res) => {
-  gitHubRepositoryList = [];
-  res.send("All repositories cleared successfully");
+   gitHubRepositoryList = [];
+   res.send("All repositories cleared successfully");
 });
 
 app.post("/api/calculateMetrics", async (req, res) => {
-  const start = new Date();
+   // Start timer
+   const start = new Date();
 
-  const { repoName } = req.body;
-  const originalDir = process.cwd();
+   const { repoName } = req.body;
+   const originalDir = process.cwd();
 
-  const repoDirName = repoName.split("/").slice(-1)[0];
-  const repoPath = path.join(originalDir, "temp_repositories", repoDirName);
+   const repoDirName = repoName.split("/").slice(-1)[0];
+   const repoPath = path.join(originalDir, "temp_repositories", repoDirName);
 
-  try {
-    if (fs.existsSync(repoPath)) {
-      console.log(`Removing existing directory: ${repoPath}`);
-      fs.rmSync(repoPath, { recursive: true, force: true });
-    }
-
-    if (!fs.existsSync(path.join(originalDir, "temp_repositories"))) {
-      fs.mkdirSync(path.join(originalDir, "temp_repositories"), {
-        recursive: true,
-      });
-    }
-
-    process.chdir(path.join(originalDir, "temp_repositories"));
-    const gitCloneCommand = `git clone https://github.com/${repoName}.git`;
-    console.log(`Cloning repository: ${gitCloneCommand}`);
-    await execAsync(gitCloneCommand);
-    console.log(`Repository cloned successfully`);
-
-    process.chdir(repoPath);
-    const gitLogCommand = `git log --pretty=%H`;
-    console.log(`Getting commit hashes: ${gitLogCommand}`);
-    const { stdout: commitHashes } = await execAsync(gitLogCommand);
-    const commitHashList = commitHashes.split("\n").filter(Boolean);
-    console.log(`Commit hashes: ${commitHashList}`);
-
-    // loop through each commit hash
-    // and calculate the number of lines of each file
-    for (const commitHash of commitHashList) {
-      const gitCheckoutCommand = `git checkout ${commitHash}`;
-      console.log(`Checking out commit: ${gitCheckoutCommand}`);
-      await execAsync(gitCheckoutCommand);
-
-      const gitLsFilesCommand = `git ls-files`;
-      console.log(`Getting list of files: ${gitLsFilesCommand}`);
-      const { stdout: fileNames } = await execAsync(gitLsFilesCommand);
-      const fileNameList = fileNames.split("\n").filter(Boolean);
-      console.log(`Files: ${fileNameList}`);
-
-      for (const fileName of fileNameList) {
-        const gitShowCommand = `git show ${commitHash}:${fileName}`;
-        console.log(`Getting file content: ${gitShowCommand}`);
-        const { stdout: fileContent } = await execAsync(gitShowCommand);
-
-        const lines = fileContent.split("\n").filter(Boolean);
-        console.log(`File: ${fileName}, Lines: ${lines.length}`);
+   // Check if the repository directory exists and remove it
+   try {
+      if (fs.existsSync(repoPath)) {
+         console.log(`Removing existing directory: ${repoPath}`);
+         fs.rmSync(repoPath, { recursive: true, force: true });
       }
-    }
 
-    process.chdir(originalDir);
+      // Create the repository directory if it does not exist
+      if (!fs.existsSync(path.join(originalDir, "temp_repositories"))) {
+         fs.mkdirSync(path.join(originalDir, "temp_repositories"), {
+            recursive: true,
+         });
+      }
 
-    console.log(`Duration: ${new Date() - start}ms`);
+      // Clone the repository
+      process.chdir(path.join(originalDir, "temp_repositories"));
+      const gitCloneCommand = `git clone https://github.com/${repoName}.git`;
+      console.log(`Cloning repository: ${gitCloneCommand}`);
+      await execAsync(gitCloneCommand);
+      console.log(`Repository cloned successfully`);
 
-    res.send("Repository metrics calculated successfully");
-  } catch (error) {
-    process.chdir(originalDir);
-    console.error(`Error: ${error.message}`);
-    res.status(500).send(`Error: ${error.message}`);
-  }
+      // Get the list of commit hashes and the respective timestamps of the commits
+      process.chdir(repoPath);
+      const gitLogCommand = `git log --pretty=format:"%H %at" --reverse`;
+      console.log(`Getting commit hashes and timestamps: ${gitLogCommand}`);
+      const { stdout: commitList } = await execAsync(gitLogCommand);
+      const commits = commitList
+         .split("\n")
+         .filter(Boolean)
+         .map((line) => {
+            return new Commit(
+               line.split(" ")[0],
+               formatDateToTimestamp(
+                  new Date(parseInt(line.split(" ")[1]) * 1000)
+               )
+            );
+         });
+      console.log(`Commits: ${commits.length}`);
+
+      // Calculate the metrics for all individual commits
+      // and write the results to a file
+      for (const commit of commits) {
+         const gitCheckoutCommand = `git checkout ${commit.commitHash}`;
+         await execAsync(gitCheckoutCommand);
+
+         const gitLsFilesCommand = `git ls-files`;
+         const { stdout: fileNames } = await execAsync(gitLsFilesCommand);
+         const fileNameList = fileNames.split("\n").filter(Boolean);
+
+         // Add the property names for the commit
+         commit.addPropertyName("NumberOfLines");
+
+         for (const fileName of fileNameList) {
+            // Create a new metric line for each file
+            let metricLine = new GenericMetricLine(commit);
+
+            // NumberOfLines metric
+            const gitShowCommand = `git show ${commit.commitHash}:${fileName}`;
+            const { stdout: fileContent } = await execAsync(gitShowCommand);
+            const lines = fileContent.split("\n").filter(Boolean);
+            metricLine.addProperty(lines.length);
+
+            // Add the metric line to the commit
+            commit.addMetricLine(metricLine);
+         }
+         console.log(`Commit: ${commit}`);
+
+         const csvFileName = `metrics.csv`;
+         writeCommitMetricsToFile(commit, csvFileName);
+         console.log(`Metrics written to file: ${csvFileName}`);
+      }
+
+      process.chdir(originalDir);
+
+      // End timer
+      console.log(`Duration: ${new Date() - start}ms`);
+
+      res.send("Repository metrics calculated successfully");
+   } catch (error) {
+      process.chdir(originalDir);
+      console.error(`Error: ${error.message}`);
+      res.status(500).send(`Error: ${error.message}`);
+   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+   console.log(`Server is running on port ${PORT}`);
 });
 
 let gitHubRepositoryList = [];

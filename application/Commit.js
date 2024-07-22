@@ -8,39 +8,49 @@
  * @property {Array} metricLines - The metric lines for the commit
  */
 class Commit {
-  #commitHash;
-  #timestamp;
-  #propertyNames;
-  #metricLines;
+   #commitHash;
+   #timestamp;
+   #propertyNames;
+   #metricLines;
 
-  constructor(commitHash, timestamp) {
-    this.#commitHash = commitHash;
-    this.#timestamp = timestamp;
-    this.#propertyNames = [];
-    this.#metricLines = [];
-  }
+   constructor(commitHash, timestamp) {
+      this.#commitHash = commitHash;
+      this.#timestamp = timestamp;
+      this.#propertyNames = [];
+      this.#metricLines = [];
+   }
 
-  get commitHash() {
-    return this.#commitHash;
-  }
+   get commitHash() {
+      return this.#commitHash;
+   }
 
-  get timestamp() {
-    return this.#timestamp;
-  }
+   get timestamp() {
+      return this.#timestamp;
+   }
 
-  get propertyNames() {
-    return this.#propertyNames;
-  }
+   get propertyNames() {
+      return this.#propertyNames;
+   }
 
-  get metricLines() {
-    return this.#metricLines;
-  }
+   get metricLines() {
+      return this.#metricLines;
+   }
 
-  addMetricLine(metricLine) {
-    this.#metricLines.push(metricLine);
-  }
+   addPropertyName(propertyName) {
+      this.#propertyNames.push(propertyName);
+   }
 
-  getPrintableHeaderLine() {
-    return `${["commitHash", "timestamp", ...this.#propertyNames].join(",")}\n`;
-  }
+   addMetricLine(metricLine) {
+      this.#metricLines.push(metricLine);
+   }
+
+   getPrintableHeaderLine() {
+      return `${["commitHash", "timestamp", ...this.#propertyNames].join(",")}\n`;
+   }
+
+   toString() {
+      return `Commit[commitHash=${this.#commitHash}, timestamp=${this.#timestamp}, properties=${this.#propertyNames}, metrics=${this.#metricLines}]`;
+   }
 }
+
+export { Commit };

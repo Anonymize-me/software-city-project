@@ -6,8 +6,8 @@ import {
    setListTreeOfBuildings,
    setNormalizer,
    removeAllRenderers,
-} from "./data";
-import { removeArrow } from "./visualization/arrow";
+} from "./data.js";
+import { removeArrow } from "./visualization/arrow.js";
 
 /**
  * Method to return a date in the format "YYYY-MM-DD, HH:MM:SS:SSS"

@@ -6,31 +6,37 @@
  * @property {Array} propertyValues - The values of the properties
  */
 class GenericMetricLine {
-  #commit;
-  #propertyValues;
+   #commit;
+   #propertyValues;
 
-  constructor(commit) {
-    this.#commit = commit;
-    this.#propertyValues = [];
-  }
+   constructor(commit) {
+      this.#commit = commit;
+      this.#propertyValues = [];
+   }
 
-  get commit() {
-    return this.#commit;
-  }
+   get commit() {
+      return this.#commit;
+   }
 
-  get propertyValues() {
-    return this.#propertyValues;
-  }
+   get propertyValues() {
+      return this.#propertyValues;
+   }
 
-  addProperty(value) {
-    this.#propertyValues.push(value);
-  }
+   addProperty(value) {
+      this.#propertyValues.push(value);
+   }
 
-  getPropertyValueByIndex(index) {
-    return this.#propertyValues[index];
-  }
+   getPropertyValueByIndex(index) {
+      return this.#propertyValues[index];
+   }
 
-  getPrintableMetricLine() {
-    return `${[this.#commit.getCommitHash(), this.#commit.getTimestamp(), ...this.#propertyValues].join(",")}\n`;
-  }
+   getPrintableMetricLine() {
+      return `${[this.#commit.commitHash, this.#commit.timestamp, ...this.#propertyValues].join(",")}\n`;
+   }
+
+   toString() {
+      return `GenericMetricLine[properties=${this.#propertyValues}]`;
+   }
 }
+
+export { GenericMetricLine };

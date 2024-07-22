@@ -8,18 +8,15 @@ import fs from "fs";
  * @param {string} fileName - The name of the file to write to
  */
 const writeCommitMetricsToFile = (commit, fileName) => {
-  const fileExists = fs.existsSync(fileName);
-  const fileStream = fs.createWriteStream(fileName, { flags: "a" });
+   const fileExists = fs.existsSync(fileName);
 
-  if (!fileExists) {
-    fileStream.write(commit.getPrintableHeaderLine());
-  }
+   if (!fileExists) {
+      fs.writeFileSync(fileName, commit.getPrintableHeaderLine());
+   }
 
-  for (const metricLine of commit.getMetricLines()) {
-    fileStream.write(metricLine.getPrintableMetricLine());
-  }
-
-  fileStream.end();
-
-  console.log(`Metrics written to file: ${fileName}`);
+   for (const metricLine of commit.metricLines) {
+      fs.appendFileSync(fileName, metricLine.getPrintableMetricLine());
+   }
 };
+
+export { writeCommitMetricsToFile };
