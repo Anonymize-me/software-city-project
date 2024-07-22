@@ -292,6 +292,7 @@ const removeElementWithListeners = (element) => {
 
 export {
    formatDate,
+   formatDateToTimestamp,
    rgbToHsl,
    hexToRgb,
    timestampToDate,
