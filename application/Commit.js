@@ -4,16 +4,19 @@
  *
  * @property {string} commitHash - The commit hash
  * @property {string} timestamp - The timestamp of the commit
+ * @property {Array} propertyNames - The property names for the commit
  * @property {Array} metricLines - The metric lines for the commit
  */
 class Commit {
   #commitHash;
   #timestamp;
+  #propertyNames;
   #metricLines;
 
   constructor(commitHash, timestamp) {
     this.#commitHash = commitHash;
     this.#timestamp = timestamp;
+    this.#propertyNames = [];
     this.#metricLines = [];
   }
 
@@ -25,11 +28,19 @@ class Commit {
     return this.#timestamp;
   }
 
+  get propertyNames() {
+    return this.#propertyNames;
+  }
+
   get metricLines() {
     return this.#metricLines;
   }
 
   addMetricLine(metricLine) {
     this.#metricLines.push(metricLine);
+  }
+
+  getPrintableHeaderLine() {
+    return `${["commitHash", "timestamp", ...this.#propertyNames].join(",")}\n`;
   }
 }

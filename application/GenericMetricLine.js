@@ -2,33 +2,35 @@
  * @class GenericMetricLine
  * @classdesc A class that represents a generic metric line
  *
- * @property {Array} propertyNames - The names of the properties
+ * @property {Commit} commit - The commit object
  * @property {Array} propertyValues - The values of the properties
  */
 class GenericMetricLine {
-  #propertyNames;
+  #commit;
   #propertyValues;
 
-  constructor() {
-    this.#propertyNames = [];
+  constructor(commit) {
+    this.#commit = commit;
     this.#propertyValues = [];
   }
 
-  get propertyNames() {
-    return this.#propertyNames;
+  get commit() {
+    return this.#commit;
   }
 
   get propertyValues() {
     return this.#propertyValues;
   }
 
-  addProperty(name, value) {
-    this.#propertyNames.push(name);
+  addProperty(value) {
     this.#propertyValues.push(value);
   }
 
-  getPropertyValueByName(propertyName) {
-    const index = this.#propertyNames.indexOf(propertyName);
+  getPropertyValueByIndex(index) {
     return this.#propertyValues[index];
+  }
+
+  getPrintableMetricLine() {
+    return `${[this.#commit.getCommitHash(), this.#commit.getTimestamp(), ...this.#propertyValues].join(",")}\n`;
   }
 }
