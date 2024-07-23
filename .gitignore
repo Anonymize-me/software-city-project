@@ -10,3 +10,6 @@ notes/
 
 node_modules/
 package-lock.json
+
+# Exclude the temp_repositories directory
+temp_repositories/
