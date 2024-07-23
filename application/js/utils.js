@@ -290,6 +290,17 @@ const removeElementWithListeners = (element) => {
    clone.remove();
 };
 
+/**
+ * Method to format the filename of a file to the suitable format for the tool.
+ *
+ * @param {String} filename - The filename of the file.
+ * @returns {String} - The formatted filename.
+ */
+const formatFilename = (filename) => {
+   // Replace all "/" with "." and remove the file extension.
+   return filename.replaceAll("/", ".").slice(0, filename.lastIndexOf("."));
+};
+
 export {
    formatDate,
    formatDateToTimestamp,
@@ -299,4 +310,5 @@ export {
    getMinValueByAttribute,
    getMaxValueByAttribute,
    destroyAndRemoveVisualization,
+   formatFilename,
 };

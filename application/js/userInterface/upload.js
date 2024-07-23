@@ -2,29 +2,46 @@ import { getAttributeNames, setOriginalData, getDataType } from "../data.js";
 import { buildTable } from "./table.js";
 import { getConfig } from "./cookieManager.js";
 
-const alertSuccessUploadData = document.getElementById("alert-success-upload-data");
+const alertSuccessUploadData = document.getElementById(
+   "alert-success-upload-data"
+);
 const frameUpload = document.getElementById("frame-upload");
 
 const groupingPathSelection = document.getElementById("groupingPath-selection");
 const timestampSelection = document.getElementById("timestamp-selection");
-const participantSelectionLabel = document.getElementById("participant-selection-label");
+const participantSelectionLabel = document.getElementById(
+   "participant-selection-label"
+);
 const participantSelection = document.getElementById("participant-selection");
 const taskIdSelectionLabel = document.getElementById("taskId-selection-label");
 const taskIdSelection = document.getElementById("taskId-selection");
 
-const uploadData = () => {
-
+const uploadData = (fileParam = null) => {
    document.getElementById("instructions").style.display = "none";
 
-   const file = document.getElementById("file").files[0];
+   let file = null;
+
+   if (fileParam === null) {
+      if (document.getElementById("file").files.length === 0) {
+         alert("No file selected");
+         return;
+      } else {
+         file = document.getElementById("file").files[0];
+      }
+   } else {
+      file = fileParam;
+      document.getElementById("file-format").value = "java-source-code";
+   }
 
    let reader = new FileReader();
    reader.readAsText(file);
 
-   reader.onload = e => {
-
-      document.getElementById('button-view-data').click();
-      setOriginalData(e.target.result, document.getElementById("file-format").value);
+   reader.onload = (e) => {
+      document.getElementById("button-view-data").click();
+      setOriginalData(
+         e.target.result,
+         document.getElementById("file-format").value
+      );
 
       // populate the config dropdowns with 1 empty option and the attribute names
       groupingPathSelection.replaceChildren();
@@ -35,7 +52,7 @@ const uploadData = () => {
       taskIdSelection.replaceChildren();
       taskIdSelection.appendChild(document.createElement("option"));
 
-      getAttributeNames().forEach(attributeName => {
+      getAttributeNames().forEach((attributeName) => {
          const newElement = document.createElement("option");
          newElement.value = attributeName;
          newElement.innerText = attributeName;
@@ -49,7 +66,7 @@ const uploadData = () => {
       // set the config dropdowns to the values of the config
       let config = getConfig();
       if (config.length > 0) {
-         config = JSON.parse(getConfig()[0].split('=')[1]).config;
+         config = JSON.parse(getConfig()[0].split("=")[1]).config;
          groupingPathSelection.value = config.groupingPath;
          timestampSelection.value = config.timestamp;
          participantSelection.value = config.participant;
@@ -75,7 +92,7 @@ const uploadData = () => {
 
       buildTable();
       document.getElementById("view-data").style.display = "block";
-   }
-}
+   };
+};
 
 export { uploadData };

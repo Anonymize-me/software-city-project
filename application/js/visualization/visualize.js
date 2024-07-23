@@ -4,23 +4,27 @@ import { VisualControls } from "./VisualControls";
 import { LightSettings } from "./LightSettings";
 import { Gui } from "./Gui";
 import { MouseControls } from "./MouseControls";
-import { addSlider } from "./timeline";
+import { addSlider, addSliderJavaSourceCode } from "./timeline";
 import { createModelTrees } from "./modelTree";
 // This is for VR Button
 import { VRButton } from "three/examples/jsm/webxr/VRButton";
-import { getDataStore, getDataType, removeRenderersAndGuis, setListModelTrees } from "../data";
-
+import {
+   getDataStore,
+   getDataType,
+   removeRenderersAndGuis,
+   setListModelTrees,
+} from "../data";
 
 /**
  * Method to visualize the data in dataStore.visualizationData
- * 
+ *
  * @param {Object} listTreeOfBuildings A list with all TreeOfBuildings (1 except for java-source-code type)
  */
-const visualize = listTreeOfBuildings => {
-
+const visualize = (listTreeOfBuildings) => {
    removeRenderersAndGuis();
 
    let listModelTrees = createModelTrees(listTreeOfBuildings);
+
    setListModelTrees(listModelTrees);
 
    const renderer = new Renderer();
@@ -35,7 +39,8 @@ const visualize = listTreeOfBuildings => {
    window.onresize = () => {
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
-      visualControls.getCamera().aspect = window.innerWidth / window.innerHeight;
+      visualControls.getCamera().aspect =
+         window.innerWidth / window.innerHeight;
       visualControls.getCamera().updateProjectionMatrix();
    };
 
@@ -50,8 +55,7 @@ const visualize = listTreeOfBuildings => {
    new Gui(listTreeOfBuildings);
 
    if (getDataType() === "java-source-code") {
-      // addSlider(listTreeOfBuildings, scene, listModelTrees);
-      addSlider(listTreeOfBuildings[0], listModelTrees);
+      addSliderJavaSourceCode(listTreeOfBuildings, scene, listModelTrees);
    } else {
       addSlider(listTreeOfBuildings[0], listModelTrees);
    }
@@ -63,6 +67,6 @@ const visualize = listTreeOfBuildings => {
       renderer.render(scene, visualControls.getCamera());
    }
    renderer.setAnimationLoop(animate);
-}
+};
 
-export { visualize }
+export { visualize };

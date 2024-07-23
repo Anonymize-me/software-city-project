@@ -3,18 +3,24 @@ import { Plane } from "./Plane";
 import { Mesh } from "three";
 import pack from "bin-pack";
 // import { calculateNormalizeFactors } from "../utils";
-import { getDataType, getEpoques, getNormalizer, getVisualizationData, setNormalizer } from "../data";
+import {
+   getDataType,
+   getEpoques,
+   getMetaphorSelection,
+   getNormalizer,
+   getVisualizationData,
+   setNormalizer,
+} from "../data";
 import { Normalizer } from "./Normalizer";
 
 /**
  * Class that represents a tree of buildings
  */
 class TreeOfBuildings {
-
    /**
     * Constructor of the TreeOfBuildings class
-    * 
-    * @param {Date} timestamp 
+    *
+    * @param {Date} timestamp
     */
    constructor(timestamp) {
       this.list = [];
@@ -26,11 +32,13 @@ class TreeOfBuildings {
    /**
     * Method that returns the next building id
     * for that TreeOfBuildings
-    * 
+    *
     * @returns {number} The next building id
     */
    getNextBuildingId() {
-      if (this.list.some(building => building.buildingId === this.buildingId)) {
+      if (
+         this.list.some((building) => building.buildingId === this.buildingId)
+      ) {
          this.buildingId++;
       }
       return this.buildingId;
@@ -39,10 +47,10 @@ class TreeOfBuildings {
    /**
     * Method that adds a building to the list of buildings
     * for that TreeOfBuildings
-    * 
+    *
     * If the building already exists in the list, the data is added to the existing building
     * in the "buildingData" property.
-    * 
+    *
     * @param {Object} data // data of the building
     * @param {String} dataType // data type of the building
     * @param {Object} metaphorSelection // metaphor selection for the building
@@ -96,10 +104,10 @@ class TreeOfBuildings {
 
    /**
     * TODO: pull this method out of this class
-    * 
+    *
     * Method that creates a tree structure with a list of buildings
-    * 
-    * @param {List} list of Buildings 
+    *
+    * @param {List} list of Buildings
     */
    buildTreeStructureWithList(listOfVisibleBuildings) {
       // here, we build the actual N-ary tree structure
@@ -131,9 +139,9 @@ class TreeOfBuildings {
 
    /**
     * Method that returns a node by its key revursively
-    * 
-    * @param {Building | Plane} node 
-    * @param {String} key 
+    *
+    * @param {Building | Plane} node
+    * @param {String} key
     * @returns the node, if found, otherwise null
     */
    getNodeByKey(node, key) {
@@ -154,7 +162,7 @@ class TreeOfBuildings {
 
    getMaxDimensionBuilding() {
       let max = -Infinity;
-      this.list.forEach(building => {
+      this.list.forEach((building) => {
          if (building.getTotalDimensionValue() >= max) {
             max = building.getTotalDimensionValue();
          }
@@ -164,7 +172,7 @@ class TreeOfBuildings {
 
    getMinDimensionBuilding() {
       let min = Infinity;
-      this.list.forEach(building => {
+      this.list.forEach((building) => {
          if (building.getTotalDimensionValue() <= min) {
             min = building.getTotalDimensionValue();
          }
@@ -174,7 +182,7 @@ class TreeOfBuildings {
 
    getMaxHeightBuilding() {
       let max = -Infinity;
-      this.list.forEach(building => {
+      this.list.forEach((building) => {
          if (building.getTotalHeightValue() >= max) {
             max = building.getTotalHeightValue();
          }
@@ -184,7 +192,7 @@ class TreeOfBuildings {
 
    getMinHeightBuilding() {
       let min = Infinity;
-      this.list.forEach(building => {
+      this.list.forEach((building) => {
          if (building.getMinHeightValue() <= min) {
             min = building.getMinHeightValue();
          }
@@ -194,7 +202,7 @@ class TreeOfBuildings {
 
    /**
     * Method that returns the mean height of all buildings in this TreeOfBuildings
-    * 
+    *
     * @returns {number} The mean height of all buildings
     */
    getCurrentHeightValueMean() {
@@ -208,8 +216,8 @@ class TreeOfBuildings {
    /**
     * Method that adjusts the X and Z position of all children of a node
     * and puts the elements (Building | Plane) on the scene
-    * 
-    * @param {Building | Plane} node 
+    *
+    * @param {Building | Plane} node
     * @returns {Building | Plane} // returns the node with the children adjusted
     */
    putOnScreen(node) {
@@ -231,19 +239,18 @@ class TreeOfBuildings {
          if (child instanceof Building) {
             bins.push({
                uuid: child.uuid,
-               width: child.scale.x,
-               height: child.scale.z,
+               width: parseFloat(child.scale.x),
+               height: parseFloat(child.scale.z),
             });
          } else {
             bins.push({
                uuid: child.uuid,
-               width: child.children[0].scale.x,
-               height: child.children[0].scale.z,
+               width: parseFloat(child.children[0].scale.x),
+               height: parseFloat(child.children[0].scale.z),
             });
          }
       }
 
-      // console.log(bins);
       pack(bins, { inPlace: true });
 
       let maxX = 0;
@@ -287,8 +294,8 @@ class TreeOfBuildings {
    /**
     * Method that adjusts the Y position of all children of a node
     * within that TreeOfBuildings
-    * 
-    * @param {Building | Plane} node 
+    *
+    * @param {Building | Plane} node
     */
    adjustChildrenLayerPositionY(node) {
       for (let child of node.children) {
@@ -304,7 +311,7 @@ class TreeOfBuildings {
    /**
     * Method that return the lowest timestamp of all buildings
     * in this TreeOfBuildings
-    * 
+    *
     * @returns {number} The lowest timestamp of all buildings
     */
    getLowestTimestamp() {
@@ -322,7 +329,7 @@ class TreeOfBuildings {
    /**
     * Method that return the highest timestamp of all buildings
     * in this TreeOfBuildings
-    * 
+    *
     * @returns {number} The highest timestamp of all buildings
     */
    getHighestTimestamp() {
@@ -338,9 +345,7 @@ class TreeOfBuildings {
    }
 }
 
-
 const buildTreesOfBuildings = () => {
-
    let listTreeOfBuildings = [];
 
    if (getDataType() === "java-source-code") {
@@ -348,25 +353,30 @@ const buildTreesOfBuildings = () => {
 
       for (let epoque in epoques) {
          const treeOfBuildings = new TreeOfBuildings(epoque);
-         epoques[epoque].forEach(entry => {
-            treeOfBuildings.addBuilding(entry, metaphorSelection);
+         epoques[epoque].forEach((entry) => {
+            treeOfBuildings.addBuilding(entry);
          });
 
+         setNormalizer(new Normalizer(treeOfBuildings));
+         getNormalizer().normalizeDimensions(treeOfBuildings);
+
          let listOfVisibleBuildings = [];
-         treeOfBuildings.list.forEach(building => {
+         treeOfBuildings.list.forEach((building) => {
             building.visible = false;
-            building.buildingData.forEach(buildingData => {
+            building.buildingData.forEach((buildingData) => {
                if (buildingData.timestamp == treeOfBuildings.timestamp) {
                   building.visible = true;
                   listOfVisibleBuildings.push(building);
-                  if (metaphorSelection.dimension !== undefined) {
-                     building.scale.x = buildingData[metaphorSelection.dimension];
+                  if (getMetaphorSelection().dimension !== undefined) {
+                     building.scale.x =
+                        buildingData[getMetaphorSelection().dimension];
                   } else {
                      building.scale.x = 1;
                   }
                   building.scale.z = building.scale.x;
-                  if (metaphorSelection.height !== undefined) {
-                     building.scale.y = buildingData[metaphorSelection.height];
+                  if (getMetaphorSelection().height !== undefined) {
+                     building.scale.y =
+                        buildingData[getMetaphorSelection().height];
                   } else {
                      building.scale.y = 1;
                   }
@@ -382,8 +392,8 @@ const buildTreesOfBuildings = () => {
       }
    } else {
       const treeOfBuildings = new TreeOfBuildings();
-      getVisualizationData().forEach(entry => {
-         treeOfBuildings.addBuilding(entry, getDataType());
+      getVisualizationData().forEach((entry) => {
+         treeOfBuildings.addBuilding(entry);
       });
 
       // create a normalizer object for this tree of buildings
@@ -396,7 +406,6 @@ const buildTreesOfBuildings = () => {
       listTreeOfBuildings.push(treeOfBuildings);
    }
    return listTreeOfBuildings;
-}
+};
 
-
-export { TreeOfBuildings, buildTreesOfBuildings }
+export { TreeOfBuildings, buildTreesOfBuildings };

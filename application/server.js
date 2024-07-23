@@ -7,7 +7,7 @@ import { exec } from "child_process";
 import util from "util";
 import { Commit } from "./Commit.js";
 import { GenericMetricLine } from "./GenericMetricLine.js";
-import { formatDateToTimestamp } from "./js/utils.js";
+import { formatDateToTimestamp, formatFilename } from "./js/utils.js";
 import { writeCommitMetricsToFile } from "./metricFileWriter.js";
 const execAsync = util.promisify(exec);
 
@@ -94,20 +94,32 @@ app.post("/api/calculateMetrics", async (req, res) => {
 
       // Calculate the metrics for all individual commits
       // and write the results to a file
+      const csvFileName = `${repoName.split("/")[1]}_metrics.csv`;
+      console.log(`Writing metrics to file: ${csvFileName}`);
+
       for (const commit of commits) {
          const gitCheckoutCommand = `git checkout ${commit.commitHash}`;
          await execAsync(gitCheckoutCommand);
 
          const gitLsFilesCommand = `git ls-files`;
          const { stdout: fileNames } = await execAsync(gitLsFilesCommand);
-         const fileNameList = fileNames.split("\n").filter(Boolean);
+
+         // For now, only consider Java files
+         const fileNameList = fileNames
+            .split("\n")
+            .filter(Boolean)
+            .filter((fileName) => fileName.endsWith(".java"));
 
          // Add the property names for the commit
+         commit.addPropertyName("fileName");
          commit.addPropertyName("NumberOfLines");
 
          for (const fileName of fileNameList) {
             // Create a new metric line for each file
             let metricLine = new GenericMetricLine(commit);
+
+            // Add the file name to the metric line
+            metricLine.addProperty(formatFilename(fileName));
 
             // NumberOfLines metric
             const gitShowCommand = `git show ${commit.commitHash}:${fileName}`;
@@ -120,7 +132,6 @@ app.post("/api/calculateMetrics", async (req, res) => {
          }
          console.log(`Commit: ${commit}`);
 
-         const csvFileName = `metrics.csv`;
          writeCommitMetricsToFile(commit, csvFileName);
          console.log(`Metrics written to file: ${csvFileName}`);
       }
@@ -130,7 +141,16 @@ app.post("/api/calculateMetrics", async (req, res) => {
       // End timer
       console.log(`Duration: ${new Date() - start}ms`);
 
-      res.send("Repository metrics calculated successfully");
+      // Send the created file as a response to the client
+      res.download(path.join(repoPath, csvFileName), csvFileName, (err) => {
+         if (err) {
+            console.error("Error downloading the file:", err);
+         } else {
+            console.log("File download completed.");
+            // Remove the repository directory and the created file
+            fs.rmSync(repoPath, { recursive: true, force: true });
+         }
+      });
    } catch (error) {
       process.chdir(originalDir);
       console.error(`Error: ${error.message}`);

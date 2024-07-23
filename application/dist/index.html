@@ -15,12 +15,11 @@
   </script>
   <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js">
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <title>Software City</title>
   <link rel="icon" href="./assets/icon-icrvmIQJ.png" type="image/x-icon">
-  <script type="module" crossorigin src="./assets/index-Ctsq9YZJ.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-Dy1LQubJ.css">
+  <script type="module" crossorigin src="./assets/index-CaP0TaGC.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-DBWpuuL5.css">
 </head>
 
 <body>
@@ -130,19 +129,16 @@
       </select>
     </div>
 
-    <fieldset>
-      <legend>Color</legend>
-      <div>
-        <label for="hue-attribute-selection">Hue:</label>
-        <select id="hue-attribute-selection" name="hue-attribute-selection">
-        </select>
-      </div>
-      <div>
-        <label for="luminance-attribute-selection">Luminance:</label>
-        <select id="luminance-attribute-selection" name="luminance-attribute-selection">
-        </select>
-      </div>
-    </fieldset>
+    <div>
+      <label for="hue-attribute-selection">Color - Hue:</label>
+      <select id="hue-attribute-selection" name="hue-attribute-selection">
+      </select>
+    </div>
+    <div>
+      <label for="luminance-attribute-selection">Color - Luminance:</label>
+      <select id="luminance-attribute-selection" name="luminance-attribute-selection">
+      </select>
+    </div>
 
     <label id="participant-label" for="participant">Participant:</label>
     <select id="participant"></select>
@@ -163,7 +159,8 @@
     <div id="info-panel-div"></div>
     <canvas id="chartBuilding"></canvas>
     <canvas id="chartHeight"></canvas>
-    <canvas id="chartColor"></canvas>
+    <canvas id="chartHue"></canvas>
+    <canvas id="chartLuminance"></canvas>
   </div>
 
   <div id="slider-container">
