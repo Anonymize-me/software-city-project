@@ -1,6 +1,7 @@
 import { aggregateFunctionNone } from "./aggregateFunctions/none";
 import { aggregateFunctionSum } from "./aggregateFunctions/sum";
 import { aggregateFunctionIntegralCurve } from "./aggregateFunctions/integralCurve";
+import { Plane } from "./Plane.js";
 
 const sliderContainer = document.getElementById("slider-container");
 const valueDisplay = document.getElementById("slider-value");
