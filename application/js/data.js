@@ -116,7 +116,9 @@ const getEpoques = () => {
    });
    dataStore.visualizationData.forEach((entry) => {
       for (let epoque in epoques) {
-         epoques[epoque].push(entry);
+         if (entry.timestamp === epoque) {
+            epoques[epoque].push(entry);
+         }
       }
    });
    return epoques;
