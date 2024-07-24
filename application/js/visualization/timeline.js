@@ -117,7 +117,6 @@ const addSliderJavaSourceCode = (
          );
 
          if (newIndex !== i) {
-            console.log("change");
             i = newIndex;
             scene.remove(
                ...scene.children.filter((child) => child instanceof Plane)

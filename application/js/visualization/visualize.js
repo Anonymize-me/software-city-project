@@ -6,6 +6,7 @@ import { Gui } from "./Gui";
 import { MouseControls } from "./MouseControls";
 import { addSlider, addSliderJavaSourceCode } from "./timeline";
 import { createModelTrees } from "./modelTree";
+import { applyMetaphors } from "./metaphors";
 // This is for VR Button
 import { VRButton } from "three/examples/jsm/webxr/VRButton";
 import {
@@ -55,6 +56,7 @@ const visualize = (listTreeOfBuildings) => {
    new Gui(listTreeOfBuildings);
 
    if (getDataType() === "java-source-code") {
+      applyMetaphors(listTreeOfBuildings, listModelTrees);
       addSliderJavaSourceCode(listTreeOfBuildings, scene, listModelTrees);
    } else {
       addSlider(listTreeOfBuildings[0], listModelTrees);
