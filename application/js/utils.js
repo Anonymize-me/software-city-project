@@ -6,6 +6,7 @@ import {
    setListTreeOfBuildings,
    setNormalizer,
    removeAllRenderers,
+   getDataType,
 } from "./data.js";
 import { removeArrow } from "./visualization/arrow.js";
 
@@ -182,6 +183,10 @@ const getMaxValueByAttributeAggregatedByBuildingSum = (
 const getMinValueByAttribute = (attribute, listOfBuildings) => {
    let min = Infinity;
    for (let building of listOfBuildings) {
+      // only consider this building in the "java-source-code" visualization, if it is visible
+      if (getDataType() === "java-source-code" && building.visible === false) {
+         continue;
+      }
       for (let row of building.buildingData) {
          let value = parseFloat(row[attribute]);
          if (value < min) {
@@ -203,6 +208,10 @@ const getMinValueByAttribute = (attribute, listOfBuildings) => {
 const getMaxValueByAttribute = (attribute, listOfBuildings) => {
    let max = -Infinity;
    for (let building of listOfBuildings) {
+      // only consider this building in the "java-source-code" visualization, if it is visible
+      if (getDataType() === "java-source-code" && building.visible === false) {
+         continue;
+      }
       for (let row of building.buildingData) {
          let value = parseFloat(row[attribute]);
          if (value > max) {
