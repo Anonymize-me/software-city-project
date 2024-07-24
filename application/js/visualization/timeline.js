@@ -27,6 +27,13 @@ const addSliderJavaSourceCode = (
    scene,
    listOfModelTrees
 ) => {
+   // only show 1 slider thumb if data type is "java-source-code"
+   sliderThumbT0.style.display = "none";
+   sliderThumbT1.innerText = "";
+
+   // hide slider window width
+   sliderWindowWidth.style.display = "none";
+
    let modelTreeElement = document.getElementById("model-tree");
    while (modelTreeElement.firstChild) {
       modelTreeElement.removeChild(modelTreeElement.firstChild);
@@ -53,12 +60,6 @@ const addSliderJavaSourceCode = (
 
    aggregateFunction.style.display = "none";
 
-   sliderThumbT0.addEventListener("mousedown", (e) => {
-      isDragging = true;
-      SliderOffsetLeft = e.clientX - sliderThumbT0.getBoundingClientRect().left;
-      draggingSlider = sliderThumbT0;
-   });
-
    sliderThumbT1.addEventListener("mousedown", (e) => {
       isDragging = true;
       SliderOffsetLeft = e.clientX - sliderThumbT1.getBoundingClientRect().left;
@@ -81,30 +82,6 @@ const addSliderJavaSourceCode = (
             Math.max(0, sliderProgressInPixel)
          );
 
-         // if the t0 slider is dragged further right than the t1 slider, we want to prevent that
-         // if the t1 slider is dragged further left than the t0 slider, we want to prevent that
-         if (
-            draggingSlider === sliderThumbT0 &&
-            newSliderProgressInPixel >= parseInt(sliderThumbT1.style.left)
-         ) {
-            newSliderProgressInPixel = parseInt(sliderThumbT1.style.left);
-         } else if (
-            draggingSlider === sliderThumbT1 &&
-            newSliderProgressInPixel <= parseInt(sliderThumbT0.style.left)
-         ) {
-            newSliderProgressInPixel = parseInt(sliderThumbT0.style.left);
-         } else {
-            draggingSlider.style.left = newSliderProgressInPixel + "px";
-         }
-         // the dragging slider should be on top of the other slider
-         if (draggingSlider === sliderThumbT0) {
-            sliderThumbT0.style.zIndex = 2;
-            sliderThumbT1.style.zIndex = 1;
-         } else {
-            sliderThumbT1.style.zIndex = 2;
-            sliderThumbT0.style.zIndex = 1;
-         }
-
          // caculate value for the display
          let sliderProgress =
             newSliderProgressInPixel /
@@ -113,6 +90,9 @@ const addSliderJavaSourceCode = (
             parseInt(lowestTimestamp) +
             parseInt(sliderProgress * deltaTimestamp);
          valueDisplay.textContent = sliderTimestamp;
+
+         // redraw the slider
+         draggingSlider.style.left = newSliderProgressInPixel + "px";
 
          // redraw the window-width div
          sliderWindowWidth.style.left =
@@ -155,6 +135,13 @@ const addSliderJavaSourceCode = (
 };
 
 const addSlider = (treeOfBuildings, listOfModelTrees) => {
+   // show 2 slider thumbs if data type is "eye-tracking"
+   sliderThumbT0.style.display = "block";
+   sliderThumbT1.innerText = "t1";
+
+   // show slider window width
+   sliderWindowWidth.style.display = "block";
+
    let modelTreeElement = document.getElementById("model-tree");
    while (modelTreeElement.firstChild) {
       modelTreeElement.removeChild(modelTreeElement.firstChild);
