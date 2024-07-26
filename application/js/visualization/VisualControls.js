@@ -7,7 +7,8 @@ class VisualControls {
          75,
          window.innerWidth / window.innerHeight,
          0.8,
-         1000);
+         2000
+      );
       this.orbit = new OrbitControls(this.camera, renderer.domElement);
       this.camera.position.set(20, 20, 20);
       this.orbit.update();
@@ -18,4 +19,4 @@ class VisualControls {
    }
 }
 
-export { VisualControls }
+export { VisualControls };

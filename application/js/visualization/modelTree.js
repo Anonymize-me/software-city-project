@@ -3,23 +3,24 @@ import { Building } from "./Building";
 import * as THREE from "three";
 import { hexToRgb, rgbToHsl } from "../utils";
 
-const createModelTrees = listTreeOfBuildings => {
+const createModelTrees = (listTreeOfBuildings) => {
    let listOfModelTrees = [];
    for (let treeOfBuildings of listTreeOfBuildings) {
-
-      let check = [treeOfBuildings.baseNode]
-      let seen = []
+      let check = [treeOfBuildings.baseNode];
+      let seen = [];
       let container = document.createElement("div");
       container.id = "model-tree-container";
-      let allNewElements = []
+      let allNewElements = [];
 
       while (check.length > 0) {
          let current = check.pop();
          seen.push(current);
-         let filtered = current.children.filter(child => child instanceof Plane || child instanceof Building);
-         filtered.forEach(e => {
+         let filtered = current.children.filter(
+            (child) => child instanceof Plane || child instanceof Building
+         );
+         filtered.forEach((e) => {
             check.push(e);
-         })
+         });
 
          let newElement = document.createElement("div");
          newElement.classList.add("model-tree-element");
@@ -36,7 +37,9 @@ const createModelTrees = listTreeOfBuildings => {
             newElement.style.alignItems = "center";
 
             if (current.buildingName.lastIndexOf(";") !== -1) {
-               newElement.innerText = current.buildingName.substring(current.buildingName.lastIndexOf(";") + 1);
+               newElement.innerText = current.buildingName.substring(
+                  current.buildingName.lastIndexOf(";") + 1
+               );
             } else {
                newElement.innerText = current.buildingName;
             }
@@ -55,7 +58,11 @@ const createModelTrees = listTreeOfBuildings => {
             folderElement.style.fontWeight = "bold";
 
             if (current.nodeName.lastIndexOf(";") !== -1) {
-               folderElement.innerText = "\u25BF " + current.nodeName.substring(current.nodeName.lastIndexOf(";") + 1);
+               folderElement.innerText =
+                  "\u25BF " +
+                  current.nodeName.substring(
+                     current.nodeName.lastIndexOf(";") + 1
+                  );
             } else {
                folderElement.innerText = "\u25BF " + current.nodeName;
             }
@@ -70,7 +77,6 @@ const createModelTrees = listTreeOfBuildings => {
             });
 
             newElement.appendChild(folderElement);
-
          }
 
          allNewElements.push(newElement);
@@ -105,7 +111,7 @@ const createModelTrees = listTreeOfBuildings => {
                   current.highlightPlane();
                   element.style.color = "blue";
                }
-            })
+            });
 
             element.addEventListener("mouseleave", function () {
                if (current instanceof Building) {
@@ -114,36 +120,45 @@ const createModelTrees = listTreeOfBuildings => {
                } else {
                   current.notHighlightPlane();
                   element.style.color = "black";
-
                }
-            })
+            });
 
-            element.addEventListener("click", e => {
+            element.addEventListener("click", (e) => {
                if (e.target.type === "color") return;
                if (newElement.type === "building") {
                } else {
-                  element.parentElement.expanded = element.parentElement.expanded === "true" ? "false" : "true";
+                  element.parentElement.expanded =
+                     element.parentElement.expanded === "true"
+                        ? "false"
+                        : "true";
                   let colorPickerElement = element.children[0];
-                  element.innerText = element.parentElement.expanded === "true" ?
-                     element.innerText.replace("\u25B8", "\u25BF") :
-                     element.innerText.replace("\u25BF", "\u25B8");
+                  element.innerText =
+                     element.parentElement.expanded === "true"
+                        ? element.innerText.replace("\u25B8", "\u25BF")
+                        : element.innerText.replace("\u25BF", "\u25B8");
                   element.appendChild(colorPickerElement);
                   let childrenToToggle = element.parentElement.children;
                   for (let i = 1; i < childrenToToggle.length; i++) {
                      if (childrenToToggle[i].type === "building") {
-                        childrenToToggle[i].style.display = childrenToToggle[i].style.display === "none" ? "flex" : "none";
+                        childrenToToggle[i].style.display =
+                           childrenToToggle[i].style.display === "none"
+                              ? "flex"
+                              : "none";
                      } else {
-                        childrenToToggle[i].style.display = childrenToToggle[i].style.display === "none" ? "block" : "none";
+                        childrenToToggle[i].style.display =
+                           childrenToToggle[i].style.display === "none"
+                              ? "block"
+                              : "none";
                      }
                   }
                }
-            })
+            });
          }
       }
       listOfModelTrees.push(container);
    }
 
    return listOfModelTrees;
-}
+};
 
-export { createModelTrees }
+export { createModelTrees };
