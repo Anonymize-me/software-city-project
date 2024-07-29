@@ -102,6 +102,8 @@ async function downloadRepo(repoName) {
    const data = { repoName: repoName };
 
    try {
+      document.getElementById("spinner-wrapper").style.display = "flex";
+
       const response = await fetch(apiUrl, {
          method: "POST",
          headers: {
@@ -136,6 +138,8 @@ async function downloadRepo(repoName) {
       return responseData;
    } catch (error) {
       console.error("Error:", error);
+   } finally {
+      document.getElementById("spinner-wrapper").style.display = "none";
    }
 }
 
