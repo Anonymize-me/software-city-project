@@ -343,6 +343,15 @@ class TreeOfBuildings {
       }
       return highestTimestamp;
    }
+
+   getBuildingByBuildingName(buildingName) {
+      for (let building of this.list) {
+         if (building.buildingName === buildingName) {
+            return building;
+         }
+      }
+      return null;
+   }
 }
 
 const buildTreesOfBuildings = () => {
