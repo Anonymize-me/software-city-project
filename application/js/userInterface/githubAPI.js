@@ -115,6 +115,24 @@ async function downloadRepo(repoName) {
       }
 
       const responseData = await response.text();
+
+      // create an alert to ask, if the user wants to download the metrics file
+      const downloadMetrics = confirm(
+         "Do you want to download the computed metrics file?"
+      );
+
+      if (downloadMetrics) {
+         const blob = new Blob([responseData], { type: "text/csv" });
+         const blobUrl = URL.createObjectURL(blob);
+         const hiddenDownloadLinkElement = document.createElement("a");
+         hiddenDownloadLinkElement.href = blobUrl;
+         hiddenDownloadLinkElement.download = "metrics-file.csv";
+         document.body.appendChild(hiddenDownloadLinkElement);
+         hiddenDownloadLinkElement.click();
+         document.body.removeChild(hiddenDownloadLinkElement);
+         URL.revokeObjectURL(blobUrl);
+      }
+
       return responseData;
    } catch (error) {
       console.error("Error:", error);
