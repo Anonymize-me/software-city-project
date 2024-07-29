@@ -48,7 +48,7 @@ const addSliderJavaSourceCode = (
       treeOfBuildingsList[treeOfBuildingsList.length - 1].timestamp;
    const deltaTimestamp = highestTimestamp - lowestTimestamp;
 
-   valueDisplay.textContent = lowestTimestamp;
+   valueDisplay.textContent = `Commit: ${i + 1}, ${lowestTimestamp}`;
    sliderContainer.style.display = "block";
 
    let isDragging = false;
@@ -89,7 +89,7 @@ const addSliderJavaSourceCode = (
          let sliderTimestamp =
             parseInt(lowestTimestamp) +
             parseInt(sliderProgress * deltaTimestamp);
-         valueDisplay.textContent = sliderTimestamp;
+         valueDisplay.textContent = `Commit: ${i + 1}, ${sliderTimestamp}`;
 
          // redraw the slider
          draggingSlider.style.left = newSliderProgressInPixel + "px";
