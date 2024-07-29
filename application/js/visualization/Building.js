@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { Color } from "../Color";
-import { getMetaphorSelection } from "../data";
+import { getListModelTrees, getMetaphorSelection } from "../data";
 
 class Building extends THREE.Mesh {
    metaphorSelection = getMetaphorSelection();
@@ -83,14 +83,13 @@ class Building extends THREE.Mesh {
 
       this.setColorPicker = () => {
          try {
-            let colorPicker = document.getElementById(this.uuid).children[0];
-            if (colorPicker !== null) {
-               colorPicker.value = "#" + this.fassadeColor.getHexString();
+            if (this.colorPicker !== undefined) {
+               this.colorPicker.value = "#" + this.baseColor.getHexString();
             }
          } catch (error) {}
       };
 
-      this.fassadeColor = new Color({ h: 0, s: 0, l: 0 });
+      this.fassadeColor = new Color({ h: 0, s: 0, l: 0.5 });
       this.setFassadeColor = (color) => {
          this.fassadeColor.setColor(color);
          this.material[0].color.setHSL(color.h, color.s, color.l);
@@ -100,7 +99,7 @@ class Building extends THREE.Mesh {
          this.material[5].color.setHSL(color.h, color.s, color.l);
       };
 
-      this.roofColor = new Color({ h: 0, s: 0, l: 0 });
+      this.roofColor = new Color({ h: 0, s: 0, l: 0.5 });
       this.setRoofColor = (color) => {
          this.roofColor.setColor(color);
          this.material[2].color.setHSL(color.h, color.s, color.l);

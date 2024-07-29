@@ -352,6 +352,19 @@ class TreeOfBuildings {
       }
       return null;
    }
+
+   getPlaneByNodeName(nodeName) {
+      let queue = [this.baseNode];
+      while (queue.length > 0) {
+         let current = queue.pop();
+         if (current.nodeName === nodeName) {
+            return current;
+         }
+         current.children.forEach((child) => {
+            queue.push(child);
+         });
+      }
+   }
 }
 
 const buildTreesOfBuildings = () => {

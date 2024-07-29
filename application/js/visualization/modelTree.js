@@ -2,6 +2,7 @@ import { Plane } from "./Plane";
 import { Building } from "./Building";
 import * as THREE from "three";
 import { hexToRgb, rgbToHsl } from "../utils";
+import { getListTreeOfBuildings } from "../data";
 
 const createModelTrees = (listTreeOfBuildings) => {
    let listOfModelTrees = [];
@@ -47,8 +48,17 @@ const createModelTrees = (listTreeOfBuildings) => {
             newElement.appendChild(colorPicker);
 
             colorPicker.addEventListener("input", () => {
-               current.setBaseColor(rgbToHsl(hexToRgb(colorPicker.value)));
+               for (let treeOfBuildings of getListTreeOfBuildings()) {
+                  let b = treeOfBuildings.getBuildingByBuildingName(
+                     current.buildingName
+                  );
+                  if (b !== undefined && b !== null) {
+                     b.setBaseColor(rgbToHsl(hexToRgb(colorPicker.value)));
+                  }
+               }
             });
+
+            current.colorPicker = colorPicker;
          } else if (current instanceof Plane) {
             newElement.type = "plane";
             newElement.expanded = "true";
@@ -73,10 +83,18 @@ const createModelTrees = (listTreeOfBuildings) => {
             folderElement.appendChild(colorPicker);
 
             colorPicker.addEventListener("input", () => {
-               current.setBaseColor(rgbToHsl(hexToRgb(colorPicker.value)));
+               for (let treeOfBuildings of getListTreeOfBuildings()) {
+                  let b = treeOfBuildings.getPlaneByNodeName(current.nodeName);
+                  if (b !== undefined && b !== null) {
+                     b.setBaseColor(rgbToHsl(hexToRgb(colorPicker.value)));
+                  }
+               }
             });
 
             newElement.appendChild(folderElement);
+
+            current.colorPicker = colorPicker;
+            current.setColorPicker();
          }
 
          allNewElements.push(newElement);
