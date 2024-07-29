@@ -1,230 +1,322 @@
 <!doctype html>
 <html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link
+         rel="stylesheet"
+         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      />
+      <link
+         rel="stylesheet"
+         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      />
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <link
+         rel="stylesheet"
+         href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"
+      />
+      <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <title>Software City</title>
+      <link rel="icon" href="./assets/icon-icrvmIQJ.png" type="image/x-icon" />
+     <script type="module" crossorigin src="./assets/index-C9dCTlPi.js"></script>
+     <link rel="stylesheet" crossorigin href="./assets/index-DvCOQDSP.css">
+   </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet"
-    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <link rel="stylesheet"
-    href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
-  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
-  </script>
-  <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <title>Software City</title>
-  <link rel="icon" href="./assets/icon-icrvmIQJ.png" type="image/x-icon">
-  <script type="module" crossorigin src="./assets/index-CaP0TaGC.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DBWpuuL5.css">
-</head>
-
-<body>
-
-  <div id="nav" class="container">
-    <button id="button-github-repo" class="btn btn-default">GitHub Repo</button>
-    <button id="button-upload" class="btn btn-default">Upload</button>
-    <button id="button-config" class="btn btn-default" disabled>Config</button>
-    <button id="button-metaphors" class="btn btn-default" disabled>Metaphors</button>
-    <button id="button-view-data" class="btn btn-default" disabled>View Data</button>
-    <button id="button-model-tree" class="btn btn-default" disabled>Model Tree</button>
-  </div>
-
-  <div id="view-data" class="container">
-    <div id="view-data-scrollable" class="container">
-      <table id="table-data" class="table table-bordered table-striped table-hover">
-        <thead id="thead" class="thead-dark"></thead>
-        <tbody id="tbody"></tbody>
-      </table>
-    </div>
-    <button id="button-clear-data" class="btn btn-default">Clear Data</button>
-  </div>
-
-  <div id="alert-success-upload-data" class="alert alert-success">
-    <button id="button-alert-close-upload-data" type="button" class="close"
-      data-dismiss="alert">&times;</button>
-    <strong>Success!</strong> Data Upload successfully completed.
-  </div>
-
-  <div id="alert-success-clear-data" class="alert alert-success">
-    <button id="button-alert-close-clear-data" type="button" class="close"
-      data-dismiss="alert">&times;</button>
-    <strong>Success!</strong> Data cleared.
-  </div>
-
-  <div id="frame-github-repo" class="container frame">
-    <i class="fa fa-times fa-lg button-close"></i>
-    <form id="form-github-repo">
-      <label for="github-repo-url">GitHub Repository URL</label>
-      <input type="url" id="github-repo-url" name="github-repo-url" placeholder="URL here...">
-
-      <div class="separator">
-        <span class="separator-text">or</span>
+   <body>
+      <div id="spinner-wrapper">
+         <div id="spinner" class="spinner"></div>
       </div>
 
-      <label for="github-repo">Registered GitHub Repository</label>
-      <select id="github-repo">
+      <div id="nav" class="container">
+         <button id="button-github-repo" class="btn btn-default">
+            GitHub Repo
+         </button>
+         <button id="button-upload" class="btn btn-default">Upload</button>
+         <button id="button-config" class="btn btn-default" disabled>
+            Config
+         </button>
+         <button id="button-metaphors" class="btn btn-default" disabled>
+            Metaphors
+         </button>
+         <button id="button-view-data" class="btn btn-default" disabled>
+            View Data
+         </button>
+         <button id="button-model-tree" class="btn btn-default" disabled>
+            Model Tree
+         </button>
+      </div>
+
+      <div id="view-data" class="container">
+         <div id="view-data-scrollable" class="container">
+            <table
+               id="table-data"
+               class="table table-bordered table-striped table-hover"
+            >
+               <thead id="thead" class="thead-dark"></thead>
+               <tbody id="tbody"></tbody>
+            </table>
+         </div>
+         <button id="button-clear-data" class="btn btn-default">
+            Clear Data
+         </button>
+      </div>
+
+      <div id="alert-success-upload-data" class="alert alert-success">
+         <button
+            id="button-alert-close-upload-data"
+            type="button"
+            class="close"
+            data-dismiss="alert"
+         >
+            &times;
+         </button>
+         <strong>Success!</strong> Data Upload successfully completed.
+      </div>
+
+      <div id="alert-success-clear-data" class="alert alert-success">
+         <button
+            id="button-alert-close-clear-data"
+            type="button"
+            class="close"
+            data-dismiss="alert"
+         >
+            &times;
+         </button>
+         <strong>Success!</strong> Data cleared.
+      </div>
+
+      <div id="frame-github-repo" class="container frame">
+         <i class="fa fa-times fa-lg button-close"></i>
+         <form id="form-github-repo">
+            <label for="github-repo-url">GitHub Repository URL</label>
+            <input
+               type="url"
+               id="github-repo-url"
+               name="github-repo-url"
+               placeholder="URL here..."
+            />
+
+            <div class="separator">
+               <span class="separator-text">or</span>
+            </div>
+
+            <label for="github-repo">Registered GitHub Repository</label>
+            <select id="github-repo"></select>
+            <button id="button-fetch" class="btn btn-default" disabled>
+               Fetch
+            </button>
+         </form>
+      </div>
+
+      <div id="frame-upload" class="container frame">
+         <i class="fa fa-times fa-lg button-close"></i>
+         <form id="form-upload">
+            <label for="file">Choose a .csv file:</label>
+            <input type="file" id="file" name="file" accept=".csv" required />
+            <label for="file-format">Select a type:</label>
+            <select id="file-format" name="file-format">
+               <option value="java-source-code">Java Source Code</option>
+               <option value="eye-tracking-java-source-code">
+                  Eye Tracking (Java Source Code)
+               </option>
+            </select>
+
+            <button id="button-upload-data" class="btn btn-default">
+               Upload Data
+            </button>
+         </form>
+      </div>
+
+      <div id="frame-config" class="container frame">
+         <i class="fa fa-times fa-lg button-close"></i>
+         <div>
+            <label
+               for="groupingPath-selection"
+               id="groupingPath-selection-label"
+               >groupingPath:</label
+            >
+            <select
+               id="groupingPath-selection"
+               name="groupingPath-selection"
+            ></select>
+         </div>
+
+         <div>
+            <label for="timestamp-selection" id="timestamp-selection-label"
+               >timestamp:</label
+            >
+            <select
+               id="timestamp-selection"
+               name="timestamp-selection"
+            ></select>
+         </div>
+
+         <div>
+            <label for="participant-selection" id="participant-selection-label"
+               >participant:</label
+            >
+            <select
+               id="participant-selection"
+               name="participant-selection"
+            ></select>
+         </div>
+
+         <div>
+            <label for="taskId-selection" id="taskId-selection-label"
+               >taskId:</label
+            >
+            <select id="taskId-selection" name="taskId-selection"></select>
+         </div>
+
+         <button id="button-save-config" class="btn btn-default">Save</button>
+      </div>
+
+      <div id="frame-metaphors" class="container frame">
+         <i class="fa fa-times fa-lg button-close"></i>
+         <div>
+            <label for="dimension-attribute-selection">Dimension:</label>
+            <select
+               id="dimension-attribute-selection"
+               name="dimension-attribute-selection"
+            ></select>
+         </div>
+         <div>
+            <label for="height-attribute-selection">Height:</label>
+            <select
+               id="height-attribute-selection"
+               name="height-attribute-selection"
+            ></select>
+         </div>
+
+         <div>
+            <label for="hue-attribute-selection">Color - Hue:</label>
+            <select
+               id="hue-attribute-selection"
+               name="hue-attribute-selection"
+            ></select>
+         </div>
+         <div>
+            <label for="luminance-attribute-selection"
+               >Color - Luminance:</label
+            >
+            <select
+               id="luminance-attribute-selection"
+               name="luminance-attribute-selection"
+            ></select>
+         </div>
+
+         <label id="participant-label" for="participant">Participant:</label>
+         <select id="participant"></select>
+
+         <label id="taskId-label" for="taskId">Task:</label>
+         <select id="taskId"></select>
+
+         <button id="button-start-visualize" class="btn btn-default">
+            Visualize
+         </button>
+      </div>
+
+      <div id="frame-model-tree" class="container frame">
+         <i class="fa fa-times fa-lg button-close"></i>
+         <div id="model-tree"></div>
+      </div>
+
+      <div id="frame-info" class="container frame">
+         <i class="fa fa-times fa-lg button-close"></i>
+         <div id="info-panel-div"></div>
+         <canvas id="chartBuilding"></canvas>
+         <canvas id="chartHeight"></canvas>
+         <canvas id="chartHue"></canvas>
+         <canvas id="chartLuminance"></canvas>
+      </div>
+
+      <div id="slider-container">
+         <div id="slider">
+            <div id="slider-thumb-t0">t0</div>
+            <div id="slider-window-width"></div>
+            <div id="slider-thumb-t1">t1</div>
+         </div>
+         <p id="slider-value">2024-01-01, 10:00:00:000</p>
+      </div>
+
+      <select id="aggregate-function" name="aggregate-function">
+         <option value="none">-</option>
+         <option value="sum">Sum</option>
+         <option value="integral-curve">Integral Curve</option>
       </select>
-      <button id="button-fetch" class="btn btn-default" disabled>Fetch</button>
-    </form>
-  </div>
 
-  <div id="frame-upload" class="container frame">
-    <i class="fa fa-times fa-lg button-close"></i>
-    <form id="form-upload">
-      <label for="file">Choose a .csv file:</label>
-      <input type="file" id="file" name="file" accept=".csv" required>
-      <label for="file-format">Select a type:</label>
-      <select id="file-format" name="file-format">
-        <option value="java-source-code">Java Source Code</option>
-        <option value="eye-tracking-java-source-code">Eye Tracking (Java Source Code)</option>
-      </select>
+      <!-- loading instructions here -->
+      <div id="instructions">
+         <h1 style="text-align: center">Software City App</h1>
+         <h2>Instructions</h2>
+         <a
+            href="https://github.com/jonaslanzlinger/software-city-project/tree/main/application/data"
+         >
+            Example Data Repository
+         </a>
+         <div>
+            <h4>File Formats</h4>
+            <p>
+               Choose a .csv file and select the type of data you are uploading.
+               Every .csv file needs to have the names of the attributes in the
+               first line. The delimiter symbol is a comma (","). The following
+               types are supported:
+            </p>
+            <ul>
+               <li>
+                  <p style="font-weight: bold">Java Source Code</p>
+                  The configuration needs at least the following attributes
+                  (names can differ):
+                  <ul>
+                     <li>
+                        groupingPath - {layer1;layer2;layer3; ...} - example:
+                        ch;unisg;application1;package1;class1
+                     </li>
+                     <li>
+                        timestamp - {YYYYMMDDHHmmssSSS} - example:
+                        20240210114054572
+                     </li>
+                  </ul>
+                  <p>
+                     This type of data is used to visualize static Java source
+                     code. The timestamp is used to map the code to a specific
+                     point in time. For each unique timestamp in the provided
+                     data, the app will create an epoche with all the data
+                     points with the same timestamp.
+                  </p>
+               </li>
+               <li>
+                  <p style="font-weight: bold">
+                     Eye Tracking (Java Source Code)
+                  </p>
+                  The configuration needs at least the following attributes
+                  (names can differ):
+                  <ul>
+                     <li>
+                        groupingPath - {layer1;layer2;layer3; ...} - example:
+                        ch;unisg;application1;package1;class1
+                     </li>
+                     <li>
+                        timestamp - {YYYYMMDDHHmmssSSS} - example:
+                        20240210114054572
+                     </li>
+                     <li>participant - {numeric} - example: 6</li>
+                     <li>taskId - {numeric} - example: 4</li>
+                  </ul>
+                  <p>
+                     This type of data is used to visualize an eye-tracking
+                     experiment. The timestamp is used to map the code to a
+                     specific point in time. The participant and taskId is used
+                     to specify an respective experiment. All other attributes
+                     can be used for the metaphors.
+                  </p>
+               </li>
+            </ul>
+         </div>
+      </div>
 
-      <button id="button-upload-data" class="btn btn-default">Upload Data</button>
-    </form>
-  </div>
-
-  <div id="frame-config" class="container frame">
-    <i class="fa fa-times fa-lg button-close"></i>
-    <div>
-      <label for="groupingPath-selection" id="groupingPath-selection-label">groupingPath:</label>
-      <select id="groupingPath-selection" name="groupingPath-selection">
-      </select>
-    </div>
-
-    <div>
-      <label for="timestamp-selection" id="timestamp-selection-label">timestamp:</label>
-      <select id="timestamp-selection" name="timestamp-selection">
-      </select>
-    </div>
-
-    <div>
-      <label for="participant-selection" id="participant-selection-label">participant:</label>
-      <select id="participant-selection" name="participant-selection">
-      </select>
-    </div>
-
-    <div>
-      <label for="taskId-selection" id="taskId-selection-label">taskId:</label>
-      <select id="taskId-selection" name="taskId-selection">
-      </select>
-    </div>
-
-    <button id="button-save-config" class="btn btn-default">Save</button>
-  </div>
-
-  <div id="frame-metaphors" class="container frame">
-    <i class="fa fa-times fa-lg button-close"></i>
-    <div>
-      <label for="dimension-attribute-selection">Dimension:</label>
-      <select id="dimension-attribute-selection" name="dimension-attribute-selection">
-      </select>
-    </div>
-    <div>
-      <label for="height-attribute-selection">Height:</label>
-      <select id="height-attribute-selection" name="height-attribute-selection">
-      </select>
-    </div>
-
-    <div>
-      <label for="hue-attribute-selection">Color - Hue:</label>
-      <select id="hue-attribute-selection" name="hue-attribute-selection">
-      </select>
-    </div>
-    <div>
-      <label for="luminance-attribute-selection">Color - Luminance:</label>
-      <select id="luminance-attribute-selection" name="luminance-attribute-selection">
-      </select>
-    </div>
-
-    <label id="participant-label" for="participant">Participant:</label>
-    <select id="participant"></select>
-
-    <label id="taskId-label" for="taskId">Task:</label>
-    <select id="taskId"></select>
-
-    <button id="button-start-visualize" class="btn btn-default">Visualize</button>
-  </div>
-
-  <div id="frame-model-tree" class="container frame">
-    <i class="fa fa-times fa-lg button-close"></i>
-    <div id="model-tree"></div>
-  </div>
-
-  <div id="frame-info" class="container frame">
-    <i class="fa fa-times fa-lg button-close"></i>
-    <div id="info-panel-div"></div>
-    <canvas id="chartBuilding"></canvas>
-    <canvas id="chartHeight"></canvas>
-    <canvas id="chartHue"></canvas>
-    <canvas id="chartLuminance"></canvas>
-  </div>
-
-  <div id="slider-container">
-    <div id="slider">
-      <div id="slider-thumb-t0">t0</div>
-      <div id="slider-window-width"></div>
-      <div id="slider-thumb-t1">t1</div>
-    </div>
-    <p id="slider-value">2024-01-01, 10:00:00:000</p>
-  </div>
-
-  <select id="aggregate-function" name="aggregate-function">
-    <option value="none">-</option>
-    <option value="sum">Sum</option>
-    <option value="integral-curve">Integral Curve</option>
-  </select>
-
-
-  <!-- loading instructions here -->
-  <div id="instructions">
-    <h1 style="text-align: center;">Software City App</h1>
-    <h2>Instructions</h2>
-    <a href="https://github.com/jonaslanzlinger/software-city-project/tree/main/application/data">
-      Example Data Repository
-    </a>
-    <div>
-      <h4>File Formats</h4>
-      <p>Choose a .csv file and select the type of data you are uploading. Every .csv file needs to
-        have the names of the attributes in the first line. The delimiter symbol is a comma (",").
-        The following types are supported:</p>
-      <ul>
-        <li>
-          <p style="font-weight: bold;">Java Source Code</p>
-          The configuration needs at least the following attributes (names can differ):
-          <ul>
-            <li>groupingPath - {layer1;layer2;layer3; ...} - example:
-              ch;unisg;application1;package1;class1</li>
-            <li>timestamp - {YYYYMMDDHHmmssSSS} - example: 20240210114054572</li>
-          </ul>
-          <p>This type of data is used to visualize static Java source code. The timestamp is used
-            to map the code to a specific point in time. For each unique timestamp in the provided
-            data, the app will create an epoche with all the data points with the same timestamp.
-          </p>
-        </li>
-        <li>
-          <p style="font-weight: bold;">Eye Tracking (Java Source Code)</p>
-          The configuration needs at least the following attributes (names can differ):
-          <ul>
-            <li>groupingPath - {layer1;layer2;layer3; ...} - example:
-              ch;unisg;application1;package1;class1</li>
-            <li>timestamp - {YYYYMMDDHHmmssSSS} - example: 20240210114054572</li>
-            <li>participant - {numeric} - example: 6</li>
-            <li>taskId - {numeric} - example: 4</li>
-          </ul>
-          <p>This type of data is used to visualize an eye-tracking experiment. The timestamp is
-            used to map the code to a specific point in time. The participant and taskId is used to
-            specify an respective experiment. All other attributes can be used for the metaphors.
-          </p>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-
-</body>
-
+   </body>
 </html>
