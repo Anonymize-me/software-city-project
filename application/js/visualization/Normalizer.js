@@ -1,5 +1,4 @@
 class Normalizer {
-
    dimensionRange = { min: 0.2, max: 10.0 };
    heightRange = { min: 0.2, max: 50.0 };
 
@@ -28,17 +27,35 @@ class Normalizer {
    }
 
    normalizeDimensions(treeOfBuildings) {
-      treeOfBuildings.list.forEach(building => {
+      treeOfBuildings.list.forEach((building) => {
          let percent = 100;
          if (this.maxDimensionBuilding === this.minDimensionBuilding) {
             percent = 1;
          } else {
-            percent = (building.getTotalDimensionValue() - this.minDimensionBuilding) / (this.maxDimensionBuilding - this.minDimensionBuilding);
+            percent =
+               (building.getTotalDimensionValue() - this.minDimensionBuilding) /
+               (this.maxDimensionBuilding - this.minDimensionBuilding);
          }
-         let normalizedValue = (this.dimensionRange.max - this.dimensionRange.min) * percent + this.dimensionRange.min;
+         let normalizedValue =
+            (this.dimensionRange.max - this.dimensionRange.min) * percent +
+            this.dimensionRange.min;
+
          building.scale.x = normalizedValue;
          building.scale.z = normalizedValue;
       });
+   }
+
+   normalizeHeights(treeOfBuildings) {
+      treeOfBuildings.list.forEach((building) => {
+         building.scale.y = this.normalizeHeight(
+            building.getTotalHeightValue()
+         );
+         this.adjustYPosition(building);
+      });
+   }
+
+   adjustYPosition(building) {
+      building.position.y = building.scale.y / 2.0;
    }
 
    normalizeHeight(height) {
@@ -46,13 +63,31 @@ class Normalizer {
       if (this.maxHeightBuilding === this.minHeightBuilding) {
          percent = 1;
       } else {
-         percent = (height - this.minHeightBuilding) / (this.maxHeightBuilding - this.minHeightBuilding);
+         percent =
+            (height - this.minHeightBuilding) /
+            (this.maxHeightBuilding - this.minHeightBuilding);
       }
-      let normalizedHeight = (this.heightRange.max - this.heightRange.min) * percent + this.heightRange.min;
+      let normalizedHeight =
+         (this.heightRange.max - this.heightRange.min) * percent +
+         this.heightRange.min;
       if (normalizedHeight > this.currentHeightValueMean) {
-         return (this.currentHeightValueMean + Math.pow(normalizedHeight - this.currentHeightValueMean, this.guiNormalizeValue)) * this.guiScaleValue;
+         return (
+            (this.currentHeightValueMean +
+               Math.pow(
+                  normalizedHeight - this.currentHeightValueMean,
+                  this.guiNormalizeValue
+               )) *
+            this.guiScaleValue
+         );
       } else if (normalizedHeight < this.currentHeightValueMean) {
-         return (this.currentHeightValueMean - Math.pow(this.currentHeightValueMean - normalizedHeight, this.guiNormalizeValue)) * this.guiScaleValue;
+         return (
+            (this.currentHeightValueMean -
+               Math.pow(
+                  this.currentHeightValueMean - normalizedHeight,
+                  this.guiNormalizeValue
+               )) *
+            this.guiScaleValue
+         );
       } else {
          return normalizedHeight * this.guiScaleValue;
       }
@@ -67,4 +102,4 @@ class Normalizer {
    }
 }
 
-export { Normalizer }
+export { Normalizer };

@@ -379,35 +379,12 @@ const buildTreesOfBuildings = () => {
             treeOfBuildings.addBuilding(entry);
          });
 
+         // create a normalizer object for this tree of buildings
          setNormalizer(new Normalizer(treeOfBuildings));
          getNormalizer().normalizeDimensions(treeOfBuildings);
+         getNormalizer().normalizeHeights(treeOfBuildings);
 
-         let listOfVisibleBuildings = [];
-         treeOfBuildings.list.forEach((building) => {
-            building.visible = false;
-            building.buildingData.forEach((buildingData) => {
-               if (buildingData.timestamp == treeOfBuildings.timestamp) {
-                  building.visible = true;
-                  listOfVisibleBuildings.push(building);
-                  if (getMetaphorSelection().dimension !== undefined) {
-                     building.scale.x =
-                        buildingData[getMetaphorSelection().dimension];
-                  } else {
-                     building.scale.x = 1;
-                  }
-                  building.scale.z = building.scale.x;
-                  if (getMetaphorSelection().height !== undefined) {
-                     building.scale.y =
-                        buildingData[getMetaphorSelection().height];
-                  } else {
-                     building.scale.y = 1;
-                  }
-                  building.position.y = building.scale.y / 2;
-               }
-            });
-         });
-
-         treeOfBuildings.buildTreeStructureWithList(listOfVisibleBuildings);
+         treeOfBuildings.buildTreeStructure();
          treeOfBuildings.putOnScreen(treeOfBuildings.baseNode);
          treeOfBuildings.adjustChildrenLayerPositionY(treeOfBuildings.baseNode);
          listTreeOfBuildings.push(treeOfBuildings);
