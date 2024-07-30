@@ -279,6 +279,9 @@ const destroyAndRemoveVisualization = () => {
    document.getElementById("slider-window-width").style.width = "0px";
    document.getElementById("slider-container").style.display = "none";
 
+   // Hide snapshot input
+   document.getElementById("snapshot-input-container").style.display = "none";
+
    // Reset and hide aggregate function element
    document.getElementById("aggregate-function").value = "none";
    document.getElementById("aggregate-function").style.display = "none";

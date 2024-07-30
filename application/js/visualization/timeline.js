@@ -20,6 +20,11 @@ const getUpperRangeBounds = () => {
    return upperRangeBounds;
 };
 
+let snapshotInputContainer = document.getElementById(
+   "snapshot-input-container"
+);
+let snapshotInput = document.getElementById("snapshot-input");
+
 let aggregateFunction = document.getElementById("aggregate-function");
 
 const addSliderJavaSourceCode = (
@@ -58,6 +63,40 @@ const addSliderJavaSourceCode = (
    sliderThumbT0.style.left = "0px";
    sliderThumbT1.style.left = "0px";
 
+   snapshotInputContainer.style.display = "block";
+   snapshotInput.min = 1;
+   snapshotInput.max = treeOfBuildingsList.length;
+   snapshotInput.value = 1;
+   snapshotInput.addEventListener("input", (e) => {
+      if (e.target.value === "") {
+         return;
+      }
+      if (e.target.value < 1) {
+         e.target.value = 1;
+      }
+      if (e.target.value > treeOfBuildingsList.length) {
+         e.target.value = treeOfBuildingsList.length;
+      }
+
+      i = parseInt(e.target.value) - 1;
+      scene.remove(...scene.children.filter((child) => child instanceof Plane));
+      displayedTreeOfBuildings = treeOfBuildingsList[i];
+      scene.add(displayedTreeOfBuildings.baseNode);
+
+      while (modelTreeElement.firstChild) {
+         modelTreeElement.removeChild(modelTreeElement.firstChild);
+      }
+      modelTreeElement.appendChild(listOfModelTrees[i]);
+
+      valueDisplay.textContent = `Commit: ${i + 1}, ${treeOfBuildingsList[i].timestamp}`;
+
+      // also update the position of the slider thumb
+      const sliderProgress =
+         (treeOfBuildingsList[i].timestamp - lowestTimestamp) / deltaTimestamp;
+      sliderThumbT1.style.left =
+         sliderProgress * (slider.clientWidth - 20) + "px";
+   });
+
    aggregateFunction.style.display = "none";
 
    sliderThumbT1.addEventListener("mousedown", (e) => {
@@ -90,6 +129,9 @@ const addSliderJavaSourceCode = (
             parseInt(lowestTimestamp) +
             parseInt(sliderProgress * deltaTimestamp);
          valueDisplay.textContent = `Commit: ${i + 1}, ${sliderTimestamp}`;
+
+         // also update the snapshot input field
+         snapshotInput.value = i + 1;
 
          // redraw the slider
          draggingSlider.style.left = newSliderProgressInPixel + "px";
@@ -155,7 +197,6 @@ const addSlider = (treeOfBuildings, listOfModelTrees) => {
    const highestTimestamp = treeOfBuildings.getHighestTimestamp();
    const deltaTimestamp = highestTimestamp - lowestTimestamp;
 
-   // valueDisplay.textContent = formatDate(lowestTimestamp);
    valueDisplay.textContent = lowestTimestamp;
    sliderContainer.style.display = "block";
 
@@ -166,6 +207,7 @@ const addSlider = (treeOfBuildings, listOfModelTrees) => {
    sliderThumbT0.style.left = "0px";
    sliderThumbT1.style.left = "0px";
 
+   snapshotInputContainer.style.display = "none";
    aggregateFunction.style.display = "block";
 
    sliderThumbT0.addEventListener("mousedown", (e) => {
