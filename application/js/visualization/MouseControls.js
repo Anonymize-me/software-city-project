@@ -3,11 +3,9 @@ import { Building } from "./Building";
 import { Plane } from "./Plane";
 import { Mesh } from "three";
 import { getListTreeOfBuildings, getMetaphorSelection } from "../data";
-import { formatDate } from "../utils";
 import { drawArrow, removeArrow } from "./arrow";
 
 class MouseControls {
-
    mousePosition = null;
    previousHoverObject = null;
    previousColor = null;
@@ -21,51 +19,57 @@ class MouseControls {
 
    arrowObject = null;
 
-   calculateStepSize = chart => {
+   calculateStepSize = (chart) => {
       const chartHeight = chart.height;
       const yStepSize = Math.max(1, Math.floor(chartHeight / 50));
       return yStepSize;
-   }
+   };
 
    constructor(document, camera, scene, renderer) {
-
-      renderer.domElement.addEventListener("mousedown", e => {
+      renderer.domElement.addEventListener("mousedown", (e) => {
          const mouse = new THREE.Vector2();
          mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
          mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
          this.mousePosition = mouse;
       });
 
-      renderer.domElement.addEventListener("mouseup", e => {
+      renderer.domElement.addEventListener("mouseup", (e) => {
          const mouse = new THREE.Vector2();
          mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
          mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
 
-         if (mouse.x === this.mousePosition.x && mouse.y === this.mousePosition.y) {
+         if (
+            mouse.x === this.mousePosition.x &&
+            mouse.y === this.mousePosition.y
+         ) {
             const raycaster = new THREE.Raycaster();
             raycaster.setFromCamera(mouse, camera);
 
             const intersects = raycaster.intersectObjects(scene.children);
 
             for (const obj of intersects) {
-               if (obj.object.geometry.type === "BoxGeometry" && obj.object.visible) {
+               if (
+                  obj.object.geometry.type === "BoxGeometry" &&
+                  obj.object.visible
+               ) {
                   let objInfo = {};
                   if (obj.object instanceof Building) {
                      objInfo = {
                         buildingId: obj.object.buildingId,
                         buildingName: obj.object.buildingName,
                         buildingGroupingPath: obj.object.buildingGroupingPath,
-                        buildingData: obj.object.buildingData
+                        buildingData: obj.object.buildingData,
                      };
                   } else {
                      objInfo = {
-                        nodeName: obj.object.parent.nodeName
-                     }
+                        nodeName: obj.object.parent.nodeName,
+                     };
                   }
 
                   const frameInfo = document.getElementById("frame-info");
                   frameInfo.style.display = "block";
-                  const infoPanelDiv = document.getElementById("info-panel-div");
+                  const infoPanelDiv =
+                     document.getElementById("info-panel-div");
                   while (infoPanelDiv.firstChild) {
                      infoPanelDiv.removeChild(infoPanelDiv.firstChild);
                   }
@@ -102,24 +106,27 @@ class MouseControls {
                   }
 
                   if (obj.object instanceof Building) {
-
                      let building = obj.object;
                      let dataHeightMetaphor = [];
                      let dataHueMetaphor = [];
                      let dataLuminanceMetaphor = [];
 
-                     building.buildingData.forEach(dataEntry => {
+                     building.buildingData.forEach((dataEntry) => {
                         dataHeightMetaphor.push({
                            x: dataEntry.timestamp,
-                           y: parseFloat(dataEntry[getMetaphorSelection().height])
+                           y: parseFloat(
+                              dataEntry[getMetaphorSelection().height]
+                           ),
                         });
                         dataHueMetaphor.push({
                            x: dataEntry.timestamp,
-                           y: parseFloat(dataEntry[getMetaphorSelection().hue])
+                           y: parseFloat(dataEntry[getMetaphorSelection().hue]),
                         });
                         dataLuminanceMetaphor.push({
                            x: dataEntry.timestamp,
-                           y: parseFloat(dataEntry[getMetaphorSelection().luminance])
+                           y: parseFloat(
+                              dataEntry[getMetaphorSelection().luminance]
+                           ),
                         });
                      });
 
@@ -127,342 +134,371 @@ class MouseControls {
                      dataHueMetaphor.sort((a, b) => a.x - b.x);
                      dataLuminanceMetaphor.sort((a, b) => a.x - b.x);
 
-                     dataHeightMetaphor = dataHeightMetaphor.map(entry => {
+                     dataHeightMetaphor = dataHeightMetaphor.map((entry) => {
                         return {
-                           // x: formatDate(entry.x),
                            x: entry.x,
-                           y: entry.y
-                        }
+                           y: entry.y,
+                        };
                      });
-                     dataHueMetaphor = dataHueMetaphor.map(entry => {
+                     dataHueMetaphor = dataHueMetaphor.map((entry) => {
                         return {
-                           // x: formatDate(entry.x),
                            x: entry.x,
-                           y: entry.y
-                        }
+                           y: entry.y,
+                        };
                      });
-                     dataLuminanceMetaphor = dataLuminanceMetaphor.map(entry => {
-                        return {
-                           // x: formatDate(entry.x),
-                           x: entry.x,
-                           y: entry.y
+                     dataLuminanceMetaphor = dataLuminanceMetaphor.map(
+                        (entry) => {
+                           return {
+                              x: entry.x,
+                              y: entry.y,
+                           };
                         }
-                     });
-
-                     let buildingBaseColor = building.baseColor.getRgb();
+                     );
 
                      let allTimestamps = [];
                      let heightMetaphorDatasets = [];
                      let hueMetaphorDatasets = [];
                      let luminanceMetaphorDatasets = [];
 
-                     getListTreeOfBuildings()[0].list.forEach(building => {
+                     getListTreeOfBuildings()[0].list.forEach((building) => {
                         for (let entry of building.buildingData) {
                            if (!allTimestamps.includes(entry.timestamp)) {
                               allTimestamps.push(entry.timestamp);
                            }
                            heightMetaphorDatasets.push({
                               x: entry.timestamp,
-                              y: parseFloat(entry[getMetaphorSelection().height])
+                              y: parseFloat(
+                                 entry[getMetaphorSelection().height]
+                              ),
                            });
                            hueMetaphorDatasets.push({
                               x: entry.timestamp,
-                              y: parseFloat(entry[getMetaphorSelection().hue])
+                              y: parseFloat(entry[getMetaphorSelection().hue]),
                            });
                            luminanceMetaphorDatasets.push({
                               x: entry.timestamp,
-                              y: parseFloat(entry[getMetaphorSelection().luminance])
+                              y: parseFloat(
+                                 entry[getMetaphorSelection().luminance]
+                              ),
                            });
                         }
                      });
 
-                     this.chartBuilding = new Chart(document.getElementById('chartBuilding'), {
-                        type: "line",
-                        data: {
-                           labels: dataHeightMetaphor.map(entry => entry.x),
-                           datasets: [{
-                              label: `Height - ${getMetaphorSelection().height}`,
-                              fill: false,
-                              lineTension: 0,
-                              borderColor: "rgba(255, 99, 71, 1)",
-                              backgroundColor: "rgba(255, 99, 71, 0.75)",
-                              pointStyle: 'circle',
-                              pointRadius: 5,
-                              pointHoverRadius: 7.5,
-                              data: dataHeightMetaphor
-                           }, {
-                              label: `Hue - ${getMetaphorSelection().hue}`,
-                              fill: false,
-                              lineTension: 0,
-                              borderColor: "rgba(131, 218, 71, 1)",
-                              backgroundColor: "rgba(131, 218, 71, 0.75)",
-                              pointStyle: 'circle',
-                              pointRadius: 5,
-                              pointHoverRadius: 7.5,
-                              data: dataHueMetaphor
-                           }, {
-                              label: `Luminance - ${getMetaphorSelection().luminance}`,
-                              fill: false,
-                              lineTension: 0,
-                              borderColor: "rgba(62, 117, 222, 1)",
-                              backgroundColor: "rgba(62, 117, 222, 0.75)",
-                              pointStyle: 'circle',
-                              pointRadius: 5,
-                              pointHoverRadius: 7.5,
-                              data: dataLuminanceMetaphor
-                           }],
-                        },
-                        options: {
-                           plugins: {
-                              title: {
-                                 display: true,
-                                 text: 'All Metaphors',
-                                 font: {
-                                    size: 18
+                     this.chartBuilding = new Chart(
+                        document.getElementById("chartBuilding"),
+                        {
+                           type: "line",
+                           data: {
+                              labels: dataHeightMetaphor.map(
+                                 (entry) => entry.x
+                              ),
+                              datasets: [
+                                 {
+                                    label: `Height - ${getMetaphorSelection().height}`,
+                                    fill: false,
+                                    lineTension: 0,
+                                    borderColor: "rgba(255, 99, 71, 1)",
+                                    backgroundColor: "rgba(255, 99, 71, 0.75)",
+                                    pointStyle: "circle",
+                                    pointRadius: 5,
+                                    pointHoverRadius: 7.5,
+                                    data: dataHeightMetaphor,
                                  },
-                                 padding: {
-                                    top: 30,
-                                    bottom: 15
-                                 }
-                              },
-                              beforeUpdate: chart => {
-                                 const yStepSize = calculateStepSize(chart);
-                                 chart.options.scales.y.ticks.stepSize = yStepSize;
-                              }
+                                 {
+                                    label: `Hue - ${getMetaphorSelection().hue}`,
+                                    fill: false,
+                                    lineTension: 0,
+                                    borderColor: "rgba(131, 218, 71, 1)",
+                                    backgroundColor: "rgba(131, 218, 71, 0.75)",
+                                    pointStyle: "circle",
+                                    pointRadius: 5,
+                                    pointHoverRadius: 7.5,
+                                    data: dataHueMetaphor,
+                                 },
+                                 {
+                                    label: `Luminance - ${getMetaphorSelection().luminance}`,
+                                    fill: false,
+                                    lineTension: 0,
+                                    borderColor: "rgba(62, 117, 222, 1)",
+                                    backgroundColor: "rgba(62, 117, 222, 0.75)",
+                                    pointStyle: "circle",
+                                    pointRadius: 5,
+                                    pointHoverRadius: 7.5,
+                                    data: dataLuminanceMetaphor,
+                                 },
+                              ],
                            },
-                           scales: {
-                              x: {
-                                 ticks: {
-                                    display: false
-                                 },
+                           options: {
+                              plugins: {
                                  title: {
                                     display: true,
-                                    text: 'timeline'
+                                    text: "All Metaphors",
+                                    font: {
+                                       size: 18,
+                                    },
+                                    padding: {
+                                       top: 30,
+                                       bottom: 15,
+                                    },
                                  },
-                                 grid: {
-                                    display: false
-                                 }
+                                 beforeUpdate: (chart) => {
+                                    const yStepSize = calculateStepSize(chart);
+                                    chart.options.scales.y.ticks.stepSize =
+                                       yStepSize;
+                                 },
                               },
-                              y: {
-                                 ticks: {
-                                    display: true,
-                                    stepSize: 1
+                              scales: {
+                                 x: {
+                                    ticks: {
+                                       display: false,
+                                    },
+                                    title: {
+                                       display: true,
+                                       text: "timeline",
+                                    },
+                                    grid: {
+                                       display: false,
+                                    },
                                  },
-                                 title: {
-                                    display: true,
-                                    text: 'values'
+                                 y: {
+                                    ticks: {
+                                       display: true,
+                                       stepSize: 1,
+                                    },
+                                    title: {
+                                       display: true,
+                                       text: "values",
+                                    },
+                                    grid: {
+                                       display: true,
+                                    },
                                  },
-                                 grid: {
-                                    display: true
-                                 }
-                              }
-                           }
+                              },
+                           },
                         }
-                     });
+                     );
 
-                     this.chartHeight = new Chart(document.getElementById('chartHeight'), {
-                        type: 'line',
-                        data: {
-                           datasets: [{
-                              type: 'line',
-                              label: 'All Buildings',
-                              data: heightMetaphorDatasets,
-                              order: 2,
-                              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                           },
-                           {
-                              type: 'line',
-                              label: 'Current Building',
-                              data: dataHeightMetaphor,
-                              order: 1,
-                              backgroundColor: 'rgba(54, 162, 235, 1)',
-                           }],
-                           labels: allTimestamps
-                        },
-                        options: {
-                           plugins: {
-                              title: {
-                                 display: true,
-                                 text: 'Height Metaphor',
-                                 font: {
-                                    size: 18
+                     this.chartHeight = new Chart(
+                        document.getElementById("chartHeight"),
+                        {
+                           type: "line",
+                           data: {
+                              datasets: [
+                                 {
+                                    type: "line",
+                                    label: "All Buildings",
+                                    data: heightMetaphorDatasets,
+                                    order: 2,
+                                    backgroundColor: "rgba(255, 99, 132, 0.2)",
                                  },
-                                 padding: {
-                                    top: 30,
-                                    bottom: 15
-                                 }
-                              },
-                              beforeUpdate: chart => {
-                                 const yStepSize = calculateStepSize(chart);
-                                 chart.options.scales.y.ticks.stepSize = yStepSize;
-                              }
-                           },
-                           scales: {
-                              x: {
-                                 ticks: {
-                                    display: false
+                                 {
+                                    type: "line",
+                                    label: "Current Building",
+                                    data: dataHeightMetaphor,
+                                    order: 1,
+                                    backgroundColor: "rgba(54, 162, 235, 1)",
                                  },
+                              ],
+                              labels: allTimestamps,
+                           },
+                           options: {
+                              plugins: {
                                  title: {
                                     display: true,
-                                    text: 'timeline'
+                                    text: "Height Metaphor",
+                                    font: {
+                                       size: 18,
+                                    },
+                                    padding: {
+                                       top: 30,
+                                       bottom: 15,
+                                    },
                                  },
-                                 grid: {
-                                    display: false
-                                 }
+                                 beforeUpdate: (chart) => {
+                                    const yStepSize = calculateStepSize(chart);
+                                    chart.options.scales.y.ticks.stepSize =
+                                       yStepSize;
+                                 },
                               },
-                              y: {
-                                 ticks: {
-                                    display: true,
-                                    stepSize: 1
+                              scales: {
+                                 x: {
+                                    ticks: {
+                                       display: false,
+                                    },
+                                    title: {
+                                       display: true,
+                                       text: "timeline",
+                                    },
+                                    grid: {
+                                       display: false,
+                                    },
                                  },
-                                 title: {
-                                    display: true,
-                                    text: getMetaphorSelection().height
+                                 y: {
+                                    ticks: {
+                                       display: true,
+                                       stepSize: 1,
+                                    },
+                                    title: {
+                                       display: true,
+                                       text: getMetaphorSelection().height,
+                                    },
+                                    grid: {
+                                       display: true,
+                                    },
                                  },
-                                 grid: {
-                                    display: true
-                                 }
-                              }
-                           }
+                              },
+                           },
                         }
-                     });
+                     );
 
-                     this.chartHue = new Chart(document.getElementById('chartHue'), {
-                        type: 'line',
-                        data: {
-                           datasets: [{
-                              type: 'line',
-                              label: 'All Buildings',
-                              data: hueMetaphorDatasets,
-                              order: 2,
-                              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                           },
-                           {
-                              type: 'line',
-                              label: 'Current Building',
-                              data: dataHueMetaphor,
-                              order: 1,
-                              backgroundColor: 'rgba(54, 162, 235, 1)',
-                           }],
-                           labels: allTimestamps
-                        },
-                        options: {
-                           plugins: {
-                              title: {
-                                 display: true,
-                                 text: 'Hue Metaphor',
-                                 font: {
-                                    size: 18
+                     this.chartHue = new Chart(
+                        document.getElementById("chartHue"),
+                        {
+                           type: "line",
+                           data: {
+                              datasets: [
+                                 {
+                                    type: "line",
+                                    label: "All Buildings",
+                                    data: hueMetaphorDatasets,
+                                    order: 2,
+                                    backgroundColor: "rgba(255, 99, 132, 0.2)",
                                  },
-                                 padding: {
-                                    top: 30,
-                                    bottom: 15
-                                 }
-                              },
-                              beforeUpdate: chart => {
-                                 const yStepSize = calculateStepSize(chart);
-                                 chart.options.scales.y.ticks.stepSize = yStepSize;
-                              }
-                           },
-                           scales: {
-                              x: {
-                                 ticks: {
-                                    display: false
+                                 {
+                                    type: "line",
+                                    label: "Current Building",
+                                    data: dataHueMetaphor,
+                                    order: 1,
+                                    backgroundColor: "rgba(54, 162, 235, 1)",
                                  },
+                              ],
+                              labels: allTimestamps,
+                           },
+                           options: {
+                              plugins: {
                                  title: {
                                     display: true,
-                                    text: 'timeline'
+                                    text: "Hue Metaphor",
+                                    font: {
+                                       size: 18,
+                                    },
+                                    padding: {
+                                       top: 30,
+                                       bottom: 15,
+                                    },
                                  },
-                                 grid: {
-                                    display: false
-                                 }
+                                 beforeUpdate: (chart) => {
+                                    const yStepSize = calculateStepSize(chart);
+                                    chart.options.scales.y.ticks.stepSize =
+                                       yStepSize;
+                                 },
                               },
-                              y: {
-                                 ticks: {
-                                    display: true,
-                                    stepSize: 1
+                              scales: {
+                                 x: {
+                                    ticks: {
+                                       display: false,
+                                    },
+                                    title: {
+                                       display: true,
+                                       text: "timeline",
+                                    },
+                                    grid: {
+                                       display: false,
+                                    },
                                  },
-                                 title: {
-                                    display: true,
-                                    text: getMetaphorSelection().hue
+                                 y: {
+                                    ticks: {
+                                       display: true,
+                                       stepSize: 1,
+                                    },
+                                    title: {
+                                       display: true,
+                                       text: getMetaphorSelection().hue,
+                                    },
+                                    grid: {
+                                       display: true,
+                                    },
                                  },
-                                 grid: {
-                                    display: true
-                                 }
-                              }
-                           }
+                              },
+                           },
                         }
-                     });
+                     );
 
-                     this.chartLuminance = new Chart(document.getElementById('chartLuminance'), {
-                        type: 'line',
-                        data: {
-                           datasets: [{
-                              type: 'line',
-                              label: 'All Buildings',
-                              data: luminanceMetaphorDatasets,
-                              order: 2,
-                              backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                           },
-                           {
-                              type: 'line',
-                              label: 'Current Building',
-                              data: dataLuminanceMetaphor,
-                              order: 1,
-                              backgroundColor: 'rgba(54, 162, 235, 1)',
-                           }],
-                           labels: allTimestamps
-                        },
-                        options: {
-                           plugins: {
-                              title: {
-                                 display: true,
-                                 text: 'Luminance Metaphor',
-                                 font: {
-                                    size: 18
+                     this.chartLuminance = new Chart(
+                        document.getElementById("chartLuminance"),
+                        {
+                           type: "line",
+                           data: {
+                              datasets: [
+                                 {
+                                    type: "line",
+                                    label: "All Buildings",
+                                    data: luminanceMetaphorDatasets,
+                                    order: 2,
+                                    backgroundColor: "rgba(255, 99, 132, 0.2)",
                                  },
-                                 padding: {
-                                    top: 30,
-                                    bottom: 15
-                                 }
-                              },
-                              beforeUpdate: chart => {
-                                 const yStepSize = calculateStepSize(chart);
-                                 chart.options.scales.y.ticks.stepSize = yStepSize;
-                              }
-                           },
-                           scales: {
-                              x: {
-                                 ticks: {
-                                    display: false
+                                 {
+                                    type: "line",
+                                    label: "Current Building",
+                                    data: dataLuminanceMetaphor,
+                                    order: 1,
+                                    backgroundColor: "rgba(54, 162, 235, 1)",
                                  },
+                              ],
+                              labels: allTimestamps,
+                           },
+                           options: {
+                              plugins: {
                                  title: {
                                     display: true,
-                                    text: 'timeline'
+                                    text: "Luminance Metaphor",
+                                    font: {
+                                       size: 18,
+                                    },
+                                    padding: {
+                                       top: 30,
+                                       bottom: 15,
+                                    },
                                  },
-                                 grid: {
-                                    display: false
-                                 }
+                                 beforeUpdate: (chart) => {
+                                    const yStepSize = calculateStepSize(chart);
+                                    chart.options.scales.y.ticks.stepSize =
+                                       yStepSize;
+                                 },
                               },
-                              y: {
-                                 ticks: {
-                                    display: true,
-                                    stepSize: 1
+                              scales: {
+                                 x: {
+                                    ticks: {
+                                       display: false,
+                                    },
+                                    title: {
+                                       display: true,
+                                       text: "timeline",
+                                    },
+                                    grid: {
+                                       display: false,
+                                    },
                                  },
-                                 title: {
-                                    display: true,
-                                    text: getMetaphorSelection().luminance
+                                 y: {
+                                    ticks: {
+                                       display: true,
+                                       stepSize: 1,
+                                    },
+                                    title: {
+                                       display: true,
+                                       text: getMetaphorSelection().luminance,
+                                    },
+                                    grid: {
+                                       display: true,
+                                    },
                                  },
-                                 grid: {
-                                    display: true
-                                 }
-                              }
-                           }
+                              },
+                           },
                         }
-                     });
+                     );
 
                      // display arrow over the building
-                     drawArrow(building)
+                     drawArrow(building);
                   } else {
                      removeArrow();
                   }
@@ -472,8 +508,7 @@ class MouseControls {
          }
       });
 
-      renderer.domElement.addEventListener("mousemove", e => {
-
+      renderer.domElement.addEventListener("mousemove", (e) => {
          for (let element of this.allModelTreeElements) {
             element.style.color = "black";
          }
@@ -496,11 +531,15 @@ class MouseControls {
             this.previousHoverObject = null;
          }
 
-         intersects = intersects.filter(intersect =>
-            intersect.object instanceof Building ||
-            intersect.object instanceof Mesh ||
-            intersect.object instanceof Plane);
-         intersects = intersects.filter(intersect => intersect.object.visible);
+         intersects = intersects.filter(
+            (intersect) =>
+               intersect.object instanceof Building ||
+               intersect.object instanceof Mesh ||
+               intersect.object instanceof Plane
+         );
+         intersects = intersects.filter(
+            (intersect) => intersect.object.visible
+         );
 
          if (intersects.length === 0) {
             return;
@@ -527,4 +566,4 @@ class MouseControls {
    }
 }
 
-export { MouseControls }
+export { MouseControls };
