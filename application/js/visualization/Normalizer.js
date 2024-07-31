@@ -50,12 +50,13 @@ class Normalizer {
          building.scale.y = this.normalizeHeight(
             building.getTotalHeightValue()
          );
+         building.currentHeightValue = building.scale.y;
          this.adjustYPosition(building);
       });
    }
 
    adjustYPosition(building) {
-      building.position.y = building.scale.y / 2.0;
+      building.position.y = building.scale.y / 2.0 + 0.1;
    }
 
    normalizeHeight(height) {

@@ -6,7 +6,6 @@ import pack from "bin-pack";
 import {
    getDataType,
    getEpoques,
-   getMetaphorSelection,
    getNormalizer,
    getVisualizationData,
    setNormalizer,
@@ -27,6 +26,20 @@ class TreeOfBuildings {
       this.baseNode = new Plane("project_base_node");
       this.buildingId = 1;
       this.timestamp = timestamp;
+   }
+
+   /**
+    * Method that returns the normalizer for this TreeOfBuildings
+    */
+   getNormalizer() {
+      return this.normalizer;
+   }
+
+   /**
+    * Method that sets the normalizer for this TreeOfBuildings
+    */
+   setNormalizer(normalizer) {
+      this.normalizer = normalizer;
    }
 
    /**
@@ -381,8 +394,9 @@ const buildTreesOfBuildings = () => {
 
          // create a normalizer object for this tree of buildings
          setNormalizer(new Normalizer(treeOfBuildings));
-         getNormalizer().normalizeDimensions(treeOfBuildings);
-         getNormalizer().normalizeHeights(treeOfBuildings);
+         treeOfBuildings.setNormalizer(getNormalizer());
+         treeOfBuildings.getNormalizer().normalizeDimensions(treeOfBuildings);
+         treeOfBuildings.getNormalizer().normalizeHeights(treeOfBuildings);
 
          treeOfBuildings.buildTreeStructure();
          treeOfBuildings.putOnScreen(treeOfBuildings.baseNode);
@@ -397,7 +411,8 @@ const buildTreesOfBuildings = () => {
 
       // create a normalizer object for this tree of buildings
       setNormalizer(new Normalizer(treeOfBuildings));
-      getNormalizer().normalizeDimensions(treeOfBuildings);
+      treeOfBuildings.setNormalizer(getNormalizer());
+      treeOfBuildings.getNormalizer().normalizeDimensions(treeOfBuildings);
 
       treeOfBuildings.buildTreeStructure();
       treeOfBuildings.putOnScreen(treeOfBuildings.baseNode);
