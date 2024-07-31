@@ -1,5 +1,6 @@
 import { getMetaphorSelection } from "../data";
 import { getMinValueByAttribute, getMaxValueByAttribute } from "../utils";
+import { getListGuis } from "../data";
 
 /**
  * Method that applies metaphors to the visualization
@@ -54,4 +55,31 @@ const applyMetaphors = (listTreeOfBuildings, listModelTrees) => {
    });
 };
 
-export { applyMetaphors };
+/**
+ * Method that computes the saturation metaphor
+ *
+ * @param {*} listTreeOfBuildings - A list with all TreeOfBuildings (1 except for java-source-code type)
+ */
+const computeSaturationMetaphor = (listTreeOfBuildings) => {
+   let saturationMetaphor = getListGuis()[0].thresholdParams.dropdown;
+   let saturationThreshold = getListGuis()[0].thresholdParams.threshold;
+   let saturationValueForBuildingsBelowThreshold =
+      getListGuis()[0].thresholdParams.saturation;
+
+   for (let treeOfBuildings of listTreeOfBuildings) {
+      for (let building of treeOfBuildings.list) {
+         let lastSaturationValue = 0;
+         for (let entry of building.buildingData) {
+            lastSaturationValue = parseInt(entry[saturationMetaphor]);
+         }
+         let saturation = 1;
+         if (lastSaturationValue <= saturationThreshold) {
+            saturation = saturationValueForBuildingsBelowThreshold;
+         }
+         let ratio = 1;
+         building.setColorSaturation(saturation, ratio);
+      }
+   }
+};
+
+export { applyMetaphors, computeSaturationMetaphor };

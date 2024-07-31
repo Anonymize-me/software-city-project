@@ -1,14 +1,9 @@
 import * as dat from "dat.gui";
-import {
-   getAttributeNames,
-   addGui,
-   getNormalizer,
-   getDataStore,
-   getDataType,
-} from "../data";
+import { getAttributeNames, addGui, getDataStore, getDataType } from "../data";
 import { getMinValueByAttribute, getMaxValueByAttribute } from "../utils";
 import { getLowerRangeBounds, getUpperRangeBounds } from "./timeline";
 import { aggregateFunctionNone } from "./aggregateFunctions/none";
+import { computeSaturationMetaphor } from "./metaphors";
 
 class Gui extends dat.GUI {
    constructor(listTreeOfBuildings) {
@@ -61,6 +56,7 @@ class Gui extends dat.GUI {
                enableController(saturationController);
 
                if (getDataType() === "java-source-code") {
+                  computeSaturationMetaphor(listTreeOfBuildings);
                } else {
                   // All buildings with a value of the selected attribute below the threshold will set the saturation
                   // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
@@ -93,6 +89,7 @@ class Gui extends dat.GUI {
          .name("Threshold")
          .onChange((value) => {
             if (getDataType() === "java-source-code") {
+               computeSaturationMetaphor(listTreeOfBuildings);
             } else {
                // All buildings with a value of the selected attribute below the threshold will set the saturation
                // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
@@ -109,6 +106,7 @@ class Gui extends dat.GUI {
          .name("Saturation")
          .onChange((value) => {
             if (getDataType() === "java-source-code") {
+               computeSaturationMetaphor(listTreeOfBuildings);
             } else {
                // All buildings with a value of the selected attribute below the threshold will set the saturation
                // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
