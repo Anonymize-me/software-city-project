@@ -2,8 +2,12 @@ import * as THREE from "three";
 import { Building } from "./Building";
 import { Plane } from "./Plane";
 import { Mesh } from "three";
-import { getListTreeOfBuildings, getMetaphorSelection } from "../data";
-import { drawArrow, removeArrow } from "./arrow";
+import {
+   getDataType,
+   getListTreeOfBuildings,
+   getMetaphorSelection,
+} from "../data";
+import { drawArrow } from "./arrow";
 
 class MouseControls {
    mousePosition = null;
@@ -111,22 +115,35 @@ class MouseControls {
                      let dataHueMetaphor = [];
                      let dataLuminanceMetaphor = [];
 
-                     building.buildingData.forEach((dataEntry) => {
-                        dataHeightMetaphor.push({
-                           x: dataEntry.timestamp,
-                           y: parseFloat(
-                              dataEntry[getMetaphorSelection().height]
-                           ),
-                        });
-                        dataHueMetaphor.push({
-                           x: dataEntry.timestamp,
-                           y: parseFloat(dataEntry[getMetaphorSelection().hue]),
-                        });
-                        dataLuminanceMetaphor.push({
-                           x: dataEntry.timestamp,
-                           y: parseFloat(
-                              dataEntry[getMetaphorSelection().luminance]
-                           ),
+                     getListTreeOfBuildings().forEach((treeOfBuildings) => {
+                        treeOfBuildings.list.forEach((entry) => {
+                           if (
+                              entry.buildingGroupingPath ===
+                              building.buildingGroupingPath
+                           ) {
+                              entry.buildingData.forEach((dataEntry) => {
+                                 dataHeightMetaphor.push({
+                                    x: dataEntry.timestamp,
+                                    y: parseFloat(
+                                       dataEntry[getMetaphorSelection().height]
+                                    ),
+                                 });
+                                 dataHueMetaphor.push({
+                                    x: dataEntry.timestamp,
+                                    y: parseFloat(
+                                       dataEntry[getMetaphorSelection().hue]
+                                    ),
+                                 });
+                                 dataLuminanceMetaphor.push({
+                                    x: dataEntry.timestamp,
+                                    y: parseFloat(
+                                       dataEntry[
+                                          getMetaphorSelection().luminance
+                                       ]
+                                    ),
+                                 });
+                              });
+                           }
                         });
                      });
 
@@ -278,27 +295,32 @@ class MouseControls {
                         }
                      );
 
+                     const datasetsHeight = [
+                        {
+                           type: "line",
+                           label: "Current Building",
+                           data: dataHeightMetaphor,
+                           order: 1,
+                           backgroundColor: "rgba(54, 162, 235, 1)",
+                        },
+                     ];
+
+                     if (getDataType() !== "java-source-code") {
+                        datasetsHeight.push({
+                           type: "line",
+                           label: "All Buildings",
+                           data: heightMetaphorDatasets,
+                           order: 2,
+                           backgroundColor: "rgba(255, 99, 132, 0.2)",
+                        });
+                     }
+
                      this.chartHeight = new Chart(
                         document.getElementById("chartHeight"),
                         {
                            type: "line",
                            data: {
-                              datasets: [
-                                 {
-                                    type: "line",
-                                    label: "All Buildings",
-                                    data: heightMetaphorDatasets,
-                                    order: 2,
-                                    backgroundColor: "rgba(255, 99, 132, 0.2)",
-                                 },
-                                 {
-                                    type: "line",
-                                    label: "Current Building",
-                                    data: dataHeightMetaphor,
-                                    order: 1,
-                                    backgroundColor: "rgba(54, 162, 235, 1)",
-                                 },
-                              ],
+                              datasets: datasetsHeight,
                               labels: allTimestamps,
                            },
                            options: {
@@ -351,27 +373,32 @@ class MouseControls {
                         }
                      );
 
+                     const datasetsHue = [
+                        {
+                           type: "line",
+                           label: "Current Building",
+                           data: dataHueMetaphor,
+                           order: 1,
+                           backgroundColor: "rgba(54, 162, 235, 1)",
+                        },
+                     ];
+
+                     if (getDataType() !== "java-source-code") {
+                        datasetsHue.push({
+                           type: "line",
+                           label: "All Buildings",
+                           data: hueMetaphorDatasets,
+                           order: 2,
+                           backgroundColor: "rgba(255, 99, 132, 0.2)",
+                        });
+                     }
+
                      this.chartHue = new Chart(
                         document.getElementById("chartHue"),
                         {
                            type: "line",
                            data: {
-                              datasets: [
-                                 {
-                                    type: "line",
-                                    label: "All Buildings",
-                                    data: hueMetaphorDatasets,
-                                    order: 2,
-                                    backgroundColor: "rgba(255, 99, 132, 0.2)",
-                                 },
-                                 {
-                                    type: "line",
-                                    label: "Current Building",
-                                    data: dataHueMetaphor,
-                                    order: 1,
-                                    backgroundColor: "rgba(54, 162, 235, 1)",
-                                 },
-                              ],
+                              datasets: datasetsHue,
                               labels: allTimestamps,
                            },
                            options: {
@@ -424,27 +451,32 @@ class MouseControls {
                         }
                      );
 
+                     const datasetsLuminance = [
+                        {
+                           type: "line",
+                           label: "Current Building",
+                           data: dataLuminanceMetaphor,
+                           order: 1,
+                           backgroundColor: "rgba(54, 162, 235, 1)",
+                        },
+                     ];
+
+                     if (getDataType() !== "java-source-code") {
+                        datasetsLuminance.push({
+                           type: "line",
+                           label: "All Buildings",
+                           data: luminanceMetaphorDatasets,
+                           order: 2,
+                           backgroundColor: "rgba(255, 99, 132, 0.2)",
+                        });
+                     }
+
                      this.chartLuminance = new Chart(
                         document.getElementById("chartLuminance"),
                         {
                            type: "line",
                            data: {
-                              datasets: [
-                                 {
-                                    type: "line",
-                                    label: "All Buildings",
-                                    data: luminanceMetaphorDatasets,
-                                    order: 2,
-                                    backgroundColor: "rgba(255, 99, 132, 0.2)",
-                                 },
-                                 {
-                                    type: "line",
-                                    label: "Current Building",
-                                    data: dataLuminanceMetaphor,
-                                    order: 1,
-                                    backgroundColor: "rgba(54, 162, 235, 1)",
-                                 },
-                              ],
+                              datasets: datasetsLuminance,
                               labels: allTimestamps,
                            },
                            options: {
