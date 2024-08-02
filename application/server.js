@@ -5,6 +5,7 @@ import cors from "cors";
 import fs from "fs";
 import { exec } from "child_process";
 import util from "util";
+import { transpileFiles, removeTranspiledFiles } from "./transpileFiles.js";
 import { Commit } from "./Commit.js";
 import { GenericMetricLine } from "./GenericMetricLine.js";
 import { formatDateToTimestamp, formatFilename } from "./js/utils.js";
@@ -101,20 +102,32 @@ app.post("/api/calculateMetrics", async (req, res) => {
          const gitCheckoutCommand = `git checkout ${commit.commitHash}`;
          await execAsync(gitCheckoutCommand);
 
+         // Transpile the JavaScript files in this commit and
+         // store the transpiled files in a separate directory 'transpiled'
+         const metrics = transpileFiles(repoPath);
+         removeTranspiledFiles(repoPath);
+
          const gitLsFilesCommand = `git ls-files`;
          const { stdout: fileNames } = await execAsync(gitLsFilesCommand);
 
-         // For now, only consider Java files
+         // For now, only consider JavaScript files
          const fileNameList = fileNames
             .split("\n")
             .filter(Boolean)
-            .filter((fileName) => fileName.endsWith(".java"));
+            .filter((fileName) => fileName.endsWith(".js"));
 
          // Add the property names for the commit
          commit.addPropertyName("fileName");
-         commit.addPropertyName("NumberOfLines");
+         // commit.addPropertyName("numberOfLines");
+         commit.addPropertyName("slocTotal");
+         commit.addPropertyName("slocSource");
 
          for (const fileName of fileNameList) {
+            // Retrieve the metrics for the current file
+            const currentFileMetrics = metrics.find(
+               (file) => file.filePath === fileName
+            );
+
             // Create a new metric line for each file
             let metricLine = new GenericMetricLine(commit);
 
@@ -122,13 +135,21 @@ app.post("/api/calculateMetrics", async (req, res) => {
             metricLine.addProperty(formatFilename(fileName));
 
             // NumberOfLines metric
-            const gitShowCommand = `git show ${commit.commitHash}:${fileName}`;
-            const { stdout: fileContent } = await execAsync(gitShowCommand);
-            const lines = fileContent.split("\n").filter(Boolean);
-            metricLine.addProperty(lines.length);
+            // const gitShowCommand = `git show ${commit.commitHash}:${fileName}`;
+            // const { stdout: fileContent } = await execAsync(gitShowCommand);
+            // const lines = fileContent.split("\n").filter(Boolean);
+            // metricLine.addProperty(lines.length);
+
+            // SLOC total
+            metricLine.addProperty(currentFileMetrics.sloc.total);
+
+            // SLOC source
+            metricLine.addProperty(currentFileMetrics.sloc.source);
 
             // Add the metric line to the commit
             commit.addMetricLine(metricLine);
+
+            console.log(`File: ${fileName}`);
          }
          console.log(`Commit: ${commit}`);
 
