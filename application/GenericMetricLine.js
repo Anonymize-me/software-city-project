@@ -30,6 +30,10 @@ class GenericMetricLine {
       return this.#propertyValues[index];
    }
 
+   getFileName() {
+      return this.#propertyValues[0];
+   }
+
    getPrintableMetricLine() {
       return `${[this.#commit.commitHash, this.#commit.timestamp, ...this.#propertyValues].join(",")}\n`;
    }

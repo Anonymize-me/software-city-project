@@ -35,11 +35,13 @@ function transpileFile(filePath, transpiledPath) {
       const outputFilePath = path.join(transpiledPath, relativeFilePath);
       execSync(
          `npx babel ${filePath} -o ${outputFilePath} --presets=@babel/preset-env`,
-         { encoding: "utf8" }
+         { encoding: "utf8", stdio: "pipe" }
       );
       return outputFilePath;
    } catch (error) {
-      console.error(`Error transpiling file: ${filePath}`, error.message);
+      console.error(
+         `Error transpiling file: ${filePath} - Metrics will be set to the values of the previous valid commit.`
+      );
       return null;
    }
 }
@@ -82,20 +84,23 @@ function transpileFiles(repoPath) {
       const transpiledFilePath = transpileFile(filePath, transpiledPath);
 
       // set the filePath to the relative path from the repository root directory
-
       const relativeFilePath = path.relative(repoPath, filePath);
 
       if (!transpiledFilePath) {
-         return { filePath: relativeFilePath, sloc: null, complexity: null };
+         return {
+            filePath: relativeFilePath,
+            slocTotal: null,
+            slocSource: null,
+         };
       }
 
       const slocStats = analyzeSloc(transpiledFilePath);
-      const complexityMetrics = analyzeComplexity(transpiledFilePath);
+      // const complexityMetrics = analyzeComplexity(transpiledFilePath);
 
       return {
          filePath: relativeFilePath,
-         sloc: slocStats,
-         complexity: complexityMetrics,
+         slocTotal: slocStats.total,
+         slocSource: slocStats.source,
       };
    });
 

@@ -46,7 +46,7 @@ class Commit {
 
    getMetricLineByFileName(fileName) {
       return this.#metricLines.find(
-         (metricLine) => metricLine.fileName === fileName
+         (metricLine) => metricLine.getFileName() === fileName
       );
    }
 

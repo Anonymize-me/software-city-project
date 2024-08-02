@@ -99,12 +99,14 @@ app.post("/api/calculateMetrics", async (req, res) => {
       const csvFileName = `${repoName.split("/")[1]}_metrics.csv`;
       console.log(`Writing metrics to file: ${csvFileName}`);
 
+      let previousCommit = null;
+
       for (const commit of commits) {
          const gitCheckoutCommand = `git checkout ${commit.commitHash}`;
          await execAsync(gitCheckoutCommand);
 
          // Transpile the JavaScript files in this commit and
-         // store the transpiled files in a separate directory 'transpiled'
+         // store the transpiled files in a separate directory "transpiled"
          const metrics = transpileFiles(repoPath);
          removeTranspiledFiles(repoPath);
 
@@ -148,10 +150,44 @@ app.post("/api/calculateMetrics", async (req, res) => {
             // metricLine.addProperty(lines.length);
 
             // SLOC total
-            metricLine.addProperty(currentFileMetrics.sloc.total);
+            // if value is null, set it to the value of the previous commit
+            if (currentFileMetrics.slocTotal !== null) {
+               metricLine.addProperty(currentFileMetrics.slocTotal);
+            } else {
+               if (previousCommit !== null) {
+                  const previousFileMetrics =
+                     previousCommit.getMetricLineByFileName(
+                        formatFilename(fileName)
+                     );
+                  if (previousFileMetrics !== null) {
+                     metricLine.addProperty(previousFileMetrics.slocTotal);
+                  } else {
+                     metricLine.addProperty(0);
+                  }
+               } else {
+                  metricLine.addProperty(0);
+               }
+            }
 
             // SLOC source
-            metricLine.addProperty(currentFileMetrics.sloc.source);
+            // if value is null, set it to the value of the previous commit
+            if (currentFileMetrics.slocSource !== null) {
+               metricLine.addProperty(currentFileMetrics.slocSource);
+            } else {
+               if (previousCommit !== null) {
+                  const previousFileMetrics =
+                     previousCommit.getMetricLineByFileName(
+                        formatFilename(fileName)
+                     );
+                  if (previousFileMetrics !== null) {
+                     metricLine.addProperty(previousFileMetrics.slocSource);
+                  } else {
+                     metricLine.addProperty(0);
+                  }
+               } else {
+                  metricLine.addProperty(0);
+               }
+            }
 
             // Add the metric line to the commit
             commit.addMetricLine(metricLine);
@@ -160,6 +196,8 @@ app.post("/api/calculateMetrics", async (req, res) => {
 
          writeCommitMetricsToFile(commit, csvFileName);
          console.log(`Metrics written to file: ${csvFileName}`);
+
+         previousCommit = commit;
       }
 
       process.chdir(originalDir);
