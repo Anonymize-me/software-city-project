@@ -127,9 +127,13 @@ app.post("/api/calculateMetrics", async (req, res) => {
 
          // Add the property names for the commit
          commit.addPropertyName("fileName");
-         // commit.addPropertyName("numberOfLines");
          commit.addPropertyName("slocTotal");
          commit.addPropertyName("slocSource");
+         commit.addPropertyName("loc");
+         commit.addPropertyName("cyclomatic");
+         commit.addPropertyName("effort");
+         commit.addPropertyName("params");
+         commit.addPropertyName("maintainability");
 
          for (const fileName of fileNameList) {
             // Retrieve the metrics for the current file
@@ -143,14 +147,7 @@ app.post("/api/calculateMetrics", async (req, res) => {
             // Add the file name to the metric line
             metricLine.addProperty(formatFilename(fileName));
 
-            // NumberOfLines metric
-            // const gitShowCommand = `git show ${commit.commitHash}:${fileName}`;
-            // const { stdout: fileContent } = await execAsync(gitShowCommand);
-            // const lines = fileContent.split("\n").filter(Boolean);
-            // metricLine.addProperty(lines.length);
-
             // SLOC total
-            // if value is null, set it to the value of the previous commit
             if (currentFileMetrics.slocTotal !== null) {
                metricLine.addProperty(currentFileMetrics.slocTotal);
             } else {
@@ -160,7 +157,9 @@ app.post("/api/calculateMetrics", async (req, res) => {
                         formatFilename(fileName)
                      );
                   if (previousFileMetrics !== null) {
-                     metricLine.addProperty(previousFileMetrics.slocTotal);
+                     metricLine.addProperty(
+                        previousFileMetrics.getPropertyValueByIndex(1)
+                     );
                   } else {
                      metricLine.addProperty(0);
                   }
@@ -170,7 +169,6 @@ app.post("/api/calculateMetrics", async (req, res) => {
             }
 
             // SLOC source
-            // if value is null, set it to the value of the previous commit
             if (currentFileMetrics.slocSource !== null) {
                metricLine.addProperty(currentFileMetrics.slocSource);
             } else {
@@ -180,7 +178,114 @@ app.post("/api/calculateMetrics", async (req, res) => {
                         formatFilename(fileName)
                      );
                   if (previousFileMetrics !== null) {
-                     metricLine.addProperty(previousFileMetrics.slocSource);
+                     metricLine.addProperty(
+                        previousFileMetrics.getPropertyValueByIndex(2)
+                     );
+                  } else {
+                     metricLine.addProperty(0);
+                  }
+               } else {
+                  metricLine.addProperty(0);
+               }
+            }
+
+            // LOC
+            if (currentFileMetrics.loc !== null) {
+               metricLine.addProperty(currentFileMetrics.loc);
+            } else {
+               if (previousCommit !== null) {
+                  const previousFileMetrics =
+                     previousCommit.getMetricLineByFileName(
+                        formatFilename(fileName)
+                     );
+                  if (previousFileMetrics !== null) {
+                     metricLine.addProperty(
+                        previousFileMetrics.getPropertyValueByIndex(3)
+                     );
+                  } else {
+                     metricLine.addProperty(0);
+                  }
+               } else {
+                  metricLine.addProperty(0);
+               }
+            }
+
+            // Cyclomatic complexity
+            if (currentFileMetrics.cyclomatic !== null) {
+               metricLine.addProperty(currentFileMetrics.cyclomatic);
+            } else {
+               if (previousCommit !== null) {
+                  const previousFileMetrics =
+                     previousCommit.getMetricLineByFileName(
+                        formatFilename(fileName)
+                     );
+                  if (previousFileMetrics !== null) {
+                     metricLine.addProperty(
+                        previousFileMetrics.getPropertyValueByIndex(4)
+                     );
+                  } else {
+                     metricLine.addProperty(0);
+                  }
+               } else {
+                  metricLine.addProperty(0);
+               }
+            }
+
+            // Effort
+            if (currentFileMetrics.effort !== null) {
+               metricLine.addProperty(currentFileMetrics.effort);
+            } else {
+               if (previousCommit !== null) {
+                  const previousFileMetrics =
+                     previousCommit.getMetricLineByFileName(
+                        formatFilename(fileName)
+                     );
+                  if (previousFileMetrics !== null) {
+                     metricLine.addProperty(
+                        previousFileMetrics.getPropertyValueByIndex(5)
+                     );
+                  } else {
+                     metricLine.addProperty(0);
+                  }
+               } else {
+                  metricLine.addProperty(0);
+               }
+            }
+
+            // Params
+            if (currentFileMetrics.params !== null) {
+               metricLine.addProperty(currentFileMetrics.params);
+            } else {
+               if (previousCommit !== null) {
+                  const previousFileMetrics =
+                     previousCommit.getMetricLineByFileName(
+                        formatFilename(fileName)
+                     );
+                  if (previousFileMetrics !== null) {
+                     metricLine.addProperty(
+                        previousFileMetrics.getPropertyValueByIndex(6)
+                     );
+                  } else {
+                     metricLine.addProperty(0);
+                  }
+               } else {
+                  metricLine.addProperty(0);
+               }
+            }
+
+            // Maintainability
+            if (currentFileMetrics.maintainability !== null) {
+               metricLine.addProperty(currentFileMetrics.maintainability);
+            } else {
+               if (previousCommit !== null) {
+                  const previousFileMetrics =
+                     previousCommit.getMetricLineByFileName(
+                        formatFilename(fileName)
+                     );
+                  if (previousFileMetrics !== null) {
+                     metricLine.addProperty(
+                        previousFileMetrics.getPropertyValueByIndex(7)
+                     );
                   } else {
                      metricLine.addProperty(0);
                   }

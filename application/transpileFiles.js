@@ -91,29 +91,30 @@ function transpileFiles(repoPath) {
             filePath: relativeFilePath,
             slocTotal: null,
             slocSource: null,
+            loc: null,
+            cyclomatic: null,
+            effort: null,
+            params: null,
+            maintainability: null,
          };
       }
 
       const slocStats = analyzeSloc(transpiledFilePath);
-      // const complexityMetrics = analyzeComplexity(transpiledFilePath);
+      const complexityMetrics = analyzeComplexity(transpiledFilePath);
 
       return {
          filePath: relativeFilePath,
-         slocTotal: slocStats.total,
-         slocSource: slocStats.source,
+         slocTotal: slocStats?.total,
+         slocSource: slocStats?.source,
+         loc: complexityMetrics?.loc,
+         cyclomatic: complexityMetrics?.cyclomatic,
+         effort: complexityMetrics?.effort,
+         params: complexityMetrics?.params,
+         maintainability: complexityMetrics?.maintainability,
       };
    });
 
    return analysisResults;
-
-   // fs.writeFileSync(
-   //    path.join(originalDir, "analysisResults.json"),
-   //    JSON.stringify(analysisResults, null, 2)
-   // );
-   // console.log(
-   //    "Analysis complete. Results saved to analysisResults.json"
-   // );
-   // console.log(analysisResults);
 }
 
 function removeTranspiledFiles(repoPath) {
