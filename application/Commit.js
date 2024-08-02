@@ -44,6 +44,12 @@ class Commit {
       this.#metricLines.push(metricLine);
    }
 
+   getMetricLineByFileName(fileName) {
+      return this.#metricLines.find(
+         (metricLine) => metricLine.fileName === fileName
+      );
+   }
+
    getPrintableHeaderLine() {
       return `${["commitHash", "timestamp", ...this.#propertyNames].join(",")}\n`;
    }
