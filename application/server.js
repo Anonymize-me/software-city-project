@@ -6,6 +6,7 @@ import fs from "fs";
 import { exec } from "child_process";
 import util from "util";
 import { transpileFiles, removeTranspiledFiles } from "./transpileFiles.js";
+import { excludedDirectories } from "./computeMetricsConfig.js";
 import { Commit } from "./Commit.js";
 import { GenericMetricLine } from "./GenericMetricLine.js";
 import { formatDateToTimestamp, formatFilename } from "./js/utils.js";
@@ -111,10 +112,16 @@ app.post("/api/calculateMetrics", async (req, res) => {
          const { stdout: fileNames } = await execAsync(gitLsFilesCommand);
 
          // For now, only consider JavaScript files
+         // and exclude files in the node_modules directory or the dist directory
+         // (or any other directory that is stored in the array 'excludedDirectories')
          const fileNameList = fileNames
             .split("\n")
             .filter(Boolean)
-            .filter((fileName) => fileName.endsWith(".js"));
+            .filter((fileName) => fileName.endsWith(".js"))
+            .filter(
+               (fileName) =>
+                  !excludedDirectories.some((dir) => fileName.includes(dir))
+            );
 
          // Add the property names for the commit
          commit.addPropertyName("fileName");
@@ -148,8 +155,6 @@ app.post("/api/calculateMetrics", async (req, res) => {
 
             // Add the metric line to the commit
             commit.addMetricLine(metricLine);
-
-            console.log(`File: ${fileName}`);
          }
          console.log(`Commit: ${commit}`);
 

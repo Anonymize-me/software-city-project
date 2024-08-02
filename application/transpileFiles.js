@@ -3,6 +3,7 @@ import path from "path";
 import { execSync } from "child_process";
 import sloc from "sloc";
 import madge from "madge";
+import { excludedDirectories } from "./computeMetricsConfig.js";
 
 function getAllFiles(dirPath, arrayOfFiles) {
    arrayOfFiles = arrayOfFiles || [];
@@ -12,6 +13,10 @@ function getAllFiles(dirPath, arrayOfFiles) {
    files.forEach(function (file) {
       const filePath = path.join(dirPath, file);
       if (fs.statSync(filePath).isDirectory()) {
+         // if the directory is any of the excluded directories, skip it
+         if (excludedDirectories.some((dir) => filePath.includes(dir))) {
+            return;
+         }
          arrayOfFiles = getAllFiles(filePath, arrayOfFiles);
       } else {
          if (path.extname(file) === ".js") {
