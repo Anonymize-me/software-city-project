@@ -71,7 +71,17 @@ function analyzeComplexity(transpiledFilePath) {
    }
 }
 
-function transpileFiles(repoPath) {
+async function analyzeDependenciesSync(repoPath) {
+   try {
+      const result = madge(repoPath).then((res) => res.obj());
+      return result;
+   } catch (error) {
+      console.error("Error analyzing dependencies:", error.message);
+      return null;
+   }
+}
+
+async function transpileFiles(repoPath) {
    const transpiledPath = path.join(repoPath, "transpiled");
 
    if (!fs.existsSync(transpiledPath)) {
@@ -80,7 +90,7 @@ function transpileFiles(repoPath) {
 
    const files = getAllFiles(repoPath);
 
-   const analysisResults = files.map((filePath) => {
+   let analysisResults = files.map((filePath) => {
       const transpiledFilePath = transpileFile(filePath, transpiledPath);
 
       // set the filePath to the relative path from the repository root directory
@@ -96,6 +106,7 @@ function transpileFiles(repoPath) {
             effort: null,
             params: null,
             maintainability: null,
+            dependencies: 0,
          };
       }
 
@@ -111,7 +122,15 @@ function transpileFiles(repoPath) {
          effort: complexityMetrics?.effort,
          params: complexityMetrics?.params,
          maintainability: complexityMetrics?.maintainability,
+         dependencies: 0,
       };
+   });
+
+   const dependencies = await analyzeDependenciesSync(transpiledPath);
+
+   analysisResults = analysisResults.map((result) => {
+      const dependenciesCount = dependencies[result.filePath]?.length || 0;
+      return { ...result, dependencies: dependenciesCount };
    });
 
    return analysisResults;

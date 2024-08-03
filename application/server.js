@@ -107,7 +107,7 @@ app.post("/api/calculateMetrics", async (req, res) => {
 
          // Transpile the JavaScript files in this commit and
          // store the transpiled files in a separate directory "transpiled"
-         const metrics = transpileFiles(repoPath);
+         const metrics = await transpileFiles(repoPath);
          removeTranspiledFiles(repoPath);
 
          const gitLsFilesCommand = `git ls-files`;
@@ -134,6 +134,7 @@ app.post("/api/calculateMetrics", async (req, res) => {
          commit.addPropertyName("effort");
          commit.addPropertyName("params");
          commit.addPropertyName("maintainability");
+         commit.addPropertyName("dependencies");
 
          for (const fileName of fileNameList) {
             // Retrieve the metrics for the current file
@@ -285,6 +286,27 @@ app.post("/api/calculateMetrics", async (req, res) => {
                   if (previousFileMetrics !== null) {
                      metricLine.addProperty(
                         previousFileMetrics.getPropertyValueByIndex(7)
+                     );
+                  } else {
+                     metricLine.addProperty(0);
+                  }
+               } else {
+                  metricLine.addProperty(0);
+               }
+            }
+
+            // Dependencies
+            if (currentFileMetrics.dependencies !== null) {
+               metricLine.addProperty(currentFileMetrics.dependencies);
+            } else {
+               if (previousCommit !== null) {
+                  const previousFileMetrics =
+                     previousCommit.getMetricLineByFileName(
+                        formatFilename(fileName)
+                     );
+                  if (previousFileMetrics !== null) {
+                     metricLine.addProperty(
+                        previousFileMetrics.getPropertyValueByIndex(8)
                      );
                   } else {
                      metricLine.addProperty(0);
