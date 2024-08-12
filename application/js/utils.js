@@ -1,13 +1,4 @@
-import {
-   removeAllGuis,
-   setListModelTrees,
-   setMetaphorSelection,
-   setVisualizationData,
-   setListTreeOfBuildings,
-   setNormalizer,
-   removeAllRenderers,
-} from './data';
-import { removeArrow } from './visualization/arrow';
+import { getDirector } from './data';
 
 /**
  * Method to return a date in the format "YYYY-MM-DD, HH:MM:SS:SSS"
@@ -85,6 +76,53 @@ const hexToRgb = (hex) => {
    const b = parseInt(hex.substring(4, 6), 16);
 
    return { r, g, b };
+};
+
+const hslToHex = (h, s, l) => {
+   // Convert HSL to RGB
+   function hslToRgb(h, s, l) {
+      let r, g, b;
+
+      if (s === 0) {
+         // Achromatic (gray)
+         r = g = b = l; // In this case, r, g, b are all equal to the lightness
+      } else {
+         const hue2rgb = (p, q, t) => {
+            if (t < 0) t += 1;
+            if (t > 1) t -= 1;
+            if (t < 1 / 6) return p + (q - p) * 6 * t;
+            if (t < 1 / 2) return q;
+            if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+            return p;
+         };
+
+         const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+         const p = 2 * l - q;
+         r = hue2rgb(p, q, h + 1 / 3);
+         g = hue2rgb(p, q, h);
+         b = hue2rgb(p, q, h - 1 / 3);
+      }
+
+      return {
+         r: Math.round(r * 255),
+         g: Math.round(g * 255),
+         b: Math.round(b * 255),
+      };
+   }
+
+   // Convert RGB to Hex
+   function rgbToHex(r, g, b) {
+      return (
+         '#' +
+         ((1 << 24) + (r << 16) + (g << 8) + b)
+            .toString(16)
+            .slice(1)
+            .toUpperCase()
+      );
+   }
+
+   const { r, g, b } = hslToRgb(h, s, l);
+   return rgbToHex(r, g, b);
 };
 
 /**
@@ -168,49 +206,21 @@ const removeElementAndChildrenWithListeners = (element) => {
    } catch (error) {}
 };
 
-/**
- * Method to destroy and remove the visualization, including the scene, camera, renderer and controls.
- * Also destroy and remove the dat.gui GUI.
- */
-const destroyAndRemoveVisualization = () => {
-   // Remove model trees from UI and data store
-   document.getElementById('frame-model-tree').style.display = 'none';
-   let modelTreeContainer = document.getElementById('model-tree-container');
-   removeElementAndChildrenWithListeners(modelTreeContainer);
-   setListModelTrees([]);
-
-   // Remove dat.gui GUI from UI and data store
-   removeAllGuis();
-
-   // Reset metaphor selection in data store
-   setMetaphorSelection({});
-
-   // Reset visualization data in data store
-   setVisualizationData([]);
-
-   // Reset list of tree of buildings in data store
-   setListTreeOfBuildings([]);
-
-   // Reset normalizer in data store
-   setNormalizer(null);
-
-   // Remove arrow from scene
-   removeArrow();
-
-   // Remove all renderers
-   removeAllRenderers();
-
-   // Reset and hide slider
-   document.getElementById('slider-window-width').style.width = '0px';
-   document.getElementById('slider-container').style.display = 'none';
+const destroyCity = () => {
+   const director = getDirector();
+   if (director) {
+      director.destroyCity();
+   }
 };
 
 export {
    formatDate,
    rgbToHsl,
    hexToRgb,
+   hslToHex,
    timestampToDate,
    getMinValueByAttribute,
    getMaxValueByAttribute,
-   destroyAndRemoveVisualization,
+   destroyCity,
+   removeElementAndChildrenWithListeners,
 };

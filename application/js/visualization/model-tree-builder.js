@@ -1,11 +1,29 @@
-import { Plane } from './Plane';
-import { Building } from './Building';
-import { hexToRgb, rgbToHsl } from '../utils';
+import * as THREE from 'three';
+import { rgbToHsl, hexToRgb, hslToHex } from '../../js/utils';
+import { recalculateMetaphors } from './recalculate-metaphors';
+import { removeElementAndChildrenWithListeners } from '../utils';
 
-const createModelTrees = (listTreeOfBuildings) => {
-   let listOfModelTrees = [];
-   for (let treeOfBuildings of listTreeOfBuildings) {
-      let check = [treeOfBuildings.baseNode];
+export default class ModelTreeBuilder {
+   constructor() {}
+
+   setCityMetaphor(cityMetaphor) {
+      this.cityMetaphor = cityMetaphor;
+   }
+
+   setCityElements(cityElements) {
+      this.cityElements = cityElements;
+   }
+
+   setSliderBuilder(sliderBuilder) {
+      this.sliderBuilder = sliderBuilder;
+   }
+
+   setGuiBuilder(guiBuilder) {
+      this.guiBuilder = guiBuilder;
+   }
+
+   build() {
+      let check = [this.cityElements[0]];
       let seen = [];
       let container = document.createElement('div');
       container.id = 'model-tree-container';
@@ -15,7 +33,9 @@ const createModelTrees = (listTreeOfBuildings) => {
          let current = check.pop();
          seen.push(current);
          let filtered = current.children.filter(
-            (child) => child instanceof Plane || child instanceof Building,
+            (child) =>
+               child.elementType === 'building' ||
+               child.elementType === 'plane',
          );
          filtered.forEach((e) => {
             check.push(e);
@@ -24,31 +44,43 @@ const createModelTrees = (listTreeOfBuildings) => {
          let newElement = document.createElement('div');
          newElement.classList.add('model-tree-element');
          newElement.id = current.uuid;
+         newElement.groupingPath = current.groupingPath;
 
          let colorPicker = document.createElement('input');
          colorPicker.type = 'color';
          colorPicker.id = newElement.id;
          colorPicker.value = '#ffffff';
 
-         if (current instanceof Building) {
+         newElement.getColorPicker = () => {
+            return colorPicker;
+         };
+
+         if (current.elementType === 'building') {
             newElement.type = 'building';
             newElement.style.display = 'flex';
             newElement.style.alignItems = 'center';
 
-            if (current.buildingName.lastIndexOf(';') !== -1) {
-               newElement.innerText = current.buildingName.substring(
-                  current.buildingName.lastIndexOf(';') + 1,
+            if (current.groupingPath.lastIndexOf(';') !== -1) {
+               newElement.innerText = current.groupingPath.substring(
+                  current.groupingPath.lastIndexOf(';') + 1,
                );
             } else {
-               newElement.innerText = current.buildingName;
+               newElement.innerText = current.groupingPath;
             }
 
             newElement.appendChild(colorPicker);
 
             colorPicker.addEventListener('input', () => {
                current.setBaseColor(rgbToHsl(hexToRgb(colorPicker.value)));
+               recalculateMetaphors(
+                  this.cityMetaphor,
+                  this.cityElements,
+                  this,
+                  this.sliderBuilder,
+                  this.guiBuilder,
+               );
             });
-         } else if (current instanceof Plane) {
+         } else if (current.elementType === 'plane') {
             newElement.type = 'plane';
             newElement.expanded = 'true';
 
@@ -56,14 +88,14 @@ const createModelTrees = (listTreeOfBuildings) => {
             folderElement.classList.add('model-tree-element');
             folderElement.style.fontWeight = 'bold';
 
-            if (current.nodeName.lastIndexOf(';') !== -1) {
+            if (current.groupingPath.lastIndexOf(';') !== -1) {
                folderElement.innerText =
                   '\u25BF ' +
-                  current.nodeName.substring(
-                     current.nodeName.lastIndexOf(';') + 1,
+                  current.groupingPath.substring(
+                     current.groupingPath.lastIndexOf(';') + 1,
                   );
             } else {
-               folderElement.innerText = '\u25BF ' + current.nodeName;
+               folderElement.innerText = '\u25BF ' + current.groupingPath;
             }
 
             folderElement.style.display = 'flex';
@@ -71,7 +103,12 @@ const createModelTrees = (listTreeOfBuildings) => {
 
             folderElement.appendChild(colorPicker);
 
+            colorPicker.value = hslToHex(0, 0, 0.8);
+
             colorPicker.addEventListener('input', () => {
+               current.children[0].material.color = new THREE.Color(
+                  colorPicker.value,
+               );
                current.setBaseColor(rgbToHsl(hexToRgb(colorPicker.value)));
             });
 
@@ -80,7 +117,7 @@ const createModelTrees = (listTreeOfBuildings) => {
 
          allNewElements.push(newElement);
 
-         if (current.nodeName !== 'project_base_node') {
+         if (current.groupingPath !== 'ch') {
             for (let i of allNewElements) {
                if (i.id === current.parent.uuid) {
                   i.appendChild(newElement);
@@ -103,21 +140,21 @@ const createModelTrees = (listTreeOfBuildings) => {
                element = newElement.childNodes[0];
             }
             element.addEventListener('mouseenter', function () {
-               if (current instanceof Building) {
-                  current.highlightBuilding();
+               if (current.elementType === 'building') {
+                  current.highlight();
                   element.style.color = 'blue';
                } else {
-                  current.highlightPlane();
+                  current.highlight();
                   element.style.color = 'blue';
                }
             });
 
             element.addEventListener('mouseleave', function () {
-               if (current instanceof Building) {
-                  current.notHighlightBuilding();
+               if (current.elementType === 'building') {
+                  current.unhighlight();
                   element.style.color = 'black';
                } else {
-                  current.notHighlightPlane();
+                  current.unhighlight();
                   element.style.color = 'black';
                }
             });
@@ -154,10 +191,41 @@ const createModelTrees = (listTreeOfBuildings) => {
             });
          }
       }
-      listOfModelTrees.push(container);
+      this.allElements = allNewElements;
+      return container;
    }
 
-   return listOfModelTrees;
-};
+   setColorByGroupingPath(groupingPath, color) {
+      for (const element of this.allElements) {
+         if (element.groupingPath === groupingPath) {
+            const col = hslToHex(color.h, color.s, color.l);
+            element.getColorPicker().value = col;
+            break;
+         }
+      }
+   }
 
-export { createModelTrees };
+   highlightElementByGroupingPath(groupingPath) {
+      for (const element of this.allElements) {
+         if (element.groupingPath === groupingPath) {
+            element.style.color = 'blue';
+            break;
+         }
+      }
+   }
+
+   unhighlightElementByGroupingPath(groupingPath) {
+      for (const element of this.allElements) {
+         if (element.groupingPath === groupingPath) {
+            element.style.color = 'black';
+            break;
+         }
+      }
+   }
+
+   destroy() {
+      document.getElementById('frame-model-tree').style.display = 'none';
+      let modelTreeContainer = document.getElementById('model-tree-container');
+      removeElementAndChildrenWithListeners(modelTreeContainer);
+   }
+}

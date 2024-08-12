@@ -1,6 +1,6 @@
 import { getAttributeNames, setOriginalData, getDataType } from '../data.js';
 import { buildTable } from './table.js';
-import { getConfig } from './cookieManager.js';
+import { getConfig } from './cookie-manager.js';
 
 const alertSuccessUploadData = document.getElementById(
    'alert-success-upload-data',

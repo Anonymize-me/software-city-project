@@ -1,10 +1,10 @@
 import { clearData, processOriginalData } from '../data';
-import { updateConfig } from './cookieManager';
+import { updateConfig } from './cookie-manager';
 import { uploadData } from './upload';
 import { buildTable } from './table';
 import { prepareMetaphorsFrame } from './visualize';
-import { destroyAndRemoveVisualization } from '../utils';
-import { removeArrow } from '../visualization/arrow';
+import { destroyCity } from '../utils';
+import { removeArrow } from '../visualization/info-panel-builder';
 
 const buttonUpload = document.getElementById('button-upload');
 const buttonConfig = document.getElementById('button-config');
@@ -89,7 +89,7 @@ buttonViewData.addEventListener('click', () => {
    frameConfig.style.display = 'none';
    frameMetaphors.style.display = 'none';
    frameInfo.style.display = 'none';
-   destroyAndRemoveVisualization();
+   destroyCity();
    viewData.style.display = 'block';
 });
 

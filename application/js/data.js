@@ -3,12 +3,7 @@ let dataStore = {
    attributeNames: [],
    dataType: '',
    visualizationData: [],
-   listTreeOfBuildings: [],
-   listModelTrees: [],
    metaphorSelection: {},
-   normalizer: null,
-   listRenderers: [],
-   listGuis: [],
 };
 
 /**
@@ -92,12 +87,7 @@ const clearData = () => {
    dataStore.attributeNames = [];
    dataStore.dataType = '';
    dataStore.visualizationData = [];
-   dataStore.listTreeOfBuildings = [];
-   dataStore.listModelTrees = [];
    dataStore.metaphorSelection = {};
-   dataStore.normalizer = null;
-   dataStore.listRenderers = [];
-   dataStore.listGuis = [];
 };
 
 /**
@@ -150,43 +140,6 @@ const getTasks = () => {
    return tasks;
 };
 
-/**
- * Method to add a renderer to the list of renderers
- */
-const addRenderer = (renderer) => {
-   dataStore.listRenderers.push(renderer);
-};
-
-/**
- * Method to add a gui to the list of guis
- */
-const addGui = (gui) => {
-   dataStore.listGuis.push(gui);
-};
-
-/**
- * Method to remove all renderers and guis
- */
-const removeRenderersAndGuis = () => {
-   removeAllRenderers();
-   removeAllGuis();
-};
-
-const removeAllRenderers = () => {
-   let canvasElement = document.getElementById('threejs-canvas');
-   if (canvasElement) {
-      canvasElement.remove();
-   }
-   dataStore.listRenderers = [];
-};
-
-const removeAllGuis = () => {
-   for (let gui of dataStore.listGuis) {
-      gui.destroy();
-   }
-   dataStore.listGuis = [];
-};
-
 // ///////////////////
 // GETTERS
 // ///////////////////
@@ -210,28 +163,8 @@ const getVisualizationData = () => {
    return dataStore.visualizationData;
 };
 
-const getListTreeOfBuildings = () => {
-   return dataStore.listTreeOfBuildings;
-};
-
-const getListModelTrees = () => {
-   return dataStore.listModelTrees;
-};
-
 const getMetaphorSelection = () => {
    return dataStore.metaphorSelection;
-};
-
-const getNormalizer = () => {
-   return dataStore.normalizer;
-};
-
-const getListRenderers = () => {
-   return dataStore.listRenderers;
-};
-
-const getListGuis = () => {
-   return dataStore.listGuis;
 };
 
 // ///////////////////
@@ -292,24 +225,6 @@ const setVisualizationData = (data) => {
 };
 
 /**
- * Method to set the listTreeOfBuildings
- *
- * @param {Array} listTreeOfBuildings // the list of tree of buildings
- */
-const setListTreeOfBuildings = (listTreeOfBuildings) => {
-   dataStore.listTreeOfBuildings = listTreeOfBuildings;
-};
-
-/**
- * Method to set the listModelTrees
- *
- * @param {Array} listModelTrees // the list of model trees
- */
-const setListModelTrees = (listModelTrees) => {
-   dataStore.listModelTrees = listModelTrees;
-};
-
-/**
  * Method to set the metaphor selection
  *
  * @param {Object} metaphorSelection // mapping of metaphor selection
@@ -318,8 +233,12 @@ const setMetaphorSelection = (metaphorSelection) => {
    dataStore.metaphorSelection = metaphorSelection;
 };
 
-const setNormalizer = (normalizer) => {
-   dataStore.normalizer = normalizer;
+const setDirector = (director) => {
+   dataStore.director = director;
+};
+
+const getDirector = () => {
+   return dataStore.director;
 };
 
 export {
@@ -328,26 +247,15 @@ export {
    getEpoques,
    getParticipants,
    getTasks,
-   addRenderer,
-   addGui,
-   removeRenderersAndGuis,
-   removeAllRenderers,
-   removeAllGuis,
    getDataStore,
    getOriginalData,
    getAttributeNames,
    getDataType,
    getVisualizationData,
-   getListTreeOfBuildings,
-   getListModelTrees,
    getMetaphorSelection,
-   getNormalizer,
-   getListRenderers,
-   getListGuis,
    setOriginalData,
    setVisualizationData,
-   setListTreeOfBuildings,
-   setListModelTrees,
    setMetaphorSelection,
-   setNormalizer,
+   setDirector,
+   getDirector,
 };

@@ -1,17 +1,23 @@
 import {
    getAttributeNames,
-   getDataType,
    getOriginalData,
    getParticipants,
    getTasks,
    getVisualizationData,
-   setListTreeOfBuildings,
+   setDirector,
    setMetaphorSelection,
    setVisualizationData,
 } from '../data';
-import { visualize } from '../visualization/visualize';
-import { buildTreesOfBuildings } from '../visualization/TreeOfBuildings';
-import { getConfig, getMapping, updateMapping } from './cookieManager';
+import { getConfig, getMapping, updateMapping } from './cookie-manager';
+import CityMetaphor from '../metaphor-models/city-metaphor';
+import MetaphorFactory from '../metaphor-models/metaphor-factory';
+import Director from '../visualization/director';
+import EnvironmentBuilder from '../visualization/environment-builder';
+import CityElementBuilder from '../visualization/city-element-builder';
+import SliderBuilder from '../visualization/slider-builder';
+import ModelTreeBuilder from '../visualization/model-tree-builder';
+import InfoPanelBuilder from '../visualization/info-panel-builder';
+import GuiBuilder from '../visualization/gui-builder';
 
 const participant = document.getElementById('participant');
 const participantLabel = document.getElementById('participant-label');
@@ -29,8 +35,8 @@ const heightAttributeSelection = document.getElementById(
 const hueAttributeSelection = document.getElementById(
    'hue-attribute-selection',
 );
-const luminanceAttributeSelection = document.getElementById(
-   'luminance-attribute-selection',
+const lightnessAttributeSelection = document.getElementById(
+   'lightness-attribute-selection',
 );
 
 const frameModelTree = document.getElementById('frame-model-tree');
@@ -42,8 +48,8 @@ const prepareMetaphorsFrame = () => {
    // append 1 empty option and the rest of the attributes
    hueAttributeSelection.replaceChildren();
    hueAttributeSelection.appendChild(document.createElement('option'));
-   luminanceAttributeSelection.replaceChildren();
-   luminanceAttributeSelection.appendChild(document.createElement('option'));
+   lightnessAttributeSelection.replaceChildren();
+   lightnessAttributeSelection.appendChild(document.createElement('option'));
 
    getAttributeNames().forEach((attributeName) => {
       const newElement = document.createElement('option');
@@ -52,7 +58,7 @@ const prepareMetaphorsFrame = () => {
       dimensionAttributeSelection.appendChild(newElement.cloneNode(true));
       heightAttributeSelection.appendChild(newElement.cloneNode(true));
       hueAttributeSelection.appendChild(newElement.cloneNode(true));
-      luminanceAttributeSelection.appendChild(newElement.cloneNode(true));
+      lightnessAttributeSelection.appendChild(newElement.cloneNode(true));
    });
 
    participant.style.display = 'block';
@@ -85,7 +91,7 @@ const prepareMetaphorsFrame = () => {
       dimensionAttributeSelection.value = mapping.dimension;
       heightAttributeSelection.value = mapping.height;
       hueAttributeSelection.value = mapping.hue;
-      luminanceAttributeSelection.value = mapping.luminance;
+      lightnessAttributeSelection.value = mapping.lightness;
       participant.value = mapping.participant;
       taskId.value = mapping.taskId;
    }
@@ -119,7 +125,7 @@ buttonStartVisualize.addEventListener('click', (e) => {
       dimension: dimensionAttributeSelection.value,
       height: heightAttributeSelection.value,
       hue: hueAttributeSelection.value,
-      luminance: luminanceAttributeSelection.value,
+      lightness: lightnessAttributeSelection.value,
    };
 
    document.getElementById('frame-metaphors').style.display = 'none';
@@ -134,7 +140,7 @@ buttonStartVisualize.addEventListener('click', (e) => {
       dimension: metaphorSelection.dimension,
       height: metaphorSelection.height,
       hue: metaphorSelection.hue,
-      luminance: metaphorSelection.luminance,
+      lightness: metaphorSelection.lightness,
       participant: participant,
       taskId: taskId,
    };
@@ -155,11 +161,47 @@ buttonStartVisualize.addEventListener('click', (e) => {
       return;
    }
 
-   let treeOfBuildingsList = buildTreesOfBuildings();
+   // add groupingpath and timestamp to the metaphor selection
+   metaphorSelection.groupingPath = 'className';
+   metaphorSelection.timestamp = 'timestamp';
 
-   setListTreeOfBuildings(treeOfBuildingsList);
+   const cityMetaphor = new CityMetaphor(data);
 
-   visualize(treeOfBuildingsList);
+   const metaphorFactory = new MetaphorFactory();
+
+   for (const metaphorName in metaphorSelection) {
+      if (metaphorName === 'participant' || metaphorName === 'taskId') {
+         continue;
+      }
+
+      const metaphor = metaphorFactory.createMetaphor(
+         metaphorName,
+         metaphorSelection[metaphorName],
+      );
+
+      if (metaphor) {
+         cityMetaphor.registerMetaphor(metaphor);
+      }
+   }
+
+   cityMetaphor.createCityElementDescriptors();
+
+   const director = new Director(cityMetaphor);
+
+   const environmentBuilder = new EnvironmentBuilder();
+   const cityElementBuilder = new CityElementBuilder();
+   const sliderBuilder = new SliderBuilder();
+   const modelTreeBuildinger = new ModelTreeBuilder();
+   const infoPanelBuilder = new InfoPanelBuilder();
+   const guiBuilder = new GuiBuilder();
+   director.registerBuilder(environmentBuilder);
+   director.registerBuilder(cityElementBuilder);
+   director.registerBuilder(sliderBuilder);
+   director.registerBuilder(modelTreeBuildinger);
+   director.registerBuilder(infoPanelBuilder);
+   director.registerBuilder(guiBuilder);
+
+   director.constructCity();
 
    frameModelTree.style.display = 'block';
    frameInfo.style.display = 'block';
