@@ -1,10 +1,8 @@
 import * as THREE from 'three';
-import HeightMetaphor from '../../js/metaphor-models/height-metaphor';
-import ColorHueMetaphor from '../../js/metaphor-models/color-hue-metaphor';
-import ColorLightnessMetaphor from '../../js/metaphor-models/color-lightness-metaphor';
 
 export default class InfoPanelBuilder {
-   constructor() {
+   constructor(cityMetaphor) {
+      this.cityMetaphor = cityMetaphor;
       this.frameInfo = document.getElementById('frame-info');
       this.infoPanelDiv = document.getElementById('info-panel-div');
       this.chartBuilding = null;
@@ -15,29 +13,11 @@ export default class InfoPanelBuilder {
 
    setCurrentCityElement(cityElement) {
       this.currentCityElement = cityElement;
-
-      this.currentCityElementDescriptor =
-         this.cityMetaphor.cityElementDescriptors.find(
-            (cityElementDescriptor) =>
-               cityElementDescriptor.groupingPath === cityElement.groupingPath,
-         );
    }
 
-   setCurrentCityElementDescriptor(cityElementDescriptor) {
-      this.currentCityElementDescriptor = cityElementDescriptor;
-
-      this.currentCityElement = this.cityElements.find(
-         (cityElement) =>
-            cityElement.groupingPath === cityElementDescriptor.groupingPath,
-      );
-   }
-
-   setCityElements(cityElements) {
-      this.cityElements = cityElements;
-   }
-
-   setCityMetaphor(cityMetaphor) {
-      this.cityMetaphor = cityMetaphor;
+   setCityElements(buildings, planes) {
+      this.cityElements = planes.concat(buildings);
+      this.buildings = buildings;
    }
 
    resetInfo() {
@@ -67,24 +47,21 @@ export default class InfoPanelBuilder {
       let info = {};
       if (this.currentCityElement.elementType === 'building') {
          info = {
-            buildingId: this.currentCityElementDescriptor.buildingId,
-            buildingName:
-               this.currentCityElementDescriptor.groupingPath.substring(
-                  this.currentCityElementDescriptor.groupingPath.lastIndexOf(
-                     ';',
-                  ) + 1,
-               ),
-            groupingPath: this.currentCityElementDescriptor.groupingPath,
-            descriptorData: this.currentCityElementDescriptor.descriptorData,
+            buildingId: this.currentCityElement.buildingId,
+            buildingName: this.currentCityElement.groupingPath.substring(
+               this.currentCityElement.groupingPath.lastIndexOf(';') + 1,
+            ),
+            groupingPath: this.currentCityElement.groupingPath,
+            buildingData: this.currentCityElement.buildingData,
          };
       } else {
          info = {
-            groupingPath: this.currentCityElementDescriptor.groupingPath,
+            groupingPath: this.currentCityElement.groupingPath,
          };
       }
 
       for (const entry in info) {
-         if (entry === 'descriptorData') {
+         if (entry === 'buildingData') {
             let newElement = document.createElement('p');
             newElement.innerHTML = `<strong>${entry}:</strong><br>`;
             for (const dataEntry of info[entry]) {
@@ -110,41 +87,23 @@ export default class InfoPanelBuilder {
 
       drawArrow(this.currentCityElement);
 
-      const building = this.currentCityElementDescriptor;
+      const building = this.currentCityElement;
       let dataHeightMetaphor = [];
       let dataHueMetaphor = [];
       let dataLightnessMetaphor = [];
 
-      building.descriptorData.forEach((entry) => {
+      building.buildingData.forEach((entry) => {
          dataHeightMetaphor.push({
             x: entry.timestamp,
-            y: parseFloat(
-               entry[
-                  this.cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-                     HeightMetaphor.prototype.constructor.name,
-                  )
-               ],
-            ),
+            y: parseFloat(entry[this.cityMetaphor.metaphorSelection.height]),
          });
          dataHueMetaphor.push({
             x: entry.timestamp,
-            y: parseFloat(
-               entry[
-                  this.cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-                     ColorHueMetaphor.prototype.constructor.name,
-                  )
-               ],
-            ),
+            y: parseFloat(entry[this.cityMetaphor.metaphorSelection.hue]),
          });
          dataLightnessMetaphor.push({
             x: entry.timestamp,
-            y: parseFloat(
-               entry[
-                  this.cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-                     ColorLightnessMetaphor.prototype.constructor.name,
-                  )
-               ],
-            ),
+            y: parseFloat(entry[this.cityMetaphor.metaphorSelection.lightness]),
          });
       });
 
@@ -176,39 +135,23 @@ export default class InfoPanelBuilder {
       const hueMetaphorDatasets = [];
       const lightnessMetaphorDatasets = [];
 
-      this.cityMetaphor.cityElementDescriptors.forEach((elementDescriptor) => {
-         for (const entry of elementDescriptor.descriptorData) {
+      this.buildings.forEach((building) => {
+         for (const entry of building.buildingData) {
             if (!allTimestamps.includes(entry.timestamp)) {
                allTimestamps.push(entry.timestamp);
             }
             heightMetaphorDatasets.push({
                x: entry.timestamp,
-               y: parseFloat(
-                  entry[
-                     this.cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-                        HeightMetaphor.prototype.constructor.name,
-                     )
-                  ],
-               ),
+               y: parseFloat(entry[this.cityMetaphor.metaphorSelection.height]),
             });
             hueMetaphorDatasets.push({
                x: entry.timestamp,
-               y: parseFloat(
-                  entry[
-                     this.cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-                        ColorHueMetaphor.prototype.constructor.name,
-                     )
-                  ],
-               ),
+               y: parseFloat(entry[this.cityMetaphor.metaphorSelection.hue]),
             });
             lightnessMetaphorDatasets.push({
                x: entry.timestamp,
                y: parseFloat(
-                  entry[
-                     this.cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-                        ColorLightnessMetaphor.prototype.constructor.name,
-                     )
-                  ],
+                  entry[this.cityMetaphor.metaphorSelection.lightness],
                ),
             });
          }
@@ -221,9 +164,7 @@ export default class InfoPanelBuilder {
             labels: dataHeightMetaphor.map((entry) => entry.x),
             datasets: [
                {
-                  label: `Height - ${this.cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-                     HeightMetaphor.prototype.constructor.name,
-                  )}`,
+                  label: `Height - ${this.cityMetaphor.metaphorSelection.lightness}`,
                   fill: false,
                   lineTension: 0,
                   borderColor: 'rgba(255, 99, 71, 1)',
@@ -234,9 +175,7 @@ export default class InfoPanelBuilder {
                   data: dataHeightMetaphor,
                },
                {
-                  label: `Hue - ${this.cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-                     ColorHueMetaphor.prototype.constructor.name,
-                  )}`,
+                  label: `Hue - ${this.cityMetaphor.metaphorSelection.hue}`,
                   fill: false,
                   lineTension: 0,
                   borderColor: 'rgba(131, 218, 71, 1)',
@@ -247,9 +186,7 @@ export default class InfoPanelBuilder {
                   data: dataHueMetaphor,
                },
                {
-                  label: `Lightness - ${this.cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-                     ColorLightnessMetaphor.prototype.constructor.name,
-                  )}`,
+                  label: `Lightness - ${this.cityMetaphor.metaphorSelection.lightness}`,
                   fill: false,
                   lineTension: 0,
                   borderColor: 'rgba(62, 117, 222, 1)',
@@ -368,9 +305,7 @@ export default class InfoPanelBuilder {
                   },
                   title: {
                      display: true,
-                     text: this.cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-                        HeightMetaphor.prototype.constructor.name,
-                     ),
+                     text: this.cityMetaphor.metaphorSelection.height,
                   },
                   grid: {
                      display: true,
@@ -439,9 +374,7 @@ export default class InfoPanelBuilder {
                   },
                   title: {
                      display: true,
-                     text: this.cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-                        ColorHueMetaphor.prototype.constructor.name,
-                     ),
+                     text: this.cityMetaphor.metaphorSelection.hue,
                   },
                   grid: {
                      display: true,
@@ -515,9 +448,7 @@ export default class InfoPanelBuilder {
                      },
                      title: {
                         display: true,
-                        text: this.cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-                           ColorLightnessMetaphor.prototype.constructor.name,
-                        ),
+                        text: this.cityMetaphor.metaphorSelection.lightness,
                      },
                      grid: {
                         display: true,

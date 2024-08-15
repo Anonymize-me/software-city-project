@@ -1,7 +1,9 @@
 import { recalculateMetaphors } from './recalculate-metaphors';
 
 export default class SliderBuilder {
-   constructor() {
+   constructor(data, cityMetaphor) {
+      this.data = data;
+      this.cityMetaphor = cityMetaphor;
       this.sliderContainer = document.getElementById('slider-container');
       this.valueDisplay = document.getElementById('slider-value');
       this.sliderThumbT0 = document.getElementById('slider-thumb-t0');
@@ -11,12 +13,8 @@ export default class SliderBuilder {
       this.upperRangeBounds = 0;
    }
 
-   setCityMetaphor(cityMetaphor) {
-      this.cityMetaphor = cityMetaphor;
-   }
-
-   setCityElements(cityElements) {
-      this.cityElements = cityElements;
+   setCityElements(buildings, planes) {
+      this.cityElements = buildings.concat(planes);
    }
 
    setModelTreeBuilder(modelTreeBuilder) {
@@ -32,8 +30,12 @@ export default class SliderBuilder {
          cityElement.visible = true;
       });
 
-      const lowestTimestamp = this.cityMetaphor.getLowestTimestamp();
-      const highestTimestamp = this.cityMetaphor.getHighestTimestamp();
+      const lowestTimestamp = Math.min(
+         ...this.data.map((entry) => parseInt(entry.timestamp)),
+      );
+      const highestTimestamp = Math.max(
+         ...this.data.map((entry) => parseInt(entry.timestamp)),
+      );
       const deltaTimestamp = highestTimestamp - lowestTimestamp;
 
       this.valueDisplay.textContent = `${lowestTimestamp} - ${highestTimestamp}`;

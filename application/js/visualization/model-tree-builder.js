@@ -4,14 +4,12 @@ import { recalculateMetaphors } from './recalculate-metaphors';
 import { removeElementAndChildrenWithListeners } from '../utils';
 
 export default class ModelTreeBuilder {
-   constructor() {}
-
-   setCityMetaphor(cityMetaphor) {
+   constructor(cityMetaphor) {
       this.cityMetaphor = cityMetaphor;
    }
 
-   setCityElements(cityElements) {
-      this.cityElements = cityElements;
+   setCityElements(buildings, planes) {
+      this.cityElements = planes.concat(buildings);
    }
 
    setSliderBuilder(sliderBuilder) {
@@ -200,6 +198,24 @@ export default class ModelTreeBuilder {
          if (element.groupingPath === groupingPath) {
             const col = hslToHex(color.h, color.s, color.l);
             element.getColorPicker().value = col;
+            break;
+         }
+      }
+   }
+
+   showColorPickerByGroupingPath(groupingPath) {
+      for (const element of this.allElements) {
+         if (element.groupingPath === groupingPath) {
+            element.getColorPicker().style.display = 'block';
+            break;
+         }
+      }
+   }
+
+   hideColorPickerByGroupingPath(groupingPath) {
+      for (const element of this.allElements) {
+         if (element.groupingPath === groupingPath) {
+            element.getColorPicker().style.display = 'none';
             break;
          }
       }

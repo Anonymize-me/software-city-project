@@ -1,13 +1,49 @@
+import EnvironmentBuilder from './environment-builder';
+import SliderBuilder from './slider-builder';
+import ModelTreeBuilder from './model-tree-builder';
+import InfoPanelBuilder from './info-panel-builder';
+import GuiBuilder from './gui-builder';
+import PlaneBuilder from './plane-builder';
+import BuildingBuilder from './building-builder';
+import DimensionsBuilder from './dimensions-builder';
+import HierarchyBuilder from './hierarchy-builder';
+import PositionBuilder from './position-builder';
 import { recalculateMetaphors } from './recalculate-metaphors';
 import { setDirector, setMetaphorSelection } from '../data';
 import { setVisualizationData } from '../data';
 
 export default class Director {
-   constructor(cityMetaphor) {
+   constructor(cityMetaphor, data) {
       setDirector(this);
 
       this.cityMetaphor = cityMetaphor;
-      this.builders = [];
+      this.data = data;
+
+      this.environmentBuilder = new EnvironmentBuilder(this.cityMetaphor);
+      this.sliderBuilder = new SliderBuilder(this.data, this.cityMetaphor);
+      this.modelTreeBuilder = new ModelTreeBuilder(this.cityMetaphor);
+      this.infoPanelBuilder = new InfoPanelBuilder(this.cityMetaphor);
+      this.guiBuilder = new GuiBuilder(this.data, this.cityMetaphor);
+
+      this.dimensionsBuilder = new DimensionsBuilder(this.cityMetaphor);
+      this.hierarchyBuilder = new HierarchyBuilder();
+      this.positionBuilder = new PositionBuilder();
+
+      this.optionalBuilders = [];
+
+      cityMetaphor.descriptors.forEach((descriptor) => {
+         switch (descriptor.constructor.name) {
+            case 'PlaneDescriptor':
+               this.optionalBuilders.push(new PlaneBuilder());
+               break;
+            case 'BuildingDescriptor':
+               this.optionalBuilders.push(new BuildingBuilder(this.data));
+               break;
+            default:
+               break;
+         }
+      });
+
       this.renderer = null;
       this.scene = null;
       this.camera = null;
@@ -15,106 +51,86 @@ export default class Director {
       this.gui = null;
    }
 
-   registerBuilder(builder) {
-      this.builders.push(builder);
-   }
-
    constructCity() {
-      this.builders.forEach((builder) => {
-         switch (builder.constructor.name) {
-            case 'EnvironmentBuilder':
-               builder.setCityMetaphor(this.cityMetaphor);
-               const { renderer, scene, camera } = builder.build();
-               this.renderer = renderer;
-               this.scene = scene;
-               this.camera = camera;
-               break;
-            case 'CityElementBuilder':
-               builder.setCityMetaphor(this.cityMetaphor);
-               builder.setScene(this.scene);
-               const cityElements = builder.build();
-               this.cityElements = cityElements;
-               break;
-            case 'ModelTreeBuilder':
-               builder.setCityMetaphor(this.cityMetaphor);
-               builder.setCityElements(this.cityElements);
-               this.builders
-                  .find((b) => b.constructor.name === 'EnvironmentBuilder')
-                  .setModelTreeBuilder(builder);
-               const modelTree = builder.build();
-               const modelTreeFrame = document.getElementById('model-tree');
-               modelTreeFrame.appendChild(modelTree);
-               break;
-            case 'SliderBuilder':
-               builder.setCityMetaphor(this.cityMetaphor);
-               builder.setCityElements(this.cityElements);
-               builder.setModelTreeBuilder(
-                  this.builders.find(
-                     (b) => b.constructor.name === 'ModelTreeBuilder',
-                  ),
-               );
-               this.builders
-                  .find((b) => b.constructor.name === 'ModelTreeBuilder')
-                  .setSliderBuilder(builder);
-               builder.build();
-               break;
-            case 'InfoPanelBuilder':
-               builder.setCityMetaphor(this.cityMetaphor);
-               builder.setCityElements(this.cityElements);
-               this.builders
-                  .find((b) => b.constructor.name === 'EnvironmentBuilder')
-                  .setInfoPanelBuilder(builder);
-               break;
-            case 'GuiBuilder':
-               builder.setCityMetaphor(this.cityMetaphor);
-               builder.setCityElements(this.cityElements);
-               builder.setModelTreeBuilder(
-                  this.builders.find(
-                     (b) => b.constructor.name === 'ModelTreeBuilder',
-                  ),
-               );
-               this.builders
-                  .find((b) => b.constructor.name === 'ModelTreeBuilder')
-                  .setGuiBuilder(builder);
-               builder.setSliderBuilder(
-                  this.builders.find(
-                     (b) => b.constructor.name === 'SliderBuilder',
-                  ),
-               );
-               this.builders
-                  .find((b) => b.constructor.name === 'SliderBuilder')
-                  .setGuiBuilder(builder);
-               this.gui = builder.build();
-               break;
-            default:
-               throw new Error(`Unknown builder: ${builder.constructor.name}`);
-         }
-      });
+      // Build Environment
+      const { renderer, scene, camera } = this.environmentBuilder.build();
+      this.renderer = renderer;
+      this.scene = scene;
+      this.camera = camera;
 
-      const modelTreeBuilder = this.builders.find(
-         (b) => b.constructor.name === 'ModelTreeBuilder',
-      );
+      // Build City Elements
+      switch (this.cityMetaphor.constructor.name) {
+         case 'BasicCityMetaphor':
+            const planeBuilder = this.optionalBuilders.find((builder) => {
+               return builder.constructor.name === 'PlaneBuilder';
+            });
+            const buildingBuilder = this.optionalBuilders.find((builder) => {
+               return builder.constructor.name === 'BuildingBuilder';
+            });
 
-      const sliderBuilder = this.builders.find(
-         (b) => b.constructor.name === 'SliderBuilder',
-      );
-      const guiBuilder = this.builders.find(
-         (b) => b.constructor.name === 'GuiBuilder',
-      );
+            this.buildings = buildingBuilder.build();
+
+            this.dimensionsBuilder.build(this.buildings);
+
+            this.planes = planeBuilder.build(this.buildings);
+
+            this.hierarchyBuilder.build(this.buildings, this.planes);
+
+            this.positionBuilder.build(this.buildings, this.planes);
+
+            this.scene.add(planeBuilder.planes[0]);
+
+            break;
+         default:
+            break;
+      }
+
+      // Build Model Tree
+      this.modelTreeBuilder.setCityElements(this.buildings, this.planes);
+      const modelTree = this.modelTreeBuilder.build();
+      const modelTreeFrame = document.getElementById('model-tree');
+      modelTreeFrame.appendChild(modelTree);
+      this.environmentBuilder.setModelTreeBuilder(this.modelTreeBuilder);
+
+      // Build Slider
+      this.sliderBuilder.setCityElements(this.buildings, this.planes);
+      this.sliderBuilder.setModelTreeBuilder(this.modelTreeBuilder);
+      this.modelTreeBuilder.setSliderBuilder(this.sliderBuilder);
+      this.sliderBuilder.build();
+
+      // Build Info Panel
+      this.infoPanelBuilder.setCityElements(this.buildings, this.planes);
+      this.environmentBuilder.setInfoPanelBuilder(this.infoPanelBuilder);
+
+      // Build GUI
+      this.guiBuilder.setCityElements(this.buildings, this.planes);
+      this.guiBuilder.setModelTreeBuilder(this.modelTreeBuilder);
+      this.modelTreeBuilder.setGuiBuilder(this.guiBuilder);
+      this.guiBuilder.setSliderBuilder(this.sliderBuilder);
+      this.sliderBuilder.setGuiBuilder(this.guiBuilder);
+      this.gui = this.guiBuilder.build(this.data);
+
       recalculateMetaphors(
          this.cityMetaphor,
-         this.cityElements,
-         modelTreeBuilder,
-         sliderBuilder,
-         guiBuilder,
+         [...this.buildings, ...this.planes],
+         this.modelTreeBuilder,
+         this.sliderBuilder,
+         this.guiBuilder,
       );
    }
 
    destroyCity() {
-      this.builders.forEach((builder) => {
-         if (builder.destroy) {
-            builder.destroy();
-         }
+      this.environmentBuilder.destroy();
+      this.sliderBuilder.destroy();
+      this.modelTreeBuilder.destroy();
+      this.infoPanelBuilder.destroy();
+      this.guiBuilder.destroy();
+      this.dimensionsBuilder.destroy();
+      this.hierarchyBuilder.destroy();
+      this.positionBuilder.destroy();
+
+      this.optionalBuilders.forEach((builder) => {
+         builder.destroy();
       });
 
       // Reset metaphor selection in data store

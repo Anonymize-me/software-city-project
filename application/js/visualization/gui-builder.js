@@ -2,14 +2,13 @@ import * as dat from 'dat.gui';
 import { recalculateMetaphors } from './recalculate-metaphors';
 
 export default class GuiBuilder {
-   constructor() {}
-
-   setCityMetaphor(cityMetaphor) {
+   constructor(data, cityMetaphor) {
+      this.data = data;
       this.cityMetaphor = cityMetaphor;
    }
 
-   setCityElements(cityElements) {
-      this.cityElements = cityElements;
+   setCityElements(buildings, planes) {
+      this.cityElements = buildings.concat(planes);
    }
 
    setModelTreeBuilder(modelTreeBuilder) {
@@ -50,7 +49,7 @@ export default class GuiBuilder {
       });
    }
 
-   build() {
+   build(data) {
       this.gui = new dat.GUI();
 
       this.gui.thresholdParams = {
@@ -59,9 +58,14 @@ export default class GuiBuilder {
          saturation: 0.3,
       };
 
-      let numericalAttributeNames = [''].concat(
-         this.cityMetaphor.getNumericalAttributeNames(),
-      );
+      let numericalAttributeNames = [''];
+      data.forEach((entry) => {
+         for (const key in entry) {
+            if (!isNaN(entry[key])) {
+               numericalAttributeNames.push(key);
+            }
+         }
+      });
 
       const thresholdFolder = this.gui.addFolder('Saturation');
       const dropdownController = thresholdFolder
@@ -72,11 +76,13 @@ export default class GuiBuilder {
             dropdownController.updateDisplay();
 
             thresholdController.min(
-               this.cityMetaphor.getMinValueByAttribute(value),
+               Math.min(...this.data.map((entry) => parseInt(entry[value]))),
             );
+
             thresholdController.max(
-               this.cityMetaphor.getMaxValueByAttribute(value),
+               Math.max(...this.data.map((entry) => parseInt(entry[value]))),
             );
+
             thresholdController.updateDisplay();
 
             if (value === '') {

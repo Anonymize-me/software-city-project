@@ -1,23 +1,16 @@
 import {
    getAttributeNames,
+   getMetaphorSelection,
    getOriginalData,
    getParticipants,
    getTasks,
    getVisualizationData,
-   setDirector,
    setMetaphorSelection,
    setVisualizationData,
 } from '../data';
 import { getConfig, getMapping, updateMapping } from './cookie-manager';
-import CityMetaphor from '../metaphor-models/city-metaphor';
-import MetaphorFactory from '../metaphor-models/metaphor-factory';
+import BasicCityMetaphor from '../metaphor-models/basic-city-metaphor';
 import Director from '../visualization/director';
-import EnvironmentBuilder from '../visualization/environment-builder';
-import CityElementBuilder from '../visualization/city-element-builder';
-import SliderBuilder from '../visualization/slider-builder';
-import ModelTreeBuilder from '../visualization/model-tree-builder';
-import InfoPanelBuilder from '../visualization/info-panel-builder';
-import GuiBuilder from '../visualization/gui-builder';
 
 const participant = document.getElementById('participant');
 const participantLabel = document.getElementById('participant-label');
@@ -165,41 +158,9 @@ buttonStartVisualize.addEventListener('click', (e) => {
    metaphorSelection.groupingPath = 'className';
    metaphorSelection.timestamp = 'timestamp';
 
-   const cityMetaphor = new CityMetaphor(data);
+   const basicCityMetaphor = new BasicCityMetaphor(getMetaphorSelection());
 
-   const metaphorFactory = new MetaphorFactory();
-
-   for (const metaphorName in metaphorSelection) {
-      if (metaphorName === 'participant' || metaphorName === 'taskId') {
-         continue;
-      }
-
-      const metaphor = metaphorFactory.createMetaphor(
-         metaphorName,
-         metaphorSelection[metaphorName],
-      );
-
-      if (metaphor) {
-         cityMetaphor.registerMetaphor(metaphor);
-      }
-   }
-
-   cityMetaphor.createCityElementDescriptors();
-
-   const director = new Director(cityMetaphor);
-
-   const environmentBuilder = new EnvironmentBuilder();
-   const cityElementBuilder = new CityElementBuilder();
-   const sliderBuilder = new SliderBuilder();
-   const modelTreeBuildinger = new ModelTreeBuilder();
-   const infoPanelBuilder = new InfoPanelBuilder();
-   const guiBuilder = new GuiBuilder();
-   director.registerBuilder(environmentBuilder);
-   director.registerBuilder(cityElementBuilder);
-   director.registerBuilder(sliderBuilder);
-   director.registerBuilder(modelTreeBuildinger);
-   director.registerBuilder(infoPanelBuilder);
-   director.registerBuilder(guiBuilder);
+   const director = new Director(basicCityMetaphor, data);
 
    director.constructCity();
 

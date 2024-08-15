@@ -143,48 +143,6 @@ const timestampToDate = (timestamp) => {
    return new Date(year, month, day, hour, minute, second, millisecond);
 };
 
-/**
- * Method to get the minimum value of an attribute based on all datapoints
- * of the buildings from a given listOfBuildings.
- *
- * @param {String} attribute // the attribute name
- * @param {Array} listOfBuildings // the list of buildings
- * @returns {Number} // the minimum value of the attribute
- */
-const getMinValueByAttribute = (attribute, listOfBuildings) => {
-   let min = Infinity;
-   for (let building of listOfBuildings) {
-      for (let row of building.buildingData) {
-         let value = parseFloat(row[attribute]);
-         if (value < min) {
-            min = value;
-         }
-      }
-   }
-   return min;
-};
-
-/**
- * Method to get the maximum value of an attribute based on all datapoints
- * of the buildings from a given listOfBuildings.
- *
- * @param {String} attribute // the attribute name
- * @param {Array} listOfBuildings // the list of buildings
- * @returns {Number} // the maximum value of the attribute
- */
-const getMaxValueByAttribute = (attribute, listOfBuildings) => {
-   let max = -Infinity;
-   for (let building of listOfBuildings) {
-      for (let row of building.buildingData) {
-         let value = parseFloat(row[attribute]);
-         if (value > max) {
-            max = value;
-         }
-      }
-   }
-   return max;
-};
-
 const removeAllEventListeners = (element) => {
    const clone = element.cloneNode(true);
    element.parentNode.replaceChild(clone, element);
@@ -219,8 +177,6 @@ export {
    hexToRgb,
    hslToHex,
    timestampToDate,
-   getMinValueByAttribute,
-   getMaxValueByAttribute,
    destroyCity,
    removeElementAndChildrenWithListeners,
 };

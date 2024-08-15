@@ -1,7 +1,4 @@
 import * as THREE from 'three';
-import HeightMetaphor from '../metaphor-models/height-metaphor';
-import ColorHueMetaphor from '../metaphor-models/color-hue-metaphor';
-import ColorLightnessMetaphor from '../metaphor-models/color-lightness-metaphor';
 
 const recalculateMetaphors = (
    cityMetaphor,
@@ -17,23 +14,16 @@ const recalculateMetaphors = (
    const minLightness = 0;
    const maxLightness = 1;
 
-   const heightMetaphor = cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-      HeightMetaphor.name,
-   );
+   const heightMetaphor = cityMetaphor.metaphorSelection.height;
 
-   const hueMetaphor = cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-      ColorHueMetaphor.name,
-   );
+   const hueMetaphor = cityMetaphor.metaphorSelection.hue;
 
    const saturationMetaphor = guiBuilder.gui.thresholdParams.dropdown;
    const saturationThreshold = guiBuilder.gui.thresholdParams.threshold;
    const saturationValueForBuildingsBelowThreshold =
       guiBuilder.gui.thresholdParams.saturation;
 
-   const lightnessMetaphor =
-      cityMetaphor.getMetaphorSelectionByMetaphorClassName(
-         ColorLightnessMetaphor.name,
-      );
+   const lightnessMetaphor = cityMetaphor.metaphorSelection.lightness;
 
    let maxLastSeenHeightValue = 0;
    let minLastSeenHeightValue = 0;
@@ -42,16 +32,15 @@ const recalculateMetaphors = (
    let maxLastSeenLightnessValue = 0;
    let minLastSeenLightnessValue = 0;
 
-   const buildings = cityMetaphor.cityElementDescriptors.filter(
-      (cityElementDescriptor) =>
-         cityElementDescriptor.constructor.name === 'BuildingDescriptor',
+   const buildings = cityElements.filter(
+      (cityElement) => cityElement.elementType === 'building',
    );
 
    for (const building of buildings) {
       let lastSeenHeightValue = 0;
       let lastSeenHueValue = 0;
       let lastSeenLightnessValue = 0;
-      for (const entry of building.descriptorData) {
+      for (const entry of building.buildingData) {
          if (
             parseInt(entry.timestamp) >= sliderBuilder.lowerRangeBounds &&
             parseInt(entry.timestamp) <= sliderBuilder.upperRangeBounds
@@ -86,7 +75,7 @@ const recalculateMetaphors = (
       let lastSeenHueValue = 0;
       let lastSeenSaturationValue = 0;
       let lastSeenLightnessValue = 0;
-      for (const entry of building.descriptorData) {
+      for (const entry of building.buildingData) {
          if (
             parseInt(entry.timestamp) >= sliderBuilder.lowerRangeBounds &&
             parseInt(entry.timestamp) <= sliderBuilder.upperRangeBounds
@@ -112,7 +101,7 @@ const recalculateMetaphors = (
             (maxHeight - minHeight) +
          minHeight;
 
-      // also take into account the 'scale' and 'normalize' values from the dat.gui
+      // Also take into account the 'scale' and 'normalize' values from the dat.gui
       const scaleValue = guiBuilder.optionsHeightMetaphor.scale;
       const normalizeValue = guiBuilder.optionsHeightMetaphor.normalize;
 
@@ -157,6 +146,9 @@ const recalculateMetaphors = (
             s: saturation,
             l: lightness,
          });
+         modelTreeBuilder.showColorPickerByGroupingPath(building.groupingPath);
+      } else {
+         modelTreeBuilder.hideColorPickerByGroupingPath(building.groupingPath);
       }
    }
 };
