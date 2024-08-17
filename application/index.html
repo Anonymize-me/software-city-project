@@ -117,10 +117,10 @@
             <input type="file" id="file" name="file" accept=".csv" required />
             <label for="file-format">Select a type:</label>
             <select id="file-format" name="file-format">
-               <option value="java-source-code">Java Source Code</option>
                <option value="eye-tracking-java-source-code">
                   Eye Tracking (Java Source Code)
                </option>
+               <option value="java-source-code">Java Source Code</option>
             </select>
 
             <button id="button-upload-data" class="btn btn-default">
@@ -198,12 +198,12 @@
             ></select>
          </div>
          <div>
-            <label for="luminance-attribute-selection"
-               >Color - Luminance:</label
+            <label for="lightness-attribute-selection"
+               >Color - Lightness:</label
             >
             <select
-               id="luminance-attribute-selection"
-               name="luminance-attribute-selection"
+               id="lightness-attribute-selection"
+               name="lightness-attribute-selection"
             ></select>
          </div>
 
@@ -229,7 +229,7 @@
          <canvas id="chartBuilding"></canvas>
          <canvas id="chartHeight"></canvas>
          <canvas id="chartHue"></canvas>
-         <canvas id="chartLuminance"></canvas>
+         <canvas id="chartLightness"></canvas>
       </div>
 
       <div id="slider-container">
@@ -261,77 +261,73 @@
       <!-- loading instructions here -->
       <div id="instructions">
          <h1 style="text-align: center">Software City App</h1>
-         <h2>Instructions</h2>
-         <a
-            href="https://github.com/jonaslanzlinger/software-city-project/tree/main/application/data"
-         >
-            Example Data Repository
-         </a>
+         <p>
+            The tool provides a way to visualize software systems in a city
+            metaphor. The city metaphor consists of buildings, where each
+            building represents a software component. Each metaphor can be
+            dynamically mapped to individual attributes from the uploaded
+            dataset. This tool is designed to visualize the recorded interaction
+            of a examinee with a given software system. This introduces the time
+            dimension. That means that the tool loads the software system in a
+            static way and then visualizes the interaction of the user with the
+            system over time. The time dimension is represented by a slider at
+            the top of the screen in the visualization view.
+         </p>
+         <p>
+            <a
+               href="https://github.com/jonaslanzlinger/software-city-project/tree/v1.0.0/test_datasets"
+            >
+               <b>Here</b>
+            </a>
+            you can find example datasets that have been recorded during an eye
+            tracking experiment. The example datasets can be used to test the
+            visualization tool and to get a better understanding of the tool.
+         </p>
+
          <div>
-            <h4>File Formats</h4>
+            <h4>File format</h4>
             <p>
-               Choose a .csv file and select the type of data you are uploading.
-               Every .csv file needs to have the names of the attributes in the
-               first line. The delimiter symbol is a comma (","). The following
-               types are supported:
+               The uploaded data file needs to be a .csv file. The first line of
+               the file must contain comma separated attribute names. All the
+               following lines must contain comma separated values.
+            </p>
+            <p>
+               Note: All attribute values that are utilized for visualizing a
+               given metaphor must be numeric.
+            </p>
+            <h4>Config</h4>
+            <p>
+               The configuration is used to map attributes of the uploaded data
+               to the parameters that constitute the basic structure of the
+               software city. The configuration needs at least the mapping for
+               the following attributes:
             </p>
             <ul>
                <li>
-                  <p style="font-weight: bold">Java Source Code</p>
-                  The configuration needs at least the following attributes
-                  (names can differ):
-                  <ul>
-                     <li>
-                        groupingPath - {layer1;layer2;layer3; ...} - example:
-                        ch;unisg;application1;package1;class1
-                     </li>
-                     <li>
-                        timestamp - {YYYYMMDDHHmmssSSS} - example:
-                        20240210114054572
-                     </li>
-                  </ul>
-                  <p>
-                     This type of data is used to visualize static Java source
-                     code. The timestamp is used to map the code to a specific
-                     point in time. For each unique timestamp in the provided
-                     data, the app will create an epoche with all the data
-                     points with the same timestamp.
-                  </p>
+                  <b>groupingPath:</b> Used for building the hierarchical
+                  structure of the city. - {layer1;layer2;layer3; ...} -
+                  example: ch;unisg;application1;package1;Class1.java
                </li>
                <li>
-                  <p style="font-weight: bold">
-                     Eye Tracking (Java Source Code)
-                  </p>
-                  The configuration needs at least the following attributes
-                  (names can differ):
-                  <ul>
-                     <li>
-                        groupingPath - {layer1;layer2;layer3; ...} - example:
-                        ch;unisg;application1;package1;class1
-                     </li>
-                     <li>
-                        timestamp - {YYYYMMDDHHmmssSSS} - example:
-                        20240210114054572
-                     </li>
-                     <li>participant - {numeric} - example: 6</li>
-                     <li>taskId - {numeric} - example: 4</li>
-                  </ul>
-                  <p>
-                     This type of data is used to visualize an eye-tracking
-                     experiment. The timestamp is used to map the code to a
-                     specific point in time. The participant and taskId is used
-                     to specify an respective experiment. All other attributes
-                     can be used for the metaphors.
-                  </p>
+                  <b>timestamp:</b> Used for the time dimensions. -
+                  {YYYYMMDDHHmmssSSS} - example: 20240210114054572. Note: The
+                  timestamp can be in any format (but numerical!).
+               </li>
+               <li>
+                  <b>participant:</b> Used for identifying the participant of
+                  the experiment.
+               </li>
+               <li>
+                  <b>taskId</b> Used for identifying the task of the experiment.
                </li>
             </ul>
          </div>
       </div>
 
-      <script type="module" src="./js/userInterface/index.js"></script>
+      <script type="module" src="./js/user-interface/index.js"></script>
       <script
          type="module"
-         src="./js/userInterface/draggableFrames.js"
+         src="./js/user-interface/draggable-frames.js"
       ></script>
    </body>
 </html>

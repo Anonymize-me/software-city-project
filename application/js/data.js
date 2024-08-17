@@ -1,16 +1,9 @@
-import { timestampToDate } from "./utils.js";
-
 let dataStore = {
    originalData: [],
    attributeNames: [],
-   dataType: "",
+   dataType: '',
    visualizationData: [],
-   listTreeOfBuildings: [],
-   listModelTrees: [],
    metaphorSelection: {},
-   normalizer: null,
-   listRenderers: [],
-   listGuis: [],
 };
 
 /**
@@ -27,23 +20,23 @@ const processOriginalData = (config) => {
 
          if (attributeName === config.groupingPath) {
             // if the dataType is java-source-code, replace the "." with ";"
-            dataObject["groupingPath"] = entry[attributeName].replace(
+            dataObject['groupingPath'] = entry[attributeName].replace(
                /\./g,
-               ";"
+               ';',
             );
          } else if (attributeName === config.timestamp) {
             // dataObject["timestamp"] = timestampToDate(entry[attributeName]);
-            dataObject["timestamp"] = entry[attributeName];
+            dataObject['timestamp'] = entry[attributeName];
          } else if (
             attributeName === config.participant &&
-            dataStore.dataType !== "java-source-code"
+            dataStore.dataType !== 'java-source-code'
          ) {
-            dataObject["participant"] = entry[attributeName];
+            dataObject['participant'] = entry[attributeName];
          } else if (
             attributeName === config.taskId &&
-            dataStore.dataType !== "java-source-code"
+            dataStore.dataType !== 'java-source-code'
          ) {
-            dataObject["taskId"] = entry[attributeName];
+            dataObject['taskId'] = entry[attributeName];
          } else {
             dataObject[attributeName] = entry[attributeName];
          }
@@ -53,11 +46,11 @@ const processOriginalData = (config) => {
          if (
             (attributeName === config.groupingPath ||
                attributeName === config.timestamp) &&
-            dataStore.dataType === "java-source-code"
+            dataStore.dataType === 'java-source-code'
          ) {
             if (
                entry[attributeName] === undefined ||
-               entry[attributeName] === ""
+               entry[attributeName] === ''
             ) {
                continue;
             }
@@ -67,11 +60,11 @@ const processOriginalData = (config) => {
                attributeName === config.timestamp ||
                attributeName === config.participant ||
                attributeName === config.taskId) &&
-            dataStore.dataType !== "java-source-code"
+            dataStore.dataType !== 'java-source-code'
          ) {
             if (
                entry[attributeName] === undefined ||
-               entry[attributeName] === ""
+               entry[attributeName] === ''
             ) {
                continue;
             }
@@ -92,14 +85,9 @@ const processOriginalData = (config) => {
 const clearData = () => {
    dataStore.originalData = [];
    dataStore.attributeNames = [];
-   dataStore.dataType = "";
+   dataStore.dataType = '';
    dataStore.visualizationData = [];
-   dataStore.listTreeOfBuildings = [];
-   dataStore.listModelTrees = [];
    dataStore.metaphorSelection = {};
-   dataStore.normalizer = null;
-   dataStore.listRenderers = [];
-   dataStore.listGuis = [];
 };
 
 /**
@@ -108,17 +96,19 @@ const clearData = () => {
  * @returns {Object} // the epoques
  */
 const getEpoques = () => {
-   let epoques = {};
+   const epoques = [];
    dataStore.visualizationData.forEach((entry) => {
-      if (!(entry.timestamp in epoques)) {
-         epoques[entry.timestamp] = [];
+      if (epoques.length === 0) {
+         epoques.push({
+            commitHash: entry.commitHash,
+            timestamp: parseInt(entry.timestamp),
+         });
       }
-   });
-   dataStore.visualizationData.forEach((entry) => {
-      for (let epoque in epoques) {
-         if (entry.timestamp === epoque) {
-            epoques[epoque].push(entry);
-         }
+      if (!epoques.some((e) => e.commitHash === entry.commitHash)) {
+         epoques.push({
+            commitHash: entry.commitHash,
+            timestamp: parseInt(entry.timestamp),
+         });
       }
    });
    return epoques;
@@ -154,43 +144,6 @@ const getTasks = () => {
    return tasks;
 };
 
-/**
- * Method to add a renderer to the list of renderers
- */
-const addRenderer = (renderer) => {
-   dataStore.listRenderers.push(renderer);
-};
-
-/**
- * Method to add a gui to the list of guis
- */
-const addGui = (gui) => {
-   dataStore.listGuis.push(gui);
-};
-
-/**
- * Method to remove all renderers and guis
- */
-const removeRenderersAndGuis = () => {
-   removeAllRenderers();
-   removeAllGuis();
-};
-
-const removeAllRenderers = () => {
-   let canvasElement = document.getElementById("threejs-canvas");
-   if (canvasElement) {
-      canvasElement.remove();
-   }
-   dataStore.listRenderers = [];
-};
-
-const removeAllGuis = () => {
-   for (let gui of dataStore.listGuis) {
-      gui.destroy();
-   }
-   dataStore.listGuis = [];
-};
-
 // ///////////////////
 // GETTERS
 // ///////////////////
@@ -214,28 +167,8 @@ const getVisualizationData = () => {
    return dataStore.visualizationData;
 };
 
-const getListTreeOfBuildings = () => {
-   return dataStore.listTreeOfBuildings;
-};
-
-const getListModelTrees = () => {
-   return dataStore.listModelTrees;
-};
-
 const getMetaphorSelection = () => {
    return dataStore.metaphorSelection;
-};
-
-const getNormalizer = () => {
-   return dataStore.normalizer;
-};
-
-const getListRenderers = () => {
-   return dataStore.listRenderers;
-};
-
-const getListGuis = () => {
-   return dataStore.listGuis;
 };
 
 // ///////////////////
@@ -255,26 +188,26 @@ const setOriginalData = (data, dataType) => {
    // clear the dataStore
    clearData();
 
-   let lines = data.split("\n");
+   let lines = data.split('\n');
 
    // get the attribute names (first line of the csv file, and remove it from "lines")
-   let attributeNames = lines.shift().split(",");
+   let attributeNames = lines.shift().split(',');
    attributeNames = attributeNames.map((attributeName) => {
       // remove the spaces and make the first letter lowercase
       return (
          attributeName.slice(0, 1).toLowerCase() +
-         attributeName.replace(" ", "").slice(1)
+         attributeName.replace(' ', '').slice(1)
       );
    });
 
    // iterate over all lines and add them to the dataStore
    lines.forEach((line) => {
-      if (line === "") {
+      if (line === '') {
          return;
       }
       // create a new object for each line
       let dataObject = {};
-      let values = line.split(",");
+      let values = line.split(',');
       for (let i = 0; i < attributeNames.length; i++) {
          dataObject[attributeNames[i]] = values[i];
       }
@@ -296,24 +229,6 @@ const setVisualizationData = (data) => {
 };
 
 /**
- * Method to set the listTreeOfBuildings
- *
- * @param {Array} listTreeOfBuildings // the list of tree of buildings
- */
-const setListTreeOfBuildings = (listTreeOfBuildings) => {
-   dataStore.listTreeOfBuildings = listTreeOfBuildings;
-};
-
-/**
- * Method to set the listModelTrees
- *
- * @param {Array} listModelTrees // the list of model trees
- */
-const setListModelTrees = (listModelTrees) => {
-   dataStore.listModelTrees = listModelTrees;
-};
-
-/**
  * Method to set the metaphor selection
  *
  * @param {Object} metaphorSelection // mapping of metaphor selection
@@ -322,8 +237,12 @@ const setMetaphorSelection = (metaphorSelection) => {
    dataStore.metaphorSelection = metaphorSelection;
 };
 
-const setNormalizer = (normalizer) => {
-   dataStore.normalizer = normalizer;
+const setDirector = (director) => {
+   dataStore.director = director;
+};
+
+const getDirector = () => {
+   return dataStore.director;
 };
 
 export {
@@ -332,26 +251,15 @@ export {
    getEpoques,
    getParticipants,
    getTasks,
-   addRenderer,
-   addGui,
-   removeRenderersAndGuis,
-   removeAllRenderers,
-   removeAllGuis,
    getDataStore,
    getOriginalData,
    getAttributeNames,
    getDataType,
    getVisualizationData,
-   getListTreeOfBuildings,
-   getListModelTrees,
    getMetaphorSelection,
-   getNormalizer,
-   getListRenderers,
-   getListGuis,
    setOriginalData,
    setVisualizationData,
-   setListTreeOfBuildings,
-   setListModelTrees,
    setMetaphorSelection,
-   setNormalizer,
+   setDirector,
+   getDirector,
 };
