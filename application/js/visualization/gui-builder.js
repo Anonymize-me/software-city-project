@@ -53,6 +53,12 @@ export default class GuiBuilder {
    build(data) {
       this.gui = new dat.GUI();
 
+      this.gui.domElement.style.position = "absolute";
+      this.gui.domElement.style.right = "0px";
+      this.gui.domElement.style.padding = "0px";
+      this.gui.domElement.style.margin = "0px";
+      this.gui.width = 200;
+
       this.gui.thresholdParams = {
          dropdown: "",
          threshold: 50,
@@ -103,13 +109,14 @@ export default class GuiBuilder {
             }
          });
 
+      // Optionally, adjust the width of the surrounding controller container
       dropdownController.domElement.querySelector("select").style.color =
          "#2FA1D6";
       dropdownController.domElement.querySelector(
          "select"
       ).style.backgroundColor = "#303030";
       dropdownController.domElement.querySelector("select").style.width =
-         "142px";
+         "113px";
       dropdownController.domElement.querySelector("select").style.border =
          "none";
       dropdownController.domElement.querySelector("select").style.outline =
