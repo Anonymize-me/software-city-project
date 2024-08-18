@@ -13,3 +13,6 @@ package-lock.json
 
 # Exclude the temp_repositories directory
 temp_repositories/
+
+# Exclude the dist directory
+/application/dist/

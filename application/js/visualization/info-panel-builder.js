@@ -252,7 +252,7 @@ export default class InfoPanelBuilder {
          data: {
             datasets: [
                {
-                  type: "line",
+                  type: "scatter",
                   label: "All Buildings",
                   data: heightMetaphorDatasets,
                   order: 2,

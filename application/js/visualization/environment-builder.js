@@ -5,6 +5,7 @@ export default class EnvironmentBuilder {
    constructor(cityMetaphor) {
       this.type = "EnvironmentBuilder";
       this.cityMetaphor = cityMetaphor;
+      this.isAltPressed = false;
    }
 
    setInfoPanelBuilder(infoPanelBuilder) {
@@ -62,6 +63,37 @@ export default class EnvironmentBuilder {
          camera.updateProjectionMatrix();
       };
 
+      // Keyboard controls
+      window.addEventListener("keydown", (e) => {
+         if (e.key === "Alt" && !this.isDragging) {
+            this.isAltPressed = true;
+
+            const raycaster = new THREE.Raycaster();
+            raycaster.setFromCamera(this.mousePosition, camera);
+
+            const intersects = raycaster.intersectObjects(scene.children);
+            for (const intersect of intersects) {
+               if (intersect.object.elementType === "building") {
+                  this.isDragging = true;
+                  this.selectedObject = intersect.object;
+                  break;
+               } else if (intersect.object.parent.elementType === "plane") {
+                  this.isDragging = true;
+                  this.selectedObject = intersect.object.parent;
+                  break;
+               }
+            }
+         }
+      });
+
+      window.addEventListener("keyup", (e) => {
+         if (e.key === "Alt") {
+            this.isAltPressed = false;
+            this.isDragging = false;
+            this.selectedObject = null;
+         }
+      });
+
       // Mouse controls
       renderer.domElement.addEventListener("mousedown", (e) => {
          const mouse = new THREE.Vector2();
@@ -105,9 +137,39 @@ export default class EnvironmentBuilder {
 
       let highlightedElement = null;
       renderer.domElement.addEventListener("mousemove", (e) => {
+         this.dragOffset = new THREE.Vector3();
+
          const mouse = new THREE.Vector2();
          mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
          mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+         this.mousePosition = mouse;
+
+         if (this.isDragging && this.selectedObject) {
+            const raycaster = new THREE.Raycaster();
+            raycaster.setFromCamera(mouse, camera);
+
+            const planeXZ = new THREE.Plane(
+               new THREE.Vector3(0, 1, 0),
+               -this.selectedObject.position.y
+            );
+            const intersectPoint = new THREE.Vector3();
+            raycaster.ray.intersectPlane(planeXZ, intersectPoint);
+
+            if (!this.dragStarted) {
+               this.dragOffset
+                  .copy(this.selectedObject.position)
+                  .sub(intersectPoint);
+               this.dragStarted = true;
+            }
+
+            this.selectedObject.position.set(
+               intersectPoint.x + this.dragOffset.x,
+               this.selectedObject.position.y,
+               intersectPoint.z + this.dragOffset.z
+            );
+
+            return;
+         }
 
          const raycaster = new THREE.Raycaster();
          raycaster.setFromCamera(mouse, camera);
