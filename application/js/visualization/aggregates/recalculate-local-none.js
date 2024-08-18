@@ -3,7 +3,8 @@ const recalculateLocalNone = (
    cityElements,
    modelTreeBuilder,
    sliderBuilder,
-   guiBuilder
+   guiBuilder,
+   infoPanelBuilder
 ) => {
    /**
     * Implement logic here...

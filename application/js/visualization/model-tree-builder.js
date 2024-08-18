@@ -22,6 +22,10 @@ export default class ModelTreeBuilder {
       this.guiBuilder = guiBuilder;
    }
 
+   setInfoPanelBuilder(infoPanelBuilder) {
+      this.infoPanelBuilder = infoPanelBuilder;
+   }
+
    build() {
       this.clear();
       let check = [this.cityElements[0]];
@@ -87,7 +91,8 @@ export default class ModelTreeBuilder {
                   this.cityElements,
                   this,
                   this.sliderBuilder,
-                  this.guiBuilder
+                  this.guiBuilder,
+                  this.infoPanelBuilder
                );
             });
          } else if (current.elementType === "plane") {

@@ -5,7 +5,8 @@ const recalculateController = (
    cityElements,
    modelTreeBuilder,
    sliderBuilder,
-   guiBuilder
+   guiBuilder,
+   infoPanelBuilder
 ) => {
    const aggregateFunction =
       document.getElementById("aggregate-function").value;
@@ -17,7 +18,8 @@ const recalculateController = (
             cityElements,
             modelTreeBuilder,
             sliderBuilder,
-            guiBuilder
+            guiBuilder,
+            infoPanelBuilder
          );
          break;
       default:

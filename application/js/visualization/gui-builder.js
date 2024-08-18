@@ -20,6 +20,10 @@ export default class GuiBuilder {
       this.sliderBuilder = sliderBuilder;
    }
 
+   setInfoPanelBuilder(infoPanelBuilder) {
+      this.infoPanelBuilder = infoPanelBuilder;
+   }
+
    disableController(controller) {
       const input = controller.domElement.querySelector("input");
       if (input) {
@@ -104,7 +108,8 @@ export default class GuiBuilder {
                   this.cityElements,
                   this.modelTreeBuilder,
                   this.sliderBuilder,
-                  this
+                  this,
+                  this.infoPanelBuilder
                );
             }
          });
@@ -135,7 +140,8 @@ export default class GuiBuilder {
                this.cityElements,
                this.modelTreeBuilder,
                this.sliderBuilder,
-               this
+               this,
+               this.infoPanelBuilder
             );
          });
 
@@ -150,7 +156,8 @@ export default class GuiBuilder {
                this.cityElements,
                this.modelTreeBuilder,
                this.sliderBuilder,
-               this
+               this,
+               this.infoPanelBuilder
             );
          });
 
@@ -180,7 +187,8 @@ export default class GuiBuilder {
                this.cityElements,
                this.modelTreeBuilder,
                this.sliderBuilder,
-               this
+               this,
+               this.infoPanelBuilder
             );
          });
 
@@ -193,7 +201,8 @@ export default class GuiBuilder {
                this.cityElements,
                this.modelTreeBuilder,
                this.sliderBuilder,
-               this
+               this,
+               this.infoPanelBuilder
             );
          });
 

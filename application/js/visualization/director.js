@@ -90,6 +90,7 @@ export default class Director {
 
       // Build Model Tree
       this.modelTreeBuilder.setCityElements(this.buildings, this.planes);
+      this.modelTreeBuilder.setInfoPanelBuilder(this.infoPanelBuilder);
       const modelTree = this.modelTreeBuilder.build();
       const modelTreeFrame = document.getElementById("model-tree");
       modelTreeFrame.appendChild(modelTree);
@@ -99,6 +100,7 @@ export default class Director {
       this.sliderBuilder.setCityElements(this.buildings, this.planes);
       this.sliderBuilder.setModelTreeBuilder(this.modelTreeBuilder);
       this.modelTreeBuilder.setSliderBuilder(this.sliderBuilder);
+      this.sliderBuilder.setInfoPanelBuilder(this.infoPanelBuilder);
       this.sliderBuilder.build();
 
       // Build Info Panel
@@ -111,6 +113,7 @@ export default class Director {
       this.modelTreeBuilder.setGuiBuilder(this.guiBuilder);
       this.guiBuilder.setSliderBuilder(this.sliderBuilder);
       this.sliderBuilder.setGuiBuilder(this.guiBuilder);
+      this.guiBuilder.setInfoPanelBuilder(this.infoPanelBuilder);
       this.gui = this.guiBuilder.build(this.data);
 
       // Build Aggregate Function
@@ -121,7 +124,8 @@ export default class Director {
          [...this.buildings, ...this.planes],
          this.modelTreeBuilder,
          this.sliderBuilder,
-         this.guiBuilder
+         this.guiBuilder,
+         this.infoPanelBuilder
       );
    }
 

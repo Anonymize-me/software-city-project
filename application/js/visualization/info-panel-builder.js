@@ -10,6 +10,18 @@ export default class InfoPanelBuilder {
       this.chartHeight = null;
       this.chartHue = null;
       this.chartLightness = null;
+
+      this.arrowDirection = new THREE.Vector3(0, -1, 0).normalize();
+      this.arrowLength = 4;
+      this.arrowOrigin = new THREE.Vector3(0, 0, 0);
+      this.arrowHexColor = 0xff0000;
+      this.arrowObject = new THREE.ArrowHelper(
+         this.arrowDirection,
+         this.arrowOrigin,
+         this.arrowLength,
+         this.arrowHexColor
+      );
+      this.arrowObject.cityElement = null;
    }
 
    setCurrentCityElement(cityElement) {
@@ -86,7 +98,7 @@ export default class InfoPanelBuilder {
          return;
       }
 
-      drawArrow(this.currentCityElement);
+      this.drawArrow();
 
       const building = this.currentCityElement;
       let dataHeightMetaphor = [];
@@ -461,35 +473,27 @@ export default class InfoPanelBuilder {
       );
    }
 
+   drawArrow = () => {
+      const element = this.currentCityElement;
+      const x = element.position.x;
+      const y =
+         element.position.y + element.scale.y / 2 + this.arrowLength + 0.2;
+      const z = element.position.z;
+      this.arrowObject.position.set(x, y, z);
+      this.arrowObject.cityElement = element;
+      element.parent.add(this.arrowObject);
+   };
+
+   removeArrow = () => {
+      if (this.arrowObject.parent !== null) {
+         this.arrowObject.parent.remove(this.arrowObject);
+         this.arrowObject.cityElement = null;
+      }
+   };
+
    destroy() {
       this.resetInfo();
       this.resetCharts();
+      this.removeArrow();
    }
 }
-
-const arrowDirection = new THREE.Vector3(0, -1, 0).normalize();
-const arrowLength = 4;
-const arrowOrigin = new THREE.Vector3(0, 0, 0);
-const arrowHexColor = 0xff0000;
-const arrowObject = new THREE.ArrowHelper(
-   arrowDirection,
-   arrowOrigin,
-   arrowLength,
-   arrowHexColor
-);
-
-const drawArrow = (element) => {
-   const x = element.position.x;
-   const y = element.position.y + element.scale.y / 2 + arrowLength + 0.2;
-   const z = element.position.z;
-   arrowObject.position.set(x, y, z);
-   element.parent.add(arrowObject);
-};
-
-const removeArrow = () => {
-   if (arrowObject.parent !== null) {
-      arrowObject.parent.remove(arrowObject);
-   }
-};
-
-export { drawArrow, removeArrow };

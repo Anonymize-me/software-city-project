@@ -107,6 +107,8 @@ export default class EnvironmentBuilder {
          if (e.key === "Alt") {
             this.selectedObject = null;
             document.body.style.cursor = "default";
+         } else if (e.key === "Escape") {
+            this.infoPanelBuilder.removeArrow();
          }
       });
 
@@ -184,6 +186,12 @@ export default class EnvironmentBuilder {
             this.selectedObject.position.copy(
                this.selectedObject.parent.worldToLocal(newWorldPosition)
             );
+
+            if (
+               this.infoPanelBuilder.currentCityElement === this.selectedObject
+            ) {
+               this.infoPanelBuilder.drawArrow();
+            }
 
             return;
          }

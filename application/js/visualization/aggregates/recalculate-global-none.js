@@ -16,7 +16,8 @@ const recalculateGlobalNone = (
    cityElements,
    modelTreeBuilder,
    sliderBuilder,
-   guiBuilder
+   guiBuilder,
+   infoPanelBuilder
 ) => {
    const dimensionMetaphor = cityMetaphor.metaphorSelection.dimension;
 
@@ -172,6 +173,15 @@ const recalculateGlobalNone = (
          modelTreeBuilder.showColorPickerByGroupingPath(building.groupingPath);
       } else {
          modelTreeBuilder.hideColorPickerByGroupingPath(building.groupingPath);
+      }
+
+      // Update arrow
+      if (infoPanelBuilder.currentCityElement === buildingElement) {
+         if (buildingElement.visible) {
+            infoPanelBuilder.drawArrow();
+         } else {
+            infoPanelBuilder.removeArrow();
+         }
       }
    }
 };

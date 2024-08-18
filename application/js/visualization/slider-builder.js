@@ -38,6 +38,10 @@ export default class SliderBuilder {
       this.guiBuilder = guiBuilder;
    }
 
+   setInfoPanelBuilder(infoPanelBuilder) {
+      this.infoPanelBuilder = infoPanelBuilder;
+   }
+
    build() {
       if (getDataType() === "eye-tracking-java-source-code") {
          this.sliderThumbT0.style.display = "block";
@@ -117,7 +121,8 @@ export default class SliderBuilder {
                this.cityElements,
                this.modelTreeBuilder,
                this,
-               this.guiBuilder
+               this.guiBuilder,
+               this.infoPanelBuilder
             );
 
             const modelTree = this.modelTreeBuilder.build();
@@ -129,7 +134,8 @@ export default class SliderBuilder {
                this.cityElements,
                this.modelTreeBuilder,
                this,
-               this.guiBuilder
+               this.guiBuilder,
+               this.infoPanelBuilder
             );
          });
       }
@@ -218,7 +224,8 @@ export default class SliderBuilder {
                this.cityElements,
                this.modelTreeBuilder,
                this,
-               this.guiBuilder
+               this.guiBuilder,
+               this.infoPanelBuilder
             );
          } else if (getDataType() === "java-source-code") {
             const previousSnapshotIndex = this.snapshotIndex;
@@ -238,7 +245,8 @@ export default class SliderBuilder {
                   this.cityElements,
                   this.modelTreeBuilder,
                   this,
-                  this.guiBuilder
+                  this.guiBuilder,
+                  this.infoPanelBuilder
                );
 
                const modelTree = this.modelTreeBuilder.build();
@@ -250,7 +258,8 @@ export default class SliderBuilder {
                   this.cityElements,
                   this.modelTreeBuilder,
                   this,
-                  this.guiBuilder
+                  this.guiBuilder,
+                  this.infoPanelBuilder
                );
             }
          }

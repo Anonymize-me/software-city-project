@@ -11,7 +11,6 @@ import {
    downloadRepo,
 } from "./github-api-adapter";
 import { destroyCity } from "../utils";
-import { removeArrow } from "../visualization/info-panel-builder";
 
 const buttonGitHubRepo = document.getElementById("button-github-repo");
 const buttonUpload = document.getElementById("button-upload");
@@ -75,7 +74,6 @@ buttonGitHubRepo.addEventListener("click", () => {
    frameConfig.style.display = "none";
    frameMetaphors.style.display = "none";
    frameInfo.style.display = "none";
-   removeArrow();
    frameModelTree.style.display = "none";
    if (
       frameGitHubRepo.style.display === "none" ||
@@ -224,7 +222,6 @@ for (let i = 0; i < buttonsClose.length; i++) {
             break;
          case "frame-info":
             frameInfo.style.display = "none";
-            removeArrow();
             break;
          case "frame-model-tree":
             frameModelTree.style.display = "none";
@@ -240,7 +237,6 @@ document.addEventListener("keydown", (e) => {
       frameConfig.style.display = "none";
       frameMetaphors.style.display = "none";
       frameInfo.style.display = "none";
-      removeArrow();
       frameModelTree.style.display = "none";
    }
 });
