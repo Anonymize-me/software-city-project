@@ -132,9 +132,9 @@ export default class ModelTreeBuilder {
                if (i.id === current.parent.uuid) {
                   i.appendChild(newElement);
                   if (newElement.type == "building") {
-                     newElement.style.marginLeft = "20px";
+                     newElement.style.marginLeft = "11px";
                   } else {
-                     newElement.style.marginLeft = 15 + "px";
+                     newElement.style.marginLeft = 10 + "px";
                   }
                   break;
                }
