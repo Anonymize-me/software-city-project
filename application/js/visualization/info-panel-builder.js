@@ -160,7 +160,7 @@ export default class InfoPanelBuilder {
 
       // Building the Charts
       this.chartBuilding = new Chart(document.getElementById("chartBuilding"), {
-         type: "line",
+         type: "scatter",
          data: {
             labels: dataHeightMetaphor.map((entry) => entry.x),
             datasets: [
@@ -248,7 +248,7 @@ export default class InfoPanelBuilder {
       });
 
       this.chartHeight = new Chart(document.getElementById("chartHeight"), {
-         type: "line",
+         type: "scatter",
          data: {
             datasets: [
                {
@@ -259,7 +259,7 @@ export default class InfoPanelBuilder {
                   backgroundColor: "rgba(255, 99, 132, 0.2)",
                },
                {
-                  type: "line",
+                  type: "scatter",
                   label: "Current Building",
                   data: dataHeightMetaphor,
                   order: 1,
@@ -317,18 +317,18 @@ export default class InfoPanelBuilder {
       });
 
       this.chartHue = new Chart(document.getElementById("chartHue"), {
-         type: "line",
+         type: "scatter",
          data: {
             datasets: [
                {
-                  type: "line",
+                  type: "scatter",
                   label: "All Buildings",
                   data: hueMetaphorDatasets,
                   order: 2,
                   backgroundColor: "rgba(255, 99, 132, 0.2)",
                },
                {
-                  type: "line",
+                  type: "scatter",
                   label: "Current Building",
                   data: dataHueMetaphor,
                   order: 1,
@@ -388,18 +388,18 @@ export default class InfoPanelBuilder {
       this.chartLightness = new Chart(
          document.getElementById("chartLightness"),
          {
-            type: "line",
+            type: "scatter",
             data: {
                datasets: [
                   {
-                     type: "line",
+                     type: "scatter",
                      label: "All Buildings",
                      data: lightnessMetaphorDatasets,
                      order: 2,
                      backgroundColor: "rgba(255, 99, 132, 0.2)",
                   },
                   {
-                     type: "line",
+                     type: "scatter",
                      label: "Current Building",
                      data: dataLightnessMetaphor,
                      order: 1,

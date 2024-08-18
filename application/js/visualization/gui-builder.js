@@ -1,5 +1,5 @@
 import * as dat from "dat.gui";
-import { recalculateGlobalNone } from "./aggregations/recalculate-global-none";
+import { recalculateController } from "./aggregates/recalculate-controller";
 
 export default class GuiBuilder {
    constructor(data, cityMetaphor) {
@@ -93,7 +93,7 @@ export default class GuiBuilder {
                this.enableController(thresholdController);
                this.enableController(saturationController);
 
-               recalculateGlobalNone(
+               recalculateController(
                   this.cityMetaphor,
                   this.cityElements,
                   this.modelTreeBuilder,
@@ -123,7 +123,7 @@ export default class GuiBuilder {
          .onChange((value) => {
             // All buildings with a value of the selected attribute below the threshold will set the saturation
             // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
-            recalculateGlobalNone(
+            recalculateController(
                this.cityMetaphor,
                this.cityElements,
                this.modelTreeBuilder,
@@ -138,7 +138,7 @@ export default class GuiBuilder {
          .onChange((value) => {
             // All buildings with a value of the selected attribute below the threshold will set the saturation
             // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
-            recalculateGlobalNone(
+            recalculateController(
                this.cityMetaphor,
                this.cityElements,
                this.modelTreeBuilder,
@@ -168,7 +168,7 @@ export default class GuiBuilder {
          .add(this.optionsHeightMetaphor, "scale", 0.0, 2.0)
          .name("Scale")
          .onChange((value) => {
-            recalculateGlobalNone(
+            recalculateController(
                this.cityMetaphor,
                this.cityElements,
                this.modelTreeBuilder,
@@ -181,7 +181,7 @@ export default class GuiBuilder {
          .add(this.optionsHeightMetaphor, "normalize", 0.0, 2.0)
          .name("Normalize")
          .onChange((value) => {
-            recalculateGlobalNone(
+            recalculateController(
                this.cityMetaphor,
                this.cityElements,
                this.modelTreeBuilder,

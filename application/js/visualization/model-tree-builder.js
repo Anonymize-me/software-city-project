@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { rgbToHsl, hexToRgb, hslToHex } from "../../js/utils";
-import { recalculateGlobalNone } from "./aggregations/recalculate-global-none";
+import { recalculateController } from "./aggregates/recalculate-controller";
 import { removeElementAndChildrenWithListeners } from "../utils";
 import { getDataType } from "../../js/data";
 
@@ -82,7 +82,7 @@ export default class ModelTreeBuilder {
 
             colorPicker.addEventListener("input", () => {
                current.setBaseColor(rgbToHsl(hexToRgb(colorPicker.value)));
-               recalculateGlobalNone(
+               recalculateController(
                   this.cityMetaphor,
                   this.cityElements,
                   this,

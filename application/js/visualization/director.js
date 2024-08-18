@@ -8,7 +8,8 @@ import BuildingBuilder from "./building-builder";
 import DimensionsBuilder from "./dimensions-builder";
 import HierarchyBuilder from "./hierarchy-builder";
 import PositionBuilder from "./position-builder";
-import { recalculateGlobalNone } from "./aggregations/recalculate-global-none";
+import AggregateBuilder from "./aggregate-builder";
+import { recalculateController } from "./aggregates/recalculate-controller";
 import { setDirector, setMetaphorSelection } from "../data";
 import { setVisualizationData } from "../data";
 
@@ -24,6 +25,7 @@ export default class Director {
       this.modelTreeBuilder = new ModelTreeBuilder(this.cityMetaphor);
       this.infoPanelBuilder = new InfoPanelBuilder(this.cityMetaphor);
       this.guiBuilder = new GuiBuilder(this.data, this.cityMetaphor);
+      this.aggregateBuilder = new AggregateBuilder();
 
       this.dimensionsBuilder = new DimensionsBuilder(this.cityMetaphor);
       this.hierarchyBuilder = new HierarchyBuilder();
@@ -111,7 +113,10 @@ export default class Director {
       this.sliderBuilder.setGuiBuilder(this.guiBuilder);
       this.gui = this.guiBuilder.build(this.data);
 
-      recalculateGlobalNone(
+      // Build Aggregate Function
+      this.aggregateBuilder.build();
+
+      recalculateController(
          this.cityMetaphor,
          [...this.buildings, ...this.planes],
          this.modelTreeBuilder,
@@ -126,6 +131,7 @@ export default class Director {
       this.modelTreeBuilder.destroy();
       this.infoPanelBuilder.destroy();
       this.guiBuilder.destroy();
+      this.aggregateBuilder.destroy();
       this.dimensionsBuilder.destroy();
       this.hierarchyBuilder.destroy();
       this.positionBuilder.destroy();

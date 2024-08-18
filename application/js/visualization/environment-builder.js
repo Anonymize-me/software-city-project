@@ -5,7 +5,6 @@ export default class EnvironmentBuilder {
    constructor(cityMetaphor) {
       this.type = "EnvironmentBuilder";
       this.cityMetaphor = cityMetaphor;
-      this.isAltPressed = false;
    }
 
    setInfoPanelBuilder(infoPanelBuilder) {
@@ -65,31 +64,44 @@ export default class EnvironmentBuilder {
 
       // Keyboard controls
       window.addEventListener("keydown", (e) => {
-         if (e.key === "Alt" && !this.isDragging) {
-            this.isAltPressed = true;
-
+         if (e.key === "Alt") {
             const raycaster = new THREE.Raycaster();
             raycaster.setFromCamera(this.mousePosition, camera);
 
             const intersects = raycaster.intersectObjects(scene.children);
             for (const intersect of intersects) {
                if (intersect.object.elementType === "building") {
-                  this.isDragging = true;
                   this.selectedObject = intersect.object;
                   break;
                } else if (intersect.object.parent.elementType === "plane") {
-                  this.isDragging = true;
                   this.selectedObject = intersect.object.parent;
                   break;
                }
             }
+
+            if (!this.selectedObject) {
+               return;
+            }
+            // Calculate Initial Offset
+            const worldPosition = new THREE.Vector3();
+            this.selectedObject.getWorldPosition(worldPosition);
+
+            const planeXZ = new THREE.Plane(
+               new THREE.Vector3(0, 1, 0),
+               -worldPosition.y
+            );
+            const intersectPoint = new THREE.Vector3();
+            raycaster.ray.intersectPlane(planeXZ, intersectPoint);
+
+            this.dragOffset = new THREE.Vector3().subVectors(
+               worldPosition,
+               intersectPoint
+            );
          }
       });
 
       window.addEventListener("keyup", (e) => {
          if (e.key === "Alt") {
-            this.isAltPressed = false;
-            this.isDragging = false;
             this.selectedObject = null;
          }
       });
@@ -135,37 +147,38 @@ export default class EnvironmentBuilder {
          }
       });
 
-      let highlightedElement = null;
+      let currentHighlightedElement = null;
       renderer.domElement.addEventListener("mousemove", (e) => {
-         this.dragOffset = new THREE.Vector3();
-
          const mouse = new THREE.Vector2();
          mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
          mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
          this.mousePosition = mouse;
 
-         if (this.isDragging && this.selectedObject) {
+         if (this.selectedObject) {
             const raycaster = new THREE.Raycaster();
             raycaster.setFromCamera(mouse, camera);
 
+            const worldPosition = new THREE.Vector3();
+            this.selectedObject.getWorldPosition(worldPosition);
+
             const planeXZ = new THREE.Plane(
                new THREE.Vector3(0, 1, 0),
-               -this.selectedObject.position.y
+               -worldPosition.y
             );
+
             const intersectPoint = new THREE.Vector3();
             raycaster.ray.intersectPlane(planeXZ, intersectPoint);
 
-            if (!this.dragStarted) {
-               this.dragOffset
-                  .copy(this.selectedObject.position)
-                  .sub(intersectPoint);
-               this.dragStarted = true;
-            }
+            intersectPoint.add(this.dragOffset);
 
-            this.selectedObject.position.set(
-               intersectPoint.x + this.dragOffset.x,
-               this.selectedObject.position.y,
-               intersectPoint.z + this.dragOffset.z
+            const newWorldPosition = new THREE.Vector3(
+               intersectPoint.x,
+               worldPosition.y,
+               intersectPoint.z
+            );
+
+            this.selectedObject.position.copy(
+               this.selectedObject.parent.worldToLocal(newWorldPosition)
             );
 
             return;
@@ -176,53 +189,49 @@ export default class EnvironmentBuilder {
 
          const intersects = raycaster.intersectObjects(scene.children);
 
-         if (intersects.length === 0) {
-            if (highlightedElement) {
-               highlightedElement.unhighlight();
-               this.modelTreeBuilder.unhighlightElementByGroupingPath(
-                  highlightedElement.groupingPath
+         for (const intersect of intersects) {
+            if (
+               intersect.object.elementType === "building" &&
+               intersect.object.visible
+            ) {
+               if (currentHighlightedElement === intersect.object) {
+                  return;
+               } else if (currentHighlightedElement) {
+                  currentHighlightedElement.unhighlight();
+                  this.modelTreeBuilder.unhighlightElementByGroupingPath(
+                     currentHighlightedElement.groupingPath
+                  );
+               }
+               intersect.object.highlight();
+               this.modelTreeBuilder.highlightElementByGroupingPath(
+                  intersect.object.groupingPath
                );
-               highlightedElement = null;
+               currentHighlightedElement = intersect.object;
+               return;
+            } else if (intersect.object.parent.elementType === "plane") {
+               if (currentHighlightedElement === intersect.object.parent) {
+                  return;
+               } else if (currentHighlightedElement) {
+                  currentHighlightedElement.unhighlight();
+                  this.modelTreeBuilder.unhighlightElementByGroupingPath(
+                     currentHighlightedElement.groupingPath
+                  );
+               }
+               intersect.object.parent.highlight();
+               this.modelTreeBuilder.highlightElementByGroupingPath(
+                  intersect.object.parent.groupingPath
+               );
+               currentHighlightedElement = intersect.object.parent;
+               return;
             }
          }
 
-         for (let i = 0; i < intersects.length; i++) {
-            if (intersects[i].object.visible) {
-               let intersect = null;
-               if (intersects[i].object.elementType === "building") {
-                  intersect = intersects[i].object;
-               } else if (intersects[i].object.parent.elementType === "plane") {
-                  intersect = intersects[i].object.parent;
-               } else {
-                  continue;
-               }
-               if (highlightedElement === intersect) {
-                  break;
-               }
-               if (highlightedElement) {
-                  highlightedElement.unhighlight();
-                  this.modelTreeBuilder.unhighlightElementByGroupingPath(
-                     highlightedElement.groupingPath
-                  );
-                  highlightedElement = null;
-               }
-               highlightedElement = intersect;
-               highlightedElement.highlight();
-               this.modelTreeBuilder.highlightElementByGroupingPath(
-                  highlightedElement.groupingPath
-               );
-               break;
-            }
-
-            if (i === intersects.length - 1) {
-               if (highlightedElement) {
-                  highlightedElement.unhighlight();
-                  this.modelTreeBuilder.unhighlightElementByGroupingPath(
-                     highlightedElement.groupingPath
-                  );
-                  highlightedElement = null;
-               }
-            }
+         if (currentHighlightedElement) {
+            currentHighlightedElement.unhighlight();
+            this.modelTreeBuilder.unhighlightElementByGroupingPath(
+               currentHighlightedElement.groupingPath
+            );
+            currentHighlightedElement = null;
          }
       });
 

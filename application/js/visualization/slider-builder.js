@@ -1,5 +1,5 @@
 import { getDataType, getEpoques } from "../data";
-import { recalculateGlobalNone } from "./aggregations/recalculate-global-none";
+import { recalculateController } from "./aggregates/recalculate-controller";
 
 export default class SliderBuilder {
    constructor(data, cityMetaphor) {
@@ -112,7 +112,7 @@ export default class SliderBuilder {
             this.lowerRangeBounds = this.epoques[0].timestamp;
             this.upperRangeBounds = this.epoques[this.snapshotIndex].timestamp;
 
-            recalculateGlobalNone(
+            recalculateController(
                this.cityMetaphor,
                this.cityElements,
                this.modelTreeBuilder,
@@ -124,7 +124,7 @@ export default class SliderBuilder {
             const modelTreeFrame = document.getElementById("model-tree");
             modelTreeFrame.appendChild(modelTree);
 
-            recalculateGlobalNone(
+            recalculateController(
                this.cityMetaphor,
                this.cityElements,
                this.modelTreeBuilder,
@@ -213,7 +213,7 @@ export default class SliderBuilder {
          if (getDataType() === "eye-tracking-java-source-code") {
             this.valueDisplay.textContent = `${this.lowerRangeBounds} - ${this.upperRangeBounds}`;
 
-            recalculateGlobalNone(
+            recalculateController(
                this.cityMetaphor,
                this.cityElements,
                this.modelTreeBuilder,
@@ -233,7 +233,7 @@ export default class SliderBuilder {
             this.snapshotInput.value = this.snapshotIndex + 1;
 
             if (previousSnapshotIndex !== this.snapshotIndex) {
-               recalculateGlobalNone(
+               recalculateController(
                   this.cityMetaphor,
                   this.cityElements,
                   this.modelTreeBuilder,
@@ -245,7 +245,7 @@ export default class SliderBuilder {
                const modelTreeFrame = document.getElementById("model-tree");
                modelTreeFrame.appendChild(modelTree);
 
-               recalculateGlobalNone(
+               recalculateController(
                   this.cityMetaphor,
                   this.cityElements,
                   this.modelTreeBuilder,

@@ -89,6 +89,7 @@
 
       <div id="frame-github-repo" class="container frame">
          <i class="fa fa-times fa-lg button-close"></i>
+         <h2 class="frame-title">GitHub Repository Analysis</h2>
          <form id="form-github-repo">
             <label for="github-repo-url">GitHub Repository URL</label>
             <input
@@ -112,6 +113,7 @@
 
       <div id="frame-upload" class="container frame">
          <i class="fa fa-times fa-lg button-close"></i>
+         <h2 class="frame-title">Upload</h2>
          <form id="form-upload">
             <label for="file">Choose a .csv file:</label>
             <input type="file" id="file" name="file" accept=".csv" required />
@@ -131,6 +133,7 @@
 
       <div id="frame-config" class="container frame">
          <i class="fa fa-times fa-lg button-close"></i>
+         <h2 class="frame-title">Configuration</h2>
          <div>
             <label
                for="groupingPath-selection"
@@ -175,6 +178,7 @@
 
       <div id="frame-metaphors" class="container frame">
          <i class="fa fa-times fa-lg button-close"></i>
+         <h2 class="frame-title">Metaphor Mapping</h2>
          <div>
             <label for="dimension-attribute-selection">Dimension:</label>
             <select
@@ -220,11 +224,13 @@
 
       <div id="frame-model-tree" class="container frame">
          <i class="fa fa-times fa-lg button-close"></i>
+         <h2 class="frame-title">Model Tree</h2>
          <div id="model-tree"></div>
       </div>
 
       <div id="frame-info" class="container frame">
          <i class="fa fa-times fa-lg button-close"></i>
+         <h2 class="frame-title">Element Info</h2>
          <div id="info-panel-div"></div>
          <canvas id="chartBuilding"></canvas>
          <canvas id="chartHeight"></canvas>
@@ -253,9 +259,7 @@
       </div>
 
       <select id="aggregate-function" name="aggregate-function">
-         <option value="none">-</option>
-         <option value="sum">Sum</option>
-         <option value="integral-curve">Integral Curve</option>
+         <option value="globalNone">Aggregate - Global None</option>
       </select>
 
       <!-- loading instructions here -->

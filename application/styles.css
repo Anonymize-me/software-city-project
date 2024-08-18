@@ -173,8 +173,8 @@ i {
 #aggregate-function {
    display: none;
    position: absolute;
-   top: 0.75%;
-   left: 62.5%;
+   top: 1.9%;
+   left: 70%;
    width: 10%;
 }
 
@@ -269,6 +269,16 @@ i {
    height: 40%;
    top: 80%;
    left: 10%;
+}
+
+.frame-title {
+   font-family: "Verdana", sans-serif;
+   font-size: 1.6rem;
+   font-weight: bold;
+   color: #333;
+   margin-top: 0;
+   margin-bottom: 20px;
+   text-align: center;
 }
 
 .model-tree-element {
