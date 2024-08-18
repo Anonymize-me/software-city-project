@@ -82,6 +82,9 @@ export default class EnvironmentBuilder {
             if (!this.selectedObject) {
                return;
             }
+
+            document.body.style.cursor = "grabbing";
+
             // Calculate Initial Offset
             const worldPosition = new THREE.Vector3();
             this.selectedObject.getWorldPosition(worldPosition);
@@ -103,6 +106,7 @@ export default class EnvironmentBuilder {
       window.addEventListener("keyup", (e) => {
          if (e.key === "Alt") {
             this.selectedObject = null;
+            document.body.style.cursor = "default";
          }
       });
 
