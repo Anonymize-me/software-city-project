@@ -1,0 +1,36 @@
+{
+   "name": "software-city-project",
+   "private": true,
+   "version": "0.0.0",
+   "type": "module",
+   "scripts": {
+      "dev": "vite --host",
+      "build": "vite build",
+      "preview": "vite preview",
+      "serve": "node ./js/backend/server.js"
+   },
+   "devDependencies": {
+      "@vitejs/plugin-vue": "^5.0.4",
+      "vite": "^5.1.0"
+   },
+   "dependencies": {
+      "@babel/cli": "^7.24.8",
+      "@babel/core": "^7.25.2",
+      "@babel/plugin-transform-modules-commonjs": "^7.24.8",
+      "@babel/preset-env": "^7.25.3",
+      "@octokit/rest": "^21.0.0",
+      "bin-pack": "^1.0.2",
+      "cloc": "^2.0.0-cloc",
+      "complexity-report": "^2.0.0-alpha",
+      "cors": "^2.8.5",
+      "csv-writer": "^1.6.0",
+      "dat.gui": "^0.7.9",
+      "express": "^4.19.2",
+      "madge": "^7.0.0",
+      "path": "0.12.7",
+      "prettier": "^3.2.5",
+      "sloc": "^0.3.2",
+      "three": "^0.161.0",
+      "uuid": "^9.0.1"
+   }
+}

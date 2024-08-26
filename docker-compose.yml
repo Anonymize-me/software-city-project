@@ -1,0 +1,59 @@
+version: "3"
+services:
+   frontend:
+      build: ./frontend
+      ports:
+         - "80:80"
+      networks:
+         - app-network
+
+   mongodb:
+      image: mongo:latest
+      container_name: mongodb
+      restart: always
+      environment:
+         MONGO_INITDB_DATABASE: softwarecitydb
+      ports:
+         - "27017:27017"
+      volumes:
+         - ./mongo-data:/data/db
+      networks:
+         - app-network
+
+   mongo-express:
+      image: mongo-express:latest
+      restart: always
+      ports:
+         - "8081:8081"
+      environment:
+         ME_CONFIG_BASICAUTH_USERNAME: user
+         ME_CONFIG_BASICAUTH_PASSWORD: password
+         ME_CONFIG_MONGODB_SERVER: mongodb
+         ME_CONFIG_MONGODB_PORT: 27017
+      depends_on:
+         - mongodb
+      networks:
+         - app-network
+
+   backend:
+      build: ./backend
+      ports:
+        - "8080:8080"
+      depends_on:
+         - mongodb
+      networks:
+        - app-network
+
+   metrics-computation-service:
+      build: ./metrics-computation-service
+      ports:
+         - "8085:8085"
+      networks:
+         - app-network
+
+volumes:
+   mongo-data:
+
+networks:
+   app-network:
+      driver: bridge

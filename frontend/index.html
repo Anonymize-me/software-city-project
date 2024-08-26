@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="./styles.css" />
+      <link
+         rel="stylesheet"
+         href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      />
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+       <link
+         rel="stylesheet"
+         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      />
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+      <link
+         rel="stylesheet"
+         href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"
+      />
+      <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+      <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <title>Software City</title>
+      <link rel="icon" href="./resources/icon.png" type="image/x-icon" />
+   </head>
+
+   <body>
+      <div id="spinner-wrapper">
+         <div id="spinner" class="spinner"></div>
+      </div>
+
+      <div id="nav" class="container">
+         <button id="button-github-repo" class="btn btn-default">
+            GitHub Repo
+         </button>
+         <button id="button-upload" class="btn btn-default">Upload</button>
+         <button id="button-config" class="btn btn-default" disabled>
+            Config
+         </button>
+         <button id="button-metaphors" class="btn btn-default" disabled>
+            Metaphors
+         </button>
+         <button id="button-view-data" class="btn btn-default" disabled>
+            View Data
+         </button>
+         <button id="button-model-tree" class="btn btn-default" disabled>
+            Model Tree
+         </button>
+      </div>
+
+      <div id="view-data" class="container">
+         <div id="view-data-scrollable" class="container">
+            <table
+               id="table-data"
+               class="table table-bordered table-striped table-hover"
+            >
+               <thead id="thead" class="thead-dark"></thead>
+               <tbody id="tbody"></tbody>
+            </table>
+         </div>
+         <button id="button-clear-data" class="btn btn-default">
+            Clear Data
+         </button>
+      </div>
+
+      <div id="alert-success-upload-data" class="alert alert-success">
+         <button
+            id="button-alert-close-upload-data"
+            type="button"
+            class="close"
+            data-dismiss="alert"
+         >
+            &times;
+         </button>
+         <strong>Success!</strong> Data Upload successfully completed.
+      </div>
+
+      <div id="alert-success-clear-data" class="alert alert-success">
+         <button
+            id="button-alert-close-clear-data"
+            type="button"
+            class="close"
+            data-dismiss="alert"
+         >
+            &times;
+         </button>
+         <strong>Success!</strong> Data cleared.
+      </div>
+
+      <div id="frame-github-repo" class="container frame">
+         <i class="fa fa-times fa-lg button-close"></i>
+         <h2 class="frame-title">GitHub Repository Analysis</h2>
+         <form id="form-github-repo">
+            <label for="github-repo-url">GitHub Repository URL</label>
+            <input
+               type="url"
+               id="github-repo-url"
+               name="github-repo-url"
+               placeholder="URL here..."
+            />
+             <button id="button-fetch" class="btn btn-default" disabled>
+                 Fetch
+             </button>
+
+            <div class="separator">
+               <span class="separator-text">or</span>
+            </div>
+
+            <label for="github-repo-registered-container">Registered GitHub Repository</label>
+             <div id="github-repo-registered-container"></div>
+         </form>
+      </div>
+
+      <div id="frame-upload" class="container frame">
+         <i class="fa fa-times fa-lg button-close"></i>
+         <h2 class="frame-title">Upload</h2>
+         <form id="form-upload">
+            <label for="file">Choose a .csv file:</label>
+            <input type="file" id="file" name="file" accept=".csv" required />
+            <label for="file-format">Select a type:</label>
+            <select id="file-format" name="file-format">
+               <option value="eye-tracking-java-source-code">
+                  Eye Tracking (Java Source Code)
+               </option>
+               <option value="java-source-code">Java Source Code</option>
+            </select>
+
+            <button id="button-upload-data" class="btn btn-default">
+               Upload Data
+            </button>
+         </form>
+      </div>
+
+      <div id="frame-config" class="container frame">
+         <i class="fa fa-times fa-lg button-close"></i>
+         <h2 class="frame-title">Configuration</h2>
+         <div>
+            <label
+               for="groupingPath-selection"
+               id="groupingPath-selection-label"
+               >groupingPath:</label
+            >
+            <select
+               id="groupingPath-selection"
+               name="groupingPath-selection"
+            ></select>
+         </div>
+
+         <div>
+            <label for="timestamp-selection" id="timestamp-selection-label"
+               >timestamp:</label
+            >
+            <select
+               id="timestamp-selection"
+               name="timestamp-selection"
+            ></select>
+         </div>
+
+         <div>
+            <label for="participant-selection" id="participant-selection-label"
+               >participant:</label
+            >
+            <select
+               id="participant-selection"
+               name="participant-selection"
+            ></select>
+         </div>
+
+         <div>
+            <label for="taskId-selection" id="taskId-selection-label"
+               >taskId:</label
+            >
+            <select id="taskId-selection" name="taskId-selection"></select>
+         </div>
+
+         <button id="button-save-config" class="btn btn-default">Save</button>
+      </div>
+
+      <div id="frame-metaphors" class="container frame">
+         <i class="fa fa-times fa-lg button-close"></i>
+         <h2 class="frame-title">Metaphor Mapping</h2>
+         <div>
+            <label for="dimension-attribute-selection">Dimension:</label>
+            <select
+               id="dimension-attribute-selection"
+               name="dimension-attribute-selection"
+            ></select>
+         </div>
+         <div>
+            <label for="height-attribute-selection">Height:</label>
+            <select
+               id="height-attribute-selection"
+               name="height-attribute-selection"
+            ></select>
+         </div>
+
+         <div>
+            <label for="hue-attribute-selection">Color - Hue:</label>
+            <select
+               id="hue-attribute-selection"
+               name="hue-attribute-selection"
+            ></select>
+         </div>
+         <div>
+            <label for="lightness-attribute-selection"
+               >Color - Lightness:</label
+            >
+            <select
+               id="lightness-attribute-selection"
+               name="lightness-attribute-selection"
+            ></select>
+         </div>
+
+         <label id="participant-label" for="participant">Participant:</label>
+         <select id="participant"></select>
+
+         <label id="taskId-label" for="taskId">Task:</label>
+         <select id="taskId"></select>
+
+         <button id="button-start-visualize" class="btn btn-default">
+            Visualize
+         </button>
+      </div>
+
+      <div id="frame-model-tree" class="container frame">
+         <i class="fa fa-times fa-lg button-close"></i>
+         <h2 class="frame-title">Model Tree</h2>
+         <div id="model-tree"></div>
+      </div>
+
+      <div id="frame-info" class="container frame">
+         <i class="fa fa-times fa-lg button-close"></i>
+         <h2 class="frame-title">Element Info</h2>
+         <div id="info-panel-div"></div>
+         <canvas id="chartBuilding"></canvas>
+         <canvas id="chartHeight"></canvas>
+         <canvas id="chartHue"></canvas>
+         <canvas id="chartLightness"></canvas>
+      </div>
+
+      <div id="slider-container">
+         <div id="slider">
+            <div id="slider-thumb-t0">t0</div>
+            <div id="slider-window-width"></div>
+            <div id="slider-thumb-t1">t1</div>
+         </div>
+         <p id="slider-value">2024-01-01, 10:00:00:000</p>
+      </div>
+
+      <div id="snapshot-input-container">
+         <label id="snapshot-input-label" for="snapshot-input">Snapshot</label>
+         <input
+            type="number"
+            id="snapshot-input"
+            name="snapshot-input"
+            min="1"
+            max="10"
+         />
+      </div>
+
+      <select id="aggregate-function" name="aggregate-function">
+         <option value="globalNone">Aggregate - Global None</option>
+      </select>
+
+      <!-- loading instructions here -->
+      <div id="instructions">
+         <h1 style="text-align: center">Software City App</h1>
+         <p>
+            The tool provides a way to visualize software systems in a city
+            metaphor. The city metaphor consists of buildings, where each
+            building represents a software component. Each metaphor can be
+            dynamically mapped to individual attributes from the uploaded
+            dataset. This tool is designed to visualize the recorded interaction
+            of a examinee with a given software system. This introduces the time
+            dimension. That means that the tool loads the software system in a
+            static way and then visualizes the interaction of the user with the
+            system over time. The time dimension is represented by a slider at
+            the top of the screen in the visualization view.
+         </p>
+         <p>
+            <a
+               href="https://github.com/jonaslanzlinger/software-city-project/tree/v1.0.0/test_datasets"
+            >
+               <b>Here</b>
+            </a>
+            you can find example datasets that have been recorded during an eye
+            tracking experiment. The example datasets can be used to test the
+            visualization tool and to get a better understanding of the tool.
+         </p>
+
+         <div>
+            <h4>File format</h4>
+            <p>
+               The uploaded data file needs to be a .csv file. The first line of
+               the file must contain comma separated attribute names. All the
+               following lines must contain comma separated values.
+            </p>
+            <p>
+               Note: All attribute values that are utilized for visualizing a
+               given metaphor must be numeric.
+            </p>
+            <h4>Config</h4>
+            <p>
+               The configuration is used to map attributes of the uploaded data
+               to the parameters that constitute the basic structure of the
+               software city. The configuration needs at least the mapping for
+               the following attributes:
+            </p>
+            <ul>
+               <li>
+                  <b>groupingPath:</b> Used for building the hierarchical
+                  structure of the city. - {layer1;layer2;layer3; ...} -
+                  example: ch;unisg;application1;package1;Class1.java
+               </li>
+               <li>
+                  <b>timestamp:</b> Used for the time dimensions. -
+                  {YYYYMMDDHHmmssSSS} - example: 20240210114054572. Note: The
+                  timestamp can be in any format (but numerical!).
+               </li>
+               <li>
+                  <b>participant:</b> Used for identifying the participant of
+                  the experiment.
+               </li>
+               <li>
+                  <b>taskId</b> Used for identifying the task of the experiment.
+               </li>
+            </ul>
+         </div>
+      </div>
+
+      <script type="module" src="./js/user-interface/index.js"></script>
+      <script
+         type="module"
+         src="./js/user-interface/draggable-frames.js"
+      ></script>
+   </body>
+</html>

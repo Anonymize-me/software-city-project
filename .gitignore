@@ -1,18 +1,2 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-
-.idea
-
-notes/
-
-node_modules/
-package-lock.json
-
-# Exclude the temp_repositories directory
-temp_repositories/
-
-# Exclude the dist directory
-/application/dist/
+# ignore mongo-data folder
+mongo-data/

@@ -1,0 +1,16 @@
+package ch.unisg.backend.application.port.in;
+
+import ch.unisg.backend.domain.Repo;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
+public interface GetRepoUseCase {
+
+    List<Repo> getAllRepos();
+
+    Repo getRepoByUUID(UUID uuid);
+
+}
