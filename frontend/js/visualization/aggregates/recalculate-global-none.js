@@ -133,7 +133,7 @@ const recalculateGlobalNone = (
       buildingElement.scale.y *= scaleValue;
       buildingElement.scale.y /= normalizeValue;
 
-      buildingElement.position.y = buildingElement.scale.y / 2 + 0.1;
+      buildingElement.position.y = buildingElement.scale.y / 2 + 0.2;
 
       // Color
       let hue = null;
