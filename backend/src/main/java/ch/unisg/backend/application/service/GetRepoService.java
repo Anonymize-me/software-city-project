@@ -5,6 +5,7 @@ import ch.unisg.backend.application.port.out.EnqueueRepoPort;
 import ch.unisg.backend.application.port.out.GetRepoPort;
 import ch.unisg.backend.domain.Repo;
 import ch.unisg.backend.domain.RepoList;
+import ch.unisg.backend.domain.RepoWithoutMetrics;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,23 +19,23 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class GetRepoService implements GetRepoUseCase {
 
-    private final GetRepoPort getAllReposPort;
+    private final GetRepoPort getReposPort;
 
     private final EnqueueRepoPort enqueueRepoPort;
 
     RepoList repoList = RepoList.getInstance();
 
     @Override
-    public List<Repo> getAllRepos() {
+    public List<RepoWithoutMetrics> getAllReposWithoutMetrics() {
 
-        List<Repo> repos = repoList.getRepos();
+        List<RepoWithoutMetrics> repos = repoList.getRepos();
 
         if (repos.isEmpty()) {
             try {
-                List<Repo> reposFromDB = getAllReposPort.getAllRepos();
-                for (Repo repo : reposFromDB) {
+                List<RepoWithoutMetrics> reposFromDB = getReposPort.getAllReposWithoutMetrics();
+                for (RepoWithoutMetrics repo : reposFromDB) {
                     repoList.addRepo(repo);
-                    if (repo.getMetrics().isEmpty()) {
+                    if (!repo.getStatus().toString().equals("DONE")) {
                         enqueueRepoPort.enqueueRepo(repo.getUuid(), repo.getRepoUrl());
                     }
                 }
@@ -49,7 +50,7 @@ public class GetRepoService implements GetRepoUseCase {
 
     @Override
     public Repo getRepoByUUID(UUID uuid) {
-        return repoList.getRepoByUUID(uuid);
+        return getReposPort.getRepoByUUID(uuid);
     }
 
 }

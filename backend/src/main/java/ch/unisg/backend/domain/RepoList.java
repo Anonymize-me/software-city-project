@@ -2,7 +2,6 @@ package ch.unisg.backend.domain;
 
 import lombok.Getter;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -12,7 +11,7 @@ public class RepoList {
 
     private static RepoList instance = null;
 
-    private final List<Repo> repos;
+    private final List<RepoWithoutMetrics> repos;
 
     private RepoList() {
         repos = new ArrayList<>();
@@ -25,14 +24,14 @@ public class RepoList {
         return instance;
     }
 
-    public Repo getRepoByUUID(UUID uuid) {
+    public RepoWithoutMetrics getRepoByUUID(UUID uuid) {
         return repos.stream()
                 .filter(repo -> repo.getUuid().equals(uuid))
                 .findFirst()
                 .orElse(null);
     }
 
-    public void addRepo(Repo repo) {
+    public void addRepo(RepoWithoutMetrics repo) {
         repos.add(repo);
     }
 

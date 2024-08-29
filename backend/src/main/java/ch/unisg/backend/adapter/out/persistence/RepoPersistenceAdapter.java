@@ -5,6 +5,8 @@ import ch.unisg.backend.application.port.out.GetRepoPort;
 import ch.unisg.backend.application.port.out.SaveRepoMetricsPort;
 import ch.unisg.backend.application.port.out.UpdateRepoStatusPort;
 import ch.unisg.backend.domain.Repo;
+import ch.unisg.backend.domain.RepoWithoutMetrics;
+import ch.unisg.backend.domain.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,17 +22,26 @@ public class RepoPersistenceAdapter implements GetRepoPort, AddRepoPort, UpdateR
         SaveRepoMetricsPort {
 
     private final RepoRepository repoRepository;
+    private final RepoWithoutMetricsRepository repoWithoutMetricsRepository;
 
     private final RepoMapper repoMapper;
+    private final RepoWithoutMetricsMapper repoWithoutMetricsMapper;
 
     @Override
-    public List<Repo> getAllRepos() {
-        List<Repo> repos = new ArrayList<>();
-        List<RepoMongoDocument> repoMongoDocuments = repoRepository.findAll();
-        for (RepoMongoDocument repoMongoDocument : repoMongoDocuments) {
-            repos.add(repoMapper.toDomainObject(repoMongoDocument));
+    public List<RepoWithoutMetrics> getAllReposWithoutMetrics() {
+        List<RepoWithoutMetrics> repos = new ArrayList<>();
+        List<RepoWithoutMetricsMongoDocument> repoWithoutMetricsMongoDocuments = repoWithoutMetricsRepository.findAll();
+        for (RepoWithoutMetricsMongoDocument repoWithoutMetricsMongoDocument :
+                repoWithoutMetricsMongoDocuments) {
+            repos.add(repoWithoutMetricsMapper.toDomainObject(repoWithoutMetricsMongoDocument));
         }
         return repos;
+    }
+
+    @Override
+    public Repo getRepoByUUID(UUID uuid) {
+        RepoMongoDocument repoMongoDocument = repoRepository.findByUuid(uuid.toString());
+        return repoMapper.toDomainObject(repoMongoDocument);
     }
 
     @Override
@@ -40,7 +51,7 @@ public class RepoPersistenceAdapter implements GetRepoPort, AddRepoPort, UpdateR
     }
 
     @Override
-    public void updateRepoStatus(UUID uuid, Repo.Status status) {
+    public void updateRepoStatus(UUID uuid, Status status) {
         RepoMongoDocument repoMongoDocument = repoRepository.findByUuid(uuid.toString());
         repoMongoDocument.setStatus(status.toString());
         repoRepository.save(repoMongoDocument);

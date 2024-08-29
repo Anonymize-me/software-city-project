@@ -13,10 +13,6 @@ import java.util.UUID;
 @Setter
 public class Repo {
 
-    public enum Status {
-        REGISTERED, QUEUED, FAILED, RUNNING, DONE
-    }
-
     @Id
     private UUID uuid;
     private Status status;
@@ -35,6 +31,13 @@ public class Repo {
         this.status = status;
         this.repoUrl = repoUrl;
         this.metrics = metrics;
+    }
+
+    public Repo(UUID uuid, Status status, URL repoUrl) {
+        this.uuid = uuid;
+        this.status = status;
+        this.repoUrl = repoUrl;
+        this.metrics = new ArrayList<>();
     }
 
 }

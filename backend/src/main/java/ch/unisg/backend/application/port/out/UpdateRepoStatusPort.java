@@ -1,12 +1,11 @@
 package ch.unisg.backend.application.port.out;
 
-import ch.unisg.backend.domain.Repo;
+import ch.unisg.backend.domain.Status;
 
-import java.net.URL;
 import java.util.UUID;
 
 public interface UpdateRepoStatusPort {
 
-    void updateRepoStatus(UUID uuid, Repo.Status status);
+    void updateRepoStatus(UUID uuid, Status status);
 
 }

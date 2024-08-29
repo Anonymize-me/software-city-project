@@ -5,6 +5,7 @@ import ch.unisg.backend.application.port.out.AddRepoPort;
 import ch.unisg.backend.application.port.out.EnqueueRepoPort;
 import ch.unisg.backend.domain.Repo;
 import ch.unisg.backend.domain.RepoList;
+import ch.unisg.backend.domain.RepoWithoutMetrics;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,10 @@ public class AddRepoService implements AddRepoUseCase {
     public ResponseEntity<Void> addRepo(URL repoUrl) {
 
         Repo repo = new Repo(repoUrl);
-
-        RepoList.getInstance().addRepo(repo);
         addRepoPort.addRepo(repo);
+
+        RepoWithoutMetrics repoWithoutMetrics = new RepoWithoutMetrics(repo.getUuid(), repo.getStatus(), repo.getRepoUrl());
+        RepoList.getInstance().addRepo(repoWithoutMetrics);
 
         enqueueRepoPort.enqueueRepo(repo.getUuid(), repoUrl);
 

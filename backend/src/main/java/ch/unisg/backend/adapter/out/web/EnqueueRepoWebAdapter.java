@@ -4,6 +4,7 @@ import ch.unisg.backend.adapter.out.type.EnqueueRepoDto;
 import ch.unisg.backend.application.port.in.UpdateRepoStatusUseCase;
 import ch.unisg.backend.application.port.out.EnqueueRepoPort;
 import ch.unisg.backend.domain.Repo;
+import ch.unisg.backend.domain.Status;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -47,7 +48,7 @@ public class EnqueueRepoWebAdapter implements EnqueueRepoPort {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
             if (response.statusCode() == 200) {
-                updateRepoStatusUseCase.updateRepoStatus(uuid, Repo.Status.QUEUED);
+                updateRepoStatusUseCase.updateRepoStatus(uuid, Status.QUEUED);
             }
 
         } catch (IOException e) {

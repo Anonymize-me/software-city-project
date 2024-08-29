@@ -1,6 +1,7 @@
 package ch.unisg.backend.adapter.out.persistence;
 
 import ch.unisg.backend.domain.Repo;
+import ch.unisg.backend.domain.Status;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,7 @@ public class RepoMapper {
 
         return new Repo(
                 UUID.fromString(repoMongoDocument.getUuid()),
-                Repo.Status.valueOf(repoMongoDocument.getStatus()),
+                Status.valueOf(repoMongoDocument.getStatus()),
                 repoUrl,
                 repoMongoDocument.getMetrics()
         );

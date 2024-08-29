@@ -2,6 +2,7 @@ package ch.unisg.backend.adapter.in.type;
 
 import ch.unisg.backend.domain.MetricsDataRow;
 import ch.unisg.backend.domain.Repo;
+import ch.unisg.backend.domain.Status;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ public class JobDto {
 
     private UUID uuid;
     private URL repoUrl;
-    private Repo.Status status;
+    private Status status;
     private List<MetricsDataRow> metricsData;
 
 }

@@ -3,6 +3,7 @@ package ch.unisg.backend.adapter.in.web;
 import ch.unisg.backend.application.port.in.GetRepoUseCase;
 import ch.unisg.backend.domain.Repo;
 import ch.unisg.backend.application.service.GetRepoService;
+import ch.unisg.backend.domain.RepoWithoutMetrics;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,8 +20,8 @@ public class GetRepoController {
     private final GetRepoUseCase getRepoUseCase;
 
     @GetMapping("/all")
-    public List<Repo> getRepoAll() {
-        return new ArrayList<>(getRepoUseCase.getAllRepos());
+    public List<RepoWithoutMetrics> getRepoAll() {
+        return new ArrayList<>(getRepoUseCase.getAllReposWithoutMetrics());
     }
 
     @GetMapping("/metrics")

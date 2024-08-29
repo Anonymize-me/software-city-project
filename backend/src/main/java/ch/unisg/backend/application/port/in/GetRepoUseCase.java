@@ -1,6 +1,7 @@
 package ch.unisg.backend.application.port.in;
 
 import ch.unisg.backend.domain.Repo;
+import ch.unisg.backend.domain.RepoWithoutMetrics;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.UUID;
 
 public interface GetRepoUseCase {
 
-    List<Repo> getAllRepos();
+    List<RepoWithoutMetrics> getAllReposWithoutMetrics();
 
     Repo getRepoByUUID(UUID uuid);
 

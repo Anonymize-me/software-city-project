@@ -7,6 +7,7 @@ import ch.unisg.backend.application.port.in.ReceiveJobStatusUpdateCommand;
 import ch.unisg.backend.application.port.in.ReceiveJobUseCase;
 import ch.unisg.backend.domain.MetricsDataRow;
 import ch.unisg.backend.domain.Repo;
+import ch.unisg.backend.domain.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.net.URL;
@@ -39,7 +40,7 @@ public class ReceiveJobController {
     public void receiveJobStatusUpdate(@RequestBody JobDto jobDto) {
 
         UUID uuid = jobDto.getUuid();
-        Repo.Status status = jobDto.getStatus();
+        Status status = jobDto.getStatus();
 
         ReceiveJobStatusUpdateCommand command = new ReceiveJobStatusUpdateCommand(uuid, status);
 
