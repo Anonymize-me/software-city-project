@@ -136,7 +136,7 @@ export default class ModelTreeBuilder {
             for (let i of allNewElements) {
                if (i.id === current.parent.uuid) {
                   i.appendChild(newElement);
-                  if (newElement.type == "building") {
+                  if (newElement.type === "building") {
                      newElement.style.marginLeft = "11px";
                   } else {
                      newElement.style.marginLeft = 10 + "px";
@@ -177,6 +177,8 @@ export default class ModelTreeBuilder {
             element.addEventListener("click", (e) => {
                if (e.target.type === "color") return;
                if (newElement.type === "building") {
+                  this.infoPanelBuilder.setCurrentCityElement(current);
+                  this.infoPanelBuilder.build();
                } else {
                   element.parentElement.expanded =
                      element.parentElement.expanded === "true"
@@ -251,6 +253,15 @@ export default class ModelTreeBuilder {
       for (const element of this.allElements) {
          if (element.groupingPath === groupingPath) {
             element.style.color = "black";
+            break;
+         }
+      }
+   }
+
+   markAndJumpToElementByGroupingPath(groupingPath) {
+      for (const element of this.allElements) {
+         if (element.groupingPath === groupingPath) {
+            element.scrollIntoView();
             break;
          }
       }

@@ -19,13 +19,18 @@ const processOriginalData = (config) => {
          let attributeName = dataStore.attributeNames[i];
 
          if (attributeName === config.groupingPath) {
-            // if the dataType is java-source-code, replace the "/" with ";"
-            dataObject['groupingPath'] = entry[attributeName].replace(
-               /\//g,
-               ';',
-            );
+            if (dataStore.dataType === 'java-source-code') {
+               dataObject['groupingPath'] = entry[attributeName].replace(
+                   /\//g,
+                   ';',
+               );
+            } else {
+                dataObject['groupingPath'] = entry[attributeName].replace(
+                    /\./g,
+                    ';',
+                );
+            }
          } else if (attributeName === config.timestamp) {
-            // dataObject["timestamp"] = timestampToDate(entry[attributeName]);
             dataObject['timestamp'] = entry[attributeName];
          } else if (
             attributeName === config.participant &&

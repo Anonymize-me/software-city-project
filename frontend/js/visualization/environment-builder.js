@@ -139,10 +139,15 @@ export default class EnvironmentBuilder {
                   intersect.object.elementType === "building" &&
                   intersect.object.visible
                ) {
+                  this.modelTreeBuilder.markAndJumpToElementByGroupingPath(
+                      intersect.object.groupingPath);
                   this.infoPanelBuilder.setCurrentCityElement(intersect.object);
                   this.infoPanelBuilder.build();
+
                   break;
                } else if (intersect.object.parent.elementType === "plane") {
+                  this.modelTreeBuilder.markAndJumpToElementByGroupingPath(
+                        intersect.object.parent.groupingPath);
                   this.infoPanelBuilder.setCurrentCityElement(
                      intersect.object.parent
                   );
