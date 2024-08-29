@@ -10,7 +10,7 @@ export default class PositionBuilder {
       this.elements = [...buildings, ...planes];
 
       // To add some space between the city elements, add a fixed padding-value to the x and z scale values,
-      // and after packaing all elements, remove the fixed padding-value again.
+      // and after packing all elements, remove the fixed padding-value again.
       for (const element of this.elements) {
          if (element.elementType === "building") {
             element.scale.x += paddingBuildings;
