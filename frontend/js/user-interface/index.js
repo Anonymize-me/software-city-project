@@ -48,6 +48,16 @@ function toggleFetchButton() {
    buttonFetch.disabled = !gitHubRepoUrl.value;
 }
 
+const showFrameGitHubRepo = (show) => {
+   if (show) {
+      frameGitHubRepo.style.display = "block";
+      startFetching();
+   } else {
+        frameGitHubRepo.style.display = "none";
+        stopFetching();
+   }
+}
+
 gitHubRepoUrl.addEventListener("input", () => {
       toggleFetchButton();
 });
@@ -62,14 +72,14 @@ buttonGitHubRepo.addEventListener("click", () => {
       frameGitHubRepo.style.display === "none" ||
       frameGitHubRepo.style.display === ""
    ) {
-      frameGitHubRepo.style.display = "block";
+      showFrameGitHubRepo(true);
    } else {
-      frameGitHubRepo.style.display = "none";
+      showFrameGitHubRepo(false);
    }
 });
 
 buttonUpload.addEventListener("click", () => {
-   frameGitHubRepo.style.display = "none";
+   showFrameGitHubRepo(false);
    frameConfig.style.display = "none";
    frameMetaphors.style.display = "none";
    frameInfo.style.display = "none";
@@ -85,7 +95,7 @@ buttonUpload.addEventListener("click", () => {
 });
 
 buttonConfig.addEventListener("click", () => {
-   frameGitHubRepo.style.display = "none";
+   showFrameGitHubRepo(false);
    frameUpload.style.display = "none";
    frameMetaphors.style.display = "none";
    frameInfo.style.display = "none";
@@ -101,7 +111,7 @@ buttonConfig.addEventListener("click", () => {
 });
 
 buttonMetaphors.addEventListener("click", () => {
-   frameGitHubRepo.style.display = "none";
+   showFrameGitHubRepo(false);
    frameUpload.style.display = "none";
    frameConfig.style.display = "none";
    frameInfo.style.display = "none";
@@ -117,7 +127,7 @@ buttonMetaphors.addEventListener("click", () => {
 });
 
 buttonViewData.addEventListener("click", () => {
-   frameGitHubRepo.style.display = "none";
+   showFrameGitHubRepo(false);
    frameUpload.style.display = "none";
    frameConfig.style.display = "none";
    frameMetaphors.style.display = "none";
@@ -192,7 +202,7 @@ for (let i = 0; i < buttonsClose.length; i++) {
    buttonsClose[i].addEventListener("click", () => {
       switch (buttonsClose[i].parentElement.id) {
          case "frame-github-repo":
-            frameGitHubRepo.style.display = "none";
+            showFrameGitHubRepo(false);
             break;
          case "frame-upload":
             frameUpload.style.display = "none";
@@ -215,7 +225,7 @@ for (let i = 0; i < buttonsClose.length; i++) {
 
 document.addEventListener("keydown", (e) => {
    if (e.key === "Escape") {
-      frameGitHubRepo.style.display = "none";
+      showFrameGitHubRepo(false);
       frameUpload.style.display = "none";
       frameConfig.style.display = "none";
       frameMetaphors.style.display = "none";
@@ -291,10 +301,6 @@ const fetchGitHubRepoRegistered = async () => {
              if (repo.status.toLowerCase() === 'done') {
                 row.addEventListener('click', () => {
 
-                   const requestData = {
-                      repoUrl: repo.repoUrl
-                   };
-
                    fetch(`http://localhost:8080/api/repo/metrics?uuid=${repo.uuid}`)
                        .then(response => {
                           if (!response.ok) {
@@ -321,11 +327,17 @@ const fetchGitHubRepoRegistered = async () => {
        .catch(error => console.error('Error fetching repos:', error));
 };
 
-document.addEventListener('DOMContentLoaded', async() => {
-   setInterval(async function () {
+let intervalId = null;
+
+const startFetching = () => {
+   intervalId = setInterval(async function () {
       await fetchGitHubRepoRegistered();
-   }, 2000);
-});
+   }, 1000);
+}
+
+const stopFetching = () => {
+   clearInterval(intervalId);
+}
 
 function jsonToCsv(jsonData) {
    const keys = Object.keys(jsonData[0]);
@@ -350,3 +362,5 @@ function createCsvFile(csvString, fileName = 'data.csv') {
    const blob = new Blob([csvString], { type: 'text/csv' });
    return new File([blob], fileName, { type: 'text/csv' });
 }
+
+export { startFetching, stopFetching };
