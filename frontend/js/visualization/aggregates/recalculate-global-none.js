@@ -91,8 +91,18 @@ const recalculateGlobalNone = (
       let lastSeenLightnessValue = 0;
       for (const entry of building.buildingData) {
          if (
-            parseInt(entry.timestamp) >= sliderBuilder.lowerRangeBounds &&
+             getDataType() === "eye-tracking-java-source-code" &&
+             parseInt(entry.timestamp) >= sliderBuilder.lowerRangeBounds &&
             parseInt(entry.timestamp) <= sliderBuilder.upperRangeBounds
+         ) {
+            lastSeenDimensionValue = parseInt(entry[dimensionMetaphor]);
+            lastSeenHeightValue = parseInt(entry[heightMetaphor]);
+            lastSeenHueValue = parseInt(entry[hueMetaphor]);
+            lastSeenSaturationValue = parseInt(entry[saturationMetaphor]);
+            lastSeenLightnessValue = parseInt(entry[lightnessMetaphor]);
+         } else if (
+             getDataType() === "java-source-code" &&
+             parseInt(entry.timestamp) === sliderBuilder.upperRangeBounds
          ) {
             lastSeenDimensionValue = parseInt(entry[dimensionMetaphor]);
             lastSeenHeightValue = parseInt(entry[heightMetaphor]);
