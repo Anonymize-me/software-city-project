@@ -9,6 +9,7 @@ public class MetricsDataRow {
 
     private String timestamp;
     private int commitNumber;
+    private String commitHash;
 
     private String file;
     private String className;
@@ -132,5 +133,9 @@ public class MetricsDataRow {
 
     public void setCommitNumber(int commitNumber) {
         this.commitNumber = commitNumber;
+    }
+
+    public void setCommitHash(String commitHash) {
+        this.commitHash = commitHash;
     }
 }

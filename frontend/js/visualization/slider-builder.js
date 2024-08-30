@@ -10,6 +10,7 @@ export default class SliderBuilder {
       this.cityMetaphor = cityMetaphor;
       this.sliderContainer = document.getElementById("slider-container");
       this.valueDisplay = document.getElementById("slider-value");
+      this.commitHash = document.getElementById("commit-hash");
       this.sliderThumbT0 = document.getElementById("slider-thumb-t0");
       this.sliderThumbT1 = document.getElementById("slider-thumb-t1");
       this.sliderWindowWidth = document.getElementById("slider-window-width");
@@ -74,6 +75,7 @@ export default class SliderBuilder {
       if (getDataType() === "eye-tracking-java-source-code") {
          this.valueDisplay.textContent = `${lowestTimestamp} - ${highestTimestamp}`;
       } else if (getDataType() === "java-source-code") {
+         this.commitHash.textContent = this.data[0].commitHash;
          this.valueDisplay.textContent = `Commit: 1, ${lowestTimestamp}`;
       }
 
@@ -106,6 +108,7 @@ export default class SliderBuilder {
 
             this.snapshotIndex = parseInt(e.target.value) - 1;
 
+            this.commitHash.textContent = this.data[this.snapshotIndex].commitHash;
             this.valueDisplay.textContent = `Commit: ${this.snapshotIndex + 1}, ${this.epoques[this.snapshotIndex].timestamp}`;
 
             const sliderProgress =
@@ -236,6 +239,7 @@ export default class SliderBuilder {
                }
                this.snapshotIndex = i;
             }
+            this.commitHash.textContent = this.data[this.snapshotIndex].commitHash;
             this.valueDisplay.textContent = `Commit: ${this.snapshotIndex + 1}, ${this.epoques[this.snapshotIndex].timestamp}`;
             this.upperRangeBounds = this.epoques[this.snapshotIndex].timestamp;
             this.snapshotInput.value = this.snapshotIndex + 1;

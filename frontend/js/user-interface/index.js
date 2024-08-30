@@ -31,6 +31,8 @@ const buttonFetch = document.getElementById("button-fetch");
 const buttonUploadData = document.getElementById("button-upload-data");
 const buttonSaveConfig = document.getElementById("button-save-config");
 
+const sliderValueCopyIcon = document.getElementById("slider-value-copy-icon");
+
 const alertSuccessUploadData = document.getElementById(
    "alert-success-upload-data"
 );
@@ -197,6 +199,19 @@ const toggleMetaphorsAndModelTreeButton = (boolChoice) => {
    buttonMetaphors.disabled = boolChoice;
    buttonModelTree.disabled = boolChoice;
 };
+
+sliderValueCopyIcon.addEventListener("click", () => {
+    document.getElementById('slider-value-copy-icon').style.display = 'none';
+    document.getElementById('slider-value-check-icon').style.display = 'block';
+    setTimeout(() => {
+        document.getElementById('slider-value-copy-icon').style.display = 'block';
+        document.getElementById('slider-value-check-icon').style.display = 'none';
+    }, 1000);
+   const commitHash = document.getElementById("commit-hash");
+   commitHash.select();
+   commitHash.setSelectionRange(0, 99999);
+   navigator.clipboard.writeText(commitHash.value);
+});
 
 for (let i = 0; i < buttonsClose.length; i++) {
    buttonsClose[i].addEventListener("click", () => {

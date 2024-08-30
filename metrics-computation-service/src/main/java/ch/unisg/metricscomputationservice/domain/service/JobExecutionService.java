@@ -77,6 +77,7 @@ public class JobExecutionService {
                             MetricsDataRow dataRow = parseCsvLine(line);
                             dataRow.setTimestamp(formattedDate);
                             dataRow.setCommitNumber(commitCount);
+                            dataRow.setCommitHash(commit.getName());
                             job.addMetricsDataRow(dataRow);
                         }
                     }
