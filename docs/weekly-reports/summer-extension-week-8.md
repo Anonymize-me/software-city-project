@@ -5,8 +5,7 @@ Here are the links to the individual branches of the project:
 - [Status of the Git extension](https://github.com/jonaslanzlinger/software-city-project)
 - [Status of the old project, including all previous approaches to software city](https://github.com/jonaslanzlinger/software-city-project/tree/js-implementation_v1.0.0)
 
-The implementation of the Git extension part is almost done. After the meeting with Amine, we have decided to move to the exploratory research phase this week. Before I start with this,
-I want to fix some issues (like lagging, memory issues, chunked transmitting of metrics files, and some minor bugs) in the tool, containing the following tasks:
+This week, I have worked on the following tasks:
 [x] only load metrics to frontend, when repository has been selected for analysis
 [x] only load repository data, when github frame is open
 [x] only load metrics into memory in backend service, when repository has been selected for analysis
@@ -19,11 +18,11 @@ I want to fix some issues (like lagging, memory issues, chunked transmitting of 
 [x] when clicking on element in visualization, jump to corresponding element in model tree
 [x] fix hovering issue in model tree
 [x] display commit hash somewhere
-[x] insert download button for currently loaded data in the "View Data" tab
-- check, if charts are displayed correctly
-- check, if buildings are displayed correctly
-
+[x] insert download button for currently loaded data in the "View Data" tab 
+[x] check, if charts are displayed correctly
+[x] check, if buildings are displayed correctly
 - transmitting of metrics from metrics-computation-service to backend via chunks to avoid request payload size limit
+- still some issues with lag, if lots of data points in metrics file (maybe reduce clutter in charts)
 
 After these tasks, I will start answering the following questions, using the tool:
 - What questions can we answer with this tool?
