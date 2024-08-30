@@ -26,6 +26,10 @@ export default class PlaneBuilder {
                groupingPathLayers.slice(0, i).join(";")
             );
 
+            if (plane.groupingPath === "") {
+               continue;
+            }
+
             this.planes.push(plane);
          }
       });
