@@ -1,6 +1,7 @@
 import { getOriginalData, getAttributeNames } from '../data.js';
 
 const buttonClearData = document.getElementById('button-clear-data');
+const buttonDownloadData = document.getElementById('button-download-data');
 
 const clearTable = () => {
    if ($.fn.DataTable.isDataTable('#table-data')) {
@@ -9,6 +10,8 @@ const clearTable = () => {
    $('#table-data thead').empty();
    $('#table-data tbody').empty();
    buttonClearData.style.display = 'none';
+   buttonDownloadData.style.display = 'none';
+
 };
 
 const buildTable = () => {
@@ -37,8 +40,10 @@ const buildTable = () => {
 
    if (dataSet.length > 0) {
       buttonClearData.style.display = 'block';
+      buttonDownloadData.style.display = 'block';
    } else {
       buttonClearData.style.display = 'none';
+      buttonDownloadData.style.display = 'none';
    }
 };
 

@@ -1,4 +1,4 @@
-import { getDataType, clearData, processOriginalData } from "../data";
+import {getDataType, clearData, processOriginalData, getDataStore, getOriginalData} from "../data";
 import { updateConfig } from "./cookie-manager";
 import { uploadData } from "./upload";
 import { buildTable } from "./table";
@@ -11,6 +11,7 @@ const buttonConfig = document.getElementById("button-config");
 const buttonMetaphors = document.getElementById("button-metaphors");
 const buttonViewData = document.getElementById("button-view-data");
 const buttonClearData = document.getElementById("button-clear-data");
+const buttonDownloadData = document.getElementById("button-download-data");
 const buttonModelTree = document.getElementById("button-model-tree");
 
 const viewData = document.getElementById("view-data");
@@ -160,6 +161,28 @@ buttonClearData.addEventListener("click", () => {
    document.getElementById("view-data").style.display = "none";
 
    document.getElementById("instructions").style.display = "block";
+});
+
+function convertToCSV(objArray) {
+   const array = [Object.keys(objArray[0])].concat(objArray);
+
+   return array.map(it => {
+      return Object.values(it).toString();
+   }).join('\n');
+}
+
+buttonDownloadData.addEventListener("click", () => {
+   const data = getOriginalData();
+   const csvData = convertToCSV(data);
+   const blob = new Blob([csvData], { type: 'text/csv' });
+   const url = window.URL.createObjectURL(blob);
+   const a = document.createElement('a');
+   a.setAttribute('hidden', '');
+   a.setAttribute('href', url);
+   a.setAttribute('download', 'metrics.csv');
+   document.body.appendChild(a);
+   a.click();
+   document.body.removeChild(a);
 });
 
 buttonSaveConfig.addEventListener("click", () => {

@@ -21,6 +21,10 @@ export default class SliderBuilder {
          );
          this.snapshotInput = document.getElementById("snapshot-input");
          this.snapshotIndex = 0;
+
+         document.getElementById("slider-value-copy-icon-container").style.display = "block";
+      } else {
+         document.getElementById("slider-value-copy-icon-container").style.display = "none";
       }
 
       this.lowerRangeBounds = 0;

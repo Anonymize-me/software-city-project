@@ -19,6 +19,7 @@ I want to fix some issues (like lagging, memory issues, chunked transmitting of 
 [x] when clicking on element in visualization, jump to corresponding element in model tree
 [x] fix hovering issue in model tree
 [x] display commit hash somewhere
+[x] insert download button for currently loaded data in the "View Data" tab
 - check, if charts are displayed correctly
 - check, if buildings are displayed correctly
 
