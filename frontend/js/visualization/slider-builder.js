@@ -79,7 +79,7 @@ export default class SliderBuilder {
       if (getDataType() === "eye-tracking-java-source-code") {
          this.valueDisplay.textContent = `${lowestTimestamp} - ${highestTimestamp}`;
       } else if (getDataType() === "java-source-code") {
-         this.commitHash.textContent = this.data[0].commitHash;
+         this.commitHash.textContent = this.epoques[0].commitHash;
          this.valueDisplay.textContent = `Commit: 1, ${lowestTimestamp}`;
       }
 
@@ -112,7 +112,8 @@ export default class SliderBuilder {
 
             this.snapshotIndex = parseInt(e.target.value) - 1;
 
-            this.commitHash.textContent = this.data[this.snapshotIndex].commitHash;
+            this.commitHash.textContent = this.epoques[this.snapshotIndex].commitHash;
+
             this.valueDisplay.textContent = `Commit: ${this.snapshotIndex + 1}, ${this.epoques[this.snapshotIndex].timestamp}`;
 
             const sliderProgress =
@@ -243,7 +244,7 @@ export default class SliderBuilder {
                }
                this.snapshotIndex = i;
             }
-            this.commitHash.textContent = this.data[this.snapshotIndex].commitHash;
+            this.commitHash.textContent = this.epoques[this.snapshotIndex].commitHash;
             this.valueDisplay.textContent = `Commit: ${this.snapshotIndex + 1}, ${this.epoques[this.snapshotIndex].timestamp}`;
             this.upperRangeBounds = this.epoques[this.snapshotIndex].timestamp;
             this.snapshotInput.value = this.snapshotIndex + 1;

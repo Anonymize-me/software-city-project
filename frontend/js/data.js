@@ -101,11 +101,18 @@ const clearData = () => {
  * @returns {Object} // the epoques
  */
 const getEpoques = () => {
-   const epoques = new Set();
+   const epoques = [];
    dataStore.visualizationData.forEach((entry) => {
-      epoques.add(parseInt(entry.timestamp));
+      const parsedTimestamp = parseInt(entry.timestamp);
+      if (!epoques.some(epoque => epoque.timestamp === parsedTimestamp)) {
+         epoques.push({
+            timestamp: parsedTimestamp,
+            commitHash: entry.commitHash
+         });
+      }
    });
-   return Array.from(epoques).map(timestamp => ({ timestamp }));
+
+   return epoques;
 };
 
 /**
