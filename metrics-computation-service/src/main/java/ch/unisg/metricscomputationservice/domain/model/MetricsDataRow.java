@@ -22,8 +22,8 @@ public class MetricsDataRow {
     private int dit;
     private int noc;
     private int rfc;
-    private int lcom;
-//    private double lcomStar;
+//    private int lcom;
+    private double lcomStar;
 //    private double tcc;
 //    private double lcc;
     private int totalMethodsQty;
@@ -84,8 +84,8 @@ public class MetricsDataRow {
         this.dit = Integer.parseInt(fields[8]);
         this.noc = Integer.parseInt(fields[9]);
         this.rfc = Integer.parseInt(fields[10]);
-        this.lcom = Integer.parseInt(fields[11]);
-//        this.lcomStar = Double.parseDouble(fields[12]);
+//        this.lcom = Integer.parseInt(fields[11]);
+        this.lcomStar = Double.parseDouble(fields[12]);
 //        this.tcc = Double.parseDouble(fields[13]);
 //        this.lcc = Double.parseDouble(fields[14]);
         this.totalMethodsQty = Integer.parseInt(fields[15]);

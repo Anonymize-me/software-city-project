@@ -22,8 +22,8 @@ public class MetricsDataRow {
     private int dit;
     private int noc;
     private int rfc;
-    private int lcom;
-//    private double lcomStar;
+//    private int lcom;
+    private double lcomStar;
 //    private double tcc;
 //    private double lcc;
     private int totalMethodsQty;
