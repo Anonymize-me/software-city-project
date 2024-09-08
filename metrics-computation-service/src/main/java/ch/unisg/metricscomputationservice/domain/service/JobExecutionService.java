@@ -16,10 +16,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -70,6 +68,7 @@ public class JobExecutionService {
                     process.waitFor();
 
                     File commitMetricsFile = new File(repositoryDir, "class.csv");
+                    List<MetricsDataRow> metricsDataRows = new ArrayList<>();
                     if (commitMetricsFile.exists()) {
                         List<String> lines = Files.readAllLines(commitMetricsFile.toPath());
                         lines.remove(0);
@@ -78,12 +77,19 @@ public class JobExecutionService {
                             dataRow.setTimestamp(formattedDate);
                             dataRow.setCommitNumber(commitCount);
                             dataRow.setCommitHash(commit.getName());
-                            job.addMetricsDataRow(dataRow);
+                            metricsDataRows.add(dataRow);
                         }
                     }
 
-                    System.out.println("Commit " + commitCount + " analyzed at " + formattedDate + " with " +
-                            "hash " + commit.getName());
+                    Map<String, List<MetricsDataRow>> groupedByFile = metricsDataRows.stream()
+                            .collect(Collectors.groupingBy(MetricsDataRow::getFile));
+
+                    for (Map.Entry<String, List<MetricsDataRow>> entry : groupedByFile.entrySet()) {
+                        MetricsDataRow consolidatedRow = new MetricsDataRow(entry.getValue());
+                        job.addMetricsDataRow(consolidatedRow);
+                    }
+
+                    System.out.println("Commit " + commitCount + " of total " + commits.size() + " analyzed.");
 
                     commitCount++;
                 }
