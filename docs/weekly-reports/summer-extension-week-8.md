@@ -1,4 +1,4 @@
-# Summer Extension - Week 8
+# Summer Extension - Week 8 & 9
 
 Here are the links to the individual branches of the project:
 - [Status of the project for Thierry](https://github.com/jonaslanzlinger/software-city-project/tree/v2.0.0)
@@ -45,6 +45,7 @@ After these tasks, I will start answering the following questions, using the too
 - Repo 9: OpenAI-webflux-java (https://github.com/reactiveclown/openai-webflux-java)
 - Repo 10: OpenPGP-Api (https://github.com/open-keychain/openpgp-api)
 - Repo 11: MigrationMiner (https://github.com/hussien89aa/MigrationMiner)
+- Repo 12: EventBus (https://github.com/greenrobot/EventBus)
 
 I will choose one or more of the above repositories, because the to-be-analyzed repo should be medium-size, 
 written 
@@ -98,18 +99,6 @@ repository has been refactored, and the services have been moved to another loca
 In the current state, the system is composed of one main package "objects" that contains definitions for 
 object types and how they should be represented. The granularity of the components is very high, as all 
 the city buildings are about the same height. This suggests, that the components are very similar in size.
-
-Limitations:
-- if code components get renamed, they will reappear somewhere different in the visualized city. This 
-  imposes a problem, as this suggests that something has changed, while in reality only the name of the 
-  super folder could have changed. There must be a way how to mitigate this problem by somehow match 
-  components together that just have been renamed or similar.
-  - Example: You can see that perfectly in this repository, where you have in the complete model tree 
-    structure three directories that are named "cloudflare", or "cloudflare_old". Between the commit 
-    numbers 13 and 14, the folder structure has changed from "cloudflare/..." to "src/...". Between The 
-    commit number 27, it becomes clear, that refactoring has been done, as the "cloudflare" folder has
-    been renamed to "cloudflare_old". This is a perfect example, where the tool could be improved, by
-    matching the components together, that have been renamed.
 
 
 ### God classes
@@ -174,10 +163,26 @@ I have come up with 3 metric combinations, that tackle 3 individual use-cases:
 Classes with high values in multiple metrics are likely "hot spots" in the code, and should be
 addressed first for refactoring. To achieve this, I set the size of the building to the metric 
 CBO, the height of the building to the metric RFC, and the color-hue to the metric WMC. This way, 
-classes with high values in all three metrics will be displayed BIG, TALL, and in DARK RED COLOR. 
+classes with high values in all three metrics will be displayed either BIG, TALL, and/or in CYAN COLOR. 
 Because we always want to tackle the "big fish" first, I  also set the LOC metric to the 
-color-lightness. This way, if a class has a low LOC value, the building will be displayed in a LIGHT 
-RED COLOR, and we can ignore it for now.
+color-lightness. This way, if a class has a low LOC value, the building will be displayed in a LIGHT COLOR, 
+and it can be ignored for now.
+
+Example Repository: EventBus (https://github.com/greenrobot/EventBus)
+
+<img src="../resources/summer-extension-week-8-eventbus.png" alt="EventBus visualization" width="400"/>
+
+The screenshot above shows the visualization of the EventBus repository with the metaphor mapping 
+described before. The highlighted building is the [EventBusAnnotationProcessor](https://github.com/greenrobot/EventBus/blob/master/EventBusAnnotationProcessor/src/org/greenrobot/eventbus/annotationprocessor/EventBusAnnotationProcessor.java) class. This class is displayed small, tall, and 
+pink. This indicates, that the class has a low CBO value, but high RFC and WMC values. This suggests, 
+that the class is too complex, and should be refactored. When copying the commit hash value and having a look
+at the code, I found that the class is indeed complex. For example, there is a high cyclomatic complexity, 
+due to lots of nested if-else statements, and loops (see method "checkForSubscribersToSkip").
+Another problem I found is the violation of the single responsibility principle. Without diving too deep 
+into the ins and outs of the class, it appears like the class is handling multiple unrelated things like 
+handling annotations, creating and writing to files, generating code, and also extensive error handling. 
+This class should be refactored.
+
 
 #### Identify classes with complex logic
 When looking at bare complexity metrics, this does not give enough information, whether a class is
@@ -188,20 +193,73 @@ the metric WMC, and the color-hue, as well as the color-lightness to the metric 
 building is too complex, it will be displayed BIG, TALL, and in "some" color (see limitations). 
 Depending on the size of the class, this color will be different.
 
-Limitations: Sometimes it would be useful to use static constant values for one city metaphor feature. 
-As described above, the color-hue and color-lightness are set to the metric LOC. This means, that the 
-color-hue is displaying the same information as the color-lightness feature. It is not an issue, but 
-adds unnecessary complexity to the visualization. A workaround could be to add static constant values, 
-that are selectable in the Metaphor Mapping tab, to have a more clear visualization.
+Example Repository: Restsuite (https://github.com/supanadit/restsuite)
+
+For this example, I have chosen to show, how the timeline can be utilized to find occasion where a class 
+has added some functionality that increase its complexity. To display this, I show the difference between 
+this repositories commit number 51 and number 52. As you can see, the size and the height of the building 
+increased, meaning that the RFC and the WMC values have increased. This suggests, that the class has 
+become more complex. The highlighted building is the [SocketIoPanel](https://github.com/supanadit/restsuite/commit/bbbd8b725cf5e190ccc536e7c741bbda2882ac2c#diff-96fa613718bafbda135aa9dbe1f1675d65148919076ca65c420eb43ef3eb158a) class. After checking the 
+code on GitHub, I was able to verify that the class has indeed become more complex, as you can see in the 
+screenshot further below.
+
+Commit 51:
+
+<img src="../resources/summer-extension-week-8-restsuite-commit-51.png" alt="commit 51" width="200"/>
+
+Commit 52:
+
+<img src="../resources/summer-extension-week-8-restsuite-commit-52.png" alt="commit 52" width="200"/>
+
+Commits Difference in Code:
+
+<img src="../resources/summer-extension-week-8-restsuite-commit-difference.png" alt="diff" width="500"/>
+
+
+Scrolling at the end of the timeline, I have found 3 main classes that are displayed big, tall, and in 
+some color. After checking the code on GitHub, I was able to verify, that those classes indeed are more 
+complex than the rest of the other system. A perfect example is the class [UrlParser](https://github.com/supanadit/restsuite/blob/master/src/main/java/com/supanadit/restsuite/helper/UrlParser.java).
+This class is VERY complex especially in the method "getQueryParams". This method should definitely be 
+refactored, maybe split into multiple sub methods, to increase the readability and maintainability of the 
+class.
+
+Here is a screenshot of the 3 main classes that are displaying an increased complexity:
+
+<img src="../resources/summer-extension-week-8-restsuite-complex-classes.png" alt="complex" width="500"/>
+
 
 #### Identify class with low cohesion:
-  - High LCOM* combined with other metrics like CBO suggest that a class is doing too much unrelated
+High LCOM* combined with other metrics like CBO suggest that a class is doing too much unrelated
     things. Therefore, it might be subject for refactoring with the goal of high cohesion and single
     responsibility. To achieve this, I have set the size of the building to the metric LCOM*, the height
     to the metric CBO, and the color-hue, and the color-lightness to the metric LOC. This way, if a class has
     low cohesion, it will be displayed BIG, TALL, and in "some" color (see limitations above). Depending
     on the lightness of the color, the refactoring of this class has probably a higher or lower priority.
 
-Repository: Logger (https://github.com/orhanobut/logger)
+Unfortunately, the computation of the LCOM* metric is not working properly, but the procedure of finding 
+those low cohesion classes is similar to the few procedures described above. 
 
 
+### Limitations
+In the following I describe some further improvements that could be made to the tool, to make the analysis 
+even more valuable, more precise, and more efficient.
+
+- if code components get renamed, they will reappear somewhere different in the visualized city. This
+  imposes a problem, as this suggests that something has changed, while in reality only the name of the
+  super folder could have changed. There must be a way how to mitigate this problem by somehow match
+  components together that just have been renamed or similar.
+  - Example: You can see that perfectly in this repository, where you have in the complete model tree
+    structure three directories that are named "cloudflare", or "cloudflare_old". Between the commit
+    numbers 13 and 14, the folder structure has changed from "cloudflare/..." to "src/...". Between The
+    commit number 27, it becomes clear, that refactoring has been done, as the "cloudflare" folder has
+    been renamed to "cloudflare_old". This is a perfect example, where the tool could be improved, by
+    matching the components together, that have been renamed.
+- Sometimes it would be useful to use static constant values for one city metaphor feature.
+  As described above, the color-hue and color-lightness are set to the metric LOC. This means, that the
+  color-hue is displaying the same information as the color-lightness feature. It is not an issue, but
+  adds unnecessary complexity to the visualization. A workaround could be to add static constant values,
+  that are selectable in the Metaphor Mapping tab, to have a more clear visualization.
+- The Info Panel turns out to be a vital part of the tool, as it displays the temporal and spacial
+  information of a city element in one place. However, the charts should definitely highlight the
+  datapoints of the current commit. Otherwise, it is hard to see, which datapoints are displayed at the
+  moment. Furthermore, the resizing of the chart is very slow. => reduce the amount of computation here.
