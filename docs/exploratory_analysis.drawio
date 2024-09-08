@@ -1,0 +1,376 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" version="24.7.10">
+  <diagram name="Page-1" id="XMqboSqKBHCLERqYmMZc">
+    <mxGraphModel dx="8340" dy="11464" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="3NDKIxsInulZqSTLDHvB-1" value="Business Decision Alignment" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-6713" y="-10293" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-2" value="Educational" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-6713" y="-9578" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-3" value="Visualization /&lt;br&gt;Demonstration" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-6713" y="-9921" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-4" value="Evolution through commit history" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-6723" y="-7438" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-5" value="Refactoring" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-6713" y="-9154" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-6" value="Documentation" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-6713" y="-8577" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-7" value="Title" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="-6713" y="-10416" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-8" value="Description&lt;br&gt;(Business Value)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="-6548" y="-10416" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-9" value="Tool Features" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="-5641.5" y="-10416" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-10" value="Example Use Case" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="-4136" y="-10416" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-11" value="&lt;ul&gt;&lt;li&gt;Mediating between business goals and technical goals&lt;/li&gt;&lt;li&gt;The tool&#39;s visualization highlights areas where development efforts are most conncentrated, helping prioritizing resources and delivery schedules&lt;br&gt;&lt;/li&gt;&lt;li&gt;Help in allocating development resources appropriately to business goals, ensuring efficient work in high-impact areas&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-6548" y="-10293" width="259" height="159" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-12" value="&lt;ul&gt;&lt;li&gt;Comprehensive visualization tool to demonstrate software product &quot;under the hood&quot; to stakeholders&lt;/li&gt;&lt;li&gt;Help in demonstrating business cases and which parts are involved / interact with each other and the rest of the application context&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-6548" y="-9921" width="259" height="159" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-13" value="&lt;ul&gt;&lt;li&gt;Accelerates onboarding procedure for new employees because the tool helps to become familiar with the code base&lt;/li&gt;&lt;li&gt;New developers need less time to become productive&lt;/li&gt;&lt;li&gt;By visualizing module boundaries, the tool aids an identifying components that can be isolated into smaller parts / even microservices. Additionally you can further explore the dependencies via opening a specific commit in the code base.&lt;/li&gt;&lt;li&gt;May help in migrating a given code base into a more cohesive, modularized approach -&amp;gt; or even into a microservice architecture. This enhances overall system scalability and flexibility (benefits of distributed architectures)&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-6548" y="-9578" width="259" height="268" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-14" value="&lt;ul&gt;&lt;li&gt;While software metrics alone can give a good overview about which modules may need some refactoring, the visualization of the metrics via a software city is helping in understanding the spacial and temporal placement of the module inside the complete code base. This helps in keeping a bird-eye view while drilling down into specifics.&lt;/li&gt;&lt;li&gt;Strong guidance tool for refactoring tasks in the code base&lt;/li&gt;&lt;li&gt;Increase code quality by reducing technical debt through showing focus areas for refactoring in high-complexity areas&lt;/li&gt;&lt;li&gt;Increase non-functional properties, such as: Maintainability, extendability, evolvability, flexibility, etc.&lt;/li&gt;&lt;li&gt;Identifying hot spots for common problems in the code base&lt;/li&gt;&lt;li&gt;Enumeration of potential useful metrics provided by the tool:&lt;br&gt;lines of code, quantity of loops, quantity of try/catch, string literals, quantity of variables, quantity of inner classes, number of unique words, number of log statements, method invocations, usage of each variable, usage of each field, modifiers, etc.&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-6548" y="-9154" width="259" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-16" value="&lt;div&gt;&lt;b&gt;&lt;u&gt;Visualization Types&lt;/u&gt;&lt;/b&gt;&lt;/div&gt;Visualize different data types for different purposes, according to the underlying dataset&lt;div&gt;(for now: &quot;java-source-code&quot;, &quot;eye-tracking-java-source-code&quot;)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-10206" width="185" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-17" value="&lt;div&gt;&lt;b&gt;&lt;u&gt;Tabular View of Data&lt;/u&gt;&lt;/b&gt;&lt;/div&gt;Good discoverability for loaded dataset vis tabular view of the data records.&lt;div&gt;Including navigation, searching, sorting.&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-10080" width="185" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-18" value="&lt;div&gt;&lt;b&gt;&lt;u&gt;Datafield Configuration&lt;/u&gt;&lt;/b&gt;&lt;/div&gt;Enables to load any dataset into the tool, via a mapping of &quot;groupingPath&quot; and &quot;timestamp&quot; to respective selectable columns in the dataset." style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-9941" width="185" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-19" value="&lt;div&gt;&lt;b&gt;&lt;u&gt;Metaphor Mapping&lt;/u&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;Enables to create the desired visualization output, by visualizing key datafields as desired metaphor features. Lots of combination possibilities lead to loads of different cities.&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-9815" width="185" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-20" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Persistence&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;The backend server stores the computed metrics in a MongoDB instance. This accelerates the process of loading precomputed visualizations. Only compute once.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-9676" width="185" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-21" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Uninterrupted Workflow&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;The backend server which takes the requests for new to-be-computed repositories, forwards the request to the &quot;metrics-computation-service&quot;. Enables non-blocking metrics computation, while users can continue analyzing different repositories until request is completed.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-9540" width="185" height="153" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-22" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Easy data collection&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;Users don&#39;t need to collect data / extract datasets / pre-compute metrics. Simply provide GitHub URL to the tool for good usability.&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-9357" width="185" height="93" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-23" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Responsiveness of Status&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Computing metrics might take quite some time. To provide readyness to the user, the tool informs via status symbols, in which status each repository request is at the moment.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-9224" width="185" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-24" value="&lt;div&gt;&lt;b&gt;&lt;u&gt;Data dump&lt;/u&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Loaded datasets are downloadable via button-click. Local copy of metrics (csv-format) for later manual upload incase of faulty backend server. Also useful for sharing the data export with other people.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-9074" width="185" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-25" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;City Metaphor Features&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;The city displays various information at once, through the metaphor of a city. The following features are being used:&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Building, Block (Plane), size, height, color (hsl - hue, saturation, lightness)&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-8915" width="185" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-26" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Model Tree Structure&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;The Model Tree shows the hierarchical structure of the entire code base -&amp;gt; space navigationability&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-8747" width="185" height="93" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-27" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Info Panel&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;When clicking on a city element, the info panel is shown with in-depth information about the selected city element, including charts that display the evolution of this entity over the time dimension.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-8621" width="185" height="127" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-28" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Timeline&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;Time navigationability: Depending on the selected datatype for the city, scrolling through the commit history, or the experiment data is enabled, updating the visualization at each step.&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-8461" width="185" height="107" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-29" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Aggregation Functions&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;The aggregation function determines how the city should be built. I.e. they compute the values for the metaphor features. By adhearing to the O/C-principle, additional aggregation functions can be easily implemented in the future.&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-7921" width="185" height="137" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-30" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;GUI&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;The GUI in the top right enables for custimization of the displayed visualization: Saturation threshold datafields + threshold level, height, and normalization.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-7744" width="185" height="106" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-31" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Camera controls&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Enables navigation and interactability with the visualization: hover (highlight), click (info panel + move to location in model tree), click + drag (pan), rightclick + drag (move), mousewheel (zoom)&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-7603" width="185" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-32" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Highlight Elements&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;In the Model Tree, a color picker allows for highlighting individual city elements over multiple snapshots. This improves the discoverability of elements. &quot;Bookmarking&quot; elements.&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-7440" width="185" height="115" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-33" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Fixed City Element Positions&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;When building the city, each city element gets assigned a fixed position in the visualization. This is necessary due to the dynamic nature of code projects. Entities might get created, renamed, or deleted, which would lead to different positions in the city. By having a fixed position, city elements are easy to find and keep track of while navigating through time.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-7292" width="185" height="205" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-34" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Arrow Indicator&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;When selecting a city element (either click on element, or click on model tree element), an arrow indicator is shown, to &quot;bookmark&quot; this element and keep track of it while navigating through time.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-7048" width="185" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-35" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Snapshot Picker&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Easy possibility to input a specific snapshot / commit in the city. This allows detailed view of differences between commits to the city evolution.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-8060" width="185" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-36" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Timeline Value Display&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Shows current visualized commit hash and its respective timestamp. Allows easy understandability of the time dimension and locating an individual commit.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-8317" width="185" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-37" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;b&gt;&lt;u&gt;Copy Commit Hash Button&lt;/u&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Easy way to further navigate to an individual commit on GitHub. Drill down, investigate code base.&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-5674" y="-8178" width="185" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-38" value="&lt;ul&gt;&lt;li&gt;Using the tool as a support for documentation tasks can be helpful.&lt;/li&gt;&lt;li&gt;Software city itself imposes a strong documentation tool in the form of an interactive map&lt;/li&gt;&lt;li&gt;enhances code documentation quality&lt;/li&gt;&lt;li&gt;&lt;font color=&quot;#ff3f05&quot;&gt;Let&#39;s say we want to document our code base. Therefore, we want to employ JavaDoc. Simply use &quot;has Javadoc&quot; metric as a city metaphor feature (e.g. color-hue). The boolean value will easily be displayed by two different colors of the buildings in the city.&lt;/font&gt;&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-6548" y="-8577" width="259" height="213" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-39" value="Evaluate Code" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-6713" y="-8195" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-40" value="&lt;ul&gt;&lt;li&gt;The tool allows the evaluation of the code based on the computed metrics.&lt;/li&gt;&lt;li&gt;Depends heavily on the quality of the metrics&lt;/li&gt;&lt;li&gt;Creates a dependency to a 3rd party library&lt;/li&gt;&lt;li&gt;Provides insights into code design quality, such as complexity reports&lt;/li&gt;&lt;li&gt;helps improving code maintainability, extendability, scalability, volatility, and performance&lt;/li&gt;&lt;li&gt;Most important metrics: CK Metric Suite:&lt;br&gt;&lt;/li&gt;&lt;ul&gt;&lt;li&gt;WMC: Weighted Methods Class&lt;/li&gt;&lt;li&gt;DIT: Depth of Inheritance Tree&lt;/li&gt;&lt;li&gt;NOC: Number of Children&lt;/li&gt;&lt;li&gt;CBO: Coupling between Object classes&lt;/li&gt;&lt;li&gt;RFC: Response for a class&lt;/li&gt;&lt;li&gt;LCOM: Lack of cohesion in Methods&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-6548" y="-8195" width="259" height="301" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-41" value="&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;CBO (Coupling between objects): Counts the number of dependencies a class has. The tools checks for any type used in the entire class (field declaration, method return types, variable declarations, etc). It ignores dependencies to Java itself (e.g. java.lang.String).&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-7201" y="-8195" width="224" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-42" value="&lt;div style=&quot;text-align: center;&quot;&gt;&lt;div&gt;&quot;LCOM* (Lack of Cohesion of Methods): This metric is a modified version of the current version of LCOM implemented in CK Tool. LCOM* is a normalized metric that computes the lack of cohesion of class within a range of 0 to 1. Then, the closer to 1 the value of LCOM* in a class, the less the cohesion degree of this respective class. The closer to 0 the value of LCOM* in a class, the most the cohesion of this respective class. This implementation follows the third version of LCOM* defined in [1].&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Reference: [1] Henderson-Sellers, Brian, Larry L. Constantine and Ian M. Graham. “Coupling and cohesion (towards a valid metrics suite for object-oriented analysis and design).” Object Oriented Systems 3 (1996): 143-158.&quot;&lt;/div&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-6957" y="-7841" width="224" height="307" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-43" value="&lt;div style=&quot;text-align: center;&quot;&gt;NOC (Number of Children): It counts the number of immediate subclasses that a particular class has.&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-7201" y="-7837" width="224" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-44" value="&lt;div style=&quot;text-align: center;&quot;&gt;DIT (Depth Inheritance Tree): It counts the number of &quot;fathers&quot; a class has. All classes have DIT at least 1 (everyone inherits java.lang.Object). In order to make it happen, classes must exist in the project (i.e. if a class depends upon X which relies in a jar/dependency file, and X depends upon other classes, DIT is counted as 2).&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-6957" y="-8195" width="224" height="146" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-45" value="&lt;div style=&quot;text-align: center;&quot;&gt;RFC (Response for a Class): Counts the number of unique method invocations in a class. As invocations are resolved via static analysis, this implementation fails when a method has overloads with same number of parameters, but different types.&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-7201" y="-8006" width="224" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-46" value="&lt;div style=&quot;text-align: center;&quot;&gt;WMC (Weight Method Class) or McCabe&#39;s complexity. It counts the number of branch instructions in a class.&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-6957" y="-8006" width="224" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-47" value="&lt;ul&gt;&lt;li&gt;The possibility to navigate through the time dimension, and therefore, see the evolution of the code base through the commit history, imposes a strong tool for identifying problems.&lt;/li&gt;&lt;li&gt;Identify patterns in software development -&amp;gt; derive learning on how software quality changes when certain programming habits / patterns are employed&lt;/li&gt;&lt;li&gt;Identify hot spots and points of interest -&amp;gt; code base parts that change very frequently&lt;/li&gt;&lt;li&gt;Cost reduction in development process through easier identification of volatile components that may require refactoring or modernization works&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-6558" y="-7438" width="259" height="301" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-48" value="Customization" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-6720" y="-6989" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="3NDKIxsInulZqSTLDHvB-49" value="&lt;ul&gt;&lt;li&gt;Development teams might need very specific software metrics that they utilize to derive business insights&lt;/li&gt;&lt;li&gt;Development teams might need support for additional programming languages&lt;/li&gt;&lt;li&gt;By taking the microservice approach, users may create their own services that compute software metrics. This includes adding as many metrics as needed for given purposes.&lt;/li&gt;&lt;li&gt;Adds flexibility, expandability, evolvability, and customizability&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-6555" y="-6989" width="259" height="182" as="geometry" />
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-3" value="" style="endArrow=none;html=1;rounded=0;fillColor=#e51400;strokeColor=#B20000;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-11" target="3NDKIxsInulZqSTLDHvB-19" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5826" y="-9750" as="sourcePoint" />
+            <mxPoint x="-5725" y="-9374" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-4" value="&lt;ul&gt;&lt;li&gt;By mapping key software metrics like e.g. number of file changes onto metaphor features like e.g. height, stakeholders quickly identify where development resources are most concentrated, and whether critical business goals are receiving enough attention.&lt;/li&gt;&lt;li&gt;The timeline is crucial for mapping development timelines with business milestones.&lt;/li&gt;&lt;li&gt;Business stakeholders can export and share these insights with other team members, facilitating data-driven devision-making across departments. Supports discussions around resource allocation and scheduling.&lt;/li&gt;&lt;li&gt;Depending on the type of business goal being evaluated, different data types may be more relevant. For example, visuzalizing java-source-code metrics can help understand the progree and complexity of core software systems, while eye-tracking metrics help in understanding how developers perceive the system code base.&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-5281" y="-10335" width="259" height="387" as="geometry" />
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-5" value="" style="endArrow=none;html=1;rounded=0;fillColor=#e51400;strokeColor=#B20000;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-11" target="3NDKIxsInulZqSTLDHvB-28" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5826" y="-9750" as="sourcePoint" />
+            <mxPoint x="-5661" y="-9392" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-7" value="" style="endArrow=none;html=1;rounded=0;fillColor=#e51400;strokeColor=#B20000;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-11" target="3NDKIxsInulZqSTLDHvB-24" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-10203" as="sourcePoint" />
+            <mxPoint x="-5664" y="-8397" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-8" value="" style="endArrow=none;html=1;rounded=0;fillColor=#e51400;strokeColor=#B20000;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-11" target="3NDKIxsInulZqSTLDHvB-16" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-10203" as="sourcePoint" />
+            <mxPoint x="-5664" y="-9755" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-9" value="" style="endArrow=none;html=1;rounded=0;fillColor=#6d8764;strokeColor=#3A5431;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-12" target="3NDKIxsInulZqSTLDHvB-19" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-10203" as="sourcePoint" />
+            <mxPoint x="-5755" y="-9755" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-10" value="&lt;ul&gt;&lt;li&gt;While software systems can become very complex and hard to comprehend, the metaphor mapping helps in displaying lots of information simultaneously.&lt;/li&gt;&lt;li&gt;The Info Panel + Timeline give insights into the evolution of the software. By this, stakeholders can see how past work affects the current state and functionality of the system, which is key for understanding its current context and business value.&lt;/li&gt;&lt;li&gt;The Model Tree structure in combination with the blocks structures of the software city help stakeholders to understand the scope and general structure of the system.&lt;/li&gt;&lt;li&gt;The Snapshot picker allows to specifically drill down between individual snapshot of the code base. This is crucial for showing teams, how the system has changed, and what potential actions could be.&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-5281" y="-9932" width="259" height="357" as="geometry" />
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-11" value="" style="endArrow=none;html=1;rounded=0;fillColor=#6d8764;strokeColor=#3A5431;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-12" target="3NDKIxsInulZqSTLDHvB-27" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5916" y="-9811" as="sourcePoint" />
+            <mxPoint x="-5656" y="-9735" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-12" value="" style="endArrow=none;html=1;rounded=0;fillColor=#6d8764;strokeColor=#3A5431;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-12" target="3NDKIxsInulZqSTLDHvB-28" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-9831" as="sourcePoint" />
+            <mxPoint x="-5664" y="-8547" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-13" value="" style="endArrow=none;html=1;rounded=0;fillColor=#6d8764;strokeColor=#3A5431;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-12" target="3NDKIxsInulZqSTLDHvB-26" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-9831" as="sourcePoint" />
+            <mxPoint x="-5664" y="-9755" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-14" value="" style="endArrow=none;html=1;rounded=0;fillColor=#6d8764;strokeColor=#3A5431;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-12" target="3NDKIxsInulZqSTLDHvB-35" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-9831" as="sourcePoint" />
+            <mxPoint x="-5664" y="-9755" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-15" value="&lt;ul&gt;&lt;li&gt;In terms of becoming familiar with the code base, multiple basic features such as the Model Tree, the city metaphor features, info panel, and fixed city element positions help in that regard.&lt;/li&gt;&lt;li&gt;The possibility of relocating buildings and whole blocks of buildings helps in creating an interactive mindmap of the system.&lt;/li&gt;&lt;li&gt;The different combinations of metaphor mapping allow for additional viewpoints on the to be analyzed repository.&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-5281" y="-9545" width="259" height="183" as="geometry" />
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-16" value="" style="endArrow=none;html=1;rounded=0;fillColor=#e3c800;strokeColor=#B09500;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-13" target="3NDKIxsInulZqSTLDHvB-19" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-9831" as="sourcePoint" />
+            <mxPoint x="-5664" y="-7999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-17" value="" style="endArrow=none;html=1;rounded=0;fillColor=#e3c800;strokeColor=#B09500;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-13" target="3NDKIxsInulZqSTLDHvB-31" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-9449" as="sourcePoint" />
+            <mxPoint x="-5664" y="-9755" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-18" value="" style="endArrow=none;html=1;rounded=0;fillColor=#e3c800;strokeColor=#B09500;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-13" target="3NDKIxsInulZqSTLDHvB-33" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-9449" as="sourcePoint" />
+            <mxPoint x="-5664" y="-7528" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-19" value="" style="endArrow=none;html=1;rounded=0;fillColor=#e3c800;strokeColor=#B09500;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-13" target="3NDKIxsInulZqSTLDHvB-25" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-9449" as="sourcePoint" />
+            <mxPoint x="-5664" y="-7179" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-20" value="" style="endArrow=none;html=1;rounded=0;fillColor=#e3c800;strokeColor=#B09500;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-13" target="3NDKIxsInulZqSTLDHvB-26" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-9449" as="sourcePoint" />
+            <mxPoint x="-5664" y="-8841" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-21" value="" style="endArrow=none;html=1;rounded=0;fillColor=#e3c800;strokeColor=#B09500;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-13" target="3NDKIxsInulZqSTLDHvB-27" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-9449" as="sourcePoint" />
+            <mxPoint x="-5664" y="-8690" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-22" value="&lt;ul&gt;&lt;li&gt;The City Metaphor features in general help in visualizing such &quot;hot spots&quot; in the system.&lt;/li&gt;&lt;li&gt;The Fixed position of city elements is crucial for identifying hot spots, as otherwise the components may seem arbitrarily placed in the city.&lt;/li&gt;&lt;li&gt;Via the metaphor mapping, the user can come up with logical mapping combinations that may reveal insightful information for refactoring purposes.&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-5281" y="-9243" width="259" height="183" as="geometry" />
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-23" value="" style="endArrow=none;html=1;rounded=0;fillColor=#76608a;strokeColor=#432D57;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-14" target="3NDKIxsInulZqSTLDHvB-25" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-9449" as="sourcePoint" />
+            <mxPoint x="-5750" y="-8664" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-24" value="" style="endArrow=none;html=1;rounded=0;fillColor=#76608a;strokeColor=#432D57;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-14" target="3NDKIxsInulZqSTLDHvB-19" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-8938" as="sourcePoint" />
+            <mxPoint x="-5664" y="-8841" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-25" value="" style="endArrow=none;html=1;rounded=0;fillColor=#76608a;strokeColor=#432D57;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-14" target="3NDKIxsInulZqSTLDHvB-33" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-5924" y="-8938" as="sourcePoint" />
+            <mxPoint x="-5664" y="-9755" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-26" value="&lt;ul&gt;&lt;li&gt;Firstly, the camera controls allow good navigation inside the city, and the possibility to drill down into further details of the system. This can become helpful in documenting the code&lt;/li&gt;&lt;li&gt;The timeline value display and the corresponding copy commit hash button provide easy accessability to the individual commits in the code base.&lt;/li&gt;&lt;li&gt;The timeline is a crucial feature for seeing differences between individual snapshots. Like this, a developer can see which components have changed between commits, and therefore, can work on the documentation for those components that have changed recently.&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-5281" y="-8584" width="259" height="244" as="geometry" />
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-27" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#1100ff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-38" target="3NDKIxsInulZqSTLDHvB-31" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6279" y="-8938" as="sourcePoint" />
+            <mxPoint x="-5664" y="-7179" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-28" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#1100ff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-38" target="3NDKIxsInulZqSTLDHvB-37" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6279" y="-8460" as="sourcePoint" />
+            <mxPoint x="-5664" y="-7528" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-29" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#1100ff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-38" target="3NDKIxsInulZqSTLDHvB-36" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6279" y="-8460" as="sourcePoint" />
+            <mxPoint x="-5664" y="-8127" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-30" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#1100ff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-38" target="3NDKIxsInulZqSTLDHvB-28" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6279" y="-8460" as="sourcePoint" />
+            <mxPoint x="-5664" y="-8256" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-32" value="&lt;ul&gt;&lt;li&gt;The city metaphor features are an ideal way to convey as much information as needed to the user.&lt;/li&gt;&lt;li&gt;The computed metrics alone impose a strong tool for evaluating the underlying source code. Therefore, the analysis bottleneck is the quality of the computed metrics. This is also the reason why a plain tabular view of the metrics data is already quite helpful. Because the user is able to sort the data by its columns, it is also easy to navigate and control.&lt;/li&gt;&lt;li&gt;The usefulness of the software city depends on the combination of the metaphor mapping that the user specifies. For example the combination of size of a module together with any complexity metric imposes a strong argument for whether a component should be refactored or not.&lt;/li&gt;&lt;li&gt;Furthermore, the GUI component helps in bringing the city into a state where every city element is clearly visible and well proportioned.&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-5281" y="-8241" width="259" height="359" as="geometry" />
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-33" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#04ff00;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-40" target="3NDKIxsInulZqSTLDHvB-17" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6279" y="-8460" as="sourcePoint" />
+            <mxPoint x="-5664" y="-7528" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-34" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#04ff00;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-40" target="3NDKIxsInulZqSTLDHvB-19" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6279" y="-8034" as="sourcePoint" />
+            <mxPoint x="-5664" y="-10020" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-35" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#04ff00;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-40" target="3NDKIxsInulZqSTLDHvB-25" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6279" y="-8034" as="sourcePoint" />
+            <mxPoint x="-5664" y="-9755" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-36" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#04ff00;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-40" target="3NDKIxsInulZqSTLDHvB-30" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6279" y="-8034" as="sourcePoint" />
+            <mxPoint x="-5850" y="-7300" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-37" value="&lt;ul&gt;&lt;li&gt;By mapping specific metrics related to code volatility, like frequency of changes, to visual features like height, it becomes easier to see which parts of the code base are evolving the most. This feature provides clear visual cues that can highlight patterns of frequent modifications or problem areas that need attention.&lt;/li&gt;&lt;li&gt;The Info Panel provides a good insight into how the metrics of one particular city element changed over time, while also giving the possibility to display the rest of all elements.&lt;/li&gt;&lt;li&gt;By highlighting elements with a specific color, it becomes easier to keep track of certain city elements while scrolling through time. This can also be achieved by using the arrow indicator.&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-5281" y="-7469" width="259" height="282" as="geometry" />
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-38" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#ff00f7;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-47" target="3NDKIxsInulZqSTLDHvB-33" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6173" y="-7438" as="sourcePoint" />
+            <mxPoint x="-5558" y="-7085" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-39" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#ff00f7;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-47" target="3NDKIxsInulZqSTLDHvB-32" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6289" y="-7277" as="sourcePoint" />
+            <mxPoint x="-5664" y="-7179" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-40" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#ff00f7;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-47" target="3NDKIxsInulZqSTLDHvB-27" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6289" y="-7277" as="sourcePoint" />
+            <mxPoint x="-5664" y="-7372" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-41" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#ff00f7;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-47" target="3NDKIxsInulZqSTLDHvB-34" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6289" y="-7277" as="sourcePoint" />
+            <mxPoint x="-5664" y="-7179" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-42" value="&lt;ul&gt;&lt;li&gt;For customization purposes there are multiple features that come into play. Firstly, the easy expandable aggregation functions provide a way of how the city should be built, while imposing a blueprint of how to do it. If someone wants to implement his own aggregation function, just copy one of the aggregation functions, and customize it. Additionally add an entry to the drop down list and the aggregation-function-controller.&lt;/li&gt;&lt;li&gt;The distributed architecture of the backend allows to easily implement customized metrics computation services and plug them to the backend service. By doing this, new programming languages and new metrics can be analyzed.&lt;/li&gt;&lt;/ul&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-5281" y="-7015" width="259" height="282" as="geometry" />
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-43" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#00ffee;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-49" target="3NDKIxsInulZqSTLDHvB-29" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6289" y="-7277" as="sourcePoint" />
+            <mxPoint x="-5664" y="-6982" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-44" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#00ffee;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-49" target="3NDKIxsInulZqSTLDHvB-20" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6286" y="-6888" as="sourcePoint" />
+            <mxPoint x="-5664" y="-7842" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UzP_Vv9IilWfBKjCq-jI-45" value="" style="endArrow=none;html=1;rounded=0;fillColor=#fa6800;strokeColor=#00ffee;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="3NDKIxsInulZqSTLDHvB-49" target="3NDKIxsInulZqSTLDHvB-21" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-6276" y="-6878" as="sourcePoint" />
+            <mxPoint x="-5664" y="-9616" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
