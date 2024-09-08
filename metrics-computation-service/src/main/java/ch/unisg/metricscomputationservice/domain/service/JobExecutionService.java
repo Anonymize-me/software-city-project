@@ -85,7 +85,8 @@ public class JobExecutionService {
                             .collect(Collectors.groupingBy(MetricsDataRow::getFile));
 
                     for (Map.Entry<String, List<MetricsDataRow>> entry : groupedByFile.entrySet()) {
-                        MetricsDataRow consolidatedRow = new MetricsDataRow(entry.getValue());
+                        MetricsDataRow consolidatedRow = new MetricsDataRow(entry.getKey(), formattedDate,
+                                entry.getValue());
                         job.addMetricsDataRow(consolidatedRow);
                     }
 

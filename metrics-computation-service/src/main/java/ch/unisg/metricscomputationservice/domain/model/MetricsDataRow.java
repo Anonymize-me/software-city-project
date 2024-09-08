@@ -65,11 +65,11 @@ public class MetricsDataRow {
 //    private String modifiers;
 //    private double logStatementsQty;
 
-    public MetricsDataRow(List<MetricsDataRow> metricsDataRows) {
-        this.timestamp = metricsDataRows.get(0).getTimestamp();
+    public MetricsDataRow(String file, String timestamp, List<MetricsDataRow> metricsDataRows) {
+        this.timestamp = timestamp;
         this.commitNumber = metricsDataRows.get(0).getCommitNumber();
         this.commitHash = metricsDataRows.get(0).getCommitHash();
-        this.file = metricsDataRows.get(0).getFile();
+        this.file = file;
 
         this.cbo = metricsDataRows.stream().mapToDouble(MetricsDataRow::getCbo).average().orElse(0);
         this.wmc = metricsDataRows.stream().mapToDouble(MetricsDataRow::getWmc).average().orElse(0);
@@ -77,15 +77,15 @@ public class MetricsDataRow {
         this.noc = metricsDataRows.stream().mapToDouble(MetricsDataRow::getNoc).average().orElse(0);
         this.rfc = metricsDataRows.stream().mapToDouble(MetricsDataRow::getRfc).average().orElse(0);
         this.lcomStar = metricsDataRows.stream().mapToDouble(MetricsDataRow::getLcomStar).average().orElse(0);
-        this.totalMethodsQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getTotalMethodsQty).average().orElse(0);
-        this.totalFieldsQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getTotalFieldsQty).average().orElse(0);
-        this.loc = metricsDataRows.stream().mapToDouble(MetricsDataRow::getLoc).average().orElse(0);
-        this.loopQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getLoopQty).average().orElse(0);
-        this.tryCatchQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getTryCatchQty).average().orElse(0);
-        this.mathOperationsQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getMathOperationsQty).average().orElse(0);
-        this.variablesQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getVariablesQty).average().orElse(0);
-        this.innerClassesQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getInnerClassesQty).average().orElse(0);
-        this.uniqueWordsQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getUniqueWordsQty).average().orElse(0);
+        this.totalMethodsQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getTotalMethodsQty).sum();
+        this.totalFieldsQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getTotalFieldsQty).sum();
+        this.loc = metricsDataRows.stream().mapToDouble(MetricsDataRow::getLoc).sum();
+        this.loopQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getLoopQty).sum();
+        this.tryCatchQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getTryCatchQty).sum();
+        this.mathOperationsQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getMathOperationsQty).sum();
+        this.variablesQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getVariablesQty).sum();
+        this.innerClassesQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getInnerClassesQty).sum();
+        this.uniqueWordsQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getUniqueWordsQty).sum();
     }
 
     public MetricsDataRow(String[] fields) {
