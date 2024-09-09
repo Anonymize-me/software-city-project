@@ -31,6 +31,43 @@ export default class InfoPanelBuilder {
    setCityElements(buildings, planes) {
       this.cityElements = planes.concat(buildings);
       this.buildings = buildings;
+
+      // Create datasets for the charts
+      this.allTimestamps = [];
+      this.heightMetaphorDatasets = [];
+      this.hueMetaphorDatasets = [];
+      this.lightnessMetaphorDatasets = [];
+
+      this.buildings.forEach((building) => {
+         for (const entry of building.buildingData) {
+            if (!this.allTimestamps.includes(entry.timestamp)) {
+               this.allTimestamps.push(entry.timestamp);
+            }
+            this.heightMetaphorDatasets.push({
+               x: entry.timestamp,
+               y: parseFloat(entry[this.cityMetaphor.metaphorSelection.height]),
+               buildingName: entry.groupingPath.substring(
+                   entry.groupingPath.lastIndexOf(";") + 1
+               ),
+            });
+            this.hueMetaphorDatasets.push({
+               x: entry.timestamp,
+               y: parseFloat(entry[this.cityMetaphor.metaphorSelection.hue]),
+               buildingName: entry.groupingPath.substring(
+                   entry.groupingPath.lastIndexOf(";") + 1
+               ),
+            });
+            this.lightnessMetaphorDatasets.push({
+               x: entry.timestamp,
+               y: parseFloat(
+                   entry[this.cityMetaphor.metaphorSelection.lightness]
+               ),
+               buildingName: entry.groupingPath.substring(
+                   entry.groupingPath.lastIndexOf(";") + 1
+               ),
+            });
+         }
+      });
    }
 
    resetInfo() {
@@ -109,14 +146,23 @@ export default class InfoPanelBuilder {
          dataHeightMetaphor.push({
             x: entry.timestamp,
             y: parseFloat(entry[this.cityMetaphor.metaphorSelection.height]),
+            buildingName: entry.groupingPath.substring(
+                entry.groupingPath.lastIndexOf(";") + 1
+            ),
          });
          dataHueMetaphor.push({
             x: entry.timestamp,
             y: parseFloat(entry[this.cityMetaphor.metaphorSelection.hue]),
+            buildingName: entry.groupingPath.substring(
+                entry.groupingPath.lastIndexOf(";") + 1
+            ),
          });
          dataLightnessMetaphor.push({
             x: entry.timestamp,
             y: parseFloat(entry[this.cityMetaphor.metaphorSelection.lightness]),
+            buildingName: entry.groupingPath.substring(
+                entry.groupingPath.lastIndexOf(";") + 1
+            ),
          });
       });
 
@@ -128,46 +174,22 @@ export default class InfoPanelBuilder {
          return {
             x: entry.x,
             y: entry.y,
+            buildingName: entry.buildingName
          };
       });
       dataHueMetaphor = dataHueMetaphor.map((entry) => {
          return {
             x: entry.x,
             y: entry.y,
+            buildingName: entry.buildingName
          };
       });
       dataLightnessMetaphor = dataLightnessMetaphor.map((entry) => {
          return {
             x: entry.x,
             y: entry.y,
+            buildingName: entry.buildingName
          };
-      });
-
-      const allTimestamps = [];
-      const heightMetaphorDatasets = [];
-      const hueMetaphorDatasets = [];
-      const lightnessMetaphorDatasets = [];
-
-      this.buildings.forEach((building) => {
-         for (const entry of building.buildingData) {
-            if (!allTimestamps.includes(entry.timestamp)) {
-               allTimestamps.push(entry.timestamp);
-            }
-            heightMetaphorDatasets.push({
-               x: entry.timestamp,
-               y: parseFloat(entry[this.cityMetaphor.metaphorSelection.height]),
-            });
-            hueMetaphorDatasets.push({
-               x: entry.timestamp,
-               y: parseFloat(entry[this.cityMetaphor.metaphorSelection.hue]),
-            });
-            lightnessMetaphorDatasets.push({
-               x: entry.timestamp,
-               y: parseFloat(
-                  entry[this.cityMetaphor.metaphorSelection.lightness]
-               ),
-            });
-         }
       });
 
       // Building the Charts
@@ -224,6 +246,15 @@ export default class InfoPanelBuilder {
                      bottom: 15,
                   },
                },
+               tooltip: {
+                  callbacks: {
+                     label: (context) => {
+                        const datapoint = context.dataset.data[context.dataIndex];
+                        return `${datapoint.buildingName}: (${datapoint.x}, ${datapoint.y})` || 'Unknown' +
+                            ' Building';
+                     },
+                  },
+               },
                beforeUpdate: (chart) => {
                   const yStepSize = Math.max(1, Math.floor(chart.height / 50));
                   chart.options.scales.y.ticks.stepSize = yStepSize;
@@ -266,7 +297,7 @@ export default class InfoPanelBuilder {
                {
                   type: "scatter",
                   label: "All Buildings",
-                  data: heightMetaphorDatasets,
+                  data: this.heightMetaphorDatasets,
                   order: 2,
                   backgroundColor: "rgba(255, 99, 132, 0.2)",
                },
@@ -278,7 +309,7 @@ export default class InfoPanelBuilder {
                   backgroundColor: "rgba(54, 162, 235, 1)",
                },
             ],
-            labels: allTimestamps,
+            labels: this.allTimestamps,
          },
          options: {
             plugins: {
@@ -291,6 +322,15 @@ export default class InfoPanelBuilder {
                   padding: {
                      top: 30,
                      bottom: 15,
+                  },
+               },
+               tooltip: {
+                  callbacks: {
+                     label: (context) => {
+                        const datapoint = context.dataset.data[context.dataIndex];
+                        return `${datapoint.buildingName}: (${datapoint.x}, ${datapoint.y})` || 'Unknown' +
+                            ' Building';
+                     },
                   },
                },
                beforeUpdate: (chart) => {
@@ -335,7 +375,7 @@ export default class InfoPanelBuilder {
                {
                   type: "scatter",
                   label: "All Buildings",
-                  data: hueMetaphorDatasets,
+                  data: this.hueMetaphorDatasets,
                   order: 2,
                   backgroundColor: "rgba(255, 99, 132, 0.2)",
                },
@@ -347,7 +387,7 @@ export default class InfoPanelBuilder {
                   backgroundColor: "rgba(54, 162, 235, 1)",
                },
             ],
-            labels: allTimestamps,
+            labels: this.allTimestamps,
          },
          options: {
             plugins: {
@@ -360,6 +400,15 @@ export default class InfoPanelBuilder {
                   padding: {
                      top: 30,
                      bottom: 15,
+                  },
+               },
+               tooltip: {
+                  callbacks: {
+                     label: (context) => {
+                        const datapoint = context.dataset.data[context.dataIndex];
+                        return `${datapoint.buildingName}: (${datapoint.x}, ${datapoint.y})` || 'Unknown' +
+                            ' Building';
+                     },
                   },
                },
                beforeUpdate: (chart) => {
@@ -406,7 +455,7 @@ export default class InfoPanelBuilder {
                   {
                      type: "scatter",
                      label: "All Buildings",
-                     data: lightnessMetaphorDatasets,
+                     data: this.lightnessMetaphorDatasets,
                      order: 2,
                      backgroundColor: "rgba(255, 99, 132, 0.2)",
                   },
@@ -418,7 +467,7 @@ export default class InfoPanelBuilder {
                      backgroundColor: "rgba(54, 162, 235, 1)",
                   },
                ],
-               labels: allTimestamps,
+               labels: this.allTimestamps,
             },
             options: {
                plugins: {
@@ -431,6 +480,15 @@ export default class InfoPanelBuilder {
                      padding: {
                         top: 30,
                         bottom: 15,
+                     },
+                  },
+                  tooltip: {
+                     callbacks: {
+                        label: (context) => {
+                           const datapoint = context.dataset.data[context.dataIndex];
+                           return `${datapoint.buildingName}: (${datapoint.x}, ${datapoint.y})` || 'Unknown' +
+                               ' Building';
+                        },
                      },
                   },
                   beforeUpdate: (chart) => {
