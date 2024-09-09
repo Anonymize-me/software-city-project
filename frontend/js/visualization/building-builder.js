@@ -48,22 +48,20 @@ export default class BuildingBuilder {
                newColorHSL.l += 0.5;
             }
 
-            let highlightedColor = new THREE.Color().setHSL(
-               newColorHSL.h,
-               newColorHSL.s,
-               newColorHSL.l
+            building.material.color = new THREE.Color().setHSL(
+                newColorHSL.h,
+                newColorHSL.s,
+                newColorHSL.l
             );
-            building.material.color = highlightedColor;
 
             const originalHSL = { h: colorHSL.h, s: colorHSL.s, l: colorHSL.l };
 
             building.unhighlight = () => {
-               let unhighlightedColor = new THREE.Color().setHSL(
-                  originalHSL.h,
-                  originalHSL.s,
-                  originalHSL.l
+               building.material.color = new THREE.Color().setHSL(
+                   originalHSL.h,
+                   originalHSL.s,
+                   originalHSL.l
                );
-               building.material.color = unhighlightedColor;
 
                building.unhighlight = undefined;
             };
