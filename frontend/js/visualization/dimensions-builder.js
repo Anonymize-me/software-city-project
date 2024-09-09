@@ -1,5 +1,6 @@
 import { minDimension, maxDimension } from "./config";
 import { getDataType } from "../data";
+import {min} from "three/nodes";
 
 export default class DimensionsBuilder {
    constructor(cityMetaphor) {
@@ -53,11 +54,16 @@ export default class DimensionsBuilder {
             );
          }
 
-         building.scale.x =
-            ((dimensionMetaphorValue - minDimension) /
-               (maxDimensionMetaphorValue - minDimensionMetaphorValue)) *
-               (maxDimension - minDimension) +
-            minDimension;
+         let size = null;
+         if (maxDimensionMetaphorValue === minDimensionMetaphorValue) {
+            size = (maxDimension - minDimension) / 2 + minDimension;
+         } else {
+            size = ((dimensionMetaphorValue - minDimension) /
+                    (maxDimensionMetaphorValue - minDimensionMetaphorValue)) *
+                (maxDimension - minDimension) +
+                minDimension;
+         }
+         building.scale.x = size;
          building.scale.z = building.scale.x;
          building.visible = true;
       }

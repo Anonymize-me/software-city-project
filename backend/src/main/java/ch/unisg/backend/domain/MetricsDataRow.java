@@ -10,8 +10,8 @@ public class MetricsDataRow {
     private String timestamp;
     private int commitNumber;
     private String commitHash;
-
     private String file;
+    private int noMetric;
 //    private String className;
 //    private String type;
     private double cbo;

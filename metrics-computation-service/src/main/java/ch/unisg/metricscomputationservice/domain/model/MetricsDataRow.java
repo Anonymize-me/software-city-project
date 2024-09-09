@@ -11,8 +11,8 @@ public class MetricsDataRow {
     private String timestamp;
     private int commitNumber;
     private String commitHash;
-
     private String file;
+    private int noMetric;
 //    private String className;
 //    private String type;
     private double cbo;
@@ -70,6 +70,7 @@ public class MetricsDataRow {
         this.commitNumber = metricsDataRows.get(0).getCommitNumber();
         this.commitHash = metricsDataRows.get(0).getCommitHash();
         this.file = file;
+        this.noMetric = 1;
 
         this.cbo = metricsDataRows.stream().mapToDouble(MetricsDataRow::getCbo).average().orElse(0);
         this.wmc = metricsDataRows.stream().mapToDouble(MetricsDataRow::getWmc).average().orElse(0);
@@ -96,6 +97,8 @@ public class MetricsDataRow {
         }
 
         this.file = fields[0];
+        this.noMetric = 0;
+
 //        this.className = fields[1];
 //        this.type = fields[2];
         this.cbo = Double.parseDouble(fields[3]);

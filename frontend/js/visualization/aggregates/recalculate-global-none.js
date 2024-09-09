@@ -32,14 +32,14 @@ const recalculateGlobalNone = (
 
    const lightnessMetaphor = cityMetaphor.metaphorSelection.lightness;
 
-   let minDimensionValue = 0;
-   let maxDimensionValue = 0;
-   let maxHeightValue = 0;
-   let minHeightValue = 0;
-   let maxHueValue = 0;
-   let minHueValue = 0;
-   let maxLightnessValue = 0;
-   let minLightnessValue = 0;
+   let minDimensionValue = Infinity;
+   let maxDimensionValue = -Infinity;
+   let maxHeightValue = -Infinity;
+   let minHeightValue = Infinity;
+   let maxHueValue = -Infinity;
+   let minHueValue = Infinity;
+   let maxLightnessValue = -Infinity;
+   let minLightnessValue = Infinity;
 
    const buildings = cityElements.filter(
       (cityElement) => cityElement.elementType === "building"
@@ -121,20 +121,29 @@ const recalculateGlobalNone = (
 
       // Dimension
       if (getDataType() === "java-source-code") {
-         buildingElement.scale.x =
-            ((lastSeenDimensionValue - minDimension) /
-               (maxDimensionValue - minDimensionValue)) *
-               (maxDimension - minDimension) +
-            minDimension;
-         buildingElement.scale.z = buildingElement.scale.x;
+         if (maxDimensionValue === minDimensionValue) {
+            buildingElement.scale.x = (maxDimension - minDimension) / 2 + minDimension;
+            buildingElement.scale.z = buildingElement.scale.x;
+         } else {
+            buildingElement.scale.x =
+                ((lastSeenDimensionValue - minDimension) /
+                    (maxDimensionValue - minDimensionValue)) *
+                (maxDimension - minDimension) +
+                minDimension;
+            buildingElement.scale.z = buildingElement.scale.x;
+         }
       }
 
       // Height
-      buildingElement.scale.y =
-         ((lastSeenHeightValue - minHeight) /
-            (maxHeightValue - minHeightValue)) *
-            (maxHeight - minHeight) +
-         minHeight;
+      if (maxHeightValue === minHeightValue) {
+         buildingElement.scale.y = (maxHeight - minHeight) / 2 + minHeight;
+      } else {
+         buildingElement.scale.y =
+             ((lastSeenHeightValue - minHeight) /
+                 (maxHeightValue - minHeightValue)) *
+             (maxHeight - minHeight) +
+             minHeight;
+      }
 
       // Also take into account the 'scale' and 'normalize' values from the dat.gui
       const scaleValue = guiBuilder.optionsHeightMetaphor.scale;
@@ -148,10 +157,14 @@ const recalculateGlobalNone = (
       // Color
       let hue = null;
       if (buildingElement.baseColor === undefined) {
-         hue =
-            ((lastSeenHueValue - minHue) / (maxHueValue - minHueValue)) *
-               (maxHue - minHue) +
-            minHue;
+         if (maxHueValue === minHueValue) {
+            hue = (maxHue - minHue) / 2 + minHue;
+         } else {
+            hue =
+             ((lastSeenHueValue - minHue) / (maxHueValue - minHueValue)) *
+             (maxHue - minHue) +
+             minHue;
+         }
       } else {
          hue = buildingElement.baseColor.h;
       }
@@ -161,11 +174,16 @@ const recalculateGlobalNone = (
             ? saturationValueForBuildingsBelowThreshold
             : 1;
 
-      const lightness =
-         ((lastSeenLightnessValue - minLightness) /
-            (maxLightnessValue - minLightnessValue)) *
-            (maxLightness - minLightness) +
-         minLightness;
+      let lightness = null;
+      if (maxHueValue === minHueValue) {
+         lightness = (maxLightness - minLightness) / 2 + minLightness;
+      } else {
+         lightness =
+             ((lastSeenLightnessValue - minLightness) /
+                 (maxLightnessValue - minLightnessValue)) *
+             (maxLightness - minLightness) +
+             minLightness;
+      }
 
       if (buildingElement.visible) {
          buildingElement.material.color = new THREE.Color().setHSL(
