@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class MetricsDataRow {
 
+    private String repoUrl;
     private String timestamp;
     private int commitNumber;
     private String commitHash;
@@ -65,7 +66,9 @@ public class MetricsDataRow {
 //    private String modifiers;
 //    private double logStatementsQty;
 
-    public MetricsDataRow(String file, String timestamp, List<MetricsDataRow> metricsDataRows) {
+    public MetricsDataRow(String repoUrl, String file, String timestamp,
+                          List<MetricsDataRow> metricsDataRows) {
+        this.repoUrl = repoUrl;
         this.timestamp = timestamp;
         this.commitNumber = metricsDataRows.get(0).getCommitNumber();
         this.commitHash = metricsDataRows.get(0).getCommitHash();
@@ -89,7 +92,10 @@ public class MetricsDataRow {
         this.uniqueWordsQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getUniqueWordsQty).sum();
     }
 
-    public MetricsDataRow(String[] fields) {
+    public MetricsDataRow(String repoUrl, String[] fields) {
+
+        this.repoUrl = repoUrl;
+
         for (int i = 0; i < fields.length; i++) {
             if (fields[i].equals("NaN") || fields[i] == null || fields[i].isEmpty()) {
                 fields[i] = "0";

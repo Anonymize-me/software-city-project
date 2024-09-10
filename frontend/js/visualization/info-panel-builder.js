@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import {getDataType} from "../data.js";
 
 export default class InfoPanelBuilder {
    constructor(cityMetaphor) {
@@ -120,6 +121,26 @@ export default class InfoPanelBuilder {
                newElement.appendChild(dataElement);
             }
             this.infoPanelDiv.appendChild(newElement);
+         } else if (entry === "buildingName" && getDataType() === "java-source-code") {
+            let url = this.currentCityElement.buildingData[0].repoUrl;
+            url = url + "/tree/" + document.getElementById("commit-hash").textContent;
+            let splits = info.groupingPath.replace(/;/g, "/").split("/");
+            let groupingPath = "";
+            for (let i = 3; i < splits.length; i++) {
+                groupingPath = groupingPath + "/" + splits[i];
+            }
+            groupingPath = groupingPath + ".java";
+            url = url + groupingPath;
+            let hyperlink = document.createElement("a");
+            hyperlink.innerHTML = info[entry];
+            hyperlink.href = url;
+            hyperlink.target = "_blank";
+
+            let newElement = document.createElement("p");
+            newElement.innerHTML = `<strong>${entry}:</strong>`;
+            newElement.style.marginBottom = "0px";
+            this.infoPanelDiv.appendChild(newElement);
+            this.infoPanelDiv.appendChild(hyperlink);
          } else {
             let newElement = document.createElement("p");
             newElement.innerHTML = `<strong>${entry}:</strong><br>${info[entry]}`;
