@@ -255,6 +255,7 @@ export default class InfoPanelBuilder {
             ],
          },
          options: {
+            resizeDelay: 200,
             plugins: {
                title: {
                   display: true,
@@ -277,8 +278,7 @@ export default class InfoPanelBuilder {
                   },
                },
                beforeUpdate: (chart) => {
-                  const yStepSize = Math.max(1, Math.floor(chart.height / 50));
-                  chart.options.scales.y.ticks.stepSize = yStepSize;
+                  chart.options.scales.y.ticks.stepSize = Math.max(1, Math.floor(chart.height / 50));
                },
             },
             scales: {
@@ -333,6 +333,7 @@ export default class InfoPanelBuilder {
             labels: this.allTimestamps,
          },
          options: {
+            resizeDelay: 200,
             plugins: {
                title: {
                   display: true,
@@ -355,8 +356,7 @@ export default class InfoPanelBuilder {
                   },
                },
                beforeUpdate: (chart) => {
-                  const yStepSize = Math.max(1, Math.floor(chart.height / 50));
-                  chart.options.scales.y.ticks.stepSize = yStepSize;
+                  chart.options.scales.y.ticks.stepSize = Math.max(1, Math.floor(chart.height / 50));
                },
             },
             scales: {
@@ -411,6 +411,7 @@ export default class InfoPanelBuilder {
             labels: this.allTimestamps,
          },
          options: {
+            resizeDelay: 200,
             plugins: {
                title: {
                   display: true,
@@ -433,8 +434,7 @@ export default class InfoPanelBuilder {
                   },
                },
                beforeUpdate: (chart) => {
-                  const yStepSize = Math.max(1, Math.floor(chart.height / 50));
-                  chart.options.scales.y.ticks.stepSize = yStepSize;
+                  chart.options.scales.y.ticks.stepSize = Math.max(1, Math.floor(chart.height / 50));
                },
             },
             scales: {
@@ -491,6 +491,7 @@ export default class InfoPanelBuilder {
                labels: this.allTimestamps,
             },
             options: {
+               resizeDelay: 200,
                plugins: {
                   title: {
                      display: true,
@@ -513,11 +514,10 @@ export default class InfoPanelBuilder {
                      },
                   },
                   beforeUpdate: (chart) => {
-                     const yStepSize = Math.max(
-                        1,
-                        Math.floor(chart.height / 50)
+                     chart.options.scales.y.ticks.stepSize = Math.max(
+                         1,
+                         Math.floor(chart.height / 50)
                      );
-                     chart.options.scales.y.ticks.stepSize = yStepSize;
                   },
                },
                scales: {
