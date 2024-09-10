@@ -78,10 +78,10 @@ the following procedure:
 - Scroll through the timeline, to see high-volatile areas
 - Firstly, it is necessary to keep in mind, that during the development process some components might get
   renamed, moved, deleted, or new components are created. This is visible by scrolling through the timeline.
-- Next, look for extreme "LOC" values in the timeline, and find the commits before and after the comment 
+- Next, look for extreme "LOC" values in the timeline, and find the commits before and after the commit 
   in which the "LOC" value has drastically changed. When those boundary commits have been found, 
   further drill down, by having a look at the changes in the code, to see what has been changed.
-- Build overview by looking at the city:
+- Obtain bird-eye by looking at the city:
   - Identify high-volatile areas
   - Identify key components
   - Obtain feeling of the size of the components
@@ -93,7 +93,7 @@ Going through the procedure described above, I have found the following things, 
 Example Repository: CloudflareAPI (https://github.com/robinbraemer/CloudflareAPI)
 
 In the current state, the repository is not very big, and the visualization is easy to understand.
-The repository has had three "main" classes: "UserService", "DNSRecordService", and "ZoneService". Those 
+The repository has had three "main" classes: "UserService" and "ZoneService". Those 
 services got deleted in the commit number 28, and never reappeared. This is a clear indicator, that the
 repository has been refactored, and the services have been moved to another location.
 In the current state, the system is composed of one main package "objects" that contains definitions for 
@@ -142,7 +142,7 @@ classes, I utilized the metrics described in the CK Metrics Suite.
 In this next example, I want to display how to find modules or classes inside the to-be-analyzed
 repository that are not optimal, using the (CK Metrics Suite)[https://medium.com/@benkaddourmed54/analyzing-ck-metrics-results-and-quality-assessment-a70ba56534f0]. 
 The CK Metrics Suite consists of the following six metrics:
-- 
+
 - CBO: Coupling between object classes
 - DIT: Depth of inheritance tree
 - LCOM*: Lack of cohesion in methods (LCOM* is a slightly modified version of the standard LCOM metric, 
@@ -164,7 +164,7 @@ Classes with high values in multiple metrics are likely "hot spots" in the code,
 addressed first for refactoring. To achieve this, I set the size of the building to the metric 
 CBO, the height of the building to the metric RFC, and the color-hue to the metric WMC. This way, 
 classes with high values in all three metrics will be displayed either BIG, TALL, and/or in CYAN COLOR. 
-Because we always want to tackle the "big fish" first, I  also set the LOC metric to the 
+Because we always want to tackle the "big fish" first, I also set the LOC metric to the 
 color-lightness. This way, if a class has a low LOC value, the building will be displayed in a LIGHT COLOR, 
 and it can be ignored for now.
 
@@ -247,7 +247,7 @@ even more valuable, more precise, and more efficient.
 - if code components get renamed, they will reappear somewhere different in the visualized city. This
   imposes a problem, as this suggests that something has changed, while in reality only the name of the
   super folder could have changed. There must be a way how to mitigate this problem by somehow match
-  components together that just have been renamed or similar.
+  components together that just have been renamed or are similar.
   - Example: You can see that perfectly in this repository, where you have in the complete model tree
     structure three directories that are named "cloudflare", or "cloudflare_old". Between the commit
     numbers 13 and 14, the folder structure has changed from "cloudflare/..." to "src/...". Between The
