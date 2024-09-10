@@ -173,7 +173,6 @@ export default class GuiBuilder {
 
       this.optionsHeightMetaphor = {
          scale: 1.0,
-         normalize: 1.0,
       };
 
       let heightMetaphorFolder = metaphorsFolder.addFolder("Height");
@@ -181,20 +180,6 @@ export default class GuiBuilder {
       heightMetaphorFolder
          .add(this.optionsHeightMetaphor, "scale", 0.0, 2.0)
          .name("Scale")
-         .onChange((value) => {
-            recalculateController(
-               this.cityMetaphor,
-               this.cityElements,
-               this.modelTreeBuilder,
-               this.sliderBuilder,
-               this,
-               this.infoPanelBuilder
-            );
-         });
-
-      heightMetaphorFolder
-         .add(this.optionsHeightMetaphor, "normalize", 0.0, 2.0)
-         .name("Normalize")
          .onChange((value) => {
             recalculateController(
                this.cityMetaphor,

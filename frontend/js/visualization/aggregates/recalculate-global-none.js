@@ -145,12 +145,10 @@ const recalculateGlobalNone = (
              minHeight;
       }
 
-      // Also take into account the 'scale' and 'normalize' values from the dat.gui
+      // Also take into account the 'scale' value from the dat.gui
       const scaleValue = guiBuilder.optionsHeightMetaphor.scale;
-      const normalizeValue = guiBuilder.optionsHeightMetaphor.normalize;
 
       buildingElement.scale.y *= scaleValue;
-      buildingElement.scale.y /= normalizeValue;
 
       buildingElement.position.y = buildingElement.scale.y / 2 + 0.2;
 
