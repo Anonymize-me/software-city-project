@@ -102,16 +102,16 @@ export default class GuiBuilder {
             } else {
                this.enableController(thresholdController);
                this.enableController(saturationController);
-
-               recalculateController(
-                  this.cityMetaphor,
-                  this.cityElements,
-                  this.modelTreeBuilder,
-                  this.sliderBuilder,
-                  this,
-                  this.infoPanelBuilder
-               );
             }
+
+            recalculateController(
+                this.cityMetaphor,
+                this.cityElements,
+                this.modelTreeBuilder,
+                this.sliderBuilder,
+                this,
+                this.infoPanelBuilder
+            );
          });
 
       // Optionally, adjust the width of the surrounding controller container

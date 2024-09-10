@@ -167,10 +167,15 @@ const recalculateGlobalNone = (
          hue = buildingElement.baseColor.h;
       }
 
-      const saturation =
-         lastSeenSaturationValue <= saturationThreshold
-            ? saturationValueForBuildingsBelowThreshold
-            : 1;
+      let saturation = null;
+      if (saturationMetaphor !== "") {
+         saturation =
+             lastSeenSaturationValue <= saturationThreshold
+                 ? saturationValueForBuildingsBelowThreshold
+                 : 1;
+      } else {
+            saturation = 1;
+      }
 
       let lightness = null;
       if (maxLightnessValue === minLightnessValue) {
