@@ -156,12 +156,12 @@ const recalculateGlobalNone = (
       let hue = null;
       if (buildingElement.baseColor === undefined) {
          if (maxHueValue === minHueValue) {
-            hue = (maxHue - minHue) / 2 + minHue;
+            hue = maxHue - ((maxHue - minHue) / 2 + minHue);
          } else {
             hue =
-             ((lastSeenHueValue - minHue) / (maxHueValue - minHueValue)) *
+             maxHue - (((lastSeenHueValue - minHue) / (maxHueValue - minHueValue)) *
              (maxHue - minHue) +
-             minHue;
+             minHue);
          }
       } else {
          hue = buildingElement.baseColor.h;
@@ -173,7 +173,7 @@ const recalculateGlobalNone = (
             : 1;
 
       let lightness = null;
-      if (maxHueValue === minHueValue) {
+      if (maxLightnessValue === minLightnessValue) {
          lightness = (maxLightness - minLightness) / 2 + minLightness;
       } else {
          lightness =

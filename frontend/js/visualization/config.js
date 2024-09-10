@@ -8,9 +8,9 @@ const maxDimension = 10;
 const minHeight = 0.5;
 const maxHeight = 25;
 const minHue = 0;
-const maxHue = 0.5;
-const minLightness = 0;
-const maxLightness = 1;
+const maxHue = 0.65;
+const minLightness = 0.2;
+const maxLightness = 0.5;
 
 export {
    planeHeight,
