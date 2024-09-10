@@ -320,8 +320,8 @@ i {
    max-width: unset;
    width: 20%;
    height: 55%;
-   top: 32%;
-   left: 10%;
+   top: 6%;
+   left: 0;
 }
 
 #frame-info {
@@ -330,9 +330,9 @@ i {
    overflow: auto;
    max-width: unset;
    width: 20%;
-   height: 40%;
-   top: 80%;
-   left: 10%;
+   height: 38%;
+   top: 62%;
+   left: 0;
 }
 
 .frame-title {

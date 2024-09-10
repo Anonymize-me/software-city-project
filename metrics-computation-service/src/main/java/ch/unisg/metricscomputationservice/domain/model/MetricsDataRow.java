@@ -68,11 +68,16 @@ public class MetricsDataRow {
 
     public MetricsDataRow(String repoUrl, String file, String timestamp,
                           List<MetricsDataRow> metricsDataRows) {
-        this.repoUrl = repoUrl;
+
+        // remove https://github.com/ from repoUrl
+        this.repoUrl = repoUrl.substring(19);
+
         this.timestamp = timestamp;
         this.commitNumber = metricsDataRows.get(0).getCommitNumber();
         this.commitHash = metricsDataRows.get(0).getCommitHash();
+
         this.file = file;
+
         this.noMetric = 1;
 
         this.cbo = metricsDataRows.stream().mapToDouble(MetricsDataRow::getCbo).average().orElse(0);
@@ -94,7 +99,8 @@ public class MetricsDataRow {
 
     public MetricsDataRow(String repoUrl, String[] fields) {
 
-        this.repoUrl = repoUrl;
+        // remove https://github.com/ from repoUrl
+        this.repoUrl = repoUrl.substring(19);
 
         for (int i = 0; i < fields.length; i++) {
             if (fields[i].equals("NaN") || fields[i] == null || fields[i].isEmpty()) {
@@ -102,7 +108,9 @@ public class MetricsDataRow {
             }
         }
 
-        this.file = fields[0];
+        String[] split = fields[0].split("/");
+        this.file = String.join("/", Arrays.copyOfRange(split, 3, split.length));
+
         this.noMetric = 0;
 
 //        this.className = fields[1];

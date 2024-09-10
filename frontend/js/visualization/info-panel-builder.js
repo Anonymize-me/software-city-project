@@ -122,15 +122,9 @@ export default class InfoPanelBuilder {
             }
             this.infoPanelDiv.appendChild(newElement);
          } else if (entry === "buildingName" && getDataType() === "java-source-code") {
-            let url = this.currentCityElement.buildingData[0].repoUrl;
+            let url = "https://github.com/" + this.currentCityElement.buildingData[0].repoUrl;
             url = url + "/tree/" + document.getElementById("commit-hash").textContent;
-            let splits = info.groupingPath.replace(/;/g, "/").split("/");
-            let groupingPath = "";
-            for (let i = 3; i < splits.length; i++) {
-                groupingPath = groupingPath + "/" + splits[i];
-            }
-            groupingPath = groupingPath + ".java";
-            url = url + groupingPath;
+            url = url + "/" + info.groupingPath.replaceAll(";", "/") + ".java";
             let hyperlink = document.createElement("a");
             hyperlink.innerHTML = info[entry];
             hyperlink.href = url;
