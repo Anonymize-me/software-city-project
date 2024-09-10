@@ -96,6 +96,10 @@ body {
    max-width: 400px;
 }
 
+.draggable-frame {
+   transform: unset;
+}
+
 label,
 input,
 select {
@@ -312,7 +316,6 @@ i {
 #frame-model-tree {
    cursor: pointer;
    resize: both;
-   position: absolute;
    overflow: auto;
    max-width: unset;
    width: 20%;
@@ -324,7 +327,6 @@ i {
 #frame-info {
    cursor: pointer;
    resize: both;
-   position: absolute;
    overflow: auto;
    max-width: unset;
    width: 20%;
