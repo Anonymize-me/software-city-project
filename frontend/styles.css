@@ -191,7 +191,7 @@ i {
 #aggregate-function {
    display: none;
    position: absolute;
-   top: 1.9%;
+   top: 1%;
    left: 70%;
    width: 10%;
 }
@@ -312,6 +312,7 @@ i {
 #frame-model-tree {
    cursor: pointer;
    resize: both;
+   position: absolute;
    overflow: auto;
    max-width: unset;
    width: 20%;
@@ -323,6 +324,7 @@ i {
 #frame-info {
    cursor: pointer;
    resize: both;
+   position: absolute;
    overflow: auto;
    max-width: unset;
    width: 20%;
