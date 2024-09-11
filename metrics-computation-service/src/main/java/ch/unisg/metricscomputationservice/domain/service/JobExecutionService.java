@@ -73,7 +73,7 @@ public class JobExecutionService {
                         List<String> lines = Files.readAllLines(commitMetricsFile.toPath());
                         lines.remove(0);
                         for (String line : lines) {
-                            MetricsDataRow dataRow = parseCsvLine(repoUrl.toString(), line);
+                            MetricsDataRow dataRow = parseCsvLine(line);
                             dataRow.setTimestamp(formattedDate);
                             dataRow.setCommitNumber(commitCount);
                             dataRow.setCommitHash(commit.getName());
@@ -85,8 +85,9 @@ public class JobExecutionService {
                             .collect(Collectors.groupingBy(MetricsDataRow::getFile));
 
                     for (Map.Entry<String, List<MetricsDataRow>> entry : groupedByFile.entrySet()) {
-                        MetricsDataRow consolidatedRow = new MetricsDataRow(repoUrl.toString(),
-                                entry.getKey(), formattedDate,
+                        MetricsDataRow consolidatedRow = new MetricsDataRow(
+                                entry.getKey(),
+                                formattedDate,
                                 entry.getValue());
                         job.addMetricsDataRow(consolidatedRow);
                     }
@@ -108,9 +109,9 @@ public class JobExecutionService {
         }
     }
 
-    private MetricsDataRow parseCsvLine(String repoUrl, String line) {
+    private MetricsDataRow parseCsvLine(String line) {
         String[] fields = line.split(",");
-        return new MetricsDataRow(repoUrl, fields);
+        return new MetricsDataRow(fields);
     }
 
     @NotNull

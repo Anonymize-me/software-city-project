@@ -66,11 +66,8 @@ public class MetricsDataRow {
 //    private String modifiers;
 //    private double logStatementsQty;
 
-    public MetricsDataRow(String repoUrl, String file, String timestamp,
+    public MetricsDataRow(String file, String timestamp,
                           List<MetricsDataRow> metricsDataRows) {
-
-        // remove https://github.com/ from repoUrl
-        this.repoUrl = repoUrl.substring(19);
 
         this.timestamp = timestamp;
         this.commitNumber = metricsDataRows.get(0).getCommitNumber();
@@ -97,10 +94,7 @@ public class MetricsDataRow {
         this.uniqueWordsQty = metricsDataRows.stream().mapToDouble(MetricsDataRow::getUniqueWordsQty).sum();
     }
 
-    public MetricsDataRow(String repoUrl, String[] fields) {
-
-        // remove https://github.com/ from repoUrl
-        this.repoUrl = repoUrl.substring(19);
+    public MetricsDataRow(String[] fields) {
 
         for (int i = 0; i < fields.length; i++) {
             if (fields[i].equals("NaN") || fields[i] == null || fields[i].isEmpty()) {

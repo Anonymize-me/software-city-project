@@ -122,7 +122,7 @@ export default class InfoPanelBuilder {
             }
             this.infoPanelDiv.appendChild(newElement);
          } else if (entry === "buildingName" && getDataType() === "java-source-code") {
-            let url = "https://github.com/" + this.currentCityElement.buildingData[0].repoUrl;
+            let url = this.currentCityElement.buildingData[0].repoUrl;
             url = url + "/tree/" + document.getElementById("commit-hash").textContent;
             url = url + "/" + info.groupingPath.replaceAll(";", "/") + ".java";
             let hyperlink = document.createElement("a");

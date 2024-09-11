@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MetricsDataRow {
 
-    private String repoUrl;
     private String timestamp;
     private int commitNumber;
     private String commitHash;

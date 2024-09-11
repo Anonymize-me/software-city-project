@@ -347,6 +347,9 @@ const fetchGitHubRepoRegistered = async () => {
                           return response.json();
                        })
                        .then(data => {
+                           data.metrics.forEach(metric => {
+                               metric.repoUrl = data.repoUrl;
+                           });
                           const csvString = jsonToCsv(data.metrics);
                           const file = createCsvFile(csvString);
                           uploadData(file);
