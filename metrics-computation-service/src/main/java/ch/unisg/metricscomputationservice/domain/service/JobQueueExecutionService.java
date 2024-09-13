@@ -2,7 +2,6 @@ package ch.unisg.metricscomputationservice.domain.service;
 
 import ch.unisg.metricscomputationservice.domain.model.Job;
 import ch.unisg.metricscomputationservice.domain.model.JobQueue;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -45,7 +45,7 @@ public class JobExecutionService {
                     .setURI(repoUrl.toString())
                     .setDirectory(repositoryDir)
                     .call()) {
-                System.out.println("Repository cloned to " + repositoryDir.getAbsolutePath());
+                System.out.println("Cloning Repository...");
             }
 
             try (Git git = Git.open(repositoryDir)) {

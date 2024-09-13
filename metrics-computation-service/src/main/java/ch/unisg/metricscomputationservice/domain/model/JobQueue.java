@@ -1,11 +1,8 @@
 package ch.unisg.metricscomputationservice.domain.model;
 
-import ch.unisg.metricscomputationservice.domain.service.JobExecutionService;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
 @Getter
