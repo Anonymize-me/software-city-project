@@ -2,14 +2,12 @@ package ch.unisg.backend.application.service;
 
 import ch.unisg.backend.application.port.in.UpdateRepoStatusUseCase;
 import ch.unisg.backend.application.port.out.UpdateRepoStatusPort;
-import ch.unisg.backend.domain.Repo;
 import ch.unisg.backend.domain.RepoList;
 import ch.unisg.backend.domain.RepoWithoutMetrics;
 import ch.unisg.backend.domain.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.net.URL;
 import java.util.UUID;
 
 @Service

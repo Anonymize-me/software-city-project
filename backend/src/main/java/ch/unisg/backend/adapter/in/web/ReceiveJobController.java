@@ -6,7 +6,6 @@ import ch.unisg.backend.application.port.in.ReceiveJobCommand;
 import ch.unisg.backend.application.port.in.ReceiveJobStatusUpdateCommand;
 import ch.unisg.backend.application.port.in.ReceiveJobUseCase;
 import ch.unisg.backend.domain.MetricsDataRow;
-import ch.unisg.backend.domain.Repo;
 import ch.unisg.backend.domain.Status;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

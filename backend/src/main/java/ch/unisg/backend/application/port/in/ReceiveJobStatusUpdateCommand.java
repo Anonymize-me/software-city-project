@@ -1,6 +1,5 @@
 package ch.unisg.backend.application.port.in;
 
-import ch.unisg.backend.domain.Repo;
 import ch.unisg.backend.domain.Status;
 import lombok.Getter;
 import lombok.Setter;

@@ -9,9 +9,6 @@ import ch.unisg.backend.domain.RepoWithoutMetrics;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

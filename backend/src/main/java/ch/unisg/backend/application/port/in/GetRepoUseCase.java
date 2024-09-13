@@ -3,8 +3,6 @@ package ch.unisg.backend.application.port.in;
 import ch.unisg.backend.domain.Repo;
 import ch.unisg.backend.domain.RepoWithoutMetrics;
 
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

@@ -3,7 +3,6 @@ package ch.unisg.backend.adapter.out.web;
 import ch.unisg.backend.adapter.out.type.EnqueueRepoDto;
 import ch.unisg.backend.application.port.in.UpdateRepoStatusUseCase;
 import ch.unisg.backend.application.port.out.EnqueueRepoPort;
-import ch.unisg.backend.domain.Repo;
 import ch.unisg.backend.domain.Status;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
