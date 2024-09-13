@@ -1,11 +1,20 @@
 import { getAttributeNames, setOriginalData, getDataType } from "../data.js";
 import { buildTable } from "./table.js";
 import { getConfig } from "./cookie-manager.js";
+import {enableButtonConfig, enableButtonViewData} from "./navbar.js";
+import {showSuccessUploadDataAlert} from "./alerts.js";
+import {showViewData} from "./view-data.js";
+import {showFrameGitHubRepo} from "./github-repo.js";
+import {showInstructions} from "./instructions.js";
 
-const alertSuccessUploadData = document.getElementById(
-   "alert-success-upload-data"
-);
 const frameUpload = document.getElementById("frame-upload");
+const buttonCloseFrameUpload = document.getElementById("frame-upload-button-close");
+
+const file = document.getElementById("file");
+const fileFormat = document.getElementById("file-format");
+
+const buttonUploadData = document.getElementById("button-upload-data");
+const buttonViewData = document.getElementById("button-view-data");
 
 const groupingPathSelection = document.getElementById("groupingPath-selection");
 const timestampSelection = document.getElementById("timestamp-selection");
@@ -16,31 +25,55 @@ const participantSelection = document.getElementById("participant-selection");
 const taskIdSelectionLabel = document.getElementById("taskId-selection-label");
 const taskIdSelection = document.getElementById("taskId-selection");
 
-const uploadData = (fileParam = null) => {
-   document.getElementById("instructions").style.display = "none";
+const showFrameUpload = (show) => {
+    if (show) {
+        frameUpload.style.display = "block";
+    } else {
+        frameUpload.style.display = "none";
+    }
+}
 
-   let file = null;
+const toggleFrameUpload = () => {
+   showFrameUpload(frameUpload.style.display === "none" || frameUpload.style.display === "");
+}
+
+buttonCloseFrameUpload.addEventListener("click", () => {
+    showFrameUpload(false);
+});
+
+buttonUploadData.addEventListener("click", (e) => {
+   e.preventDefault();
+   uploadData();
+   enableButtonConfig(true);
+   enableButtonViewData(true);
+});
+
+const uploadData = (fileParam = null) => {
+
+   showInstructions(false);
+
+   let f = null;
 
    if (fileParam === null) {
-      if (document.getElementById("file").files.length === 0) {
+      if (file.files.length === 0) {
          alert("No file selected");
          return;
       } else {
-         file = document.getElementById("file").files[0];
+         f = file.files[0];
       }
    } else {
-      file = fileParam;
-      document.getElementById("file-format").value = "git-java";
+      f = fileParam;
+      fileFormat.value = "git-java";
    }
 
    let reader = new FileReader();
-   reader.readAsText(file);
+   reader.readAsText(f);
 
    reader.onload = (e) => {
-      document.getElementById("button-view-data").click();
+      buttonViewData.click();
       setOriginalData(
          e.target.result,
-         document.getElementById("file-format").value
+         fileFormat.value
       );
 
       groupingPathSelection.replaceChildren();
@@ -83,13 +116,15 @@ const uploadData = (fileParam = null) => {
          taskIdSelection.value = config.taskId;
       }
 
-      alertSuccessUploadData.style.display = "block";
-      $("#alert-success-upload-data").delay(2000).fadeOut(800);
-      frameUpload.style.display = "none";
+      showSuccessUploadDataAlert();
 
       buildTable();
-      document.getElementById("view-data").style.display = "block";
+
+      showFrameUpload(false);
+      showViewData(true);
+
+      enableButtonConfig(true);
    };
 };
 
-export { uploadData };
+export { showFrameUpload, toggleFrameUpload, uploadData };

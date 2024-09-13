@@ -1,3 +1,7 @@
+/**
+ * Handling the behavior of the popup windows (frames) that are draggable.
+ */
+
 const frameModelTree = document.getElementById('frame-model-tree');
 const frameInfo = document.getElementById('frame-info');
 

@@ -1,6 +1,16 @@
 import { v4 as uuidv4 } from 'uuid';
 import { getAttributeNames } from '../data';
 
+/**
+ * Functions to manage cookies
+ *
+ * Cookies are stored in the browser for the configuration mapping and the metaphor mapping.
+ * The cookies are stored for 1 hour.
+ * If the attributes of the cookie and the attribute names of the currently loaded data are the same,
+ * the cookie is returned and updated if necessary.
+ */
+
+
 const updateConfig = (config) => {
    const date = new Date();
    date.setTime(date.getTime() + 1 * 1 * 60 * 60 * 1000);

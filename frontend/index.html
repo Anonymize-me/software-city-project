@@ -67,8 +67,7 @@
       </div>
 
       <div id="alert-success-upload-data" class="alert alert-success">
-         <button
-            id="button-alert-close-upload-data"
+         <button id="alert-success-upload-data-button-close"
             type="button"
             class="close"
             data-dismiss="alert"
@@ -79,8 +78,7 @@
       </div>
 
       <div id="alert-success-clear-data" class="alert alert-success">
-         <button
-            id="button-alert-close-clear-data"
+         <button id="alert-success-clear-data-button-close"
             type="button"
             class="close"
             data-dismiss="alert"
@@ -91,7 +89,7 @@
       </div>
 
       <div id="frame-github-repo" class="container frame">
-         <i class="fa fa-times fa-lg button-close"></i>
+         <i id="frame-github-repo-button-close" class="fa fa-times fa-lg button-close"></i>
          <h2 class="frame-title">GitHub Repository Analysis</h2>
          <form id="form-github-repo">
             <label for="github-repo-url">GitHub Repository URL</label>
@@ -117,7 +115,7 @@
       </div>
 
       <div id="frame-upload" class="container frame">
-         <i class="fa fa-times fa-lg button-close"></i>
+         <i id="frame-upload-button-close" class="fa fa-times fa-lg button-close"></i>
          <h2 class="frame-title">Upload</h2>
          <form id="form-upload">
             <label for="file">Choose a .csv file:</label>
@@ -137,7 +135,7 @@
       </div>
 
       <div id="frame-config" class="container frame">
-         <i class="fa fa-times fa-lg button-close"></i>
+         <i id="frame-config-button-close" class="fa fa-times fa-lg button-close"></i>
          <h2 class="frame-title">Configuration</h2>
          <div>
             <label
@@ -182,7 +180,7 @@
       </div>
 
       <div id="frame-metaphors" class="container frame">
-         <i class="fa fa-times fa-lg button-close"></i>
+         <i id="frame-metaphors-button-close" class="fa fa-times fa-lg button-close"></i>
          <h2 class="frame-title">Metaphor Mapping</h2>
          <div>
             <label for="dimension-attribute-selection">Dimension:</label>
@@ -228,13 +226,13 @@
       </div>
 
       <div id="frame-model-tree" class="container frame draggable-frame">
-         <i class="fa fa-times fa-lg button-close"></i>
+         <i id="frame-model-tree-button-close" class="fa fa-times fa-lg button-close"></i>
          <h2 class="frame-title">Model Tree</h2>
          <div id="model-tree"></div>
       </div>
 
       <div id="frame-info" class="container frame draggable-frame">
-         <i class="fa fa-times fa-lg button-close"></i>
+         <i id="frame-info-button-close" class="fa fa-times fa-lg button-close"></i>
          <h2 class="frame-title">Element Info</h2>
          <div id="info-panel-div"></div>
          <canvas id="chartBuilding"></canvas>
@@ -331,7 +329,8 @@
          </div>
       </div>
 
-      <script type="module" src="./js/user-interface/index.js"></script>
+      <script type="module" src="js/user-interface/navbar.js"></script>
+        <script type="module" src="js/user-interface/shortcuts.js"></script>
       <script
          type="module"
          src="./js/user-interface/draggable-frames.js"
