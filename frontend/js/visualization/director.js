@@ -13,6 +13,12 @@ import { recalculateController } from "./aggregates/recalculate-controller";
 import { setDirector, setMetaphorSelection } from "../data";
 import { setVisualizationData } from "../data";
 
+/**
+ * Class that constructs the city visualization based on the city metaphor and the data,
+ * and delegates the construction of the different parts of the visualization to the
+ * corresponding builders.
+ */
+
 export default class Director {
    constructor(cityMetaphor, data) {
       setDirector(this);

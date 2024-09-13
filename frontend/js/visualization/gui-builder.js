@@ -1,6 +1,10 @@
 import * as dat from "dat.gui";
 import { recalculateController } from "./aggregates/recalculate-controller";
 
+/**
+ * Class responsible for building the dat.gui interface.
+ */
+
 export default class GuiBuilder {
    constructor(data, cityMetaphor) {
       this.type = "GuiBuilder";

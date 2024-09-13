@@ -50,6 +50,8 @@ buttonCloseFrameMetaphors.addEventListener("click", () => {
     showFrameMetaphors(false);
 });
 
+// After each upload and after defining the config, the metaphors frame needs to get
+// populated with the current values.
 const prepareMetaphorsFrame = () => {
     dimensionAttributeSelection.replaceChildren();
     heightAttributeSelection.replaceChildren();
@@ -131,6 +133,7 @@ const prepareMetaphorsFrame = () => {
     }
 };
 
+// This method starts the visualization process
 buttonStartVisualize.addEventListener("click", (e) => {
     e.preventDefault();
 

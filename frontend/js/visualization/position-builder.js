@@ -1,6 +1,12 @@
 import { paddingBuildings, paddingPlanes, planeHeight } from "./config";
 import pack from "bin-pack";
 
+/**
+ * Class responsible for building the position of the elements based on the bin packing algorithm.
+ * The bin packing algorithm is used to position the buildings and planes in the scene.
+ * -> black box
+ */
+
 export default class PositionBuilder {
    constructor() {
       this.type = "PositionBuilder";

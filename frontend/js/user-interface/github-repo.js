@@ -1,6 +1,12 @@
 import {uploadData} from "./upload.js";
 import {createCsvFile, jsonToCsv} from "../utils.js";
 
+/**
+ * This module is responsible for the user interface of the GitHub repository frame.
+ * The repositories that are registered in the system are only fetched when the frame is shown.
+ * When clicking on a ready repository, the metrics are fetched from the backend service.
+ */
+
 const frameGitHubRepo = document.getElementById("frame-github-repo");
 const gitHubRepoUrl = document.getElementById("github-repo-url");
 const gitHubRepoToken = document.getElementById("github-repo-token");
@@ -34,6 +40,8 @@ gitHubRepoUrl.addEventListener("input", () => {
     toggleFetchButton();
 });
 
+// Method that fetches the registered repositories from the backend service.
+// When clicking on a repository, the metrics are fetched from the backend service.
 const fetchGitHubRepoRegistered = async () => {
     fetch('http://localhost:8080/api/repo/all')
         .then(response => response.json())
@@ -115,6 +123,8 @@ const stopFetching = () => {
     clearInterval(intervalId);
 }
 
+// Method that registers a new repository in the system.
+// If the repo is private, the token is also sent to the backend.
 buttonFetch.addEventListener("click", async (e) => {
     e.preventDefault();
 

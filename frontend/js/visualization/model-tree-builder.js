@@ -4,6 +4,11 @@ import { recalculateController } from "./aggregates/recalculate-controller";
 import { removeElementAndChildrenWithListeners } from "../utils";
 import { getDataType } from "../../js/data";
 
+/**
+ * Class responsible for building the model tree interface based on the grouping path
+ * of each city element (building or plane).
+ */
+
 export default class ModelTreeBuilder {
    constructor(cityMetaphor) {
       this.type = "ModelTreeBuilder";

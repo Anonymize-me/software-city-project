@@ -1,5 +1,9 @@
 import { getDirector } from "./data.js";
 
+/**
+ * Just a bunch of utility functions.
+ */
+
 const objectArrayToCsv = (objArray) => {
    const array = [Object.keys(objArray[0])].concat(objArray);
 

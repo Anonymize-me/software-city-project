@@ -1,6 +1,13 @@
 import { minDimension, maxDimension } from "./config";
 import { getDataType } from "../data";
 
+/**
+ * Class that calculates the dimensions of the buildings based on the metaphor.
+ * The dimension of a building is determined by the maximum value of the metaphor
+ * for each building. The dimension is then scaled to a value between minDimension
+ * and maxDimension.
+ */
+
 export default class DimensionsBuilder {
    constructor(cityMetaphor) {
       this.type = "DimensionsBuilder";

@@ -3,11 +3,15 @@ import {updateConfig} from "./cookie-manager.js";
 import {showSuccessUploadDataAlert} from "./alerts.js";
 import {enableButtonMetaphors, enableButtonModelTree} from "./navbar.js";
 import {prepareMetaphorsFrame} from "./metaphors.js";
-import {showFrameUpload} from "./upload.js";
 
 const frameConfig = document.getElementById("frame-config");
 const buttonSaveConfig = document.getElementById("button-save-config");
 const buttonCloseFrameConfig = document.getElementById("frame-config-button-close");
+
+const groupingPathSelection = document.getElementById("groupingPath-selection");
+const timestampSelection = document.getElementById("timestamp-selection");
+const participantSelection = document.getElementById("participant-selection");
+const taskIdSelection = document.getElementById("taskId-selection");
 
 const showFrameConfig = (show) => {
     if (show) {
@@ -26,19 +30,15 @@ buttonCloseFrameConfig.addEventListener("click", () => {
 });
 
 buttonSaveConfig.addEventListener("click", () => {
-    let config = null;
+
+    let config = {
+        groupingPath: groupingPathSelection.value,
+        timestamp: timestampSelection.value,
+    };
+
     if (getDataType() === "generic") {
-        config = {
-            groupingPath: document.getElementById("groupingPath-selection").value,
-            timestamp: document.getElementById("timestamp-selection").value,
-            participant: document.getElementById("participant-selection").value,
-            taskId: document.getElementById("taskId-selection").value,
-        };
-    } else if (getDataType() === "git-java") {
-        config = {
-            groupingPath: document.getElementById("groupingPath-selection").value,
-            timestamp: document.getElementById("timestamp-selection").value,
-        };
+        config.participant = participantSelection.value;
+        config.taskId = taskIdSelection.value;
     }
 
     updateConfig(config);

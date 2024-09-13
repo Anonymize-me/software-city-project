@@ -1,6 +1,11 @@
 import { getDataType, getEpoques } from "../data";
 import { recalculateController } from "./aggregates/recalculate-controller";
 
+/**
+ * Class responsible for handling the slider interface.
+ * At the end of the slider logic, the recalculate function is called to update the city elements.
+ */
+
 export default class SliderBuilder {
    constructor(data, cityMetaphor) {
       this.type = "SliderBuilder";

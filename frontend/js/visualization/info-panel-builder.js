@@ -1,6 +1,12 @@
 import * as THREE from "three";
 import {getDataType} from "../data.js";
 
+/**
+ * Class for building the info panel.
+ * It first collects all datapoints for each building and metaphor,
+ * then it builds the info panel and the charts.
+ */
+
 export default class InfoPanelBuilder {
    constructor(cityMetaphor) {
       this.type = "InfoPanelBuilder";

@@ -28,6 +28,8 @@ public class JobExecutionService {
 
     private final SendJobStatusUpdatePort sendJobStatusUpdatePort;
 
+    // This function is responsible for executing the job.
+    // It clones the repository, iterates over all commits, and runs the CK jar for each commit.
     public void executeJob(Job job) {
 
         job.setStatus(Job.Status.RUNNING);
@@ -83,6 +85,9 @@ public class JobExecutionService {
                         }
                     }
 
+                    // Group metrics data rows by file
+                    // This needs to be done because the CK jar outputs metrics for a class in multiple
+                    // lines, if the class includes inner classes or anonymous classes.
                     Map<String, List<MetricsDataRow>> groupedByFile = metricsDataRows.stream()
                             .collect(Collectors.groupingBy(MetricsDataRow::getFile));
 

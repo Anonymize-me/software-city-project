@@ -7,6 +7,10 @@ import {showFrameInfo} from "./info.js";
 import {toggleFrameModelTree} from "./model-tree.js";
 import {showFrameGitHubRepo, toggleFrameGitHubRepo} from "./github-repo.js";
 
+/**
+ * This module is only responsible for the navigation bar of the user interface.
+ */
+
 const buttonGitHubRepo = document.getElementById("button-github-repo");
 const buttonUpload = document.getElementById("button-upload");
 const buttonConfig = document.getElementById("button-config");

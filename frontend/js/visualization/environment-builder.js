@@ -1,6 +1,11 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
+/**
+ * This module is responsible for creating the THREE.js environment
+ * including the renderer, scene, camera, and controls (Mouse controls).
+ */
+
 export default class EnvironmentBuilder {
    constructor(cityMetaphor) {
       this.type = "EnvironmentBuilder";

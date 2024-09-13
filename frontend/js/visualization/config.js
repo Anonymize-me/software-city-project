@@ -1,3 +1,7 @@
+/**
+ * Configuration file for the visualization.
+ */
+
 const planeHeight = 0.25;
 
 const paddingBuildings = 0.5;

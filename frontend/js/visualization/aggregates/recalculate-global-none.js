@@ -11,6 +11,13 @@ import {
 import * as THREE from "three";
 import { getDataType } from "../../data";
 
+/**
+ * This implementation of the recalculate function, is defined as:
+ * - minimum and maximum values are taken from the whole dataset
+ * - in the selected window, the last value of the selected metaphor is taken
+ * - the value is scaled accordingly to the minimum and maximum values
+ */
+
 const recalculateGlobalNone = (
    cityMetaphor,
    cityElements,

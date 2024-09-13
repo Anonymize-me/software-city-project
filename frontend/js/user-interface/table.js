@@ -10,6 +10,10 @@ import {
 } from "./navbar.js";
 import {objectArrayToCsv} from "../utils.js";
 
+/**
+ * This module is responsible for handling everything related to the table that displays the data.
+ */
+
 const buttonClearData = document.getElementById('button-clear-data');
 const buttonDownloadData = document.getElementById('button-download-data');
 

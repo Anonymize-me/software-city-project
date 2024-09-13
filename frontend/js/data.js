@@ -1,3 +1,7 @@
+/**
+ * Data store for the application where the original data is stored and processed.
+ */
+
 let dataStore = {
    originalData: [],
    attributeNames: [],

@@ -1,6 +1,11 @@
 import { planeHeight } from "./config";
 import * as THREE from "three";
 
+/**
+ * Class responsible for building the planes based on the grouping path of each building.
+ * A plane contains its children elements, and defines a new zero point for the children.
+ */
+
 export default class PlaneBuilder {
    constructor() {
       this.type = "PlaneBuilder";

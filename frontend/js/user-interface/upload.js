@@ -7,6 +7,10 @@ import {showViewData} from "./view-data.js";
 import {showFrameGitHubRepo} from "./github-repo.js";
 import {showInstructions} from "./instructions.js";
 
+/**
+ * This module is responsible for handling the upload of data.
+ */
+
 const frameUpload = document.getElementById("frame-upload");
 const buttonCloseFrameUpload = document.getElementById("frame-upload-button-close");
 
@@ -48,6 +52,7 @@ buttonUploadData.addEventListener("click", (e) => {
    enableButtonViewData(true);
 });
 
+// Method that uploads the data to the system.
 const uploadData = (fileParam = null) => {
 
    showInstructions(false);

@@ -1,5 +1,10 @@
 import * as THREE from "three";
 
+/**
+ * This module is responsible for creating THREE.js meshes for buildings.
+ * A new building is created for each unique groupingPath in the data.
+ */
+
 export default class BuildingBuilder {
    constructor(data) {
       this.type = "BuildingBuilder";

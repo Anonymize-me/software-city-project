@@ -1,3 +1,8 @@
+/**
+ * This class is responsible for building the hierarchy of the elements
+ * based on the grouping path.
+ */
+
 export default class HierarchyBuilder {
    constructor() {
       this.type = "HierarchyBuilder";

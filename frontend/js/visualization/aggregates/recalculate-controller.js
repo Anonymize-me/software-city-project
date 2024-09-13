@@ -1,5 +1,9 @@
 import { recalculateGlobalNone } from "./recalculate-global-none";
 
+/**
+ * Recalculate the city metaphor based on the selected aggregate function.
+ */
+
 const recalculateController = (
    cityMetaphor,
    cityElements,
