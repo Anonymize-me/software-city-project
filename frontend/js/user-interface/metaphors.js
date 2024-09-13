@@ -12,7 +12,6 @@ import Director from "../visualization/director.js";
 import {showViewData} from "./view-data.js";
 import {showFrameModelTree} from "./model-tree.js";
 import {showFrameInfo} from "./info.js";
-import {showFrameUpload} from "./upload.js";
 import {enableButtonViewData} from "./navbar.js";
 
 const frameMetaphors = document.getElementById("frame-metaphors");

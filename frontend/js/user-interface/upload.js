@@ -4,7 +4,6 @@ import { getConfig } from "./cookie-manager.js";
 import {enableButtonConfig, enableButtonViewData} from "./navbar.js";
 import {showSuccessUploadDataAlert} from "./alerts.js";
 import {showViewData} from "./view-data.js";
-import {showFrameGitHubRepo} from "./github-repo.js";
 import {showInstructions} from "./instructions.js";
 
 /**
