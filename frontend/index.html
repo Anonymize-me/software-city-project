@@ -280,26 +280,21 @@
       <div id="instructions">
          <h1 style="text-align: center">Software City</h1>
          <p>
-            The tool provides a way to visualize software systems in a city
-            metaphor. The city metaphor consists of buildings, where each
-            building represents a software component. Each metaphor can be
-            dynamically mapped to individual attributes from the uploaded
-            dataset. This tool is designed to visualize the recorded interaction
-            of a examinee with a given software system. This introduces the time
-            dimension. That means that the tool loads the software system in a
-            static way and then visualizes the interaction of the user with the
-            system over time. The time dimension is represented by a slider at
-            the top of the screen in the visualization view.
+             The Software City is a tool for visualizing data as a city metaphor.
+             The city metaphor consists of buildings, where each building represents an entity. City metaphor
+             features can be dynamically mapped to individual attributes from the provided dataset.
+             The tool is designed to visualize either generic data ("Generic") or software metrics data
+             coming from GitHub repositories ("Git (Java)"). For now, only repositories with Java code are supported.
+             This tool introduces the combination of the space dimension and the time dimension. That
+             means, that the uploaded dataset can be explored by looking at the city metaphor through time
+             (commits). This time dimension is implemented via the slider bar at the top of the screen
+             within the visualization view.
          </p>
          <p>
-            <a
-               href="https://github.com/jonaslanzlinger/software-city-project/tree/v1.0.0/test_datasets"
-            >
+            <a href="https://github.com/jonaslanzlinger/software-city-project/tree/main/dataset">
                <b>Here</b>
             </a>
-            you can find example datasets that have been recorded during an eye
-            tracking experiment. The example datasets can be used to test the
-            visualization tool and to get a better understanding of the tool.
+            you can find example datasets that can be uploaded in the tool.
          </p>
 
          <div>
@@ -307,7 +302,7 @@
             <p>
                The uploaded data file needs to be a .csv file. The first line of
                the file must contain comma separated attribute names. All the
-               following lines must contain comma separated values.
+               following data lines must contain comma separated values.
             </p>
             <p>
                Note: All attribute values that are utilized for visualizing a
@@ -323,20 +318,12 @@
             <ul>
                <li>
                   <b>groupingPath:</b> Used for building the hierarchical
-                  structure of the city. - {layer1;layer2;layer3; ...} -
-                  example: ch;unisg;application1;package1;Class1.java
+                  structure of the city. - {layer1/layer2/layer3/...} -
+                  example: ch/unisg/application1/package1/Class1.java
                </li>
                <li>
-                  <b>timestamp:</b> Used for the time dimensions. -
-                  {YYYYMMDDHHmmssSSS} - example: 20240210114054572. Note: The
-                  timestamp can be in any format (but numerical!).
-               </li>
-               <li>
-                  <b>participant:</b> Used for identifying the participant of
-                  the experiment.
-               </li>
-               <li>
-                  <b>taskId</b> Used for identifying the task of the experiment.
+                  <b>timestamp:</b> Used for the time dimensions. Needs to be numeric -
+                    example: 20240101120000
                </li>
             </ul>
          </div>
