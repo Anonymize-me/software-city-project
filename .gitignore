@@ -1,3 +1,4 @@
 # ignore mongo-data folder
 mongo-data/
 .DS_Store
+.idea/
