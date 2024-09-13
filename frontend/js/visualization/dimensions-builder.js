@@ -38,11 +38,11 @@ export default class DimensionsBuilder {
 
       for (const building of buildings) {
          let dimensionMetaphorValue;
-         if (getDataType() === "eye-tracking-java-source-code") {
+         if (getDataType() === "generic") {
             dimensionMetaphorValue = parseFloat(
                building.buildingData[0][dimensionMapping]
             );
-         } else if (getDataType() === "java-source-code") {
+         } else if (getDataType() === "git-java") {
             dimensionMetaphorValue = building.buildingData.reduce(
                (acc, buildingData) => {
                   return Math.max(

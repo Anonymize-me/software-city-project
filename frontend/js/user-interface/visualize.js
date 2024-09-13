@@ -55,7 +55,7 @@ const prepareMetaphorsFrame = () => {
       lightnessAttributeSelection.appendChild(newElement.cloneNode(true));
    });
 
-   if (getDataType() === "eye-tracking-java-source-code") {
+   if (getDataType() === "generic") {
       participant.style.display = "block";
       participantLabel.style.display = "block";
       taskId.style.display = "block";
@@ -78,7 +78,7 @@ const prepareMetaphorsFrame = () => {
          newElement.innerText = `task - ${entry}`;
          taskId.appendChild(newElement);
       });
-   } else if (getDataType() === "java-source-code") {
+   } else if (getDataType() === "git-java") {
       participant.style.display = "none";
       participantLabel.style.display = "none";
       taskId.style.display = "none";
@@ -93,7 +93,7 @@ const prepareMetaphorsFrame = () => {
       heightAttributeSelection.value = mapping.height;
       hueAttributeSelection.value = mapping.hue;
       lightnessAttributeSelection.value = mapping.lightness;
-      if (getDataType() === "eye-tracking-java-source-code") {
+      if (getDataType() === "generic") {
          participant.value = mapping.participant;
          taskId.value = mapping.taskId;
       }
@@ -163,7 +163,7 @@ buttonStartVisualize.addEventListener("click", (e) => {
       hue: metaphorSelection.hue,
       lightness: metaphorSelection.lightness,
    };
-   if (getDataType() === "eye-tracking-java-source-code") {
+   if (getDataType() === "generic") {
       mapping.participant = participant;
       mapping.taskId = taskId;
    }
@@ -171,7 +171,7 @@ buttonStartVisualize.addEventListener("click", (e) => {
    updateMapping(mapping);
    setMetaphorSelection(mapping);
 
-   if (getDataType() === "eye-tracking-java-source-code") {
+   if (getDataType() === "generic") {
       data = data.filter((entry) => {
          return (
             entry.participant === participant.toString() &&

@@ -187,14 +187,14 @@ buttonDownloadData.addEventListener("click", () => {
 
 buttonSaveConfig.addEventListener("click", () => {
    let config = null;
-   if (getDataType() === "eye-tracking-java-source-code") {
+   if (getDataType() === "generic") {
       config = {
          groupingPath: document.getElementById("groupingPath-selection").value,
          timestamp: document.getElementById("timestamp-selection").value,
          participant: document.getElementById("participant-selection").value,
          taskId: document.getElementById("taskId-selection").value,
       };
-   } else if (getDataType() === "java-source-code") {
+   } else if (getDataType() === "git-java") {
       config = {
          groupingPath: document.getElementById("groupingPath-selection").value,
          timestamp: document.getElementById("timestamp-selection").value,

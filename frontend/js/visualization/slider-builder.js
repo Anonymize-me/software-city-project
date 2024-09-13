@@ -15,7 +15,7 @@ export default class SliderBuilder {
       this.sliderThumbT1 = document.getElementById("slider-thumb-t1");
       this.sliderWindowWidth = document.getElementById("slider-window-width");
 
-      if (getDataType() === "java-source-code") {
+      if (getDataType() === "git-java") {
          this.snapshotInputContainer = document.getElementById(
             "snapshot-input-container"
          );
@@ -49,16 +49,16 @@ export default class SliderBuilder {
    }
 
    build() {
-      if (getDataType() === "eye-tracking-java-source-code") {
+      if (getDataType() === "generic") {
          this.sliderThumbT0.style.display = "block";
          this.sliderThumbT1.innerText = "t1";
          this.sliderWindowWidth.style.display = "block";
-      } else if (getDataType() === "java-source-code") {
+      } else if (getDataType() === "git-java") {
          this.sliderThumbT0.style.display = "none";
          this.sliderThumbT1.innerText = "";
          this.sliderWindowWidth.style.display = "none";
 
-         if (getDataType() === "java-source-code") {
+         if (getDataType() === "git-java") {
             document.getElementById("snapshot-input-container").style.display =
                "none";
          }
@@ -76,9 +76,9 @@ export default class SliderBuilder {
       );
       const deltaTimestamp = highestTimestamp - lowestTimestamp;
 
-      if (getDataType() === "eye-tracking-java-source-code") {
+      if (getDataType() === "generic") {
          this.valueDisplay.textContent = `${lowestTimestamp} - ${highestTimestamp}`;
-      } else if (getDataType() === "java-source-code") {
+      } else if (getDataType() === "git-java") {
          this.commitHash.textContent = this.epoques[0].commitHash;
          this.valueDisplay.textContent = `Commit: 1, ${lowestTimestamp}`;
       }
@@ -94,7 +94,7 @@ export default class SliderBuilder {
       this.sliderThumbT0.style.zIndex = 1;
       this.sliderThumbT1.style.zIndex = 2;
 
-      if (getDataType() === "java-source-code") {
+      if (getDataType() === "git-java") {
          this.snapshotInputContainer.style.display = "block";
          this.snapshotInput.min = 1;
          this.snapshotInput.max = this.epoques.length;
@@ -225,7 +225,7 @@ export default class SliderBuilder {
             parseInt(lowestTimestamp) +
             parseInt(t1ProgressPercentage * deltaTimestamp);
 
-         if (getDataType() === "eye-tracking-java-source-code") {
+         if (getDataType() === "generic") {
             this.valueDisplay.textContent = `${this.lowerRangeBounds} - ${this.upperRangeBounds}`;
 
             recalculateController(
@@ -236,7 +236,7 @@ export default class SliderBuilder {
                this.guiBuilder,
                this.infoPanelBuilder
             );
-         } else if (getDataType() === "java-source-code") {
+         } else if (getDataType() === "git-java") {
             const previousSnapshotIndex = this.snapshotIndex;
             for (let i = 0; i < this.epoques.length; i++) {
                if (this.epoques[i].timestamp > this.upperRangeBounds) {
@@ -280,7 +280,7 @@ export default class SliderBuilder {
       document.getElementById("slider-window-width").style.width = "0px";
       document.getElementById("slider-container").style.display = "none";
 
-      if (getDataType() === "java-source-code") {
+      if (getDataType() === "git-java") {
          document.getElementById("snapshot-input-container").style.display =
             "none";
       }

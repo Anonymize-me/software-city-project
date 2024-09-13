@@ -30,7 +30,7 @@ const uploadData = (fileParam = null) => {
       }
    } else {
       file = fileParam;
-      document.getElementById("file-format").value = "java-source-code";
+      document.getElementById("file-format").value = "git-java";
    }
 
    let reader = new FileReader();
@@ -48,7 +48,7 @@ const uploadData = (fileParam = null) => {
       timestampSelection.replaceChildren();
       timestampSelection.appendChild(document.createElement("option"));
 
-      if (getDataType() === "eye-tracking-java-source-code") {
+      if (getDataType() === "generic") {
          participantSelection.replaceChildren();
          participantSelection.appendChild(document.createElement("option"));
          taskIdSelection.replaceChildren();
@@ -58,7 +58,7 @@ const uploadData = (fileParam = null) => {
          participantSelectionLabel.style.display = "block";
          taskIdSelection.style.display = "block";
          taskIdSelectionLabel.style.display = "block";
-      } else if (getDataType() === "java-source-code") {
+      } else if (getDataType() === "git-java") {
          participantSelection.style.display = "none";
          participantSelectionLabel.style.display = "none";
          taskIdSelection.style.display = "none";

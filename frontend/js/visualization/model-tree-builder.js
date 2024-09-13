@@ -37,7 +37,7 @@ export default class ModelTreeBuilder {
       while (check.length > 0) {
          let current = check.pop();
 
-         if (getDataType() === "java-source-code") {
+         if (getDataType() === "git-java") {
             if (
                current.elementType === "building" &&
                current.visible === false

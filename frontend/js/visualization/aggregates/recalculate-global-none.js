@@ -91,7 +91,7 @@ const recalculateGlobalNone = (
       let lastSeenLightnessValue = 0;
       for (const entry of building.buildingData) {
          if (
-             getDataType() === "eye-tracking-java-source-code" &&
+             getDataType() === "generic" &&
              parseInt(entry.timestamp) >= sliderBuilder.lowerRangeBounds &&
             parseInt(entry.timestamp) <= sliderBuilder.upperRangeBounds
          ) {
@@ -101,7 +101,7 @@ const recalculateGlobalNone = (
             lastSeenSaturationValue = parseInt(entry[saturationMetaphor]);
             lastSeenLightnessValue = parseInt(entry[lightnessMetaphor]);
          } else if (
-             getDataType() === "java-source-code" &&
+             getDataType() === "git-java" &&
              parseInt(entry.timestamp) === sliderBuilder.upperRangeBounds
          ) {
             lastSeenDimensionValue = parseInt(entry[dimensionMetaphor]);
@@ -120,7 +120,7 @@ const recalculateGlobalNone = (
       buildingElement.visible = lastSeenHeightValue > 0;
 
       // Dimension
-      if (getDataType() === "java-source-code") {
+      if (getDataType() === "git-java") {
          if (maxDimensionValue === minDimensionValue) {
             buildingElement.scale.x = (maxDimension - minDimension) / 2 + minDimension;
             buildingElement.scale.z = buildingElement.scale.x;

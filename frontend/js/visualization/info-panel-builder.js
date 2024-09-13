@@ -121,7 +121,7 @@ export default class InfoPanelBuilder {
                newElement.appendChild(dataElement);
             }
             this.infoPanelDiv.appendChild(newElement);
-         } else if (entry === "buildingName" && getDataType() === "java-source-code") {
+         } else if (entry === "buildingName" && getDataType() === "git-java") {
             let url = this.currentCityElement.buildingData[0].repoUrl;
             url = url + "/tree/" + document.getElementById("commit-hash").textContent;
             url = url + "/" + info.groupingPath.replaceAll(";", "/") + ".java";

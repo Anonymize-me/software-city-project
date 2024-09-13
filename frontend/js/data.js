@@ -19,7 +19,7 @@ const processOriginalData = (config) => {
          let attributeName = dataStore.attributeNames[i];
 
          if (attributeName === config.groupingPath) {
-            if (dataStore.dataType === 'java-source-code') {
+            if (dataStore.dataType === 'git-java') {
                dataObject['groupingPath'] = entry[attributeName].replace(
                    /\//g,
                    ';',
@@ -34,12 +34,12 @@ const processOriginalData = (config) => {
             dataObject['timestamp'] = entry[attributeName];
          } else if (
             attributeName === config.participant &&
-            dataStore.dataType !== 'java-source-code'
+            dataStore.dataType !== 'git-java'
          ) {
             dataObject['participant'] = entry[attributeName];
          } else if (
             attributeName === config.taskId &&
-            dataStore.dataType !== 'java-source-code'
+            dataStore.dataType !== 'git-java'
          ) {
             dataObject['taskId'] = entry[attributeName];
          } else {
@@ -51,7 +51,7 @@ const processOriginalData = (config) => {
          if (
             (attributeName === config.groupingPath ||
                attributeName === config.timestamp) &&
-            dataStore.dataType === 'java-source-code'
+            dataStore.dataType === 'git-java'
          ) {
             if (
                entry[attributeName] === undefined ||
@@ -65,7 +65,7 @@ const processOriginalData = (config) => {
                attributeName === config.timestamp ||
                attributeName === config.participant ||
                attributeName === config.taskId) &&
-            dataStore.dataType !== 'java-source-code'
+            dataStore.dataType !== 'git-java'
          ) {
             if (
                entry[attributeName] === undefined ||
