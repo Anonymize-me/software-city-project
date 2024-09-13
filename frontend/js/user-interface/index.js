@@ -1,4 +1,4 @@
-import {getDataType, clearData, processOriginalData, getDataStore, getOriginalData} from "../data";
+import {getDataType, clearData, processOriginalData, getOriginalData} from "../data";
 import { updateConfig } from "./cookie-manager";
 import { uploadData } from "./upload";
 import { buildTable } from "./table";

@@ -1,6 +1,5 @@
 import { minDimension, maxDimension } from "./config";
 import { getDataType } from "../data";
-import {min} from "three/nodes";
 
 export default class DimensionsBuilder {
    constructor(cityMetaphor) {

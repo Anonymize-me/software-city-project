@@ -47,21 +47,16 @@ export default class Director {
          }
       });
 
-      this.renderer = null;
       this.scene = null;
       this.camera = null;
-      this.cityElements = [];
       this.gui = null;
    }
 
    constructCity() {
-      // Build Environment
-      const { renderer, scene, camera } = this.environmentBuilder.build();
-      this.renderer = renderer;
+      const { scene, camera } = this.environmentBuilder.build();
       this.scene = scene;
       this.camera = camera;
 
-      // Build City Elements
       switch (this.cityMetaphor.type) {
          case "BasicCityMetaphor":
             const planeBuilder = this.optionalBuilders.find((builder) => {
@@ -88,7 +83,6 @@ export default class Director {
             break;
       }
 
-      // Build Model Tree
       this.modelTreeBuilder.setCityElements(this.buildings, this.planes);
       this.modelTreeBuilder.setInfoPanelBuilder(this.infoPanelBuilder);
       const modelTree = this.modelTreeBuilder.build();
@@ -96,18 +90,15 @@ export default class Director {
       modelTreeFrame.appendChild(modelTree);
       this.environmentBuilder.setModelTreeBuilder(this.modelTreeBuilder);
 
-      // Build Slider
       this.sliderBuilder.setCityElements(this.buildings, this.planes);
       this.sliderBuilder.setModelTreeBuilder(this.modelTreeBuilder);
       this.modelTreeBuilder.setSliderBuilder(this.sliderBuilder);
       this.sliderBuilder.setInfoPanelBuilder(this.infoPanelBuilder);
       this.sliderBuilder.build();
 
-      // Build Info Panel
       this.infoPanelBuilder.setCityElements(this.buildings, this.planes);
       this.environmentBuilder.setInfoPanelBuilder(this.infoPanelBuilder);
 
-      // Build GUI
       this.guiBuilder.setCityElements(this.buildings, this.planes);
       this.guiBuilder.setModelTreeBuilder(this.modelTreeBuilder);
       this.modelTreeBuilder.setGuiBuilder(this.guiBuilder);
@@ -116,7 +107,6 @@ export default class Director {
       this.guiBuilder.setInfoPanelBuilder(this.infoPanelBuilder);
       this.gui = this.guiBuilder.build(this.data);
 
-      // Build Aggregate Function
       this.aggregateBuilder.build();
 
       recalculateController(
@@ -144,10 +134,8 @@ export default class Director {
          builder.destroy();
       });
 
-      // Reset metaphor selection in data store
       setMetaphorSelection({});
 
-      // Reset visualization data in data store
       setVisualizationData([]);
 
       setDirector(null);

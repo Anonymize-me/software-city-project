@@ -1,49 +1,5 @@
 import { getDirector } from "./data.js";
 
-/**
- * Method to return a date in the format "YYYY-MM-DD, HH:MM:SS:SSS"
- *
- * @param {Date} date
- * @returns {String} // Date in the format "YYYY-MM-DD, HH:MM:SS:SSS"
- */
-const formatDate = (date) => {
-   const year = date.getFullYear();
-   const month = String(date.getMonth() + 1).padStart(2, "0");
-   const day = String(date.getDate()).padStart(2, "0");
-   const hours = String(date.getHours()).padStart(2, "0");
-   const minutes = String(date.getMinutes()).padStart(2, "0");
-   const seconds = String(date.getSeconds()).padStart(2, "0");
-   const milliseconds = String(date.getMilliseconds()).padStart(3, "0");
-
-   return `${year}-${month}-${day}, ${hours}:${minutes}:${seconds}:${milliseconds}`;
-};
-
-/**
- * Method to convert a Date object into a string in the format YYYYMMDDHHmmssSSS
- *
- * @param {Date} date - The date to be converted
- * @returns {String} - The date as a string in the format YYYYMMDDHHmmssSSS
- */
-function formatDateToTimestamp(date) {
-   const year = date.getFullYear();
-   const month = String(date.getMonth() + 1).padStart(2, "0");
-   const day = String(date.getDate()).padStart(2, "0");
-   const hours = String(date.getHours()).padStart(2, "0");
-   const minutes = String(date.getMinutes()).padStart(2, "0");
-   const seconds = String(date.getSeconds()).padStart(2, "0");
-   const milliseconds = String(date.getMilliseconds()).padStart(3, "0");
-
-   return `${year}${month}${day}${hours}${minutes}${seconds}${milliseconds}`;
-}
-
-/**
- * Method to convert RGB to HSL
- *
- * @param {number} r // between 0-255
- * @param {number} g // between 0-255
- * @param {number} b // between 0-255
- * @returns {array[float]} // array of floats [h, s, l] where h is between 0-360, s is between 0-100 and l is between 0-100
- */
 const rgbToHsl = (color) => {
    let r = color.r;
    let g = color.g;
@@ -78,14 +34,7 @@ const rgbToHsl = (color) => {
    return { h, s, l };
 };
 
-/**
- * Method to convert a hex color to an RGB object
- *
- * @param {String} hex
- * @returns RGB object
- */
 const hexToRgb = (hex) => {
-   // Remove the hash at the start if it's there
    hex = hex.replace(/^#/, "");
 
    // Parse the hex string
@@ -97,13 +46,11 @@ const hexToRgb = (hex) => {
 };
 
 const hslToHex = (h, s, l) => {
-   // Convert HSL to RGB
    function hslToRgb(h, s, l) {
       let r, g, b;
 
       if (s === 0) {
-         // Achromatic (gray)
-         r = g = b = l; // In this case, r, g, b are all equal to the lightness
+         r = g = b = l;
       } else {
          const hue2rgb = (p, q, t) => {
             if (t < 0) t += 1;
@@ -128,7 +75,6 @@ const hslToHex = (h, s, l) => {
       };
    }
 
-   // Convert RGB to Hex
    function rgbToHex(r, g, b) {
       return (
          "#" +
@@ -143,24 +89,6 @@ const hslToHex = (h, s, l) => {
    return rgbToHex(r, g, b);
 };
 
-/**
- * Method to convert a timestamp to a date in the format "YYYY-MM-DD, HH:MM:SS:SSS"
- *
- * @param {string} timestamp // timestamp in the format "YYYYMMDDHHmmssSSS"
- * @returns {Date} // Date in the format "YYYY-MM-DD, HH:MM:SS:SSS"
- */
-const timestampToDate = (timestamp) => {
-   let year = parseInt(timestamp.substring(0, 4));
-   // substraction of 1 because the month is zero-based
-   let month = parseInt(timestamp.substring(4, 6)) - 1;
-   let day = parseInt(timestamp.substring(6, 8));
-   let hour = parseInt(timestamp.substring(8, 10));
-   let minute = parseInt(timestamp.substring(10, 12));
-   let second = parseInt(timestamp.substring(12, 14));
-   let millisecond = parseInt(timestamp.substring(14));
-   return new Date(year, month, day, hour, minute, second, millisecond);
-};
-
 const removeAllEventListeners = (element) => {
    const clone = element.cloneNode(true);
    element.parentNode.replaceChild(clone, element);
@@ -169,12 +97,10 @@ const removeAllEventListeners = (element) => {
 
 const removeElementAndChildrenWithListeners = (element) => {
    try {
-      // Recursively remove all children
       while (element.firstChild) {
          removeElementAndChildrenWithListeners(element.firstChild);
       }
 
-      // Remove the element itself
       element = removeAllEventListeners(element);
       if (element.parentNode) {
          element.parentNode.removeChild(element);
@@ -189,25 +115,10 @@ const destroyCity = () => {
    }
 };
 
-/**
- * Method to format the filename of a file to the suitable format for the tool.
- *
- * @param {String} filename - The filename of the file.
- * @returns {String} - The formatted filename.
- */
-const formatFilename = (filename) => {
-   // Replace all "/" with "." and remove the file extension.
-   return filename.replaceAll("/", ".").slice(0, filename.lastIndexOf("."));
-};
-
 export {
-   formatDate,
-   formatDateToTimestamp,
    rgbToHsl,
    hexToRgb,
    hslToHex,
-   timestampToDate,
    destroyCity,
    removeElementAndChildrenWithListeners,
-   formatFilename,
 };

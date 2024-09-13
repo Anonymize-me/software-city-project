@@ -116,10 +116,8 @@ const recalculateGlobalNone = (
          (cityElement) => cityElement.groupingPath === building.groupingPath
       );
 
-      // Visibility
       buildingElement.visible = lastSeenHeightValue > 0;
 
-      // Dimension
       if (getDataType() === "git-java") {
          if (maxDimensionValue === minDimensionValue) {
             buildingElement.scale.x = (maxDimension - minDimension) / 2 + minDimension;
@@ -134,7 +132,6 @@ const recalculateGlobalNone = (
          }
       }
 
-      // Height
       if (maxHeightValue === minHeightValue) {
          buildingElement.scale.y = (maxHeight - minHeight) / 2 + minHeight;
       } else {
@@ -145,14 +142,12 @@ const recalculateGlobalNone = (
              minHeight;
       }
 
-      // Also take into account the 'scale' value from the dat.gui
       const scaleValue = guiBuilder.optionsHeightMetaphor.scale;
 
       buildingElement.scale.y *= scaleValue;
 
       buildingElement.position.y = buildingElement.scale.y / 2 + 0.2;
 
-      // Color
       let hue = null;
       if (buildingElement.baseColor === undefined) {
          if (maxHueValue === minHueValue) {
@@ -195,7 +190,6 @@ const recalculateGlobalNone = (
             lightness
          );
 
-         // Update the model tree colors
          modelTreeBuilder.setColorByGroupingPath(building.groupingPath, {
             h: hue,
             s: saturation,
@@ -206,7 +200,6 @@ const recalculateGlobalNone = (
          modelTreeBuilder.hideColorPickerByGroupingPath(building.groupingPath);
       }
 
-      // Update arrow
       if (infoPanelBuilder.currentCityElement === buildingElement) {
          if (buildingElement.visible) {
             infoPanelBuilder.drawArrow();

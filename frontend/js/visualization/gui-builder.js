@@ -114,7 +114,6 @@ export default class GuiBuilder {
             );
          });
 
-      // Optionally, adjust the width of the surrounding controller container
       dropdownController.domElement.querySelector("select").style.color =
          "#2FA1D6";
       dropdownController.domElement.querySelector(
@@ -133,8 +132,6 @@ export default class GuiBuilder {
          .add(this.gui.thresholdParams, "threshold", 0, 0)
          .name("Threshold")
          .onChange((value) => {
-            // All buildings with a value of the selected attribute below the threshold will set the saturation
-            // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
             recalculateController(
                this.cityMetaphor,
                this.cityElements,
@@ -149,8 +146,6 @@ export default class GuiBuilder {
          .add(this.gui.thresholdParams, "saturation", 0, 1)
          .name("Level")
          .onChange((value) => {
-            // All buildings with a value of the selected attribute below the threshold will set the saturation
-            // to the value of the saturation parameter. All other buildings will be set to 100% saturation.
             recalculateController(
                this.cityMetaphor,
                this.cityElements,

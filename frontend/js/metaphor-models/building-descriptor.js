@@ -7,4 +7,6 @@ export default class BuildingDescriptor {
       this.saturation = metaphorSelection.saturation;
       this.lightness = metaphorSelection.lightness;
    }
+
+   serialize() {}
 }

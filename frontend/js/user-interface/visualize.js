@@ -39,7 +39,6 @@ const frameInfo = document.getElementById("frame-info");
 const prepareMetaphorsFrame = () => {
    dimensionAttributeSelection.replaceChildren();
    heightAttributeSelection.replaceChildren();
-   // append 1 empty option and the rest of the attributes
    hueAttributeSelection.replaceChildren();
    hueAttributeSelection.appendChild(document.createElement("option"));
    lightnessAttributeSelection.replaceChildren();
@@ -85,7 +84,6 @@ const prepareMetaphorsFrame = () => {
       taskIdLabel.style.display = "none";
    }
 
-   // get a mapping from the cookies_manager
    let mapping = getMapping();
    if (mapping.length > 0) {
       mapping = JSON.parse(mapping[0].split("=")[1]).mapping;
@@ -99,8 +97,6 @@ const prepareMetaphorsFrame = () => {
       }
    }
 
-   // if no participant and task mapping in the config is set,
-   // disable the participant and task selection fields, and set the empty option by default.
    let config = getConfig();
    if (config.length > 0) {
       config = JSON.parse(getConfig()[0].split("=")[1]).config;
@@ -154,7 +150,6 @@ buttonStartVisualize.addEventListener("click", (e) => {
    let participant = document.getElementById("participant").value;
    let taskId = document.getElementById("taskId").value;
 
-   // update the mapping in the cookies_manager
    const mapping = {
       groupingPath: metaphorSelection.groupingPath,
       timestamp: metaphorSelection.timestamp,

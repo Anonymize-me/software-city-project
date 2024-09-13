@@ -43,7 +43,6 @@ const uploadData = (fileParam = null) => {
          document.getElementById("file-format").value
       );
 
-      // populate the config dropdowns with 1 empty option and the attribute names
       groupingPathSelection.replaceChildren();
       timestampSelection.replaceChildren();
       timestampSelection.appendChild(document.createElement("option"));
@@ -75,8 +74,6 @@ const uploadData = (fileParam = null) => {
          taskIdSelection.appendChild(newElement.cloneNode(true));
       });
 
-      // load a config (if present for the attributes)
-      // set the config dropdowns to the values of the config
       let config = getConfig();
       if (config.length > 0) {
          config = JSON.parse(getConfig()[0].split("=")[1]).config;
@@ -86,7 +83,6 @@ const uploadData = (fileParam = null) => {
          taskIdSelection.value = config.taskId;
       }
 
-      // alert success and hide upload frame
       alertSuccessUploadData.style.display = "block";
       $("#alert-success-upload-data").delay(2000).fadeOut(800);
       frameUpload.style.display = "none";

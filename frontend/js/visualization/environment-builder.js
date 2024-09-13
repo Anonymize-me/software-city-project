@@ -4,7 +4,6 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 export default class EnvironmentBuilder {
    constructor(cityMetaphor) {
       this.type = "EnvironmentBuilder";
-      this.cityMetaphor = cityMetaphor;
    }
 
    setInfoPanelBuilder(infoPanelBuilder) {
@@ -28,10 +27,8 @@ export default class EnvironmentBuilder {
       renderer.xr.enabled = true;
       document.body.appendChild(renderer.domElement);
 
-      // Scene
       const scene = new THREE.Scene();
 
-      // Light
       const ambientLight = new THREE.AmbientLight(
          new THREE.Color(0xffffff, 1.0).setHSL(0, 0, 1)
       );
@@ -43,7 +40,6 @@ export default class EnvironmentBuilder {
       scene.add(ambientLight);
       scene.add(directionalLight);
 
-      // Camera
       const camera = new THREE.PerspectiveCamera(
          75,
          window.innerWidth / window.innerHeight,
@@ -54,7 +50,6 @@ export default class EnvironmentBuilder {
       const orbit = new OrbitControls(camera, renderer.domElement);
       orbit.update();
 
-      // Window resize
       window.onresize = () => {
          renderer.setPixelRatio(window.devicePixelRatio);
          renderer.setSize(window.innerWidth, window.innerHeight);
@@ -62,7 +57,6 @@ export default class EnvironmentBuilder {
          camera.updateProjectionMatrix();
       };
 
-      // Keyboard controls
       window.addEventListener("keydown", (e) => {
          if (e.key === "Alt") {
             const raycaster = new THREE.Raycaster();
@@ -85,7 +79,6 @@ export default class EnvironmentBuilder {
 
             document.body.style.cursor = "grabbing";
 
-            // Calculate Initial Offset
             const worldPosition = new THREE.Vector3();
             this.selectedObject.getWorldPosition(worldPosition);
 
@@ -112,7 +105,6 @@ export default class EnvironmentBuilder {
          }
       });
 
-      // Mouse controls
       renderer.domElement.addEventListener("mousedown", (e) => {
          const mouse = new THREE.Vector2();
          mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
@@ -252,14 +244,12 @@ export default class EnvironmentBuilder {
          }
       });
 
-      // Animation
       function animate(time) {
          renderer.render(scene, camera);
       }
       renderer.setAnimationLoop(animate);
 
       return {
-         renderer,
          scene,
          camera,
       };

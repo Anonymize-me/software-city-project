@@ -33,7 +33,6 @@ export default class InfoPanelBuilder {
       this.cityElements = planes.concat(buildings);
       this.buildings = buildings;
 
-      // Create datasets for the charts
       this.allTimestamps = [];
       this.heightMetaphorDatasets = [];
       this.hueMetaphorDatasets = [];
@@ -207,7 +206,6 @@ export default class InfoPanelBuilder {
          };
       });
 
-      // Building the Charts
       this.chartBuilding = new Chart(document.getElementById("chartBuilding"), {
          type: "scatter",
          data: {

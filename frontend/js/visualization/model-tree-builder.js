@@ -148,7 +148,6 @@ export default class ModelTreeBuilder {
             container.appendChild(newElement);
          }
 
-         // Listeners
          if (newElement.type === "building" || newElement.type === "plane") {
             let element = newElement;
             if (newElement.type === "plane") {

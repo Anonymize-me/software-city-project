@@ -10,7 +10,6 @@ export default class PlaneBuilder {
 
    build(buildings) {
       buildings.forEach((building) => {
-         console.log(building);
          const groupingPathLayers = building.groupingPath.split("/");
          for (let i = 1; i < groupingPathLayers.length; i++) {
             const foundPlane = this.planes.find(

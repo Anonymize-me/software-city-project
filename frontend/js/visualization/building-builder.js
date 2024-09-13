@@ -31,7 +31,6 @@ export default class BuildingBuilder {
          this.buildings.push(building);
          building.buildingId = this.nextBuildingId++;
          building.elementType = "building";
-         console.log(entry);
          building.groupingPath = entry.groupingPath;
          building.buildingData = [entry];
 

@@ -180,19 +180,7 @@ export default class SliderBuilder {
             Math.max(0, sliderProgressInPixel)
          );
 
-         if (
-            draggingSlider === this.sliderThumbT0 &&
-            newSliderProgressInPixel >= parseInt(this.sliderThumbT1.style.left)
-         ) {
-            newSliderProgressInPixel = parseInt(this.sliderThumbT1.style.left);
-         } else if (
-            draggingSlider === this.sliderThumbT1 &&
-            newSliderProgressInPixel <= parseInt(this.sliderThumbT0.style.left)
-         ) {
-            newSliderProgressInPixel = parseInt(this.sliderThumbT0.style.left);
-         } else {
-            draggingSlider.style.left = newSliderProgressInPixel + "px";
-         }
+         draggingSlider.style.left = newSliderProgressInPixel + "px";
 
          if (draggingSlider === this.sliderThumbT0) {
             this.sliderThumbT0.style.zIndex = 2;
