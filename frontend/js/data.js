@@ -19,14 +19,7 @@ const processOriginalData = (config) => {
          let attributeName = dataStore.attributeNames[i];
 
          if (attributeName === config.groupingPath) {
-            if (dataStore.dataType === 'generic') {
-                dataObject['groupingPath'] = entry[attributeName].replace(
-                     /\//g,
-                     '/',
-                );
-            } else {
-                dataObject['groupingPath'] = entry[attributeName];
-            }
+            dataObject['groupingPath'] = entry[attributeName];
          } else if (attributeName === config.timestamp) {
             dataObject['timestamp'] = entry[attributeName];
          } else if (
