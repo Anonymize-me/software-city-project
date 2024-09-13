@@ -30,7 +30,7 @@ public class ReceiveJobController {
         URL repoUrl = jobDto.getRepoUrl();
         List<MetricsDataRow> metricsData = jobDto.getMetricsData();
 
-        ReceiveJobCommand command = new ReceiveJobCommand(uuid, repoUrl, metricsData);
+        ReceiveJobCommand command = new ReceiveJobCommand(uuid, repoUrl, jobDto.getToken(), metricsData);
 
         receiveJobUseCase.receiveJob(command);
     }
@@ -41,7 +41,7 @@ public class ReceiveJobController {
         UUID uuid = jobDto.getUuid();
         Status status = jobDto.getStatus();
 
-        ReceiveJobStatusUpdateCommand command = new ReceiveJobStatusUpdateCommand(uuid, status);
+        ReceiveJobStatusUpdateCommand command = new ReceiveJobStatusUpdateCommand(uuid, status, jobDto.getToken());
 
         receiveJobUseCase.receiveJobStatusUpdate(command);
     }

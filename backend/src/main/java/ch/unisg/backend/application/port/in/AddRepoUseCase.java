@@ -6,6 +6,6 @@ import java.net.URL;
 
 public interface AddRepoUseCase {
 
-    ResponseEntity<Void> addRepo(URL repoUrl);
+    ResponseEntity<Void> addRepo(URL repoUrl, String token);
 
 }

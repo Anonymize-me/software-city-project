@@ -16,7 +16,7 @@ public class EnqueueRepoController {
     @PostMapping("/enqueue")
     public ResponseEntity<Void> enqueueRepo(@RequestBody EnqueueRepoRequest request) {
 
-        enqueueRepoUseCase.enqueueRepo(request.getUuid(), request.getRepoUrl());
+        enqueueRepoUseCase.enqueueRepo(request.getUuid(), request.getRepoUrl(), request.getToken());
 
         return ResponseEntity.ok().build();
     }

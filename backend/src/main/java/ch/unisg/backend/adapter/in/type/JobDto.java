@@ -16,6 +16,7 @@ public class JobDto {
     private UUID uuid;
     private URL repoUrl;
     private Status status;
+    private String token;
     private List<MetricsDataRow> metricsData;
 
 }

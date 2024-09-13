@@ -27,11 +27,11 @@ public class EnqueueRepoWebAdapter implements EnqueueRepoPort {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public void enqueueRepo(UUID uuid, URL repoUrl) {
+    public void enqueueRepo(UUID uuid, URL repoUrl, String token) {
 
         String json = null;
         try {
-            json = objectMapper.writeValueAsString(new EnqueueRepoDto(uuid, repoUrl));
+            json = objectMapper.writeValueAsString(new EnqueueRepoDto(uuid, repoUrl, token));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

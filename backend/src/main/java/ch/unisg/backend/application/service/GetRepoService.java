@@ -33,7 +33,7 @@ public class GetRepoService implements GetRepoUseCase {
                 for (RepoWithoutMetrics repo : reposFromDB) {
                     repoList.addRepo(repo);
                     if (!repo.getStatus().toString().equals("DONE")) {
-                        enqueueRepoPort.enqueueRepo(repo.getUuid(), repo.getRepoUrl());
+                        enqueueRepoPort.enqueueRepo(repo.getUuid(), repo.getRepoUrl(), repo.getToken());
                     }
                 }
             } catch (Exception e) {

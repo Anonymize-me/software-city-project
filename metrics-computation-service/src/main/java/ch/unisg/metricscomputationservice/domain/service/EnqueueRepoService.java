@@ -15,9 +15,9 @@ public class EnqueueRepoService implements EnqueueRepoUseCase {
     private final JobQueueExecutionService jobQueueExecutionService;
 
     @Override
-    public void enqueueRepo(UUID uuid, URL repoUrl) {
+    public void enqueueRepo(UUID uuid, URL repoUrl, String token) {
 
-        Job job = new Job(uuid, repoUrl);
+        Job job = new Job(uuid, repoUrl, token);
 
         jobQueueExecutionService.addJob(job);
 

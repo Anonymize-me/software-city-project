@@ -12,5 +12,6 @@ final public class EnqueueRepoRequest {
 
     private UUID uuid;
     private URL repoUrl;
+    private String token;
 
 }

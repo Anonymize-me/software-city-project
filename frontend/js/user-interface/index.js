@@ -26,6 +26,7 @@ const frameInfo = document.getElementById("frame-info");
 const buttonsClose = document.getElementsByClassName("button-close");
 
 const gitHubRepoUrl = document.getElementById("github-repo-url");
+const gitHubRepoToken = document.getElementById("github-repo-token");
 const gitHubRepoRegisteredContainer = document.getElementById("github-repo-registered-container");
 
 const buttonFetch = document.getElementById("button-fetch");
@@ -279,8 +280,14 @@ buttonFetch.addEventListener("click", async (e) => {
 
    try {
       const encodedRepoUrl = encodeURIComponent(gitHubRepoUrl.value);
-      await fetch(`http://localhost:8080/api/repo/add?repoUrl=${encodedRepoUrl}`);
+      if (gitHubRepoToken.value) {
+         const encodedRepoToken = encodeURIComponent(gitHubRepoToken.value);
+         await fetch(`http://localhost:8080/api/repo/add?repoUrl=${encodedRepoUrl}&token=${encodedRepoToken}`);
+      } else {
+         await fetch(`http://localhost:8080/api/repo/add?repoUrl=${encodedRepoUrl}&token=`);
+      }
       gitHubRepoUrl.value = "";
+      gitHubRepoToken.value = "";
    } catch (error) {
       console.error('Error adding repo:', error);
    }

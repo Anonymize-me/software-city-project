@@ -20,15 +20,16 @@ public class AddRepoService implements AddRepoUseCase {
     private final EnqueueRepoPort enqueueRepoPort;
 
     @Override
-    public ResponseEntity<Void> addRepo(URL repoUrl) {
+    public ResponseEntity<Void> addRepo(URL repoUrl, String token) {
 
-        Repo repo = new Repo(repoUrl);
+        Repo repo = new Repo(repoUrl, token);
         addRepoPort.addRepo(repo);
 
-        RepoWithoutMetrics repoWithoutMetrics = new RepoWithoutMetrics(repo.getUuid(), repo.getStatus(), repo.getRepoUrl());
+        RepoWithoutMetrics repoWithoutMetrics = new RepoWithoutMetrics(repo.getUuid(), repo.getStatus(),
+                repo.getRepoUrl(), repo.getToken());
         RepoList.getInstance().addRepo(repoWithoutMetrics);
 
-        enqueueRepoPort.enqueueRepo(repo.getUuid(), repoUrl);
+        enqueueRepoPort.enqueueRepo(repo.getUuid(), repoUrl, token);
 
         return ResponseEntity.ok().build();
 

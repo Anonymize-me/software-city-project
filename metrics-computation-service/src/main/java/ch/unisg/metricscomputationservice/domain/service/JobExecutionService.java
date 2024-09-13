@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,7 @@ public class JobExecutionService {
             try (Git git = Git.cloneRepository()
                     .setURI(repoUrl.toString())
                     .setDirectory(repositoryDir)
+                    .setCredentialsProvider(new UsernamePasswordCredentialsProvider(job.getToken(), ""))
                     .call()) {
                 System.out.println("Cloning Repository...");
             }

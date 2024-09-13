@@ -5,6 +5,6 @@ import java.util.UUID;
 
 public interface EnqueueRepoUseCase {
 
-    void enqueueRepo(UUID uuid, URL command);
+    void enqueueRepo(UUID uuid, URL command, String token);
 
 }

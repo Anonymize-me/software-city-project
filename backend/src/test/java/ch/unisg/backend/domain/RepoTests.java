@@ -21,7 +21,7 @@ class RepoTests {
 
     @Test
     void newRepoTest() {
-        Repo repo = new Repo(url);
+        Repo repo = new Repo(url, null);
         assert(repo.getStatus().equals(Status.REGISTERED));
     }
 }

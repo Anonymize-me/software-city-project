@@ -17,26 +17,30 @@ public class Repo {
     private UUID uuid;
     private Status status;
     private URL repoUrl;
+    private String token;
     private List<MetricsDataRow> metrics;
 
-    public Repo(URL repoUrl) {
+    public Repo(URL repoUrl, String token) {
         this.uuid = UUID.randomUUID();
         this.status = Status.REGISTERED;
         this.repoUrl = repoUrl;
+        this.token = token;
         this.metrics = new ArrayList<>();
     }
 
-    public Repo(UUID uuid, Status status, URL repoUrl, List<MetricsDataRow> metrics) {
+    public Repo(UUID uuid, Status status, URL repoUrl, String token, List<MetricsDataRow> metrics) {
         this.uuid = uuid;
         this.status = status;
         this.repoUrl = repoUrl;
+        this.token = token;
         this.metrics = metrics;
     }
 
-    public Repo(UUID uuid, Status status, URL repoUrl) {
+    public Repo(UUID uuid, Status status, URL repoUrl, String token) {
         this.uuid = uuid;
         this.status = status;
         this.repoUrl = repoUrl;
+        this.token = token;
         this.metrics = new ArrayList<>();
     }
 

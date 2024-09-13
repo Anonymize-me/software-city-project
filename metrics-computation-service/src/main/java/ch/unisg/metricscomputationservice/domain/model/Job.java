@@ -18,12 +18,14 @@ public class Job {
 
     private UUID uuid;
     private URL repoUrl;
+    private String token;
     private Status status;
     private List<MetricsDataRow> metricsData;
 
-    public Job(UUID uuid, URL repoUrl) {
+    public Job(UUID uuid, URL repoUrl, String token) {
         this.uuid = uuid;
         this.repoUrl = repoUrl;
+        this.token = token;
         this.status = Status.REGISTERED;
         this.metricsData = new ArrayList<>();
     }

@@ -24,6 +24,7 @@ public class RepoMapper {
                 UUID.fromString(repoMongoDocument.getUuid()),
                 Status.valueOf(repoMongoDocument.getStatus()),
                 repoUrl,
+                repoMongoDocument.getToken(),
                 repoMongoDocument.getMetrics()
         );
     }
@@ -33,6 +34,7 @@ public class RepoMapper {
                 repo.getUuid().toString(),
                 repo.getStatus().toString(),
                 repo.getRepoUrl().toString(),
+                repo.getToken(),
                 repo.getMetrics()
         );
     }

@@ -15,11 +15,13 @@ public class RepoWithoutMetrics {
     private UUID uuid;
     private Status status;
     private URL repoUrl;
+    private String token;
 
-    public RepoWithoutMetrics(UUID uuid, Status status, URL repoUrl) {
+    public RepoWithoutMetrics(UUID uuid, Status status, URL repoUrl, String token) {
         this.uuid = uuid;
         this.status = status;
         this.repoUrl = repoUrl;
+        this.token = token;
     }
 
 }

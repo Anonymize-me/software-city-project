@@ -30,6 +30,7 @@ public class ReceiveJobService implements ReceiveJobUseCase {
         Repo repo = new Repo(command.getUuid(),
                 repoWithoutMetrics.getStatus(),
                 repoWithoutMetrics.getRepoUrl(),
+                command.getToken(),
                 command.getMetricsData());
 
         saveRepoMetricsPort.saveRepo(repo);
@@ -44,7 +45,8 @@ public class ReceiveJobService implements ReceiveJobUseCase {
 
         Repo repo = new Repo(command.getUuid(),
                 repoWithoutMetrics.getStatus(),
-                repoWithoutMetrics.getRepoUrl());
+                repoWithoutMetrics.getRepoUrl(),
+                command.getToken());
 
         updateRepoStatusService.updateRepoStatus(repo.getUuid(), repo.getStatus());
     }

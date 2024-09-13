@@ -15,12 +15,15 @@ public class RepoMongoDocument {
     public String uuid;
     public String status;
     public String repoUrl;
+    public String token;
     public List<MetricsDataRow> metrics;
 
-    public RepoMongoDocument(String uuid, String status, String repoUrl, List<MetricsDataRow> metrics) {
+    public RepoMongoDocument(String uuid, String status, String repoUrl,
+                             String token, List<MetricsDataRow> metrics) {
         this.uuid = uuid;
         this.status = status;
         this.repoUrl = repoUrl;
+        this.token = token;
         this.metrics = metrics;
     }
 

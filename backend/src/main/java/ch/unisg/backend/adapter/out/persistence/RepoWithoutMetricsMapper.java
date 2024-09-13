@@ -23,7 +23,8 @@ public class RepoWithoutMetricsMapper {
         return new RepoWithoutMetrics(
                 UUID.fromString(repoWithoutMetricsMongoDocument.getUuid()),
                 Status.valueOf(repoWithoutMetricsMongoDocument.getStatus()),
-                repoUrl
+                repoUrl,
+                repoWithoutMetricsMongoDocument.getToken()
         );
     }
 
@@ -31,7 +32,8 @@ public class RepoWithoutMetricsMapper {
         return new RepoWithoutMetricsMongoDocument(
                 repo.getUuid().toString(),
                 repo.getStatus().toString(),
-                repo.getRepoUrl().toString()
+                repo.getRepoUrl().toString(),
+                repo.getToken()
         );
     }
 }

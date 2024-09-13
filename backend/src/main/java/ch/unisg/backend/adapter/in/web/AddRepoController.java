@@ -15,10 +15,9 @@ public class AddRepoController {
     private final AddRepoUseCase addRepoUseCase;
 
     @GetMapping
-    public ResponseEntity<Void> addRepo(@RequestParam URL repoUrl) {
+    public ResponseEntity<Void> addRepo(@RequestParam URL repoUrl, @RequestParam String token) {
 
-        return addRepoUseCase.addRepo(repoUrl);
+        return addRepoUseCase.addRepo(repoUrl, token);
 
     }
-
 }

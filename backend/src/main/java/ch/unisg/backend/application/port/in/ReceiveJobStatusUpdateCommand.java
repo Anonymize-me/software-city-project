@@ -12,9 +12,11 @@ public class ReceiveJobStatusUpdateCommand {
 
     private UUID uuid;
     private Status status;
+    private String token;
 
-    public ReceiveJobStatusUpdateCommand(UUID uuid, Status status) {
+    public ReceiveJobStatusUpdateCommand(UUID uuid, Status status, String token) {
         this.uuid = uuid;
         this.status = status;
+        this.token = token;
     }
 }

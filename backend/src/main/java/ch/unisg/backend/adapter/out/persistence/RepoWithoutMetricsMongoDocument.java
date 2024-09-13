@@ -12,11 +12,13 @@ public class RepoWithoutMetricsMongoDocument {
     public String uuid;
     public String status;
     public String repoUrl;
+    public String token;
 
-    public RepoWithoutMetricsMongoDocument(String uuid, String status, String repoUrl) {
+    public RepoWithoutMetricsMongoDocument(String uuid, String status, String repoUrl, String token) {
         this.uuid = uuid;
         this.status = status;
         this.repoUrl = repoUrl;
+        this.token = token;
     }
 
 }
