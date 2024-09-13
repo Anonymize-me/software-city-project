@@ -15,23 +15,9 @@ export default class SliderBuilder {
       this.cityMetaphor = cityMetaphor;
       this.sliderContainer = document.getElementById("slider-container");
       this.valueDisplay = document.getElementById("slider-value");
-      this.commitHash = document.getElementById("commit-hash");
       this.sliderThumbT0 = document.getElementById("slider-thumb-t0");
       this.sliderThumbT1 = document.getElementById("slider-thumb-t1");
       this.sliderWindowWidth = document.getElementById("slider-window-width");
-
-      if (getDataType() === "git-java") {
-         this.snapshotInputContainer = document.getElementById(
-            "snapshot-input-container"
-         );
-         this.snapshotInput = document.getElementById("snapshot-input");
-         this.snapshotIndex = 0;
-
-         document.getElementById("slider-value-copy-icon-container").style.display = "block";
-      } else {
-         document.getElementById("slider-value-copy-icon-container").style.display = "none";
-      }
-
       this.lowerRangeBounds = 0;
       this.upperRangeBounds = 0;
    }
@@ -58,15 +44,6 @@ export default class SliderBuilder {
          this.sliderThumbT0.style.display = "block";
          this.sliderThumbT1.innerText = "t1";
          this.sliderWindowWidth.style.display = "block";
-      } else if (getDataType() === "git-java") {
-         this.sliderThumbT0.style.display = "none";
-         this.sliderThumbT1.innerText = "";
-         this.sliderWindowWidth.style.display = "none";
-
-         if (getDataType() === "git-java") {
-            document.getElementById("snapshot-input-container").style.display =
-               "none";
-         }
       }
 
       this.cityElements.forEach((cityElement) => {
@@ -81,12 +58,7 @@ export default class SliderBuilder {
       );
       const deltaTimestamp = highestTimestamp - lowestTimestamp;
 
-      if (getDataType() === "generic") {
-         this.valueDisplay.textContent = `${lowestTimestamp} - ${highestTimestamp}`;
-      } else if (getDataType() === "git-java") {
-         this.commitHash.textContent = this.epoques[0].commitHash;
-         this.valueDisplay.textContent = `Commit: 1, ${lowestTimestamp}`;
-      }
+      this.valueDisplay.textContent = `${lowestTimestamp} - ${highestTimestamp}`;
 
       this.sliderContainer.style.display = "block";
 
@@ -98,61 +70,6 @@ export default class SliderBuilder {
       this.sliderThumbT1.style.left = "0px";
       this.sliderThumbT0.style.zIndex = 1;
       this.sliderThumbT1.style.zIndex = 2;
-
-      if (getDataType() === "git-java") {
-         this.snapshotInputContainer.style.display = "block";
-         this.snapshotInput.min = 1;
-         this.snapshotInput.max = this.epoques.length;
-         this.snapshotInput.value = 1;
-         this.snapshotInput.addEventListener("input", (e) => {
-            if (e.target.value === "") {
-               return;
-            }
-            if (e.target.value < 1) {
-               e.target.value = 1;
-            }
-            if (e.target.value > this.epoques.length) {
-               e.target.value = this.epoques.length;
-            }
-
-            this.snapshotIndex = parseInt(e.target.value) - 1;
-
-            this.commitHash.textContent = this.epoques[this.snapshotIndex].commitHash;
-
-            this.valueDisplay.textContent = `Commit: ${this.snapshotIndex + 1}, ${this.epoques[this.snapshotIndex].timestamp}`;
-
-            const sliderProgress =
-               (this.epoques[this.snapshotIndex].timestamp - lowestTimestamp) /
-               deltaTimestamp;
-            this.sliderThumbT1.style.left =
-               sliderProgress * (this.sliderContainer.clientWidth - 20) + "px";
-
-            this.lowerRangeBounds = this.epoques[0].timestamp;
-            this.upperRangeBounds = this.epoques[this.snapshotIndex].timestamp;
-
-            recalculateController(
-               this.cityMetaphor,
-               this.cityElements,
-               this.modelTreeBuilder,
-               this,
-               this.guiBuilder,
-               this.infoPanelBuilder
-            );
-
-            const modelTree = this.modelTreeBuilder.build();
-            const modelTreeFrame = document.getElementById("model-tree");
-            modelTreeFrame.appendChild(modelTree);
-
-            recalculateController(
-               this.cityMetaphor,
-               this.cityElements,
-               this.modelTreeBuilder,
-               this,
-               this.guiBuilder,
-               this.infoPanelBuilder
-            );
-         });
-      }
 
       this.sliderThumbT0.addEventListener("mousedown", (e) => {
          isDragging = true;
@@ -218,64 +135,21 @@ export default class SliderBuilder {
             parseInt(lowestTimestamp) +
             parseInt(t1ProgressPercentage * deltaTimestamp);
 
-         if (getDataType() === "generic") {
-            this.valueDisplay.textContent = `${this.lowerRangeBounds} - ${this.upperRangeBounds}`;
+         this.valueDisplay.textContent = `${this.lowerRangeBounds} - ${this.upperRangeBounds}`;
 
-            recalculateController(
-               this.cityMetaphor,
-               this.cityElements,
-               this.modelTreeBuilder,
-               this,
-               this.guiBuilder,
-               this.infoPanelBuilder
-            );
-         } else if (getDataType() === "git-java") {
-            const previousSnapshotIndex = this.snapshotIndex;
-            for (let i = 0; i < this.epoques.length; i++) {
-               if (this.epoques[i].timestamp > this.upperRangeBounds) {
-                  break;
-               }
-               this.snapshotIndex = i;
-            }
-            this.commitHash.textContent = this.epoques[this.snapshotIndex].commitHash;
-            this.valueDisplay.textContent = `Commit: ${this.snapshotIndex + 1}, ${this.epoques[this.snapshotIndex].timestamp}`;
-            this.upperRangeBounds = this.epoques[this.snapshotIndex].timestamp;
-            this.snapshotInput.value = this.snapshotIndex + 1;
-
-            if (previousSnapshotIndex !== this.snapshotIndex) {
-               recalculateController(
-                  this.cityMetaphor,
-                  this.cityElements,
-                  this.modelTreeBuilder,
-                  this,
-                  this.guiBuilder,
-                  this.infoPanelBuilder
-               );
-
-               const modelTree = this.modelTreeBuilder.build();
-               const modelTreeFrame = document.getElementById("model-tree");
-               modelTreeFrame.appendChild(modelTree);
-
-               recalculateController(
-                  this.cityMetaphor,
-                  this.cityElements,
-                  this.modelTreeBuilder,
-                  this,
-                  this.guiBuilder,
-                  this.infoPanelBuilder
-               );
-            }
-         }
+         recalculateController(
+            this.cityMetaphor,
+            this.cityElements,
+            this.modelTreeBuilder,
+            this,
+            this.guiBuilder,
+            this.infoPanelBuilder
+         );
       });
    }
 
    destroy() {
       document.getElementById("slider-window-width").style.width = "0px";
       document.getElementById("slider-container").style.display = "none";
-
-      if (getDataType() === "git-java") {
-         document.getElementById("snapshot-input-container").style.display =
-            "none";
-      }
    }
 }

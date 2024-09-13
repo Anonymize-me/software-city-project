@@ -126,20 +126,6 @@ export default class InfoPanelBuilder {
                newElement.appendChild(dataElement);
             }
             this.infoPanelDiv.appendChild(newElement);
-         } else if (entry === "buildingName" && getDataType() === "git-java") {
-            let url = this.currentCityElement.buildingData[0].repoUrl;
-            url = url + "/tree/" + document.getElementById("commit-hash").textContent;
-            url = url + "/" + info.groupingPath + ".java";
-            let hyperlink = document.createElement("a");
-            hyperlink.innerHTML = info[entry];
-            hyperlink.href = url;
-            hyperlink.target = "_blank";
-
-            let newElement = document.createElement("p");
-            newElement.innerHTML = `<strong>${entry}:</strong>`;
-            newElement.style.marginBottom = "0px";
-            this.infoPanelDiv.appendChild(newElement);
-            this.infoPanelDiv.appendChild(hyperlink);
          } else {
             let newElement = document.createElement("p");
             newElement.innerHTML = `<strong>${entry}:</strong><br>${info[entry]}`;

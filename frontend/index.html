@@ -28,9 +28,6 @@
    <body>
 
       <div id="nav" class="container">
-         <button id="button-github-repo" class="btn btn-default">
-            GitHub Repo
-         </button>
          <button id="button-upload" class="btn btn-default">Upload</button>
          <button id="button-config" class="btn btn-default" disabled>
             Config
@@ -88,32 +85,6 @@
          <strong>Success!</strong> Data cleared.
       </div>
 
-      <div id="frame-github-repo" class="container frame">
-         <i id="frame-github-repo-button-close" class="fa fa-times fa-lg button-close"></i>
-         <h2 class="frame-title">GitHub Repository Analysis</h2>
-         <form id="form-github-repo">
-            <label for="github-repo-url">GitHub Repository URL</label>
-            <input
-               type="url"
-               id="github-repo-url"
-               name="github-repo-url"
-               placeholder="URL here..."
-            />
-             <input type="text" id="github-repo-token" name="github-repo-token"
-                    placeholder="(optional) GitHub Personal Access Token..."/>
-             <button id="button-fetch" class="btn btn-default" disabled>
-                 Fetch
-             </button>
-
-            <div class="separator">
-               <span class="separator-text">or</span>
-            </div>
-
-            <label for="github-repo-registered-container">Registered GitHub Repository</label>
-             <div id="github-repo-registered-container"></div>
-         </form>
-      </div>
-
       <div id="frame-upload" class="container frame">
          <i id="frame-upload-button-close" class="fa fa-times fa-lg button-close"></i>
          <h2 class="frame-title">Upload</h2>
@@ -125,7 +96,6 @@
                <option value="generic">
                   Generic
                </option>
-               <option value="git-java">Git (Java)</option>
             </select>
 
             <button id="button-upload-data" class="btn btn-default">
@@ -248,34 +218,9 @@
             <div id="slider-thumb-t1">t1</div>
          </div>
           <div style="display: inline-flex">
-              <textarea id="commit-hash"></textarea>
-              <div id="slider-value-copy-icon-container">
-                  <i id="slider-value-copy-icon" class="material-symbols-outlined">
-                      content_copy
-                  </i>
-                  <i id="slider-value-check-icon" class="material-symbols-outlined" style="display: none;">
-                      check
-                  </i>
-                  <span id="slider-value-copy-icon-tooltip">Copy</span>
-              </div>
               <p id="slider-value">2024-01-01, 10:00:00:000</p>
           </div>
       </div>
-
-      <div id="snapshot-input-container">
-         <label id="snapshot-input-label" for="snapshot-input">Snapshot</label>
-         <input
-            type="number"
-            id="snapshot-input"
-            name="snapshot-input"
-            min="1"
-            max="10"
-         />
-      </div>
-
-      <select id="aggregate-function" name="aggregate-function">
-         <option value="globalNone">Aggregate - Global None</option>
-      </select>
 
       <div id="instructions">
          <h1 style="text-align: center">Software City</h1>
@@ -283,11 +228,10 @@
              The Software City is a tool for visualizing data as a city metaphor.
              The city metaphor consists of buildings, where each building represents an entity. City metaphor
              features can be dynamically mapped to individual attributes from the provided dataset.
-             The tool is designed to visualize either generic data ("Generic") or software metrics data
-             coming from GitHub repositories ("Git (Java)"). For now, only repositories with Java code are supported.
+             The tool is designed to visualize generic data ("Generic").
              This tool introduces the combination of the space dimension and the time dimension. That
-             means, that the uploaded dataset can be explored by looking at the city metaphor through time
-             (commits). This time dimension is implemented via the slider bar at the top of the screen
+             means, that the uploaded dataset can be explored by looking at the city metaphor through time.
+             This time dimension is implemented via the slider bar at the top of the screen
              within the visualization view.
          </p>
          <p>

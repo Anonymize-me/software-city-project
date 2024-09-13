@@ -48,16 +48,6 @@ export default class DimensionsBuilder {
             dimensionMetaphorValue = parseFloat(
                building.buildingData[0][dimensionMapping]
             );
-         } else if (getDataType() === "git-java") {
-            dimensionMetaphorValue = building.buildingData.reduce(
-               (acc, buildingData) => {
-                  return Math.max(
-                     acc,
-                     parseFloat(buildingData[dimensionMapping])
-                  );
-               },
-               0
-            );
          }
 
          let size = null;

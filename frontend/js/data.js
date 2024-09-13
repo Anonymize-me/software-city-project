@@ -57,8 +57,7 @@ const getEpoques = () => {
       const parsedTimestamp = parseInt(entry.timestamp);
       if (!epoques.some(epoque => epoque.timestamp === parsedTimestamp)) {
          epoques.push({
-            timestamp: parsedTimestamp,
-            commitHash: entry.commitHash
+            timestamp: parsedTimestamp
          });
       }
    });

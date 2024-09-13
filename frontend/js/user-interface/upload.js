@@ -65,9 +65,6 @@ const uploadData = (fileParam = null) => {
       } else {
          f = file.files[0];
       }
-   } else {
-      f = fileParam;
-      fileFormat.value = "git-java";
    }
 
    let reader = new FileReader();
@@ -94,11 +91,6 @@ const uploadData = (fileParam = null) => {
          participantSelectionLabel.style.display = "block";
          taskIdSelection.style.display = "block";
          taskIdSelectionLabel.style.display = "block";
-      } else if (getDataType() === "git-java") {
-         participantSelection.style.display = "none";
-         participantSelectionLabel.style.display = "none";
-         taskIdSelection.style.display = "none";
-         taskIdSelectionLabel.style.display = "none";
       }
 
       getAttributeNames().forEach((attributeName) => {

@@ -42,15 +42,6 @@ export default class ModelTreeBuilder {
       while (check.length > 0) {
          let current = check.pop();
 
-         if (getDataType() === "git-java") {
-            if (
-               current.elementType === "building" &&
-               current.visible === false
-            ) {
-               continue;
-            }
-         }
-
          seen.push(current);
          let filtered = current.children.filter(
             (child) =>

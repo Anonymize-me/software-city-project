@@ -12,30 +12,6 @@ const objectArrayToCsv = (objArray) => {
    }).join('\n');
 }
 
-const jsonToCsv = (jsonData) => {
-   const keys = Object.keys(jsonData[0]);
-   const csvRows = [keys.join(',')];
-
-   jsonData.forEach(row => {
-      const values = keys.map(key => {
-         let value = row[key];
-         if (key === 'file' && typeof value === 'string') {
-            value = value.replace(/\.java$/, '').replace(/"/g, '');
-         } else if (typeof value === 'string') {
-            value = value.replace(/"/g, '');
-         }
-         return value;
-      });
-      csvRows.push(values.join(','));
-   });
-   return csvRows.join('\n');
-}
-
-const createCsvFile = (csvString, fileName = 'data.csv') => {
-   const blob = new Blob([csvString], { type: 'text/csv' });
-   return new File([blob], fileName, { type: 'text/csv' });
-}
-
 const rgbToHsl = (color) => {
    let r = color.r;
    let g = color.g;
@@ -153,8 +129,6 @@ const destroyCity = () => {
 
 export {
    objectArrayToCsv,
-   jsonToCsv,
-   createCsvFile,
    rgbToHsl,
    hexToRgb,
    hslToHex,

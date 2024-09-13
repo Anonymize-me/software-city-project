@@ -107,15 +107,6 @@ const recalculateGlobalNone = (
             lastSeenHueValue = parseInt(entry[hueMetaphor]);
             lastSeenSaturationValue = parseInt(entry[saturationMetaphor]);
             lastSeenLightnessValue = parseInt(entry[lightnessMetaphor]);
-         } else if (
-             getDataType() === "git-java" &&
-             parseInt(entry.timestamp) === sliderBuilder.upperRangeBounds
-         ) {
-            lastSeenDimensionValue = parseInt(entry[dimensionMetaphor]);
-            lastSeenHeightValue = parseInt(entry[heightMetaphor]);
-            lastSeenHueValue = parseInt(entry[hueMetaphor]);
-            lastSeenSaturationValue = parseInt(entry[saturationMetaphor]);
-            lastSeenLightnessValue = parseInt(entry[lightnessMetaphor]);
          }
       }
 
@@ -124,20 +115,6 @@ const recalculateGlobalNone = (
       );
 
       buildingElement.visible = lastSeenHeightValue > 0;
-
-      if (getDataType() === "git-java") {
-         if (maxDimensionValue === minDimensionValue) {
-            buildingElement.scale.x = (maxDimension - minDimension) / 2 + minDimension;
-            buildingElement.scale.z = buildingElement.scale.x;
-         } else {
-            buildingElement.scale.x =
-                ((lastSeenDimensionValue - minDimension) /
-                    (maxDimensionValue - minDimensionValue)) *
-                (maxDimension - minDimension) +
-                minDimension;
-            buildingElement.scale.z = buildingElement.scale.x;
-         }
-      }
 
       if (maxHeightValue === minHeightValue) {
          buildingElement.scale.y = (maxHeight - minHeight) / 2 + minHeight;

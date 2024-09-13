@@ -5,7 +5,6 @@ import {showFrameConfig, toggleFrameConfig} from "./config.js";
 import {showFrameMetaphors, toggleFrameMetaphors} from "./metaphors.js";
 import {showFrameInfo} from "./info.js";
 import {toggleFrameModelTree} from "./model-tree.js";
-import {showFrameGitHubRepo, toggleFrameGitHubRepo} from "./github-repo.js";
 
 /**
  * This module is only responsible for the navigation bar of the user interface.
@@ -18,17 +17,7 @@ const buttonMetaphors = document.getElementById("button-metaphors");
 const buttonViewData = document.getElementById("button-view-data");
 const buttonModelTree = document.getElementById("button-model-tree");
 
-buttonGitHubRepo.addEventListener("click", () => {
-   toggleFrameGitHubRepo();
-   showFrameUpload(false);
-   showFrameConfig(false);
-   showFrameMetaphors(false);
-   showFrameInfo(false);
-   showViewData(false);
-});
-
 buttonUpload.addEventListener("click", () => {
-   showFrameGitHubRepo(false);
    toggleFrameUpload();
    showFrameConfig(false);
    showFrameMetaphors(false);
@@ -37,7 +26,6 @@ buttonUpload.addEventListener("click", () => {
 });
 
 buttonConfig.addEventListener("click", () => {
-   showFrameGitHubRepo(false);
    showFrameUpload(false);
    toggleFrameConfig();
    showViewData(false);
@@ -46,7 +34,6 @@ buttonConfig.addEventListener("click", () => {
 });
 
 buttonMetaphors.addEventListener("click", () => {
-   showFrameGitHubRepo(false);
    showFrameUpload(false);
    showFrameConfig(false);
    toggleFrameMetaphors();
@@ -55,7 +42,6 @@ buttonMetaphors.addEventListener("click", () => {
 });
 
 buttonViewData.addEventListener("click", () => {
-   showFrameGitHubRepo(false);
    showFrameUpload(false);
    showFrameConfig(false);
    showFrameMetaphors(false);
