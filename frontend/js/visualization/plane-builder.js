@@ -10,12 +10,13 @@ export default class PlaneBuilder {
 
    build(buildings) {
       buildings.forEach((building) => {
-         const groupingPathLayers = building.groupingPath.split(";");
+         console.log(building);
+         const groupingPathLayers = building.groupingPath.split("/");
          for (let i = 1; i < groupingPathLayers.length; i++) {
             const foundPlane = this.planes.find(
                (plane) =>
                   plane.groupingPath ===
-                  groupingPathLayers.slice(0, i).join(";")
+                  groupingPathLayers.slice(0, i).join("/")
             );
 
             if (foundPlane) {
@@ -23,7 +24,7 @@ export default class PlaneBuilder {
             }
 
             const plane = this.#createPlane(
-               groupingPathLayers.slice(0, i).join(";")
+               groupingPathLayers.slice(0, i).join("/")
             );
 
             if (plane.groupingPath === "") {

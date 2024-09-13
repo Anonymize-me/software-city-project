@@ -29,9 +29,9 @@ export default class HierarchyBuilder {
 
    #findParentElement(element) {
       const parentGroupingPath = element.groupingPath
-         .split(";")
+         .split("/")
          .slice(0, -1)
-         .join(";");
+         .join("/");
 
       for (const element of this.elements) {
          if (element.groupingPath === parentGroupingPath) {

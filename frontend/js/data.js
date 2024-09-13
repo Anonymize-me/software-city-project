@@ -19,60 +19,28 @@ const processOriginalData = (config) => {
          let attributeName = dataStore.attributeNames[i];
 
          if (attributeName === config.groupingPath) {
-            if (dataStore.dataType === 'git-java') {
-               dataObject['groupingPath'] = entry[attributeName].replace(
-                   /\//g,
-                   ';',
-               );
-            } else {
+            if (dataStore.dataType === 'generic') {
                 dataObject['groupingPath'] = entry[attributeName].replace(
-                    /\./g,
-                    ';',
+                     /\//g,
+                     '/',
                 );
+            } else {
+                dataObject['groupingPath'] = entry[attributeName];
             }
          } else if (attributeName === config.timestamp) {
             dataObject['timestamp'] = entry[attributeName];
          } else if (
             attributeName === config.participant &&
-            dataStore.dataType !== 'git-java'
+            dataStore.dataType === 'generic'
          ) {
             dataObject['participant'] = entry[attributeName];
          } else if (
             attributeName === config.taskId &&
-            dataStore.dataType !== 'git-java'
+            dataStore.dataType === 'generic'
          ) {
             dataObject['taskId'] = entry[attributeName];
          } else {
             dataObject[attributeName] = entry[attributeName];
-         }
-
-         // if the attribute is not defined, skip the entry
-         // if that attribute is one of those important attributes
-         if (
-            (attributeName === config.groupingPath ||
-               attributeName === config.timestamp) &&
-            dataStore.dataType === 'git-java'
-         ) {
-            if (
-               entry[attributeName] === undefined ||
-               entry[attributeName] === ''
-            ) {
-               continue;
-            }
-         }
-         if (
-            (attributeName === config.groupingPath ||
-               attributeName === config.timestamp ||
-               attributeName === config.participant ||
-               attributeName === config.taskId) &&
-            dataStore.dataType !== 'git-java'
-         ) {
-            if (
-               entry[attributeName] === undefined ||
-               entry[attributeName] === ''
-            ) {
-               continue;
-            }
          }
       }
       listDataObjects.push(dataObject);

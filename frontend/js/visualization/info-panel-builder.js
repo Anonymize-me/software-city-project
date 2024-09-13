@@ -48,14 +48,14 @@ export default class InfoPanelBuilder {
                x: entry.timestamp,
                y: parseFloat(entry[this.cityMetaphor.metaphorSelection.height]),
                buildingName: entry.groupingPath.substring(
-                   entry.groupingPath.lastIndexOf(";") + 1
+                   entry.groupingPath.lastIndexOf("/") + 1
                ),
             });
             this.hueMetaphorDatasets.push({
                x: entry.timestamp,
                y: parseFloat(entry[this.cityMetaphor.metaphorSelection.hue]),
                buildingName: entry.groupingPath.substring(
-                   entry.groupingPath.lastIndexOf(";") + 1
+                   entry.groupingPath.lastIndexOf("/") + 1
                ),
             });
             this.lightnessMetaphorDatasets.push({
@@ -64,7 +64,7 @@ export default class InfoPanelBuilder {
                    entry[this.cityMetaphor.metaphorSelection.lightness]
                ),
                buildingName: entry.groupingPath.substring(
-                   entry.groupingPath.lastIndexOf(";") + 1
+                   entry.groupingPath.lastIndexOf("/") + 1
                ),
             });
          }
@@ -100,7 +100,7 @@ export default class InfoPanelBuilder {
          info = {
             buildingId: this.currentCityElement.buildingId,
             buildingName: this.currentCityElement.groupingPath.substring(
-               this.currentCityElement.groupingPath.lastIndexOf(";") + 1
+               this.currentCityElement.groupingPath.lastIndexOf("/") + 1
             ),
             groupingPath: this.currentCityElement.groupingPath,
             buildingData: this.currentCityElement.buildingData,
@@ -124,7 +124,7 @@ export default class InfoPanelBuilder {
          } else if (entry === "buildingName" && getDataType() === "git-java") {
             let url = this.currentCityElement.buildingData[0].repoUrl;
             url = url + "/tree/" + document.getElementById("commit-hash").textContent;
-            url = url + "/" + info.groupingPath.replaceAll(";", "/") + ".java";
+            url = url + "/" + info.groupingPath + ".java";
             let hyperlink = document.createElement("a");
             hyperlink.innerHTML = info[entry];
             hyperlink.href = url;
@@ -162,21 +162,21 @@ export default class InfoPanelBuilder {
             x: entry.timestamp,
             y: parseFloat(entry[this.cityMetaphor.metaphorSelection.height]),
             buildingName: entry.groupingPath.substring(
-                entry.groupingPath.lastIndexOf(";") + 1
+                entry.groupingPath.lastIndexOf("/") + 1
             ),
          });
          dataHueMetaphor.push({
             x: entry.timestamp,
             y: parseFloat(entry[this.cityMetaphor.metaphorSelection.hue]),
             buildingName: entry.groupingPath.substring(
-                entry.groupingPath.lastIndexOf(";") + 1
+                entry.groupingPath.lastIndexOf("/") + 1
             ),
          });
          dataLightnessMetaphor.push({
             x: entry.timestamp,
             y: parseFloat(entry[this.cityMetaphor.metaphorSelection.lightness]),
             buildingName: entry.groupingPath.substring(
-                entry.groupingPath.lastIndexOf(";") + 1
+                entry.groupingPath.lastIndexOf("/") + 1
             ),
          });
       });

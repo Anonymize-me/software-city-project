@@ -74,9 +74,9 @@ export default class ModelTreeBuilder {
             newElement.style.display = "flex";
             newElement.style.alignItems = "center";
 
-            if (current.groupingPath.lastIndexOf(";") !== -1) {
+            if (current.groupingPath.lastIndexOf("/") !== -1) {
                newElement.innerText = current.groupingPath.substring(
-                  current.groupingPath.lastIndexOf(";") + 1
+                  current.groupingPath.lastIndexOf("/") + 1
                );
             } else {
                newElement.innerText = current.groupingPath;
@@ -103,11 +103,11 @@ export default class ModelTreeBuilder {
             folderElement.classList.add("model-tree-element");
             folderElement.style.fontWeight = "bold";
 
-            if (current.groupingPath.lastIndexOf(";") !== -1) {
+            if (current.groupingPath.lastIndexOf("/") !== -1) {
                folderElement.innerText =
                   "\u25BF " +
                   current.groupingPath.substring(
-                     current.groupingPath.lastIndexOf(";") + 1
+                     current.groupingPath.lastIndexOf("/") + 1
                   );
             } else {
                folderElement.innerText = "\u25BF " + current.groupingPath;
