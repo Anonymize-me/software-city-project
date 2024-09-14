@@ -11,7 +11,6 @@ export default class SliderBuilder {
       this.type = "SliderBuilder";
       this.data = data;
       this.epoques = getEpoques();
-      this.epoques = getEpoques();
       this.cityMetaphor = cityMetaphor;
       this.sliderContainer = document.getElementById("slider-container");
       this.valueDisplay = document.getElementById("slider-value");
