@@ -1,16 +1,16 @@
-import EnvironmentBuilder from "./environment-builder";
-import SliderBuilder from "./slider-builder";
-import ModelTreeBuilder from "./model-tree-builder";
-import InfoPanelBuilder from "./info-panel-builder";
-import GuiBuilder from "./gui-builder";
-import PlaneBuilder from "./plane-builder";
-import BuildingBuilder from "./building-builder";
-import DimensionsBuilder from "./dimensions-builder";
-import HierarchyBuilder from "./hierarchy-builder";
-import PositionBuilder from "./position-builder";
-import { recalculateController } from "./aggregates/recalculate-controller";
-import { setDirector, setMetaphorSelection } from "../data";
-import { setVisualizationData } from "../data";
+import EnvironmentBuilder from "./environment-builder.js";
+import SliderBuilder from "./slider-builder.js";
+import ModelTreeBuilder from "./model-tree-builder.js";
+import InfoPanelBuilder from "./info-panel-builder.js";
+import GuiBuilder from "./gui-builder.js";
+import PlaneBuilder from "./plane-builder.js";
+import BuildingBuilder from "./building-builder.js";
+import DimensionsBuilder from "./dimensions-builder.js";
+import HierarchyBuilder from "./hierarchy-builder.js";
+import PositionBuilder from "./position-builder.js";
+import { recalculateController } from "./aggregates/recalculate-controller.js";
+import { setDirector, setMetaphorSelection } from "../data.js";
+import { setVisualizationData } from "../data.js";
 
 /**
  * Class that constructs the city visualization based on the city metaphor and the data,
@@ -40,10 +40,10 @@ export default class Director {
       cityMetaphor.descriptors.forEach((descriptor) => {
          switch (descriptor.type) {
             case "PlaneDescriptor":
-               this.optionalBuilders.push(new PlaneBuilder());
+               this.optionalBuilders.push(new PlaneBuilder(this.data, descriptor));
                break;
             case "BuildingDescriptor":
-               this.optionalBuilders.push(new BuildingBuilder(this.data));
+               this.optionalBuilders.push(new BuildingBuilder(this.data, descriptor));
                break;
             default:
                console.error("Unimplemented descriptor type");

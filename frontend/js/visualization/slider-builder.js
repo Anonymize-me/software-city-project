@@ -1,5 +1,5 @@
-import { getDataType, getEpoques } from "../data";
-import { recalculateController } from "./aggregates/recalculate-controller";
+import { getDataType, getEpoques } from "../data.js";
+import { recalculateController } from "./aggregates/recalculate-controller.js";
 
 /**
  * Class responsible for handling the slider interface.

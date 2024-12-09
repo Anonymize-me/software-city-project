@@ -1,5 +1,5 @@
-import PlaneDescriptor from "./plane-descriptor";
-import BuildingDescriptor from "./building-descriptor";
+import PlaneDescriptor from "./plane-descriptor.js";
+import BuildingDescriptor from "./building-descriptor.js";
 
 /**
  * Class representing a basic city metaphor as a collection of different element metaphors.
@@ -8,6 +8,7 @@ import BuildingDescriptor from "./building-descriptor";
 export default class BasicCityMetaphor {
    constructor(metaphorSelection) {
       this.type = "BasicCityMetaphor";
+      
       this.metaphorSelection = metaphorSelection;
       this.descriptors = [
          new PlaneDescriptor(metaphorSelection),

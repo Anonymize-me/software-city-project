@@ -7,9 +7,9 @@ import {
    maxHue,
    minLightness,
    maxLightness,
-} from "../config";
+} from "../config.js";
 import * as THREE from "three";
-import { getDataType } from "../../data";
+import { getDataType } from "../../data.js";
 
 /**
  * This implementation of the recalculate function, is defined as:
@@ -132,53 +132,95 @@ const recalculateGlobalNone = (
 
       buildingElement.position.y = buildingElement.scale.y / 2 + 0.2;
 
-      let hue = null;
-      if (buildingElement.baseColor === undefined) {
-         if (maxHueValue === minHueValue) {
-            hue = maxHue - ((maxHue - minHue) / 2 + minHue);
-         } else {
-            hue =
+
+      let c = {h:0, s:1, l:1};
+      if(!!buildingElement.baseColor){
+         // Use baseColor
+         c = buildingElement.baseColor;
+      }
+      else{
+        // No baseColor: create a color.
+         if (maxHueValue === minHueValue)
+            c.h = maxHue - ((maxHue - minHue) / 2 + minHue);
+         else {
+            c.h =
              maxHue - (((lastSeenHueValue - minHue) / (maxHueValue - minHueValue)) *
              (maxHue - minHue) +
              minHue);
          }
-      } else {
-         hue = buildingElement.baseColor.h;
+
+         if (saturationMetaphor !== "") {
+            saturation =
+                lastSeenSaturationValue <= saturationThreshold
+                    ? saturationValueForBuildingsBelowThreshold
+                    : 1;
+         }
+
+         if (maxLightnessValue === minLightnessValue) 
+            c.l = (maxLightness - minLightness) / 2 + minLightness;
+         else {
+            c.l =
+                ((lastSeenLightnessValue - minLightness) /
+                    (maxLightnessValue - minLightnessValue)) *
+                (maxLightness - minLightness) +
+                minLightness;
+         }
+
+         c = (new THREE.Color()).setHSL(c.h, c.s, c.l);
       }
 
-      let saturation = null;
-      if (saturationMetaphor !== "") {
-         saturation =
-             lastSeenSaturationValue <= saturationThreshold
-                 ? saturationValueForBuildingsBelowThreshold
-                 : 1;
-      } else {
-            saturation = 1;
-      }
+      // let hue = null;
+      // if (buildingElement.baseColor === undefined) {
+      //    if (maxHueValue === minHueValue) {
+      //       hue = maxHue - ((maxHue - minHue) / 2 + minHue);
+      //    } else {
+      //       hue =
+      //        maxHue - (((lastSeenHueValue - minHue) / (maxHueValue - minHueValue)) *
+      //        (maxHue - minHue) +
+      //        minHue);
+      //    }
+      // } else {
+      //    hue = buildingElement.baseColor.h;
+      // }
 
-      let lightness = null;
-      if (maxLightnessValue === minLightnessValue) {
-         lightness = (maxLightness - minLightness) / 2 + minLightness;
-      } else {
-         lightness =
-             ((lastSeenLightnessValue - minLightness) /
-                 (maxLightnessValue - minLightnessValue)) *
-             (maxLightness - minLightness) +
-             minLightness;
-      }
+      // let saturation = null;
+      // if (saturationMetaphor !== "") {
+      //    saturation =
+      //        lastSeenSaturationValue <= saturationThreshold
+      //            ? saturationValueForBuildingsBelowThreshold
+      //            : 1;
+      // } else {
+      //       saturation = 1;
+      // }
+
+      // let lightness = null;
+      // if (maxLightnessValue === minLightnessValue) {
+      //    lightness = (maxLightness - minLightness) / 2 + minLightness;
+      // } else {
+      //    lightness =
+      //        ((lastSeenLightnessValue - minLightness) /
+      //            (maxLightnessValue - minLightnessValue)) *
+      //        (maxLightness - minLightness) +
+      //        minLightness;
+      // }
+
+      // if (buildingElement.visible) {
+      //    buildingElement.material.color = new THREE.Color().setHSL(
+      //       hue,
+      //       saturation,
+      //       lightness
+      //    );
+      
 
       if (buildingElement.visible) {
-         buildingElement.material.color = new THREE.Color().setHSL(
-            hue,
-            saturation,
-            lightness
-         );
+         buildingElement.material.color = c;
 
-         modelTreeBuilder.setColorByGroupingPath(building.groupingPath, {
-            h: hue,
-            s: saturation,
-            l: lightness,
-         });
+         // modelTreeBuilder.setColorByGroupingPath(building.groupingPath, {
+         //    h: hue,
+         //    s: saturation,
+         //    l: lightness,
+         // });
+         modelTreeBuilder.setColorByGroupingPath(building.groupingPath, c.getHSL({}));
          modelTreeBuilder.showColorPickerByGroupingPath(building.groupingPath);
       } else {
          modelTreeBuilder.hideColorPickerByGroupingPath(building.groupingPath);

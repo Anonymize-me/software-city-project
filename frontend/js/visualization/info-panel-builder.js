@@ -243,7 +243,7 @@ export default class InfoPanelBuilder {
             plugins: {
                title: {
                   display: true,
-                  text: "All Metaphors",
+                  text: "All Properties",
                   font: {
                      size: 18,
                   },
@@ -321,7 +321,7 @@ export default class InfoPanelBuilder {
             plugins: {
                title: {
                   display: true,
-                  text: "Height Metaphor",
+                  text: "Height",
                   font: {
                      size: 18,
                   },
@@ -399,7 +399,7 @@ export default class InfoPanelBuilder {
             plugins: {
                title: {
                   display: true,
-                  text: "Hue Metaphor",
+                  text: "Hue",
                   font: {
                      size: 18,
                   },
@@ -479,7 +479,7 @@ export default class InfoPanelBuilder {
                plugins: {
                   title: {
                      display: true,
-                     text: "Lightness Metaphor",
+                     text: "Lightness",
                      font: {
                         size: 18,
                      },

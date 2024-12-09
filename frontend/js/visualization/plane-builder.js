@@ -7,8 +7,11 @@ import * as THREE from "three";
  */
 
 export default class PlaneBuilder {
-   constructor() {
-      this.type = "PlaneBuilder";
+   constructor(data, descriptor) {
+      this.descriptor = descriptor;
+      this.type = descriptor.buildType; //"PlaneBuilder";
+      this.data = data;
+
       const basePlane = this.#createPlane("base_plane");
       this.planes = [basePlane];
    }

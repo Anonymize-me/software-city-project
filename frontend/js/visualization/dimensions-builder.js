@@ -1,5 +1,5 @@
-import { minDimension, maxDimension } from "./config";
-import { getDataType } from "../data";
+import { minDimension, maxDimension } from "./config.js";
+import { getDataType } from "../data.js";
 
 /**
  * Class that calculates the dimensions of the buildings based on the metaphor.

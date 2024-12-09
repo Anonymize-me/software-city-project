@@ -1,5 +1,5 @@
-import {showFrameUpload, toggleFrameUpload} from "./upload";
-import {destroyCity} from "../utils";
+import {showFrameUpload, toggleFrameUpload} from "./upload.js";
+import {destroyCity} from "../utils.js";
 import {showViewData, toggleViewData} from "./view-data.js";
 import {showFrameConfig, toggleFrameConfig} from "./config.js";
 import {showFrameMetaphors, toggleFrameMetaphors} from "./metaphors.js";

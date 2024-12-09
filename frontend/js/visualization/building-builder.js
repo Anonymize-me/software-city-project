@@ -6,8 +6,9 @@ import * as THREE from "three";
  */
 
 export default class BuildingBuilder {
-   constructor(data) {
-      this.type = "BuildingBuilder";
+   constructor(data, descriptor) {
+      this.descriptor = descriptor;
+      this.type = descriptor.buildType; //"BuildingBuilder";
       this.data = data;
       this.nextBuildingId = 1;
       this.buildings = [];
@@ -26,7 +27,7 @@ export default class BuildingBuilder {
 
          const boxGeometry = new THREE.BoxGeometry();
          const boxMaterial = new THREE.MeshBasicMaterial({
-            color: new THREE.Color().setHSL(0, 1, 0.5),
+            color: (new THREE.Color()).setHSL(0, 1, 0.5),
             polygonOffset: true,
             polygonOffsetFactor: 0.1,
             polygonOffsetUnits: 0.1,
@@ -39,10 +40,38 @@ export default class BuildingBuilder {
          building.groupingPath = entry.groupingPath;
          building.buildingData = [entry];
 
+         // Set properties regarding the descriptor:
+         //
+         // COLOR:
+         building.material.color.setHSL(
+            (!!this.descriptor.hue)? parseFloat(entry[this.descriptor.hue]): 0,
+            1,
+            (!!this.descriptor.lightness)? parseFloat(entry[this.descriptor.lightness]): 1,
+         );
+         building.baseColor = building.material.color;
          building.setBaseColor = (color) => {
+            // Accept THREE Color objects or their definition
+            if(!(color instanceof THREE.Color))
+               if(typeof color == "string") color = new THREE.Color(color);
+               else if(typeof color == "object")
+                  color = (new THREE.Color()).setHSL(color.h, color.s, color.l);
+               else new Error('Cannot instanciate THREE.Color with HSL model.');
             building.baseColor = color;
          };
+         const wireframeGeometry = new THREE.EdgesGeometry(boxGeometry);
+         const wireframeMaterial = new THREE.LineBasicMaterial({
+            color: new THREE.Color().setHSL(0, 0, 0),
+            transparent: true,
+         });
+         const wireframe = new THREE.LineSegments(
+            wireframeGeometry,
+            wireframeMaterial
+         );
+         building.add(wireframe);
 
+
+         //
+         // HOVER (highlight)
          building.highlight = () => {
             const colorHSL = building.material.color.getHSL({});
             let newColorHSL = { h: colorHSL.h, s: colorHSL.s, l: colorHSL.l };
@@ -53,7 +82,7 @@ export default class BuildingBuilder {
                newColorHSL.l += 0.5;
             }
 
-            building.material.color = new THREE.Color().setHSL(
+            building.material.color = (new THREE.Color()).setHSL(
                 newColorHSL.h,
                 newColorHSL.s,
                 newColorHSL.l
@@ -62,7 +91,7 @@ export default class BuildingBuilder {
             const originalHSL = { h: colorHSL.h, s: colorHSL.s, l: colorHSL.l };
 
             building.unhighlight = () => {
-               building.material.color = new THREE.Color().setHSL(
+               building.material.color = (new THREE.Color()).setHSL(
                    originalHSL.h,
                    originalHSL.s,
                    originalHSL.l
@@ -72,17 +101,6 @@ export default class BuildingBuilder {
             };
          };
 
-         const wireframeGeometry = new THREE.EdgesGeometry(boxGeometry);
-         const wireframeMaterial = new THREE.LineBasicMaterial({
-            color: new THREE.Color().setHSL(0, 0, 0),
-            transparent: true,
-         });
-         const wireframe = new THREE.LineSegments(
-            wireframeGeometry,
-            wireframeMaterial
-         );
-
-         building.add(wireframe);
       });
 
       return this.buildings;

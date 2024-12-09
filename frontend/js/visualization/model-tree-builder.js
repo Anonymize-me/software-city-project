@@ -1,8 +1,8 @@
 import * as THREE from "three";
-import { rgbToHsl, hexToRgb, hslToHex } from "../../js/utils";
-import { recalculateController } from "./aggregates/recalculate-controller";
-import { removeElementAndChildrenWithListeners } from "../utils";
-import { getDataType } from "../../js/data";
+import { rgbToHsl, hexToRgb, hslToHex } from "../../js/utils.js";
+import { recalculateController } from "./aggregates/recalculate-controller.js";
+import { removeElementAndChildrenWithListeners } from "../utils.js";
+import { getDataType } from "../../js/data.js";
 
 /**
  * Class responsible for building the model tree interface based on the grouping path

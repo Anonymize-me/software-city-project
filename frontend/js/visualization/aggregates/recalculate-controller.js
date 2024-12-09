@@ -1,4 +1,4 @@
-import { recalculateGlobalNone } from "./recalculate-global-none";
+import { recalculateGlobalNone } from "./recalculate-global-none.js";
 
 /**
  * Recalculate the city metaphor based on the selected aggregate function.

@@ -166,6 +166,17 @@ buttonStartVisualize.addEventListener("click", (e) => {
 
     if (getDataType() === "generic") {
         data = data.filter((entry) => {
+            // filter = true
+
+            // if(!!taskId.value)
+            //     filter &= (entry.taskId === taskId.value.toString())
+            let filter = (!(!!participant.value)) || (entry.participant === participant.value.toString())
+
+            // if(!!taskId.value)
+            //     filter &= (entry.taskId === taskId.value.toString())
+            filter &= (!(!!taskId.value)) || (entry.taskId === taskId.value.toString())
+
+            return filter
             return (
                 entry.participant === participant.value.toString() &&
                 entry.taskId === taskId.value.toString()
