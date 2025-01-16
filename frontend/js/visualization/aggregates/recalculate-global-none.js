@@ -136,7 +136,7 @@ const recalculateGlobalNone = (
       let c = {h:0, s:1, l:1};
       if(!!buildingElement.baseColor){
          // Use baseColor
-         c = buildingElement.baseColor;
+         c = buildingElement.baseColor.getHSL({});
       }
       else{
         // No baseColor: create a color.
@@ -148,26 +148,28 @@ const recalculateGlobalNone = (
              (maxHue - minHue) +
              minHue);
          }
-
-         if (saturationMetaphor !== "") {
-            saturation =
-                lastSeenSaturationValue <= saturationThreshold
-                    ? saturationValueForBuildingsBelowThreshold
-                    : 1;
-         }
-
-         if (maxLightnessValue === minLightnessValue) 
-            c.l = (maxLightness - minLightness) / 2 + minLightness;
-         else {
-            c.l =
-                ((lastSeenLightnessValue - minLightness) /
-                    (maxLightnessValue - minLightnessValue)) *
-                (maxLightness - minLightness) +
-                minLightness;
-         }
-
-         c = (new THREE.Color()).setHSL(c.h, c.s, c.l);
       }
+
+      if (saturationMetaphor !== "") {
+         c.s =
+               lastSeenSaturationValue <= saturationThreshold
+                  ? saturationValueForBuildingsBelowThreshold
+                  : 1;
+      }
+
+      if (maxLightnessValue === minLightnessValue) 
+         c.l = (maxLightness - minLightness) / 2 + minLightness;
+      else {
+         c.l =
+               ((lastSeenLightnessValue - minLightness) /
+                  (maxLightnessValue - minLightnessValue)) *
+               (maxLightness - minLightness) +
+               minLightness;
+      }
+
+
+      console.log(c);
+      c = (new THREE.Color()).setHSL(c.h, c.s, c.l);
 
       // let hue = null;
       // if (buildingElement.baseColor === undefined) {
