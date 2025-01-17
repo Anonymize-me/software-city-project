@@ -60,8 +60,8 @@ const recalculateGlobalNone = (
       for (const entry of building.buildingData) {
          dimensionValue = parseInt(entry[dimensionMetaphor]);
          heightValue = parseInt(entry[heightMetaphor]);
-         hueValue = parseInt(entry[hueMetaphor]);
-         lightnessValue = parseInt(entry[lightnessMetaphor]);
+         hueValue = parseFloat(entry[hueMetaphor]);
+         lightnessValue = parseFloat(entry[lightnessMetaphor]);
 
          if (dimensionValue > maxDimensionValue) {
             maxDimensionValue = dimensionValue;
@@ -104,9 +104,9 @@ const recalculateGlobalNone = (
          ) {
             lastSeenDimensionValue = parseInt(entry[dimensionMetaphor]);
             lastSeenHeightValue = parseInt(entry[heightMetaphor]);
-            lastSeenHueValue = parseInt(entry[hueMetaphor]);
-            lastSeenSaturationValue = parseInt(entry[saturationMetaphor]);
-            lastSeenLightnessValue = parseInt(entry[lightnessMetaphor]);
+            lastSeenHueValue = parseFloat(entry[hueMetaphor]);
+            lastSeenSaturationValue = parseFloat(entry[saturationMetaphor]);
+            lastSeenLightnessValue = parseFloat(entry[lightnessMetaphor]);
          }
       }
 
@@ -167,8 +167,6 @@ const recalculateGlobalNone = (
                minLightness;
       }
 
-
-      console.log(c);
       c = (new THREE.Color()).setHSL(c.h, c.s, c.l);
 
       // let hue = null;

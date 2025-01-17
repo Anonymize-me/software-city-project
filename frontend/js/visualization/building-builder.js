@@ -72,11 +72,22 @@ export default class BuildingBuilder {
 
          //
          // HOVER (highlight)
-         building.highlight = () => {
-            const colorHSL = building.material.color.getHSL({});
-            let newColorHSL = { h: colorHSL.h, s: colorHSL.s, l: colorHSL.l };
+         building.gHighlighted = false;
+         building.noHighlightHSL = building.baseColor;
 
-            if (colorHSL.l >= 0.5) {
+         building.highlight = () => {
+
+            if(building.gHighlighted) return;
+            building.gHighlighted = true;
+            building.noHighlightHSL = building.material.color.getHSL({});
+            
+            let newColorHSL = { 
+               h: building.noHighlightHSL.h, 
+               s: building.noHighlightHSL.s, 
+               l: building.noHighlightHSL.l
+            };
+
+            if (building.noHighlightHSL.l >= 0.5) {
                newColorHSL.l -= 0.5;
             } else {
                newColorHSL.l += 0.5;
@@ -87,18 +98,18 @@ export default class BuildingBuilder {
                 newColorHSL.s,
                 newColorHSL.l
             );
+         };
 
-            const originalHSL = { h: colorHSL.h, s: colorHSL.s, l: colorHSL.l };
+         building.unhighlight = () => {
 
-            building.unhighlight = () => {
-               building.material.color = (new THREE.Color()).setHSL(
-                   originalHSL.h,
-                   originalHSL.s,
-                   originalHSL.l
-               );
+            if(!building.gHighlighted) return;
+            building.gHighlighted = false;
 
-               building.unhighlight = undefined;
-            };
+            building.material.color = (new THREE.Color()).setHSL(
+               building.noHighlightHSL.h,
+               building.noHighlightHSL.s,
+               building.noHighlightHSL.l
+            );
          };
 
       });
