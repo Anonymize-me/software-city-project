@@ -2,4 +2,4 @@
 
 A concrete implementation of a tool prototype for generating software city maps based on the adapted metaphor.
 
-<img src="r/software-city-project/docs/resources/Screenshot1.png" width="1000">
+<img src="docs/resources/Screenshot1.png" width="1000">
